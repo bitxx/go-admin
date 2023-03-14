@@ -1,0 +1,72 @@
+package dto
+
+import (
+    {{- $hasDecimal := false }}
+    {{- range .SysGenColumns }}
+        {{- if eq .GoType "decimal.Decimal"}}
+            {{- $hasDecimal = true }}
+        {{- end }}
+    {{- end }}
+    {{- if eq $hasDecimal true }}
+    "github.com/shopspring/decimal"
+    {{- end }}
+    "go-admin/common/dto"
+    "time"
+)
+
+type {{.ClassName}}QueryReq struct {
+	dto.Pagination     `search:"-"`
+    {{- $tablename := .TBName }}
+    {{- range .SysGenColumns -}}
+    {{if eq .IsQuery "1"}}
+    {{.GoField}} {{.GoType}} `form:"{{.JsonField}}"  search:"type:{{if eq .QueryType "EQ"}}exact{{ else if eq .QueryType "NE"}}iexact{{ else if eq .QueryType "LIKE"}}contains{{ else if eq .QueryType "GT"}}gt{{ else if eq .QueryType "GTE"}}gte{{ else if eq .QueryType "LT"}}lt{{ else if eq .QueryType "LTE"}}lte{{- end }};column:{{.ColumnName}};table:{{$tablename}}" comment:"{{.ColumnComment}}"`
+    {{- end }}
+    {{- end }}
+    BeginTime           string `form:"beginTime" search:"type:gte;column:created_at;table:{{$tablename}}" comment:"创建时间"`
+    EndTime             string `form:"endTime" search:"type:lte;column:created_at;table:{{$tablename}}" comment:"创建时间"`
+    {{.ClassName}}Order
+}
+
+type {{.ClassName}}Order struct {
+    {{- range .SysGenColumns -}}
+    {{.GoField}}Order {{.GoType}} `form:"{{.JsonField}}Order"  search:"type:order;column:{{.ColumnName}};table:{{$tablename}}"`
+    {{ end }}
+}
+
+func (m *{{.ClassName}}QueryReq) GetNeedSearch() interface{} {
+	return *m
+}
+
+type {{.ClassName}}InsertReq struct {
+    {{- range .SysGenColumns }}
+        {{- if eq .IsRequired "1" }}
+    {{.GoField}} {{.GoType}} `json:"{{.JsonField}}" comment:"{{.ColumnComment}}"`
+        {{- end }}
+    {{- end }}
+    CurrUserId int64  `json:"-" comment:"当前登陆用户"`
+}
+
+type {{.ClassName}}UpdateReq struct {
+    {{- range .SysGenColumns -}}
+        {{- if and (eq .ColumnName "id")  (eq .IsPk "1") }}
+    {{.GoField}} {{.GoType}} `json:"-" uri:"{{.JsonField}}" comment:"{{.ColumnComment}}"` // {{.ColumnComment}}
+        {{- else if eq .IsRequired "1" }}
+    {{.GoField}} {{.GoType}} `json:"{{.JsonField}}" comment:"{{.ColumnComment}}"`
+        {{- end }}
+    {{- end }}
+    CurrUserId int64  `json:"-" comment:"当前登陆用户"`
+}
+
+// {{.ClassName}}GetReq 功能获取请求参数
+type {{.ClassName}}GetReq struct {
+	{{- range .SysGenColumns -}}
+        {{ if and (eq .ColumnName "id")  (eq .IsPk "1") }}
+    {{.GoField}} {{.GoType}} ` json:"-" uri:"{{.JsonField}}"`
+        {{- end -}}
+    {{- end }}
+}
+
+// {{.ClassName}}DeleteReq 功能删除请求参数
+type {{.ClassName}}DeleteReq struct {
+	Ids []int64 `json:"ids"`
+}

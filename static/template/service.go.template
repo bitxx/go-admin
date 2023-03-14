@@ -1,0 +1,282 @@
+package service
+
+import (
+	"fmt"
+	"github.com/360EntSecGroup-Skylar/excelize"
+	adminService "go-admin/app/admin/service"
+	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/models"
+	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
+	"go-admin/common/middleware"
+	"go-admin/common/core/service"
+	cDto "go-admin/common/dto"
+	{{- range .SysGenColumns }}
+		{{- if and (eq .ColumnName "status") ( ne .IsRequired "1" ) }}
+	"go-admin/common/global"
+		{{- end }}
+	{{- end }}
+
+	"go-admin/config/lang"
+	"gorm.io/gorm"
+	"time"
+)
+
+type {{.ClassName}} struct {
+	service.Service
+}
+
+//
+// New{{.ClassName}}Service
+// @Description: 实例化{{.ClassName}}
+// @param s
+// @return *{{.ClassName}}
+//
+func New{{.ClassName}}Service(s *service.Service) *{{.ClassName}} {
+	var srv = new({{.ClassName}})
+	srv.Orm = s.Orm
+	srv.Log = s.Log
+	return srv
+}
+
+//
+// GetPage
+// @Description: 获取{{.ClassName}}列表
+// @receiver e
+// @param c
+// @param p
+// @return []models.{{.ClassName}}
+// @return int64
+// @return int
+// @return error
+//
+func (e *{{.ClassName}}) GetPage(c *dto.{{.ClassName}}QueryReq, p *middleware.DataPermission) ([]models.{{.ClassName}}, int64, int, error) {
+	var data models.{{.ClassName}}
+    var list []models.{{.ClassName}}
+    var count int64
+
+	err := e.Orm.Order("created_at desc").Model(&data).
+		Scopes(
+			cDto.MakeCondition(c.GetNeedSearch()),
+			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			middleware.Permission(data.TableName(), p),
+		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+	if err != nil {
+		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	return list, count, lang.SuccessCode, nil
+}
+
+//
+// Get
+// @Description: 获取{{.ClassName}}对象
+// @receiver e
+// @param id 编号
+// @param p
+// @return *models.{{.ClassName}}
+// @return int
+// @return error
+//
+func (e *{{.ClassName}}) Get(id int64, p *middleware.DataPermission) (*models.{{.ClassName}}, int, error) {
+	if id <= 0 {
+		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+	}
+	data := &models.{{.ClassName}}{}
+    err := e.Orm.Scopes(
+        middleware.Permission(data.TableName(), p),
+    ).First(data, id).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	if err == gorm.ErrRecordNotFound {
+		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+	}
+	return data, lang.SuccessCode, nil
+}
+
+//
+// QueryOne
+// @Description: 通过自定义条件获取{{.ClassName}}一条记录
+// @receiver e
+// @param queryCondition 条件
+// @return *models.{{.ClassName}}
+// @return error
+//
+func (e *{{.ClassName}}) QueryOne(queryCondition *dto.{{.ClassName}}QueryReq, p *middleware.DataPermission) (*models.{{.ClassName}}, int, error) {
+	data := &models.{{.ClassName}}{}
+	err := e.Orm.Scopes(
+		cDto.MakeCondition(queryCondition.GetNeedSearch()),
+		middleware.Permission(data.TableName(), p),
+	).First(data).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	if err == gorm.ErrRecordNotFound {
+		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+	}
+	return data, lang.SuccessCode, nil
+}
+
+//
+// Count
+//  @Description: 获取条数
+//  @receiver e
+//  @param c
+//  @return int64
+//  @return int
+//  @return error
+//
+func (e *{{.ClassName}}) Count(queryCondition *dto.{{.ClassName}}QueryReq) (int64, int, error) {
+	var err error
+	var count int64
+	err = e.Orm.Model(&models.{{.ClassName}}{}).
+		Scopes(
+			cDto.MakeCondition(queryCondition.GetNeedSearch()),
+		).Limit(-1).Offset(-1).Count(&count).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	if err == gorm.ErrRecordNotFound {
+		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+	}
+	return count, lang.SuccessCode, nil
+}
+
+//
+// Insert
+// @Description: 创建{{.ClassName}}对象
+// @receiver e
+// @param c
+// @return int64 插入数据的主键
+// @return int
+// @return error
+//
+func (e *{{.ClassName}}) Insert(c *dto.{{.ClassName}}InsertReq) (int64, int, error) {
+	if c.CurrUserId <= 0 {
+		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+	}
+	now := time.Now()
+	var data models.{{.ClassName}}
+	{{- range .SysGenColumns }}
+	{{- if and (eq .ColumnName "id")  (eq .IsPk "1") }}
+	{{- else if eq .GoField "CreatedAt" }}
+	data.CreatedAt = &now
+	{{- else if eq .GoField "UpdatedAt" }}
+	data.UpdatedAt = &now
+	{{- else if eq .GoField "CreateBy" }}
+	data.CreateBy = c.CurrUserId
+	{{- else if eq .GoField "UpdateBy" }}
+	data.UpdateBy = c.CurrUserId
+	{{- else }}
+		{{- if eq .IsRequired "1" }}
+	data.{{.GoField}} = c.{{.GoField}}
+			{{- else }}
+				{{- if eq .GoField "Status" }}
+	data.Status = global.SysStatusOk
+				{{- end }}
+			{{- end }}
+		{{- end }}
+		{{- end }}
+	err := e.Orm.Create(&data).Error
+	if err != nil {
+		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+	}
+	return data.Id, lang.SuccessCode, nil
+}
+
+//
+// Update
+// @Description: 修改{{.ClassName}}对象
+// @receiver e
+// @param c
+// @param p
+// @return bool 是否有数据更新
+// @return error
+//
+func (e *{{.ClassName}}) Update(c *dto.{{.ClassName}}UpdateReq, p *middleware.DataPermission) (bool, int, error) {
+	if c.Id <= 0 || c.CurrUserId <= 0 {
+		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+	}
+	data, respCode, err := e.Get(c.Id, p)
+	if err != nil {
+		return false, respCode, err
+	}
+
+	//最小化变更改动过的数据
+	updates := map[string]interface{}{}
+	{{- range .SysGenColumns }}
+		{{- if and (eq .IsRequired "1") (eq .IsEdit "1") }}
+			{{- if eq .GoType "string" }}
+	if c.{{.GoField}} != "" && data.{{.GoField}} != c.{{.GoField}}{
+		updates["{{.ColumnName}}"] = c.{{.GoField}}
+	}		{{- end }}
+			{{- if or (eq .GoType "uint64") (eq .GoType "uint32") (eq .GoType "uint16") (eq .GoType "uint8") (eq .GoType "uint") (eq .GoType "int64") (eq .GoType "int32") (eq .GoType "int8") (eq .GoType "int") (eq .GoType "int32") (eq .GoType "float64") (eq .GoType "float") }}
+	if c.{{.GoField}} > 0 && data.{{.GoField}} != c.{{.GoField}}{
+		updates["{{.ColumnName}}"] = c.{{.GoField}}
+	}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+	if len(updates)>0 {
+        updates["updated_at"] = time.Now()
+        updates["update_by"] = c.CurrUserId
+        err = e.Orm.Model(&data).Where("id=?",data.Id).Updates(&updates).Error
+		if err != nil {
+			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+		}
+		return true, lang.SuccessCode, nil
+	}
+	return false, lang.SuccessCode, nil
+}
+
+//
+// Remove
+// @Description: 删除{{.ClassName}}
+// @receiver e
+// @param ids
+// @param p
+// @return int
+// @return error
+//
+func (e *{{.ClassName}}) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
+	if len(ids) <= 0 {
+		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+	}
+	var data models.{{.ClassName}}
+	err := e.Orm.Scopes(
+		middleware.Permission(data.TableName(), p),
+	).Delete(&data, ids).Error
+	if err != nil {
+		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+	}
+	return lang.SuccessCode, nil
+}
+
+//
+// GetExcel
+// @Description: GetExcel 导出{{.ClassName}} excel数据
+// @receiver e
+// @param list
+// @return []byte
+// @return int
+// @return error
+//
+func (e *{{.ClassName}}) GetExcel(list []models.{{.ClassName}}) ([]byte, error) {
+	sheetName := "{{.ClassName}}"
+	xlsx := excelize.NewFile()
+	no := xlsx.NewSheet(sheetName)
+	xlsx.SetColWidth(sheetName, "A", "L", 25)
+	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+		"编号", "状态"})
+	dictService := adminService.NewSysDictDataService(&e.Service)
+	for i, item := range list {
+		axis := fmt.Sprintf("A%d", i+2)
+		status := dictService.GetLabel("sys_status", item.Status)
+
+		//按标签对应输入数据
+		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		    item.Id,status,
+		})
+	}
+	xlsx.SetActiveSheet(no)
+	data, _ := xlsx.WriteToBuffer()
+	return data.Bytes(), nil
+}

@@ -1,0 +1,26 @@
+package models
+
+import (
+    {{- $hasDecimal := false }}
+    {{- range .SysGenColumns }}
+        {{- if eq .GoType "decimal.Decimal"}}{{- $hasDecimal = true }}{{- end }}
+    {{- end }}
+    {{- if eq $hasDecimal true }}
+    "github.com/shopspring/decimal"
+    {{- end }}
+    "time"
+)
+
+type {{.ClassName}} struct {
+    {{- range .SysGenColumns }}
+    {{- if and (eq .ColumnName "id")  (eq .IsPk "1") }}
+        Id int64 `json:"id" gorm:"primaryKey;autoIncrement;comment:主键编码"`
+    {{- else }}
+        {{.GoField}} {{.GoType}} `json:"{{.JsonField}}" gorm:"column:{{.ColumnName}};type:{{.ColumnType}};comment:{{- if eq .ColumnComment "" }}{{.GoField}}{{- else }}{{.ColumnComment}}{{- end }}"`
+    {{- end }}
+    {{- end }}
+}
+
+func ({{.ClassName}}) TableName() string {
+    return "{{.TBName}}"
+}

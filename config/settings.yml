@@ -1,0 +1,75 @@
+settings:
+  application:
+    Author: Jason
+    # dev开发环境 test测试环境 prod线上环境
+    mode: dev
+    # 服务器ip，默认使用 0.0.0.0
+    host: 0.0.0.0
+    # 服务名称
+    name: admin-api
+    # 端口号
+    port: 8000 # 服务端口号
+    readtimeout: 1
+    writertimeout: 2
+    # 数据权限功能开关
+    enabledp: false
+    # file根目录地址，不能是static，不能以./或/开头，只可输入：英文和/
+    fileRootPath: files/
+    # 是否单点登录
+    isSingleLogin: true
+  logger:
+    # 日志存放路径
+    path: files/logs
+    # 日志输出，file：文件，default：命令行，其他：命令行
+    stdout: '' #控制台日志，启用后，不输出到文件
+    # 日志等级, trace, debug, info, warn, error, fatal
+    level: trace
+    # 数据库日志开关 dev模式，将自动开启
+    enableddb: false
+  auth:
+    # 仅支持jwt或session。如若不设置，默认session
+    use: session
+    # token 过期时间 单位：秒，默认一周
+    timeout: 604800
+    # token 密钥，生产环境时及的修改
+    secret: admin-api
+  database:
+    # 目前仅支持mysql
+    driver: mysql
+    # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    source: 账号:密码@tcp(ip:端口号)/数据库名?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+  #  databases:
+  #    'locaohost:8000':
+  #      driver: mysql
+  #        # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+  #        source: user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+  #      registers:
+  #        - sources:
+  #            - user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+  gen:
+    # 代码生成是使用前端代码存放位置，需要指定到src文件夹，相对路径
+    frontpath: ./web/src
+  cache:
+    # 缓存默认时间 单位：秒
+    expired: 300
+    # 若注释掉redis的内容，默认将使用内存缓存
+#    redis:
+#      addr: 127.0.0.1:6379
+#      password: 密码
+  queue:
+    memory:
+      poolSize: 100
+  #    redis:
+  #      addr: 127.0.0.1:6379
+  #      password: xxxxxx
+  #      producer:
+  #        streamMaxLength: 100
+  #        approximateMaxLength: true
+  #      consumer:
+  #        visibilityTimeout: 60
+  #        bufferSize: 100
+  #        concurrency: 10
+  #        blockingTimeout: 5
+  #        reclaimInterval: 1
+  locker:
+    redis:

@@ -1,0 +1,48 @@
+package router
+
+import (
+	"github.com/gin-gonic/gin"
+	"go-admin/app/admin/apis"
+	"go-admin/common/middleware"
+)
+
+func init() {
+	routerCheckRole = append(routerCheckRole, registerSysUserRouter)
+	routerNoCheckRole = append(routerNoCheckRole, registerNoCheckUserRouter)
+}
+
+// 需认证的路由代码
+func registerSysUserRouter(v1 *gin.RouterGroup) {
+	api := apis.SysUser{}
+	r := v1.Group("/sys-user").Use(middleware.Auth()).Use(middleware.AuthCheckRole()).Use(middleware.PermissionAction())
+	{
+		r.GET("", api.GetPage)
+		r.GET("/:id", api.Get)
+		r.POST("", api.Insert)
+		r.PUT("", api.Update)
+		r.PUT("/updateSelfEmail", api.UpdateSelfEmail)
+		r.PUT("/updateSelfPhone", api.UpdateSelfPhone)
+		r.PUT("/updateSelfNickName", api.UpdateSelfNickName)
+		r.DELETE("", api.Delete)
+		r.GET("/profile", api.GetProfile)
+		r.POST("/avatar", api.InsetAvatar)
+		r.PUT("/pwd/set", api.UpdatePwd)
+		r.PUT("/pwd/reset", api.ResetPwd)
+		r.PUT("/status", api.UpdateStatus)
+	}
+	v1auth := v1.Group("").Use(middleware.Auth())
+	{
+		v1auth.GET("/getinfo", api.GetInfo)
+		r.POST("/logout", api.LogOut)
+	}
+}
+
+func registerNoCheckUserRouter(v1 *gin.RouterGroup) {
+	api := apis.SysUser{}
+	r := v1.Group("")
+	{
+		r.GET("/captcha", api.GenCaptcha)
+		r.POST("/login", api.Login)
+	}
+
+}

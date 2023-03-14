@@ -1,0 +1,56 @@
+import request from '@/utils/request'
+
+// 查询{{.ClassName}}列表
+export function list{{.ClassName}}(query) {
+  return request({
+    url: '/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询{{.ClassName}}详细
+export function get{{.ClassName}}(id) {
+  return request({
+    url: '/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}/' + id,
+    method: 'get'
+  })
+}
+
+// 新增{{.ClassName}}
+export function add{{.ClassName}}(data) {
+  return request({
+    url: '/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}',
+    method: 'post',
+    data: data
+  })
+}
+
+// 修改{{.ClassName}}
+export function update{{.ClassName}}(data) {
+  return request({
+    url: '/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}/' + data.id,
+    method: 'put',
+    data: data
+  })
+}
+
+// 删除{{.ClassName}}
+export function del{{.ClassName}}(data) {
+  return request({
+    url: '/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}',
+    method: 'delete',
+    data: data
+  })
+}
+
+// 导出{{.ClassName}}列表
+export function export{{.ClassName}}(query) {
+  return request({
+    url: '/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}/export',
+    method: 'get',
+    responseType: 'blob',
+    params: query
+  })
+}
+
