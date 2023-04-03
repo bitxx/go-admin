@@ -159,6 +159,17 @@ func (e *User) QueryOne(queryCondition *dto.UserQueryReq, p *middleware.DataPerm
 	return data, lang.SuccessCode, nil
 }
 
+func (e *User) queryMaxTreeSort(queryCondition *dto.UserQueryReq) (int64, int, error) {
+	maxSort := int64(0)
+	err := e.Orm.Scopes(
+		cDto.MakeCondition(queryCondition.GetNeedSearch()),
+	).Model(&models.User{}).Select("max(tree_sort)").Scan(&maxSort).Error
+	if err != nil {
+		maxSort = 0
+	}
+	return maxSort, lang.SuccessCode, nil
+}
+
 // Count
 //
 //	@Description: 获取条数
@@ -197,14 +208,12 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	if c.Emails == "" && c.Mobiles == "" {
 		return uLang.AppUserEmailOrMobileNeedCode, lang.MsgErr(uLang.AppUserEmailOrMobileNeedCode, e.Lang)
 	}
-	if c.RefCode == "" {
-		c.RefCode = constant.DefaultUserRefCode
-	}
 
 	var mobiles, emails []string
 	if c.Emails != "" {
 		emails = strings.Split(c.Emails, ",")
 		for _, email := range emails {
+			fmt.Println(!strutils.IsEmail(email))
 			if !strutils.IsEmail(email) {
 				return uLang.AppUserEmailFormatErrCode, lang.MsgErr(uLang.AppUserEmailFormatErrCode, e.Lang)
 			}
@@ -221,53 +230,54 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 				return uLang.AppUserMobileFormatErrCode, lang.MsgErr(uLang.AppUserMobileFormatErrCode, e.Lang)
 			}
 		}
-		var refUser *models.User
-		if c.RefCode != constant.DefaultUserRefCode {
-			queryUserCondition := dto.UserQueryReq{}
-			queryUserCondition.RefCode = c.RefCode
-			queryUserCondition.Status = global.SysStatusOk
-			u, respCode, err := e.QueryOne(&queryUserCondition, nil)
-			if err != nil && respCode != lang.DataNotFoundCode {
-				return respCode, err
-			}
-			if respCode == lang.SuccessCode {
-				refUser = u
-			}
+	}
+	var refUser *models.User
+	if c.RefCode != "" {
+		queryUserCondition := dto.UserQueryReq{}
+		queryUserCondition.RefCode = c.RefCode
+		queryUserCondition.Status = global.SysStatusOk
+		u, respCode, err := e.QueryOne(&queryUserCondition, nil)
+		if err != nil && respCode != lang.DataNotFoundCode {
+			return respCode, err
 		}
-
-		//事务 开启-关闭
-		var err error
-		respCode := lang.SuccessCode
-		e.Orm = e.Orm.Begin()
-		defer func() {
-			if err != nil {
-				e.Orm.Rollback()
-			} else {
-				e.Orm.Commit()
-			}
-		}()
-
-		for _, mobile := range mobiles {
-			mobile, err = encrypt.AesEncryptDefault(mobile)
-			if err != nil {
-				return uLang.AppUserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserMobileEncryptErrCode, uLang.AppUserMobileEncryptErrLogCode, err)
-			}
-			respCode, err = e.register(constant.AccountMobileType, "", mobile, c.MobileTitle, refUser)
-			if err != nil {
-				return respCode, err
-			}
-		}
-		for _, email := range emails {
-			email, err = encrypt.AesEncryptDefault(email)
-			if err != nil {
-				return uLang.AppUserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserEmailEncryptErrCode, uLang.AppUserEmailEncryptErrLogCode, err)
-			}
-			respCode, err = e.register(constant.AccountEmailType, email, "", "", refUser)
-			if err != nil {
-				return respCode, nil
-			}
+		if respCode == lang.SuccessCode {
+			refUser = u
 		}
 	}
+
+	//事务 开启-关闭
+	var err error
+	respCode := lang.SuccessCode
+	e.Orm = e.Orm.Begin()
+	defer func() {
+		if err != nil {
+			e.Orm.Rollback()
+		} else {
+			e.Orm.Commit()
+		}
+	}()
+
+	for _, mobile := range mobiles {
+		mobile, err = encrypt.AesEncryptDefault(mobile)
+		if err != nil {
+			return uLang.AppUserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserMobileEncryptErrCode, uLang.AppUserMobileEncryptErrLogCode, err)
+		}
+		respCode, err = e.register(constant.AccountMobileType, "", mobile, c.MobileTitle, refUser)
+		if err != nil {
+			return respCode, err
+		}
+	}
+	for _, email := range emails {
+		email, err = encrypt.AesEncryptDefault(email)
+		if err != nil {
+			return uLang.AppUserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserEmailEncryptErrCode, uLang.AppUserEmailEncryptErrLogCode, err)
+		}
+		respCode, err = e.register(constant.AccountEmailType, email, "", "", refUser)
+		if err != nil {
+			return respCode, err
+		}
+	}
+
 	return lang.SuccessCode, nil
 }
 
@@ -333,36 +343,49 @@ func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, re
 	if registerType == constant.AccountMobileType {
 		user.MobileTitle = mobileTitle
 	}
+
+	//确保推荐码不重复
+	refCode := idgen.InviteId()
+	queryUserCondition := dto.UserQueryReq{}
+	queryUserCondition.RefCode = refCode
+	count, respCode, err := e.Count(&queryUserCondition)
+	if err != nil && respCode != lang.DataNotFoundCode {
+		return 0, respCode, err
+	}
+	if count > 0 {
+		return 0, uLang.AppUserRefCodeErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserRegisterErrCode, uLang.AppUserRefCodeErrLogCode, err)
+	}
+
+	//插入数据
 	sysConfService := adminService.NewSysConfigService(&e.Service)
 	defaultAvatar, respCode, err := sysConfService.GetWithKeyStr("app_user_default_avatar")
 	if err != nil {
 		return 0, respCode, err
 	}
 	refUserId := int64(0)
-	refUserParentIds := "0,"
+	refUserParentIds := ""
 	refUserTreeSort := int64(0)
-	refUserTreeSorts := "0,"
+	refUserTreeSorts := ""
 	user.TrueName = "- -"
 	if refUser != nil {
 		refUserId = refUser.Id
 		refUserParentIds = refUser.ParentIds
-		refUserTreeSort = refUser.TreeSort
+		//refUserTreeSort = refUser.TreeSort
 		refUserTreeSorts = refUser.TreeSorts
-		refUserTreeSorts = refUser.ParentIds
+		queryUser := dto.UserQueryReq{}
+		queryUser.ParentId = refUser.Id
+		refUserTreeSort, respCode, err = e.queryMaxTreeSort(&queryUser)
+		if err != nil && respCode != lang.DataNotFoundCode {
+			return 0, respCode, err
+		}
 	}
 	user.ParentId = refUserId
 	user.ParentIds = refUserParentIds + strconv.FormatInt(refUserId, 10) + ","
-	user.TreeSort = refUserTreeSort + 30
-	user.RefCode = idgen.InviteId()
-	tmpTreeSort := strconv.FormatInt(refUserTreeSort, 10)
-	for len(tmpTreeSort) < 8 {
-		tmpTreeSort = "0" + tmpTreeSort
-	}
-	user.TreeSorts = refUserTreeSorts + tmpTreeSort + ","
+	user.TreeSort = refUserTreeSort + 1
+	user.TreeSorts = refUserTreeSorts + strconv.FormatInt(user.TreeSort, 10) + ","
 	user.TreeLeaf = global.SysStatusOk
-	count := strings.Count(user.ParentIds, ",") - 1
-	user.TreeLevel = int64(count)
-
+	user.TreeLevel = int64(strings.Count(user.ParentIds, ","))
+	user.RefCode = refCode
 	user.UserName = "- -"
 	if registerType == constant.AccountEmailType {
 		user.Email = email
@@ -386,10 +409,10 @@ func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, re
 	//如果原先上级为叶子节点，则将上级变为非叶子节点
 	if refUser != nil && refUser.TreeLeaf == global.SysStatusOk {
 		updateUser := map[string]interface{}{}
-		updateUser["tree_leaf"] = "0"
+		updateUser["tree_leaf"] = global.SysStatusNotOk
 		updateUser["updated_at"] = time.Now()
 		updateUser["update_by"] = user.Id
-		err = e.Orm.Model(&models.User{}).Where("id=?", user.Id).Updates(&updateUser).Error
+		err = e.Orm.Model(&models.User{}).Where("id=?", refUser.Id).Updates(&updateUser).Error
 		if err != nil {
 			return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
 		}

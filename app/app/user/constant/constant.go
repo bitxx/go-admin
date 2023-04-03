@@ -4,8 +4,6 @@ package constant
 
 const (
 	//编辑常量
-	// 默认用户邀请码
-	DefaultUserRefCode = "0000"
 
 	//注册类型
 	AccountMobileType = "1" //手机号注册

@@ -186,12 +186,12 @@
               </el-col>
               <el-col :span="24">
                 <el-form-item label="手机号码集合" prop="mobiles">
-                  <el-input v-model="form.mobiles" type="textarea" rows="4" placeholder="请输入手机号(使用半角逗号分割)" />
+                  <el-input v-model="form.mobiles" type="textarea" rows="4" placeholder="请输入手机号(多个手机号之间使用半角逗号分割)" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
                 <el-form-item label="邮箱集合" prop="emails">
-                  <el-input v-model="form.emails" type="textarea" rows="4" placeholder="请输入邮箱(使用半角逗号分割)" />
+                  <el-input v-model="form.emails" type="textarea" rows="4" placeholder="请输入邮箱(多个邮箱之间使用半角逗号分割)" />
                 </el-form-item>
               </el-col>
               <el-col :span="24">
