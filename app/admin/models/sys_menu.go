@@ -10,6 +10,7 @@ type SysMenu struct {
 	Path       string     `json:"path" gorm:"size:128;"`
 	MenuType   string     `json:"menuType" gorm:"size:1;"`
 	Permission string     `json:"permission" gorm:"size:255;"`
+	ParentIds  string     `json:"parentIds" gorm:"size:255;"`
 	ParentId   int64      `json:"parentId" gorm:"size:11;"`
 	KeepAlive  string     `json:"keepAlive" gorm:"size:1;"`
 	Breadcrumb string     `json:"breadcrumb" gorm:"size:255;"`

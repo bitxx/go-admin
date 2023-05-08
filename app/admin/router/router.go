@@ -93,9 +93,6 @@ func sysStaticFileRouter(r *gin.RouterGroup) {
 	//静态路由
 	r.Static(config.ApplicationConfig.FileRootPath, config.ApplicationConfig.FileRootPath)
 	r.Static("/static", "./static")
-	if config.ApplicationConfig.Mode != "prod" {
-		r.Static("/form-generator", "./static/form-generator")
-	}
 }
 
 func sysCheckRoleRouterInit(r *gin.RouterGroup) {

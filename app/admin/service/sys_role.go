@@ -219,7 +219,7 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 	var data = models.SysRole{}
 	var mlist = make([]models.SysMenu, 0)
 	e.Orm.Preload("SysMenu").First(&data, c.Id)
-	e.Orm.Preload("SysApi").Where("menu_id in ?", c.MenuIds).Find(&mlist)
+	e.Orm.Preload("SysApi").Where("id in ?", c.MenuIds).Find(&mlist)
 	err = e.Orm.Model(&data).Association("SysMenu").Delete(data.SysMenu)
 	if err != nil {
 		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)

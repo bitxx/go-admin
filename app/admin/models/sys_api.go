@@ -47,7 +47,6 @@ func SaveSysApi(message storage.Messager) (err error) {
 		for _, v := range l.List {
 			if v.HttpMethod != "HEAD" ||
 				strings.Contains(v.RelativePath, "/static/") ||
-				strings.Contains(v.RelativePath, "/form-generator/") ||
 				strings.Contains(v.RelativePath, "/sys/tables") {
 				err := d.Debug().Where(SysApi{Path: v.RelativePath, Action: v.HttpMethod}).
 					Attrs(SysApi{Handle: v.Handler}).
