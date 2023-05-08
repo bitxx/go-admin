@@ -6,6 +6,8 @@ import (
 	"go-admin/common/core/service"
 	"go-admin/common/middleware"
 	"go-admin/config/lang"
+	"strconv"
+	"strings"
 	"time"
 
 	"gorm.io/gorm"
@@ -127,6 +129,11 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	}
 
 	var err error
+
+	m, respCode, err := e.Get(c.ParentId, nil)
+	if err != nil {
+		return 0, respCode, err
+	}
 	now := time.Now()
 	data := models.SysMenu{}
 	data.Name = c.Name
@@ -137,6 +144,7 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	data.SysApi = c.SysApi
 	data.Permission = c.Permission
 	data.ParentId = c.ParentId
+	data.ParentIds = m.ParentIds + strconv.FormatInt(m.Id, 10) + ","
 	data.KeepAlive = c.KeepAlive
 	data.Breadcrumb = c.Breadcrumb
 	data.Component = c.Component
@@ -191,6 +199,11 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 		return false, lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
 	}
 
+	m, respCode, err := e.Get(c.ParentId, p)
+	if err != nil {
+		return false, respCode, err
+	}
+
 	now := time.Now()
 	data.Name = c.Name
 	data.Title = c.Title
@@ -199,6 +212,7 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	data.MenuType = c.MenuType
 	data.Permission = c.Permission
 	data.ParentId = c.ParentId
+	data.ParentIds = m.ParentIds + strconv.FormatInt(m.Id, 10) + ","
 	data.KeepAlive = c.KeepAlive
 	data.Breadcrumb = c.Breadcrumb
 	data.Component = c.Component
@@ -356,6 +370,7 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi.MenuType = list[j].MenuType
 		mi.Permission = list[j].Permission
 		mi.ParentId = list[j].ParentId
+		mi.ParentIds = list[j].ParentIds
 		mi.KeepAlive = list[j].KeepAlive
 		mi.Breadcrumb = list[j].Breadcrumb
 		mi.Component = list[j].Component
@@ -402,10 +417,27 @@ func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 		var role models.SysRole
 		role.RoleKey = roleKey
 		err = e.Orm.Debug().Model(&role).Where("role_key = ? ", roleKey).Preload("SysMenu", func(db *gorm.DB) *gorm.DB {
-			return db.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC}).Order("sort")
+			return db.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC, constant.MenuF}).Order("sort")
 		}).Find(&role).Error
 		if role.SysMenu != nil {
-			menuList = *role.SysMenu
+			//menuList = *role.SysMenu
+
+			temp := map[int64]int{}
+			for _, v := range *role.SysMenu {
+				ids := strings.Split(v.ParentIds, ",")
+				for _, idStr := range ids {
+					id, _ := strconv.ParseInt(idStr, 10, 64)
+					temp[id] = temp[id] + 1
+					if temp[id] == 1 && id > 0 {
+						data := models.SysMenu{}
+						err = e.Orm.Where("id=?", id).Find(&data).Error
+						if data.MenuType == constant.MenuM || data.MenuType == constant.MenuC {
+							menuList = append(menuList, data)
+						}
+
+					}
+				}
+			}
 		}
 	}
 
