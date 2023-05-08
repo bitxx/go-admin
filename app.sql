@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : admin-prod
+ Source Server         : sqlhub
  Source Server Type    : MySQL
- Source Server Version : 80024 (8.0.24)
- Source Host           : 47.108.211.104:5997
- Source Schema         : app
+ Source Server Version : 80032 (8.0.32)
+ Source Host           : mysql.sqlpub.com:3306
+ Source Schema         : wjadmin
 
  Target Server Type    : MySQL
- Target Server Version : 80024 (8.0.24)
+ Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 14/03/2023 23:01:44
+ Date: 08/05/2023 22:43:05
 */
 
 SET NAMES utf8mb4;
@@ -47,11 +47,14 @@ CREATE TABLE `app_user`  (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 197 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 202 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app_user
 -- ----------------------------
+INSERT INTO `app_user` VALUES (198, 0, '- -', '- -', 0.000000000000000000, '0d5a60d4098ac0b2a59638e94ef12996', '', '', 'http://www.wjblog.top/images/my_head-touch-icon-next.png', '', '', 'akIiWm', 0, '0,', 1, '1,', '2', 1, '1', '', 0, 199, '2023-04-03 21:09:13', '2023-04-03 21:28:38');
+INSERT INTO `app_user` VALUES (200, 0, '- -', '- -', 0.000000000000000000, '05c3450057b8c2b47ddb56c02948aecf', '', '', 'http://www.wjblog.top/images/my_head-touch-icon-next.png', '', '', 'GQFz6v', 198, '0,198,', 1, '1,1,', '1', 2, '1', '', 0, 0, '2023-04-03 21:29:34', '2023-04-03 21:29:34');
+INSERT INTO `app_user` VALUES (201, 0, '- -', '- -', 0.000000000000000000, '86f37bdb5fb06ad0b39a2e5b66b52a63', '', '', 'http://www.wjblog.top/images/my_head-touch-icon-next.png', '', '', 'tT1Fbk', 198, '0,198,', 2, '1,2,', '1', 2, '1', '', 0, 0, '2023-04-03 21:29:35', '2023-04-03 21:29:35');
 
 -- ----------------------------
 -- Table structure for app_user_account_log
@@ -73,11 +76,20 @@ CREATE TABLE `app_user_account_log`  (
   `remarks` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_qyc_user_status`(`status` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '账变记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '账变记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app_user_account_log
 -- ----------------------------
+INSERT INTO `app_user_account_log` VALUES (2, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (3, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (4, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (5, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (6, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (7, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (8, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (9, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO `app_user_account_log` VALUES (10, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
 
 -- ----------------------------
 -- Table structure for app_user_conf
@@ -86,7 +98,7 @@ DROP TABLE IF EXISTS `app_user_conf`;
 CREATE TABLE `app_user_conf`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL COMMENT '用户id',
-  `can_login` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '1-允许登陆；2-不允许登陆',
+  `can_login` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '1-允许登陆；2-不允许登陆',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '备注信息',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态（1-正常 2-异常）\n',
   `create_by` int NOT NULL DEFAULT 0 COMMENT '创建者',
@@ -94,11 +106,14 @@ CREATE TABLE `app_user_conf`  (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 176 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户配置' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 181 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户配置' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of app_user_conf
 -- ----------------------------
+INSERT INTO `app_user_conf` VALUES (177, 198, '1', '', '1', 198, 198, '2023-04-03 21:09:13', '2023-04-03 21:09:13');
+INSERT INTO `app_user_conf` VALUES (179, 200, '1', '', '1', 200, 200, '2023-04-03 21:29:34', '2023-04-03 21:29:34');
+INSERT INTO `app_user_conf` VALUES (180, 201, '1', '', '1', 201, 201, '2023-04-03 21:29:35', '2023-04-03 21:29:35');
 
 -- ----------------------------
 -- Table structure for app_user_country_code
@@ -106,8 +121,8 @@ CREATE TABLE `app_user_conf`  (
 DROP TABLE IF EXISTS `app_user_country_code`;
 CREATE TABLE `app_user_country_code`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `country` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '国家或地区',
-  `code` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '区号',
+  `country` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '国家或地区',
+  `code` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '区号',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-可用 2-停用)',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '备注信息',
   `create_by` int NOT NULL DEFAULT 0 COMMENT '创建者',
@@ -115,7 +130,7 @@ CREATE TABLE `app_user_country_code`  (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '国家区号' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '国家区号' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of app_user_country_code
@@ -150,11 +165,13 @@ CREATE TABLE `app_user_level`  (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户等级' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户等级' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app_user_level
 -- ----------------------------
+INSERT INTO `app_user_level` VALUES (17, 'test3', '2', 2, '1', '', 1, 1, '2023-03-09 17:05:24', '2023-03-09 17:05:24');
+INSERT INTO `app_user_level` VALUES (18, 'test34', '1', 1, '1', '', 1, 1, '2023-03-09 17:05:37', '2023-03-09 20:19:19');
 
 -- ----------------------------
 -- Table structure for app_user_oper_log
@@ -177,6 +194,44 @@ CREATE TABLE `app_user_oper_log`  (
 -- ----------------------------
 -- Records of app_user_oper_log
 -- ----------------------------
+INSERT INTO `app_user_oper_log` VALUES (87, 0, '', '2', '1', 1, 1, '2023-03-11 15:39:31', '2023-03-11 15:39:31', '');
+INSERT INTO `app_user_oper_log` VALUES (88, 0, '', '2', '1', 1, 1, '2023-03-11 15:41:16', '2023-03-11 15:41:16', '');
+INSERT INTO `app_user_oper_log` VALUES (89, 191, '', '1', '1', 1, 1, '2023-03-11 15:45:44', '2023-03-11 15:45:44', '');
+INSERT INTO `app_user_oper_log` VALUES (90, 191, '', '1', '1', 1, 1, '2023-03-11 15:46:13', '2023-03-11 15:46:13', '');
+INSERT INTO `app_user_oper_log` VALUES (91, 191, '2', '1', '1', 1, 1, '2023-03-11 15:54:05', '2023-03-11 15:54:05', '');
+INSERT INTO `app_user_oper_log` VALUES (92, 191, '1', '1', '1', 1, 1, '2023-03-11 15:56:36', '2023-03-11 15:56:36', '');
+INSERT INTO `app_user_oper_log` VALUES (93, 191, '2', '1', '1', 1, 1, '2023-03-11 16:03:35', '2023-03-11 16:03:35', '');
+
+-- ----------------------------
+-- Table structure for coin_device_sl_order
+-- ----------------------------
+DROP TABLE IF EXISTS `coin_device_sl_order`;
+CREATE TABLE `coin_device_sl_order`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '订单编号',
+  `service_id` int NOT NULL COMMENT '运营商编号',
+  `user_id` int NULL DEFAULT NULL COMMENT '用户编号',
+  `total_sl` decimal(10, 2) NOT NULL COMMENT '总算力',
+  `money` decimal(30, 18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '支付总费用(USDT)',
+  `order_status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '订单进度 1-待生效 2-已生效 3-已过期',
+  `days` int NOT NULL DEFAULT 0 COMMENT '有效天数',
+  `start_time` datetime NULL DEFAULT NULL COMMENT '开始时间',
+  `end_time` datetime NULL DEFAULT NULL COMMENT '结束时间',
+  `info_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '设备名称',
+  `info_device_num` int NOT NULL DEFAULT 0 COMMENT '设备台数',
+  `info_gpu_num` int NOT NULL DEFAULT 0 COMMENT '显卡数/台',
+  `info_gpu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT 'GPU型号',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-异常 2-正常)',
+  `create_by` int NOT NULL DEFAULT 0 COMMENT '创建者',
+  `created_at` datetime NOT NULL COMMENT '创建时间',
+  `update_by` int NOT NULL DEFAULT 0 COMMENT '更新者',
+  `updated_at` datetime NOT NULL COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '设备订单管理' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of coin_device_sl_order
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for plugins_content_announcement
@@ -196,11 +251,13 @@ CREATE TABLE `plugins_content_announcement`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_content_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_content_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '公告管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '公告管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of plugins_content_announcement
 -- ----------------------------
+INSERT INTO `plugins_content_announcement` VALUES (3, 'test', '<p>tes</p>', 4, 'test', '1', 1, 1, '2023-02-27 12:36:52', '2023-02-27 11:50:56');
+INSERT INTO `plugins_content_announcement` VALUES (5, 'test2', '<p>test</p>', 1, 'test', '1', 1, 1, '2023-02-27 23:49:05', '2023-02-27 23:49:05');
 
 -- ----------------------------
 -- Table structure for plugins_content_article
@@ -220,11 +277,12 @@ CREATE TABLE `plugins_content_article`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_content_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_content_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of plugins_content_article
 -- ----------------------------
+INSERT INTO `plugins_content_article` VALUES (21, 11, 'test', '<p>test</p>', '111', '1', 1, 1, '2023-03-13 00:04:40', '2023-03-13 00:04:40');
 
 -- ----------------------------
 -- Table structure for plugins_content_category
@@ -242,11 +300,14 @@ CREATE TABLE `plugins_content_category`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_category_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_category_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章分类管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '文章分类管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of plugins_content_category
 -- ----------------------------
+INSERT INTO `plugins_content_category` VALUES (8, 'test', '1', '', 1, 1, '2023-02-27 23:21:29', '2023-02-27 23:21:29');
+INSERT INTO `plugins_content_category` VALUES (10, 'test2', '1', '', 1, 1, '2023-02-27 23:22:00', '2023-02-27 23:22:00');
+INSERT INTO `plugins_content_category` VALUES (11, 'test23', '1', '', 1, 1, '2023-02-27 23:42:01', '2023-02-27 23:42:01');
 
 -- ----------------------------
 -- Table structure for plugins_filemgr_app
@@ -273,6 +334,11 @@ CREATE TABLE `plugins_filemgr_app`  (
 -- ----------------------------
 -- Records of plugins_filemgr_app
 -- ----------------------------
+INSERT INTO `plugins_filemgr_app` VALUES (2, '1.0.1', '1', '1', 'files/app/4b6ea3c0-d7fa-49f1-9d50-f9d73caad45f.apk', 0, '3', '', 'test', '1', 1, '2023-03-12 11:34:54', 1, '2023-03-13 01:00:30');
+INSERT INTO `plugins_filemgr_app` VALUES (3, '1.0.0', '1', '1', 'files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', 0, '1', 'http://localhost:9999/files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', 'test', '1', 1, '2023-03-13 01:06:21', 1, '2023-03-13 01:06:21');
+INSERT INTO `plugins_filemgr_app` VALUES (4, '1.0.2', '1', '1', '', 0, '2', 'http://localhost:9999/test.apk', 'test2', '1', 1, '2023-03-13 01:07:00', 1, '2023-03-13 01:07:00');
+INSERT INTO `plugins_filemgr_app` VALUES (5, '1.0.3', '1', '1', 'files/app/962bebc9-fdb6-41b5-b62b-b184ee2fd1c0.apk', 0, '3', '', 'test2', '1', 1, '2023-03-13 01:07:24', 1, '2023-03-13 01:07:24');
+INSERT INTO `plugins_filemgr_app` VALUES (6, '2.0.0', '1', '1', 'files/app/9ab7880d-4f64-40ba-8804-3023ea5e93ff.apk', 0, '1', 'https://localhost:8000files/app/9ab7880d-4f64-40ba-8804-3023ea5e93ff.apk', 'test', '2', 1, '2023-03-14 17:29:09', 1, '2023-03-14 17:29:18');
 
 -- ----------------------------
 -- Table structure for plugins_msg_code
@@ -281,8 +347,8 @@ DROP TABLE IF EXISTS `plugins_msg_code`;
 CREATE TABLE `plugins_msg_code`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '验证码编号',
   `user_id` int NOT NULL COMMENT '用户编号',
-  `code` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '验证码',
-  `code_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '验证码类型 1-邮箱；2-短信',
+  `code` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '验证码',
+  `code_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '验证码类型 1-邮箱；2-短信',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '备注异常',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '验证码状态 1-发送成功 2-发送失败',
   `create_by` int NOT NULL DEFAULT 0 COMMENT '创建者',
@@ -290,7 +356,7 @@ CREATE TABLE `plugins_msg_code`  (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 174 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '验证码记录' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 174 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '验证码记录' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of plugins_msg_code
@@ -314,11 +380,163 @@ CREATE TABLE `sys_api`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_api_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_api_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 260 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 153 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_api
 -- ----------------------------
+INSERT INTO `sys_api` VALUES (1, 'go-admin/app/admin/apis.SysTables.GetPage-fm', '表信息列表获取', '/admin-api/v1/sys/table', '1', 'GET', '2023-05-08 16:51:10', '2023-05-08 22:27:28', 0, 1);
+INSERT INTO `sys_api` VALUES (2, 'go-admin/app/admin/apis.SysTables.DownloadCode-fm', '下载代码', '/admin-api/v1/sys/table/gen/download/:id', '1', 'GET', '2023-05-08 16:51:10', '2023-05-08 22:27:40', 0, 1);
+INSERT INTO `sys_api` VALUES (3, 'go-admin/app/admin/apis.SysTables.GenDB-fm', '表信息详情', '/admin-api/v1/sys/table/gen/db/:id', '1', 'GET', '2023-05-08 16:51:10', '2023-05-08 22:28:16', 0, 1);
+INSERT INTO `sys_api` VALUES (4, 'go-admin/app/admin/apis.SysTables.GenCode-fm', '表生成代码', '/admin-api/v1/sys/table/gen/:id', '1', 'GET', '2023-05-08 16:51:11', '2023-05-08 22:26:34', 0, 1);
+INSERT INTO `sys_api` VALUES (5, 'go-admin/app/admin/apis.SysTables.GetDBTablePage-fm', '获取数据库表', '/admin-api/v1/sys/table/dbtables', '1', 'GET', '2023-05-08 16:51:11', '2023-05-08 22:26:44', 0, 1);
+INSERT INTO `sys_api` VALUES (6, 'go-admin/app/admin/apis.SysTables.Preview-fm', '代码预览', '/admin-api/v1/sys/table/preview/:id', '1', 'GET', '2023-05-08 16:51:11', '2023-05-08 22:26:58', 0, 1);
+INSERT INTO `sys_api` VALUES (7, 'go-admin/app/admin/apis.SysTables.Get-fm', '表信息详情获取', '/admin-api/v1/sys/table/:id', '1', 'GET', '2023-05-08 16:51:12', '2023-05-08 22:25:54', 0, 1);
+INSERT INTO `sys_api` VALUES (8, 'go-admin/app/admin/apis.SysDept.GetList-fm', '部门列表获取', '/admin-api/v1/sys/dept', '1', 'GET', '2023-05-08 16:51:12', '2023-05-08 22:26:07', 0, 1);
+INSERT INTO `sys_api` VALUES (9, 'go-admin/app/admin/apis.SysDept.Get-fm', '部门详情获取', '/admin-api/v1/sys/dept/:id', '1', 'GET', '2023-05-08 16:51:12', '2023-05-08 22:26:18', 0, 1);
+INSERT INTO `sys_api` VALUES (10, 'go-admin/app/admin/apis.SysDept.Get2Tree-fm', '树部门', '/admin-api/v1/sys/deptTree', '1', 'GET', '2023-05-08 16:51:13', '2023-05-08 22:25:11', 0, 1);
+INSERT INTO `sys_api` VALUES (11, 'go-admin/app/admin/apis.SysPost.GetPage-fm', '岗位列表获取', '/admin-api/v1/sys/post', '1', 'GET', '2023-05-08 16:51:13', '2023-05-08 22:25:24', 0, 1);
+INSERT INTO `sys_api` VALUES (12, 'go-admin/app/admin/apis.SysPost.Export-fm', '部门列表导出', '/admin-api/v1/sys/post/export', '1', 'GET', '2023-05-08 16:51:13', '2023-05-08 22:25:38', 0, 1);
+INSERT INTO `sys_api` VALUES (13, 'go-admin/app/admin/apis.SysPost.Get-fm', '岗位详情获取', '/admin-api/v1/sys/post/:id', '1', 'GET', '2023-05-08 16:51:14', '2023-05-08 22:23:50', 0, 1);
+INSERT INTO `sys_api` VALUES (14, 'go-admin/app/admin/apis.SysMenu.GetMenuTreeSelect-fm', '树菜单角色', '/admin-api/v1/sys/roleMenuTreeselect/:roleId', '1', 'GET', '2023-05-08 16:51:14', '2023-05-08 22:24:49', 0, 1);
+INSERT INTO `sys_api` VALUES (15, 'go-admin/app/admin/apis.SysDept.GetDeptTreeRoleSelect-fm', '树部门角色', '/admin-api/v1/sys/roleDeptTreeselect/:roleId', '1', 'GET', '2023-05-08 16:51:14', '2023-05-08 22:24:44', 0, 1);
+INSERT INTO `sys_api` VALUES (16, 'go-admin/app/admin/apis.SysApi.GetPage-fm', '接口列表获取', '/admin-api/v1/sys-api', '1', 'GET', '2023-05-08 16:51:15', '2023-05-08 22:22:57', 0, 1);
+INSERT INTO `sys_api` VALUES (17, 'go-admin/app/admin/apis.SysApi.Export-fm', '接口列表导出', '/admin-api/v1/sys-api/export', '1', 'GET', '2023-05-08 16:51:15', '2023-05-08 22:23:13', 0, 1);
+INSERT INTO `sys_api` VALUES (18, 'go-admin/app/admin/apis.SysApi.Get-fm', '接口详情获取', '/admin-api/v1/sys-api/:id', '1', 'GET', '2023-05-08 16:51:15', '2023-05-08 22:23:29', 0, 1);
+INSERT INTO `sys_api` VALUES (19, 'go-admin/app/admin/apis.SysLoginLog.GetPage-fm', '系统登录日志列表获取', '/admin-api/v1/sys-login-log', '1', 'GET', '2023-05-08 16:51:16', '2023-05-08 22:22:36', 0, 1);
+INSERT INTO `sys_api` VALUES (20, 'go-admin/app/admin/apis.SysLoginLog.Export-fm', '系统登录日志列表导出', '/admin-api/v1/sys-login-log/export', '1', 'GET', '2023-05-08 16:51:16', '2023-05-08 22:22:08', 0, 1);
+INSERT INTO `sys_api` VALUES (21, 'go-admin/app/admin/apis.SysLoginLog.Get-fm', '系统登录日志详情获取', '/admin-api/v1/sys-login-log/:id', '1', 'GET', '2023-05-08 16:51:16', '2023-05-08 22:22:44', 0, 1);
+INSERT INTO `sys_api` VALUES (22, 'go-admin/app/admin/apis.SysOperLog.GetPage-fm', '系统操作日志列表获取', '/admin-api/v1/sys-oper-log', '1', 'GET', '2023-05-08 16:51:17', '2023-05-08 22:19:52', 0, 1);
+INSERT INTO `sys_api` VALUES (23, 'go-admin/app/admin/apis.SysOperLog.Export-fm', '系统操作日志列表导出', '/admin-api/v1/sys-oper-log/export', '1', 'GET', '2023-05-08 16:51:17', '2023-05-08 22:20:04', 0, 1);
+INSERT INTO `sys_api` VALUES (24, 'go-admin/app/admin/apis.SysOperLog.Get-fm', '系统操作日志详情获取', '/admin-api/v1/sys-oper-log/:id', '1', 'GET', '2023-05-08 16:51:17', '2023-05-08 22:21:35', 0, 1);
+INSERT INTO `sys_api` VALUES (25, 'go-admin/app/admin/apis.SysUser.GetPage-fm', '系统用户列表获取', '/admin-api/v1/sys-user', '1', 'GET', '2023-05-08 16:51:18', '2023-05-08 22:19:01', 0, 1);
+INSERT INTO `sys_api` VALUES (26, 'go-admin/app/admin/apis.SysUser.GetProfile-fm', '系统登录用户信息获取', '/admin-api/v1/sys-user/profile', '1', 'GET', '2023-05-08 16:51:18', '2023-05-08 22:19:20', 0, 1);
+INSERT INTO `sys_api` VALUES (27, 'go-admin/app/admin/apis.SysUser.Get-fm', '系统用户详情获取', '/admin-api/v1/sys-user/:id', '1', 'GET', '2023-05-08 16:51:18', '2023-05-08 22:19:38', 0, 1);
+INSERT INTO `sys_api` VALUES (28, 'go-admin/app/admin/apis.SysRuntimeConfig.GetConfig-fm', '获取运行时配置', '/admin-api/v1/sysRuntimeConfig/getConfig', '1', 'GET', '2023-05-08 16:51:19', '2023-05-08 22:17:59', 0, 1);
+INSERT INTO `sys_api` VALUES (29, 'go-admin/app/admin/apis.ServerMonitor.ServerInfo-fm', '获取运行环境状态', '/admin-api/v1/server-monitor', '1', 'GET', '2023-05-08 16:51:19', '2023-05-08 22:18:25', 0, 1);
+INSERT INTO `sys_api` VALUES (30, 'go-admin/app/app/user/apis.User.GetPage-fm', '用户列表获取', '/admin-api/v1/app/user/user', '3', 'GET', '2023-05-08 16:51:19', '2023-05-08 22:30:33', 0, 1);
+INSERT INTO `sys_api` VALUES (31, 'go-admin/app/app/user/apis.UserCountryCode.GetPage-fm', '国家区号列表获取', '/admin-api/v1/app/user/user-country-code', '3', 'GET', '2023-05-08 16:51:20', '2023-05-08 22:16:44', 0, 1);
+INSERT INTO `sys_api` VALUES (32, 'go-admin/app/app/user/apis.UserCountryCode.Export-fm', '国家区号列表导出', '/admin-api/v1/app/user/user-country-code/export', '3', 'GET', '2023-05-08 16:51:20', '2023-05-08 22:17:01', 0, 1);
+INSERT INTO `sys_api` VALUES (33, 'go-admin/app/app/user/apis.UserCountryCode.Get-fm', '国家区号详情获取', '/admin-api/v1/app/user/user-country-code/:id', '3', 'GET', '2023-05-08 16:51:20', '2023-05-08 22:17:20', 0, 1);
+INSERT INTO `sys_api` VALUES (34, 'go-admin/app/app/user/apis.UserConf.GetPage-fm', '用户配置列表获取', '/admin-api/v1/app/user/user-conf', '3', 'GET', '2023-05-08 16:51:20', '2023-05-08 22:17:36', 0, 1);
+INSERT INTO `sys_api` VALUES (35, 'go-admin/app/app/user/apis.UserConf.Get-fm', '用户配置详情获取', '/admin-api/v1/app/user/user-conf/:id', '3', 'GET', '2023-05-08 16:51:21', '2023-05-08 22:14:31', 0, 1);
+INSERT INTO `sys_api` VALUES (36, 'go-admin/app/app/user/apis.UserAccountLog.GetPage-fm', '用户账变日志列表获取', '/admin-api/v1/app/user/user-account-log', '3', 'GET', '2023-05-08 16:51:21', '2023-05-08 22:14:56', 0, 1);
+INSERT INTO `sys_api` VALUES (37, 'go-admin/app/app/user/apis.UserAccountLog.Export-fm', '用户账变日志列表导出', '/admin-api/v1/app/user/user-account-log/export', '3', 'GET', '2023-05-08 16:51:21', '2023-05-08 22:16:20', 0, 1);
+INSERT INTO `sys_api` VALUES (38, 'go-admin/app/app/user/apis.UserAccountLog.Get-fm', '用户账变列表详情获取', '/admin-api/v1/app/user/user-account-log/:id', '3', 'GET', '2023-05-08 16:51:22', '2023-05-08 22:12:31', 0, 1);
+INSERT INTO `sys_api` VALUES (39, 'go-admin/app/app/user/apis.UserLevel.GetPage-fm', '用户等级列表获取', '/admin-api/v1/app/user/user-level', '3', 'GET', '2023-05-08 16:51:22', '2023-05-08 22:12:50', 0, 1);
+INSERT INTO `sys_api` VALUES (40, 'go-admin/app/app/user/apis.UserLevel.Export-fm', '用户等级列表导出', '/admin-api/v1/app/user/user-level/export', '3', 'GET', '2023-05-08 16:51:22', '2023-05-08 22:14:08', 0, 1);
+INSERT INTO `sys_api` VALUES (41, 'go-admin/app/app/user/apis.UserLevel.Get-fm', '用户等级详情获取', '/admin-api/v1/app/user/user-level/:id', '3', 'GET', '2023-05-08 16:51:23', '2023-05-08 22:05:35', 0, 1);
+INSERT INTO `sys_api` VALUES (42, 'go-admin/app/app/user/apis.UserOperLog.GetPage-fm', '用户操作日志列表获取', '/admin-api/v1/app/user/user-oper-log', '3', 'GET', '2023-05-08 16:51:23', '2023-05-08 22:08:18', 0, 1);
+INSERT INTO `sys_api` VALUES (43, 'go-admin/app/app/user/apis.UserOperLog.Export-fm', '用户操作日志列表导出', '/admin-api/v1/app/user/user-oper-log/export', '3', 'GET', '2023-05-08 16:51:23', '2023-05-08 22:11:58', 0, 1);
+INSERT INTO `sys_api` VALUES (44, 'go-admin/app/app/user/apis.UserOperLog.Get-fm', '用户操作日志详情获取', '/admin-api/v1/app/user/user-oper-log/:id', '3', 'GET', '2023-05-08 16:51:24', '2023-05-08 22:05:07', 0, 1);
+INSERT INTO `sys_api` VALUES (45, 'go-admin/app/app/user/apis.User.Export-fm', '用户列表导出', '/admin-api/v1/app/user/user/export', '3', 'GET', '2023-05-08 16:51:24', '2023-05-08 22:37:31', 0, 1);
+INSERT INTO `sys_api` VALUES (46, 'go-admin/app/app/user/apis.User.Get-fm', '用户详情获取', '/admin-api/v1/app/user/user/:id', '3', 'GET', '2023-05-08 16:51:24', '2023-05-08 22:36:28', 0, 1);
+INSERT INTO `sys_api` VALUES (47, 'go-admin/app/admin/apis.SysConfig.GetSysConfigBySysApp-fm', '获取所有系统后台业务配置', '/admin-api/v1/app-config', '1', 'GET', '2023-05-08 16:51:25', '2023-05-08 22:02:47', 0, 1);
+INSERT INTO `sys_api` VALUES (48, 'go-admin/app/plugins/content/apis.ContentAnnouncement.GetPage-fm', '公告列表获取', '/admin-api/v1/plugins/content/content-announcement', '2', 'GET', '2023-05-08 16:51:25', '2023-05-08 22:03:07', 0, 1);
+INSERT INTO `sys_api` VALUES (49, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Export-fm', '公告列表导出', '/admin-api/v1/plugins/content/content-announcement/export', '2', 'GET', '2023-05-08 16:51:25', '2023-05-08 22:03:18', 0, 1);
+INSERT INTO `sys_api` VALUES (50, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Get-fm', '公告详情获取', '/admin-api/v1/plugins/content/content-announcement/:id', '2', 'GET', '2023-05-08 16:51:26', '2023-05-08 21:59:27', 0, 1);
+INSERT INTO `sys_api` VALUES (51, 'go-admin/app/plugins/content/apis.ContentArticle.GetPage-fm', '文章列表获取', '/admin-api/v1/plugins/content/content-article', '2', 'GET', '2023-05-08 16:51:26', '2023-05-08 21:59:43', 0, 1);
+INSERT INTO `sys_api` VALUES (52, 'go-admin/app/plugins/content/apis.ContentArticle.Export-fm', '文章列表导出', '/admin-api/v1/plugins/content/content-article/export', '2', 'GET', '2023-05-08 16:51:26', '2023-05-08 22:00:30', 0, 1);
+INSERT INTO `sys_api` VALUES (53, 'go-admin/app/plugins/content/apis.ContentArticle.Get-fm', '文章详情获取', '/admin-api/v1/plugins/content/content-article/:id', '2', 'GET', '2023-05-08 16:51:26', '2023-05-08 22:01:28', 0, 1);
+INSERT INTO `sys_api` VALUES (54, 'go-admin/app/plugins/content/apis.ContentCategory.GetPage-fm', '字典分类列表获取', '/admin-api/v1/plugins/content/content-category', '2', 'GET', '2023-05-08 16:51:27', '2023-05-08 21:56:52', 0, 1);
+INSERT INTO `sys_api` VALUES (55, 'go-admin/app/plugins/content/apis.ContentCategory.Export-fm', '文章分类列表导出', '/admin-api/v1/plugins/content/content-category/export', '2', 'GET', '2023-05-08 16:51:27', '2023-05-08 21:58:04', 0, 1);
+INSERT INTO `sys_api` VALUES (56, 'go-admin/app/plugins/content/apis.ContentCategory.Get-fm', '文章分类详情获取', '/admin-api/v1/plugins/content/content-category/:id', '2', 'GET', '2023-05-08 16:51:27', '2023-05-08 21:58:19', 0, 1);
+INSERT INTO `sys_api` VALUES (57, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.GetPage-fm', 'app列表获取', '/admin-api/v1/plugins/filemgr/filemgr-app', '2', 'GET', '2023-05-08 16:51:28', '2023-05-08 21:55:29', 0, 1);
+INSERT INTO `sys_api` VALUES (58, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.Export-fm', 'app数据导出', '/admin-api/v1/plugins/filemgr/filemgr-app/export', '2', 'GET', '2023-05-08 16:51:28', '2023-05-08 21:56:12', 0, 1);
+INSERT INTO `sys_api` VALUES (59, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.Get-fm', 'app详情获取', '/admin-api/v1/plugins/filemgr/filemgr-app/:id', '2', 'GET', '2023-05-08 16:51:29', '2023-05-08 21:56:25', 0, 1);
+INSERT INTO `sys_api` VALUES (60, 'go-admin/app/plugins/msg/apis.MsgCode.GetPage-fm', '验证码列表获取', '/admin-api/v1/plugins/msg/msg-code', '2', 'GET', '2023-05-08 16:51:29', '2023-05-08 21:54:39', 0, 1);
+INSERT INTO `sys_api` VALUES (61, 'go-admin/app/plugins/msg/apis.MsgCode.Get-fm', '验证码详情获取', '/admin-api/v1/plugins/msg/msg-code/:id', '2', 'GET', '2023-05-08 16:51:29', '2023-05-08 21:55:02', 0, 1);
+INSERT INTO `sys_api` VALUES (62, 'go-admin/app/admin/apis.SysDictType.GetPage-fm', '字典类型列表获取', '/admin-api/v1/dict/type', '1', 'GET', '2023-05-08 16:51:30', '2023-05-08 21:52:56', 0, 1);
+INSERT INTO `sys_api` VALUES (63, 'go-admin/app/admin/apis.SysDictType.Export-fm', '字典类型列表导出', '/admin-api/v1/dict/type/export', '1', 'GET', '2023-05-08 16:51:30', '2023-05-08 21:53:06', 0, 1);
+INSERT INTO `sys_api` VALUES (64, 'go-admin/app/admin/apis.SysDictType.Get-fm', '字典类型详情获取', '/admin-api/v1/dict/type/:id', '1', 'GET', '2023-05-08 16:51:30', '2023-05-08 21:53:49', 0, 1);
+INSERT INTO `sys_api` VALUES (65, 'go-admin/app/admin/apis.SysDictType.GetAll-fm', '字典类型获取', '/admin-api/v1/dict/type-option-select', '1', 'GET', '2023-05-08 16:51:31', '2023-05-08 21:51:50', 0, 1);
+INSERT INTO `sys_api` VALUES (66, 'go-admin/app/admin/apis.SysDictData.GetPage-fm', '字典数据列表获取', '/admin-api/v1/dict/data', '1', 'GET', '2023-05-08 16:51:31', '2023-05-08 21:52:03', 0, 1);
+INSERT INTO `sys_api` VALUES (67, 'go-admin/app/admin/apis.SysDictData.Export-fm', '字典数据列表导出', '/admin-api/v1/dict/data/export', '1', 'GET', '2023-05-08 16:51:31', '2023-05-08 21:52:17', 0, 1);
+INSERT INTO `sys_api` VALUES (68, 'go-admin/app/admin/apis.SysDictData.Get-fm', '获取字典数据', '/admin-api/v1/dict/data/:id', '1', 'GET', '2023-05-08 16:51:32', '2023-05-08 21:50:18', 0, 1);
+INSERT INTO `sys_api` VALUES (69, 'go-admin/app/admin/apis.SysDictData.GetSysDictDataAll-fm', '获取所有字典数据', '/admin-api/v1/dict-data/option-select', '1', 'GET', '2023-05-08 16:51:32', '2023-05-08 21:50:34', 0, 1);
+INSERT INTO `sys_api` VALUES (70, 'go-admin/app/admin/apis.SysConfig.GetPage-fm', '系统配置列表获取', '/admin-api/v1/config', '1', 'GET', '2023-05-08 16:51:32', '2023-05-08 21:51:31', 0, 1);
+INSERT INTO `sys_api` VALUES (71, 'go-admin/app/admin/apis.SysConfig.Export-fm', '系统业务配置导出', '/admin-api/v1/config/export', '1', 'GET', '2023-05-08 16:51:33', '2023-05-08 21:48:36', 0, 1);
+INSERT INTO `sys_api` VALUES (72, 'go-admin/app/admin/apis.SysConfig.Get-fm', '系统配置详情', '/admin-api/v1/config/:id', '1', 'GET', '2023-05-08 16:51:33', '2023-05-08 21:48:53', 0, 1);
+INSERT INTO `sys_api` VALUES (73, 'go-admin/app/admin/apis.SysConfig.GetSysConfigByKey-fm', '根据key获取系统配置详情', '/admin-api/v1/configKey/:configKey', '1', 'GET', '2023-05-08 16:51:33', '2023-05-08 21:49:13', 0, 1);
+INSERT INTO `sys_api` VALUES (74, 'go-admin/app/admin/apis.SysUser.GenCaptcha-fm', '获取验证码', '/admin-api/v1/captcha', '1', 'GET', '2023-05-08 16:51:34', '2023-05-08 21:47:51', 0, 1);
+INSERT INTO `sys_api` VALUES (75, 'go-admin/app/admin/apis.SysMenu.GetPage-fm', '菜单列表', '/admin-api/v1/menu', '1', 'GET', '2023-05-08 16:51:34', '2023-05-08 21:48:05', 0, 1);
+INSERT INTO `sys_api` VALUES (76, 'go-admin/app/admin/apis.SysMenu.Get-fm', '菜单详情', '/admin-api/v1/menu/:id', '1', 'GET', '2023-05-08 16:51:34', '2023-05-08 21:48:19', 0, 1);
+INSERT INTO `sys_api` VALUES (77, 'go-admin/app/admin/apis.SysMenu.GetMenuRole-fm', '获取当前登录账户的菜单', '/admin-api/v1/menurole', '1', 'GET', '2023-05-08 16:51:35', '2023-05-08 21:44:22', 0, 1);
+INSERT INTO `sys_api` VALUES (78, 'go-admin/common/core/tools/transfer.Handler.func1', '系统性能监控', '/admin-api/v1/metrics', '1', 'GET', '2023-05-08 16:51:35', '2023-05-08 21:44:40', 0, 1);
+INSERT INTO `sys_api` VALUES (79, 'go-admin/app/admin/apis.SysRole.GetPage-fm', '系统角色列表', '/admin-api/v1/role', '1', 'GET', '2023-05-08 16:51:35', '2023-05-08 21:44:56', 0, 1);
+INSERT INTO `sys_api` VALUES (80, 'go-admin/app/admin/apis.SysRole.Get-fm', '', '/admin-api/v1/role/:id', '', 'GET', '2023-05-08 16:51:36', '2023-05-08 16:51:36', 0, 0);
+INSERT INTO `sys_api` VALUES (81, 'go-admin/app/admin/router.registerMonitorRouter.func1', '健康检测', '/admin-api/v1/health', '1', 'GET', '2023-05-08 16:51:36', '2023-05-08 21:43:36', 0, 1);
+INSERT INTO `sys_api` VALUES (82, 'go-admin/app/admin/apis.SysUser.GetInfo-fm', '获取信息', '/admin-api/v1/getinfo', '1', 'GET', '2023-05-08 16:51:36', '2023-05-08 21:43:48', 0, 1);
+INSERT INTO `sys_api` VALUES (83, 'go-admin/common/core/pkg/ws.(*Manager).WsClient-fm', '消息', '/ws/:id/:channel', '1', 'GET', '2023-05-08 16:51:36', '2023-05-08 21:44:02', 0, 1);
+INSERT INTO `sys_api` VALUES (84, 'go-admin/common/core/pkg/ws.(*Manager).UnWsClient-fm', '消息队列', '/wslogout/:id/:channel', '1', 'GET', '2023-05-08 16:51:37', '2023-05-08 21:42:11', 0, 1);
+INSERT INTO `sys_api` VALUES (85, 'go-admin/app/admin/router.Ping', '信息', '/info', '1', 'GET', '2023-05-08 16:51:37', '2023-05-08 21:42:30', 0, 1);
+INSERT INTO `sys_api` VALUES (86, 'github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1', '本地文件', '/files/*filepath', '1', 'GET', '2023-05-08 16:51:37', '2023-05-08 21:43:08', 0, 1);
+INSERT INTO `sys_api` VALUES (87, 'github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1', '静态文件获取', '/static/*filepath', '1', 'GET', '2023-05-08 16:51:38', '2023-05-08 21:41:17', 0, 1);
+INSERT INTO `sys_api` VALUES (88, 'go-admin/app/admin/apis.SysDept.Insert-fm', '部门新增', '/admin-api/v1/sys/dept', '1', 'POST', '2023-05-08 16:51:38', '2023-05-08 21:41:45', 0, 1);
+INSERT INTO `sys_api` VALUES (89, 'go-admin/app/admin/apis.SysTables.Insert-fm', '表数据新增', '/admin-api/v1/sys/table', '1', 'POST', '2023-05-08 16:51:38', '2023-05-08 21:40:52', 0, 1);
+INSERT INTO `sys_api` VALUES (90, 'go-admin/app/admin/apis.SysPost.Insert-fm', '岗位新增', '/admin-api/v1/sys/post', '1', 'POST', '2023-05-08 16:51:39', '2023-05-08 21:40:36', 0, 1);
+INSERT INTO `sys_api` VALUES (91, 'go-admin/app/admin/apis.SysUser.Insert-fm', '系统用户新增', '/admin-api/v1/sys-user', '1', 'POST', '2023-05-08 16:51:39', '2023-05-08 21:39:54', 0, 1);
+INSERT INTO `sys_api` VALUES (92, 'go-admin/app/admin/apis.SysUser.InsetAvatar-fm', '系统用户头像新增', '/admin-api/v1/sys-user/avatar', '1', 'POST', '2023-05-08 16:51:39', '2023-05-08 21:40:24', 0, 1);
+INSERT INTO `sys_api` VALUES (93, 'go-admin/app/admin/apis.(*SysUser).LogOut-fm', '', '/admin-api/v1/sys-user/logout', '', 'POST', '2023-05-08 16:51:39', '2023-05-08 16:51:39', 0, 0);
+INSERT INTO `sys_api` VALUES (94, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Insert-fm', '公告新增', '/admin-api/v1/plugins/content/content-announcement', '2', 'POST', '2023-05-08 16:51:40', '2023-05-08 21:39:19', 0, 1);
+INSERT INTO `sys_api` VALUES (95, 'go-admin/app/plugins/content/apis.ContentArticle.Insert-fm', '文章新增', '/admin-api/v1/plugins/content/content-article', '2', 'POST', '2023-05-08 16:51:40', '2023-05-08 21:39:32', 0, 1);
+INSERT INTO `sys_api` VALUES (96, 'go-admin/app/plugins/content/apis.ContentCategory.Insert-fm', '文章分类新增', '/admin-api/v1/plugins/content/content-category', '2', 'POST', '2023-05-08 16:51:40', '2023-05-08 21:39:05', 0, 1);
+INSERT INTO `sys_api` VALUES (97, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.Insert-fm', 'app数据新增', '/admin-api/v1/plugins/filemgr/filemgr-app', '2', 'POST', '2023-05-08 16:51:41', '2023-05-08 21:38:46', 0, 1);
+INSERT INTO `sys_api` VALUES (98, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.Upload-fm', 'app文件上传', '/admin-api/v1/plugins/filemgr/filemgr-app/upload', '2', 'POST', '2023-05-08 16:51:41', '2023-05-08 21:38:29', 0, 1);
+INSERT INTO `sys_api` VALUES (99, 'go-admin/app/app/user/apis.User.Insert-fm', '用户新增', '/admin-api/v1/app/user/user', '3', 'POST', '2023-05-08 16:51:41', '2023-05-08 22:30:51', 0, 1);
+INSERT INTO `sys_api` VALUES (100, 'go-admin/app/app/user/apis.UserCountryCode.Insert-fm', '国家区号新增', '/admin-api/v1/app/user/user-country-code', '3', 'POST', '2023-05-08 16:51:42', '2023-05-08 18:09:31', 0, 1);
+INSERT INTO `sys_api` VALUES (101, 'go-admin/app/app/user/apis.UserLevel.Insert-fm', '用户等级新增', '/admin-api/v1/app/user/user-level', '3', 'POST', '2023-05-08 16:51:42', '2023-05-08 18:08:09', 0, 1);
+INSERT INTO `sys_api` VALUES (102, 'go-admin/app/admin/apis.SysDictData.Insert-fm', '系统字典新增', '/admin-api/v1/dict/data', '1', 'POST', '2023-05-08 16:51:42', '2023-05-08 18:07:47', 0, 1);
+INSERT INTO `sys_api` VALUES (103, 'go-admin/app/admin/apis.SysDictType.Insert-fm', '字典类型新增', '/admin-api/v1/dict/type', '1', 'POST', '2023-05-08 16:51:43', '2023-05-08 18:07:16', 0, 1);
+INSERT INTO `sys_api` VALUES (104, 'go-admin/app/admin/apis.SysUser.Login-fm', '系统用户登陆', '/admin-api/v1/login', '1', 'POST', '2023-05-08 16:51:43', '2023-05-08 18:07:30', 0, 1);
+INSERT INTO `sys_api` VALUES (105, 'go-admin/app/admin/apis.SysConfig.Insert-fm', '系统业务配置新增', '/admin-api/v1/config', '1', 'POST', '2023-05-08 16:51:43', '2023-05-08 18:04:37', 0, 1);
+INSERT INTO `sys_api` VALUES (106, 'go-admin/app/admin/apis.SysMenu.Insert-fm', '菜单新增', '/admin-api/v1/menu', '1', 'POST', '2023-05-08 16:51:44', '2023-05-08 17:47:22', 0, 1);
+INSERT INTO `sys_api` VALUES (107, 'go-admin/app/admin/apis.SysRole.Insert-fm', '系统角色新增', '/admin-api/v1/role', '1', 'POST', '2023-05-08 16:51:44', '2023-05-08 18:02:12', 0, 1);
+INSERT INTO `sys_api` VALUES (108, 'go-admin/app/admin/apis.SysUser.Update-fm', '系统用户更新', '/admin-api/v1/sys-user', '1', 'PUT', '2023-05-08 16:51:44', '2023-05-08 17:47:57', 0, 1);
+INSERT INTO `sys_api` VALUES (109, 'go-admin/app/admin/apis.SysUser.UpdateSelfEmail-fm', '系统用户邮箱更新', '/admin-api/v1/sys-user/updateSelfEmail', '1', 'PUT', '2023-05-08 16:51:45', '2023-05-08 17:46:29', 0, 1);
+INSERT INTO `sys_api` VALUES (110, 'go-admin/app/admin/apis.SysUser.UpdateSelfPhone-fm', '系统用户手机号更新', '/admin-api/v1/sys-user/updateSelfPhone', '1', 'PUT', '2023-05-08 16:51:45', '2023-05-08 17:11:36', 0, 1);
+INSERT INTO `sys_api` VALUES (111, 'go-admin/app/admin/apis.SysUser.UpdateSelfNickName-fm', '系统用户昵称更新', '/admin-api/v1/sys-user/updateSelfNickName', '1', 'PUT', '2023-05-08 16:51:45', '2023-05-08 17:47:04', 0, 1);
+INSERT INTO `sys_api` VALUES (112, 'go-admin/app/admin/apis.SysUser.UpdatePwd-fm', '更新密码', '/admin-api/v1/sys-user/pwd/set', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-08 17:10:36', 0, 1);
+INSERT INTO `sys_api` VALUES (113, 'go-admin/app/admin/apis.SysUser.ResetPwd-fm', '重置密码', '/admin-api/v1/sys-user/pwd/reset', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-08 17:10:26', 0, 1);
+INSERT INTO `sys_api` VALUES (114, 'go-admin/app/admin/apis.SysUser.UpdateStatus-fm', '系统用户状态更新', '/admin-api/v1/sys-user/status', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-08 17:10:56', 0, 1);
+INSERT INTO `sys_api` VALUES (115, 'go-admin/app/admin/apis.SysApi.Update-fm', '接口信息更新', '/admin-api/v1/sys-api/:id', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-08 17:11:21', 0, 1);
+INSERT INTO `sys_api` VALUES (116, 'go-admin/app/admin/apis.SysDept.Update-fm', '部门更新', '/admin-api/v1/sys/dept/:id', '1', 'PUT', '2023-05-08 16:51:47', '2023-05-08 17:09:44', 0, 1);
+INSERT INTO `sys_api` VALUES (117, 'go-admin/app/admin/apis.SysTables.Update-fm', '表信息更新', '/admin-api/v1/sys/table/:id', '1', 'PUT', '2023-05-08 16:51:47', '2023-05-08 17:09:59', 0, 1);
+INSERT INTO `sys_api` VALUES (118, 'go-admin/app/admin/apis.SysPost.Update-fm', '岗位更新', '/admin-api/v1/sys/post/:id', '1', 'PUT', '2023-05-08 16:51:47', '2023-05-08 17:10:12', 0, 1);
+INSERT INTO `sys_api` VALUES (119, 'go-admin/app/app/user/apis.UserConf.Update-fm', '用户配置更新', '/admin-api/v1/app/user/user-conf/:id', '3', 'PUT', '2023-05-08 16:51:48', '2023-05-08 17:09:18', 0, 1);
+INSERT INTO `sys_api` VALUES (120, 'go-admin/app/app/user/apis.UserCountryCode.Update-fm', '国家区号更新', '/admin-api/v1/app/user/user-country-code/:id', '3', 'PUT', '2023-05-08 16:51:48', '2023-05-08 17:09:30', 0, 1);
+INSERT INTO `sys_api` VALUES (121, 'go-admin/app/app/user/apis.UserLevel.Update-fm', '用户等级更新', '/admin-api/v1/app/user/user-level/:id', '3', 'PUT', '2023-05-08 16:51:48', '2023-05-08 17:09:06', 0, 1);
+INSERT INTO `sys_api` VALUES (122, 'go-admin/app/app/user/apis.User.Update-fm', '用户更新', '/admin-api/v1/app/user/user/:id', '3', 'PUT', '2023-05-08 16:51:49', '2023-05-08 22:36:28', 0, 1);
+INSERT INTO `sys_api` VALUES (123, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Update-fm', '公告更新', '/admin-api/v1/plugins/content/content-announcement/:id', '2', 'PUT', '2023-05-08 16:51:49', '2023-05-08 17:08:23', 0, 1);
+INSERT INTO `sys_api` VALUES (124, 'go-admin/app/plugins/content/apis.ContentArticle.Update-fm', '文章更新', '/admin-api/v1/plugins/content/content-article/:id', '2', 'PUT', '2023-05-08 16:51:49', '2023-05-08 17:08:38', 0, 1);
+INSERT INTO `sys_api` VALUES (125, 'go-admin/app/plugins/content/apis.ContentCategory.Update-fm', '文章分类更新', '/admin-api/v1/plugins/content/content-category/:id', '2', 'PUT', '2023-05-08 16:51:50', '2023-05-08 17:07:34', 0, 1);
+INSERT INTO `sys_api` VALUES (126, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.Update-fm', 'app信息更新', '/admin-api/v1/plugins/filemgr/filemgr-app/:id', '2', 'PUT', '2023-05-08 16:51:50', '2023-05-08 17:07:50', 0, 1);
+INSERT INTO `sys_api` VALUES (127, 'go-admin/app/admin/apis.SysRole.Update-fm', '系统角色更新', '/admin-api/v1/role/:id', '1', 'PUT', '2023-05-08 16:51:50', '2023-05-08 17:08:03', 0, 1);
+INSERT INTO `sys_api` VALUES (128, 'go-admin/app/admin/apis.SysRole.Update2Status-fm', '角色状态更新', '/admin-api/v1/role-status', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-08 17:06:51', 0, 1);
+INSERT INTO `sys_api` VALUES (129, 'go-admin/app/admin/apis.SysRole.Update2DataScope-fm', '数据范围更新', '/admin-api/v1/roledatascope', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-08 17:07:17', 0, 1);
+INSERT INTO `sys_api` VALUES (130, 'go-admin/app/admin/apis.SysDictData.Update-fm', '字典数据更新', '/admin-api/v1/dict/data/:id', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-08 17:07:02', 0, 1);
+INSERT INTO `sys_api` VALUES (131, 'go-admin/app/admin/apis.SysDictType.Update-fm', '字典类型更新', '/admin-api/v1/dict/type/:id', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-08 17:06:34', 0, 1);
+INSERT INTO `sys_api` VALUES (132, 'go-admin/app/admin/apis.SysConfig.Update-fm', '系统业务配置更新', '/admin-api/v1/config/:id', '1', 'PUT', '2023-05-08 16:51:52', '2023-05-08 17:05:16', 0, 1);
+INSERT INTO `sys_api` VALUES (133, 'go-admin/app/admin/apis.SysMenu.Update-fm', '菜单更新', '/admin-api/v1/menu/:id', '1', 'PUT', '2023-05-08 16:51:52', '2023-05-08 17:05:32', 0, 1);
+INSERT INTO `sys_api` VALUES (134, 'go-admin/app/admin/apis.SysApi.Delete-fm', '', '/admin-api/v1/sys-api', '', 'DELETE', '2023-05-08 16:51:52', '2023-05-08 16:51:52', 0, 0);
+INSERT INTO `sys_api` VALUES (135, 'go-admin/app/admin/apis.SysLoginLog.Delete-fm', '系统登录日志删除', '/admin-api/v1/sys-login-log', '1', 'DELETE', '2023-05-08 16:51:53', '2023-05-08 17:04:47', 0, 1);
+INSERT INTO `sys_api` VALUES (136, 'go-admin/app/admin/apis.SysOperLog.Delete-fm', '系统操作日志删除', '/admin-api/v1/sys-oper-log', '1', 'DELETE', '2023-05-08 16:51:53', '2023-05-08 17:04:54', 0, 1);
+INSERT INTO `sys_api` VALUES (137, 'go-admin/app/admin/apis.SysUser.Delete-fm', '系统用户删除', '/admin-api/v1/sys-user', '1', 'DELETE', '2023-05-08 16:51:53', '2023-05-08 17:04:40', 0, 1);
+INSERT INTO `sys_api` VALUES (138, 'go-admin/app/admin/apis.SysDept.Delete-fm', '部门删除', '/admin-api/v1/sys/dept', '1', 'DELETE', '2023-05-08 16:51:54', '2023-05-08 17:03:34', 0, 1);
+INSERT INTO `sys_api` VALUES (139, 'go-admin/app/admin/apis.SysTables.Delete-fm', '表信息删除', '/admin-api/v1/sys/table', '1', 'DELETE', '2023-05-08 16:51:54', '2023-05-08 17:03:18', 0, 1);
+INSERT INTO `sys_api` VALUES (140, 'go-admin/app/admin/apis.SysPost.Delete-fm', '岗位删除', '/admin-api/v1/sys/post', '1', 'DELETE', '2023-05-08 16:51:54', '2023-05-08 17:03:45', 0, 1);
+INSERT INTO `sys_api` VALUES (141, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Delete-fm', '公告删除', '/admin-api/v1/plugins/content/content-announcement', '2', 'DELETE', '2023-05-08 16:51:55', '2023-05-08 17:01:19', 0, 1);
+INSERT INTO `sys_api` VALUES (142, 'go-admin/app/plugins/content/apis.ContentArticle.Delete-fm', '文章删除', '/admin-api/v1/plugins/content/content-article', '2', 'DELETE', '2023-05-08 16:51:55', '2023-05-08 17:01:50', 0, 1);
+INSERT INTO `sys_api` VALUES (143, 'go-admin/app/plugins/content/apis.ContentCategory.Delete-fm', '文章类型删除', '/admin-api/v1/plugins/content/content-category', '2', 'DELETE', '2023-05-08 16:51:55', '2023-05-08 17:02:53', 0, 1);
+INSERT INTO `sys_api` VALUES (144, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.Delete-fm', 'app删除', '/admin-api/v1/plugins/filemgr/filemgr-app', '2', 'DELETE', '2023-05-08 16:51:56', '2023-05-08 17:01:28', 0, 1);
+INSERT INTO `sys_api` VALUES (145, 'go-admin/app/app/user/apis.UserCountryCode.Delete-fm', '国家区号删除', '/admin-api/v1/app/user/user-country-code', '3', 'DELETE', '2023-05-08 16:51:56', '2023-05-08 17:02:16', 0, 1);
+INSERT INTO `sys_api` VALUES (146, 'go-admin/app/app/user/apis.UserLevel.Delete-fm', '用户等级删除', '/admin-api/v1/app/user/user-level', '3', 'DELETE', '2023-05-08 16:51:56', '2023-05-08 17:02:05', 0, 1);
+INSERT INTO `sys_api` VALUES (147, 'go-admin/app/admin/apis.SysDictData.Delete-fm', '删除字典数据', '/admin-api/v1/dict/data', '1', 'DELETE', '2023-05-08 16:51:56', '2023-05-08 16:58:50', 0, 1);
+INSERT INTO `sys_api` VALUES (148, 'go-admin/app/admin/apis.SysDictType.Delete-fm', '删除字典类型', '/admin-api/v1/dict/type', '1', 'DELETE', '2023-05-08 16:51:57', '2023-05-08 16:58:36', 0, 1);
+INSERT INTO `sys_api` VALUES (149, 'go-admin/app/admin/apis.SysConfig.Delete-fm', '删除业务配置', '/admin-api/v1/config', '1', 'DELETE', '2023-05-08 16:51:57', '2023-05-08 16:57:59', 0, 1);
+INSERT INTO `sys_api` VALUES (150, 'go-admin/app/admin/apis.SysMenu.Delete-fm', '删除菜单', '/admin-api/v1/menu', '1', 'DELETE', '2023-05-08 16:51:57', '2023-05-08 16:58:21', 0, 1);
+INSERT INTO `sys_api` VALUES (151, 'go-admin/app/admin/apis.SysRole.Delete-fm', '删除角色', '/admin-api/v1/role', '1', 'DELETE', '2023-05-08 16:51:58', '2023-05-08 16:57:47', 0, 1);
+INSERT INTO `sys_api` VALUES (152, 'github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1', '静态资源', '/static/*filepath', '1', 'HEAD', '2023-05-08 16:51:58', '2023-05-08 16:55:53', 0, 1);
 
 -- ----------------------------
 -- Table structure for sys_casbin_rule
@@ -333,7 +551,7 @@ CREATE TABLE `sys_casbin_rule`  (
   `v4` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `v5` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   UNIQUE INDEX `idx_sys_casbin_rule`(`p_type` ASC, `v0` ASC, `v1` ASC, `v2` ASC, `v3` ASC, `v4` ASC, `v5` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_casbin_rule
@@ -358,7 +576,7 @@ CREATE TABLE `sys_config`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_config_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_config_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 94 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 94 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_config
@@ -369,11 +587,26 @@ INSERT INTO `sys_config` VALUES (3, '系统内置-侧栏主题', 'sys_index_side
 INSERT INTO `sys_config` VALUES (4, '系统内置-系统名称', 'sys_app_name', 'go-admin后台管理系统', '1', '1', '', 1, 1, '2021-03-17 08:52:06', '2023-03-11 23:16:19');
 INSERT INTO `sys_config` VALUES (5, '系统内置-系统logo', 'sys_app_logo', 'http://www.wjblog.top/images/my_head-touch-icon-next.png', '1', '1', '', 1, 1, '2021-03-17 08:53:19', '2023-03-11 23:16:15');
 INSERT INTO `sys_config` VALUES (6, '系统内置-单次excel导出数据量', 'sys_max_export_size', '10000', '1', '1', '', 0, 1, '2021-07-28 16:53:48', '2023-03-11 23:15:56');
-INSERT INTO `sys_config` VALUES (17, '插件-文件管理-App OSS Bucket', 'plugin_filemgr_app_oss_bucket', '自行配置，阿里OSS', '2', '2', '', 0, 1, '2021-08-13 14:36:23', '2023-03-14 21:35:06');
-INSERT INTO `sys_config` VALUES (18, '插件-文件管理-App OSS AccessKeyId', 'plugin_filemgr_app_oss_access_key_id', '自行配置，阿里OSS', '2', '2', '', 0, 1, '2021-08-13 14:37:15', '2023-03-14 21:35:00');
-INSERT INTO `sys_config` VALUES (19, '插件-文件管理-App OSS AccessKeySecret', 'plugin_filemgr_app_oss_access_key_secret', '自行配置，阿里OSS', '2', '2', '', 0, 1, '2021-08-13 14:38:00', '2023-03-14 21:34:53');
-INSERT INTO `sys_config` VALUES (20, '插件-文件管理-App OSS Endpoint', 'plugin_filemgr_app_oss_endpoint', '自行配置，阿里OSS', '2', '2', '', 0, 1, '2021-08-13 14:38:50', '2023-03-14 21:34:46');
-INSERT INTO `sys_config` VALUES (21, '插件-文件管理-App OSS 根目录', 'plugin_filemgr_app_oss_root_path', 'app/', '2', '2', '', 0, 1, '2021-08-13 14:39:31', '2023-03-14 21:34:22');
+INSERT INTO `sys_config` VALUES (17, '插件-文件管理-App OSS Bucket', 'plugin_filemgr_app_oss_bucket', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:36:23', '2023-03-11 23:14:45');
+INSERT INTO `sys_config` VALUES (18, '插件-文件管理-App OSS AccessKeyId', 'plugin_filemgr_app_oss_access_key_id', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:37:15', '2023-03-11 23:14:41');
+INSERT INTO `sys_config` VALUES (19, '插件-文件管理-App OSS AccessKeySecret', 'plugin_filemgr_app_oss_access_key_secret', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:38:00', '2023-03-11 23:14:33');
+INSERT INTO `sys_config` VALUES (20, '插件-文件管理-App OSS Endpoint', 'plugin_filemgr_app_oss_endpoint', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:38:50', '2023-03-11 23:14:28');
+INSERT INTO `sys_config` VALUES (21, '插件-文件管理-App OSS 根目录', 'plugin_filemgr_app_oss_root_path', 'testfile/', '2', '2', '', 0, 1, '2021-08-13 14:39:31', '2023-03-11 23:14:22');
+INSERT INTO `sys_config` VALUES (26, '中文通用短信模板', 'sys_sms_template_cn', '请自行配置', '2', '2', '', 0, 0, '2021-08-24 15:16:02', '2021-08-24 15:16:02');
+INSERT INTO `sys_config` VALUES (27, '英文通用短信模板', 'sys_sms_template_en', '请自行配置', '2', '2', '', 0, 0, '2021-08-24 15:16:33', '2022-03-16 14:28:02');
+INSERT INTO `sys_config` VALUES (28, '短信是否开启', 'sys_sms_open', '1', '2', '2', '0-开启  1-关闭', 0, 0, '2021-08-24 15:34:23', '2022-03-18 15:27:18');
+INSERT INTO `sys_config` VALUES (29, '短信签名', 'sys_sms_sign_name', '请自行配置', '2', '2', '', 0, 0, '2021-08-24 15:53:47', '2021-08-24 15:53:47');
+INSERT INTO `sys_config` VALUES (30, '短信secret', 'sys_sms_secret', '请自行配置', '2', '2', '', 0, 1, '2021-08-24 15:54:31', '2022-04-25 11:51:36');
+INSERT INTO `sys_config` VALUES (31, '短信Key', 'sys_sms_key', '请自行配置', '2', '2', '', 0, 0, '2021-08-24 15:57:20', '2021-08-24 15:57:20');
+INSERT INTO `sys_config` VALUES (39, '邮箱是否开启', 'sys_email_open', '1', '2', '2', '0-开启 1-关闭', 0, 0, '2021-09-01 17:23:28', '2022-03-23 14:54:19');
+INSERT INTO `sys_config` VALUES (40, '邮箱配置-服务商域名', 'msg_email_smtp_server', '请自行配置', '2', '2', '', 0, 0, '2021-09-01 17:58:28', '2021-09-01 17:58:28');
+INSERT INTO `sys_config` VALUES (41, '邮箱配置-发送人邮箱', 'msg_email_send_address', '请自行配置', '2', '2', '', 0, 0, '2021-09-01 17:59:42', '2021-09-01 17:59:42');
+INSERT INTO `sys_config` VALUES (42, '邮箱配置-授权码(密码)', 'msg_email_auth', '请自行配置', '2', '2', '', 0, 0, '2021-09-01 18:00:49', '2021-09-01 18:00:49');
+INSERT INTO `sys_config` VALUES (43, '邮箱配置-默认主题', 'msg_email_send_subject', '请自行配置', '2', '2', '', 0, 0, '2021-09-01 18:01:27', '2021-09-01 18:01:27');
+INSERT INTO `sys_config` VALUES (44, '邮箱配置-发送人姓名', 'msg_email_send_username', '请自行配置', '2', '2', '', 0, 0, '2021-09-01 18:02:02', '2021-09-01 18:02:02');
+INSERT INTO `sys_config` VALUES (45, '邮箱配置-默认内容', 'msg_email_send_content', '验证码5分钟有效,验证码提供他人可能导致账号被盗，请勿转发或泄露,您的验证码是:', '2', '2', '', 0, 0, '2021-09-01 18:02:37', '2021-09-01 18:02:37');
+INSERT INTO `sys_config` VALUES (46, '邮箱配置-端口号', 'msg_email_port', '465', '2', '2', '', 0, 0, '2021-09-01 18:03:05', '2021-09-01 18:03:05');
+INSERT INTO `sys_config` VALUES (47, '邮箱配置-是否https通信', 'msg_email_https', '0', '2', '2', '0-https 1-http', 0, 0, '2021-09-02 09:13:18', '2021-09-02 09:13:18');
 INSERT INTO `sys_config` VALUES (93, 'App-用户-默认头像', 'app_user_default_avatar', 'http://www.wjblog.top/images/my_head-touch-icon-next.png', '3', '2', '', 1, 1, '2023-03-10 18:07:03', '2023-03-10 18:07:03');
 
 -- ----------------------------
@@ -397,7 +630,7 @@ CREATE TABLE `sys_dept`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_dept_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_dept_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept
@@ -432,7 +665,7 @@ CREATE TABLE `sys_dict_data`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_dict_data_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_dict_data_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 233 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 233 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -542,7 +775,7 @@ CREATE TABLE `sys_dict_type`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_dict_type_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_dict_type_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 93 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 93 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -609,7 +842,7 @@ CREATE TABLE `sys_gen_column`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_columns_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_columns_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 353 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 411 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_gen_column
@@ -741,6 +974,25 @@ INSERT INTO `sys_gen_column` VALUES (349, 20, 'create_by', '创建者', 'int', '
 INSERT INTO `sys_gen_column` VALUES (350, 20, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
 INSERT INTO `sys_gen_column` VALUES (351, 20, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 8, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
 INSERT INTO `sys_gen_column` VALUES (352, 20, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (392, 23, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (393, 23, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (394, 23, 'days', '有效天数', 'int', 'int64', 'Days', 'days', '2', '1', '1', '1', '1', '2', 'EQ', 'numInput', '', 3, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (395, 23, 'end_time', '结束时间', 'datetime', '*time.Time', 'EndTime', 'endTime', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 4, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (396, 23, 'id', '订单编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '1', 'EQ', 'input', '', 5, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (397, 23, 'info_device_num', '设备台数', 'int', 'int64', 'InfoDeviceNum', 'infoDeviceNum', '2', '1', '1', '1', '1', '2', 'EQ', 'numInput', '', 6, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (398, 23, 'info_gpu', 'GPU型号', 'varchar(255)', 'string', 'InfoGpu', 'infoGpu', '2', '1', '2', '2', '1', '1', 'LIKE', 'input', '', 7, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (399, 23, 'info_gpu_num', '显卡数/台', 'int', 'int64', 'InfoGpuNum', 'infoGpuNum', '2', '1', '2', '2', '1', '2', 'EQ', 'numInput', '', 8, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (400, 23, 'info_name', '设备名称', 'varchar(255)', 'string', 'InfoName', 'infoName', '2', '1', '2', '2', '1', '1', 'EQ', 'input', '', 9, '', '2023-04-18 15:12:27', '2023-04-18 15:21:32', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (401, 23, 'money', '支付总费用(USDT)', 'decimal(30,18)', 'decimal.Decimal', 'Money', 'money', '2', '1', '2', '2', '1', '2', 'EQ', 'input', '', 10, '', '2023-04-18 15:12:27', '2023-04-18 15:21:33', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (402, 23, 'order_status', '订单进度 1-待生效 2-已生效 3-已过期', 'char(1)', 'string', 'OrderStatus', 'orderStatus', '2', '1', '1', '1', '1', '2', 'EQ', 'input', 'app_user_action_type', 11, '', '2023-04-18 15:12:27', '2023-04-18 15:21:33', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (403, 23, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2023-04-18 15:12:27', '2023-04-18 15:12:27', 0, 0);
+INSERT INTO `sys_gen_column` VALUES (404, 23, 'service_id', '运营商编号', 'int', 'int64', 'ServiceId', 'serviceId', '2', '2', '2', '2', '1', '1', 'EQ', 'input', '', 13, '', '2023-04-18 15:12:27', '2023-04-18 15:21:33', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (405, 23, 'start_time', '开始时间', 'datetime', '*time.Time', 'StartTime', 'startTime', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 14, '', '2023-04-18 15:12:27', '2023-04-18 15:21:33', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (406, 23, 'status', '状态(1-异常 2-正常)', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', '1', '1', 'EQ', 'input', 'sys_yes_no', 15, '', '2023-04-18 15:12:27', '2023-04-18 15:21:33', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (407, 23, 'total_sl', '总算力', 'decimal(10,2)', 'decimal.Decimal', 'TotalSl', 'totalSl', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 16, '', '2023-04-18 15:12:27', '2023-04-18 15:21:33', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (408, 23, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 17, '', '2023-04-18 15:12:27', '2023-04-18 15:21:33', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (409, 23, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 18, '', '2023-04-18 15:12:27', '2023-04-18 15:21:34', 0, 1);
+INSERT INTO `sys_gen_column` VALUES (410, 23, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '1', '2', '1', '1', '1', 'EQ', 'input', '', 19, '', '2023-04-18 15:12:27', '2023-04-18 15:21:34', 0, 1);
 
 -- ----------------------------
 -- Table structure for sys_gen_table
@@ -765,7 +1017,7 @@ CREATE TABLE `sys_gen_table`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_tables_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_tables_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_gen_table
@@ -781,6 +1033,7 @@ INSERT INTO `sys_gen_table` VALUES (17, 'plugins_content_category', '内容分�
 INSERT INTO `sys_gen_table` VALUES (18, 'plugins_content_article', '文章管理', 'ContentArticle', 'plugins', 'content-article', '文章管理', 'Jason', 'content', '1', '', '2023-03-12 23:22:39', '2023-03-12 23:22:39', 0, 0);
 INSERT INTO `sys_gen_table` VALUES (19, 'plugins_filemgr_app', 'App管理', 'FilemgrApp', 'plugins', 'filemgr-app', 'App管理', 'Jason', 'filemgr', '1', '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
 INSERT INTO `sys_gen_table` VALUES (20, 'app_user_country_code', '国家电话区号', 'UserCountryCode', 'app', 'user-country-code', '国家区号', 'Jason', 'user', '1', '', '2023-03-14 17:40:50', '2023-03-14 17:43:22', 0, 1);
+INSERT INTO `sys_gen_table` VALUES (23, 'coin_device_sl_order', '设备订单管理', 'DeviceSlOrder', 'coin', 'device-sl-order', '设备订单管理', 'Jason', 'device', '1', '', '2023-04-18 15:12:27', '2023-04-18 15:12:27', 0, 0);
 
 -- ----------------------------
 -- Table structure for sys_login_log
@@ -805,11 +1058,13 @@ CREATE TABLE `sys_login_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_login_log_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_login_log_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_login_log
 -- ----------------------------
+INSERT INTO `sys_login_log` VALUES (23, 0, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', 'Macintosh', '2023-03-01 14:50:52', '2', '退出成功', '2023-03-01 14:50:52', '2023-03-01 14:50:52', 0, 0);
+INSERT INTO `sys_login_log` VALUES (25, 1, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', 'Macintosh', '2023-03-02 12:35:06', '1', '登录操作', '2023-03-02 12:35:06', '2023-03-02 12:35:06', 0, 0);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -823,7 +1078,8 @@ CREATE TABLE `sys_menu`  (
   `path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
   `menu_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
   `permission` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
-  `parent_id` int NULL DEFAULT NULL,
+  `parent_id` int NULL DEFAULT NULL COMMENT '上级菜单id集合',
+  `parent_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
   `keep_alive` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '是否缓存',
   `breadcrumb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
   `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
@@ -837,138 +1093,137 @@ CREATE TABLE `sys_menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_menu_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_menu_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 997 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 997 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (2, '', '系统管理', 'api-server', '/sys', '1', '', 0, '2', '', 'Layout', 300, '2', '2', 1, 1, '2021-05-20 21:58:46', '2023-03-07 11:12:00');
-INSERT INTO `sys_menu` VALUES (3, 'SysUser', '用户管理', 'user', '/sys/sys-user', '2', '', 2, '2', '', '/sys/user/index.vue', 10, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-03-04 13:17:59');
-INSERT INTO `sys_menu` VALUES (43, '', '新增管理员', 'app-group-fill', '', '3', 'admin:sysUser:add', 3, '2', '', '', 10, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-03-04 13:17:59');
-INSERT INTO `sys_menu` VALUES (44, '', '查询管理员', 'app-group-fill', '', '3', 'admin:sysUser:query', 3, '2', '', '', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-03-04 13:17:59');
-INSERT INTO `sys_menu` VALUES (45, '', '修改管理员', 'app-group-fill', '', '3', 'admin:sysUser:edit', 3, '2', '', '', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-03-04 13:17:59');
-INSERT INTO `sys_menu` VALUES (46, '', '删除管理员', 'app-group-fill', '', '3', 'admin:sysUser:remove', 3, '2', '', '', 20, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-03-04 13:17:59');
-INSERT INTO `sys_menu` VALUES (51, 'SysMenu', '菜单管理', 'tree-table', '/sys/sys-menu', '2', 'admin:sysMenu:list', 2, '2', '', '/sys/menu/index.vue', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (52, 'SysRole', '角色管理', 'peoples', '/sys/sys-role', '2', 'admin:sysRole:list', 2, '2', '', '/sys/role/index.vue', 20, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (56, 'SysDept', '部门管理', 'tree', '/sys/sys-dept', '2', '', 2, '2', '', '/sys/dept/index.vue', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (57, 'SysPost', '岗位管理', 'pass', '/sys/sys-post', '2', 'admin:sysPost:list', 2, '2', '', '/sys/post/index.vue', 50, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (58, 'SysDicttype', '字典管理', 'education', '/sys/sys-dicttype', '2', 'admin:sysDictType:list', 2, '2', '', '/sys/dicttype/index.vue', 60, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (59, 'SysDictdata', '字典数据', 'education', '/sys/sys-dictdata', '2', 'admin:sysDictData:list', 2, '2', '', '/sys/dictdata/index.vue', 100, '1', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (62, 'SysConfig', '参数管理', 'swagger', '/sys/sys-config', '2', 'admin:sysConfig:list', 2, '2', '', '/sys/config/index.vue', 70, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (212, 'SysLoginlog', '登录日志', 'logininfor', '/sys/sys-loginlog', '2', 'admin:sysLoginLog:list', 2, '2', '', '/sys/loginlog/index.vue', 90, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (216, 'SysOperalog', '操作日志', 'skill', '/sys/sys-operalog', '2', 'admin:sysOperLog:list', 2, '2', '', '/sys/operlog/index.vue', 120, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (220, '', '新增菜单', 'app-group-fill', '', '3', 'admin:sysMenu:add', 51, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-03-04 13:17:59');
-INSERT INTO `sys_menu` VALUES (221, '', '修改菜单', 'app-group-fill', '', '3', 'admin:sysMenu:edit', 51, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (222, '', '查询菜单', 'app-group-fill', '', '3', 'admin:sysMenu:query', 51, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (223, '', '删除菜单', 'app-group-fill', '', '3', 'admin:sysMenu:remove', 51, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (224, '', '新增角色', 'app-group-fill', '', '3', 'admin:sysRole:add', 52, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (225, '', '查询角色', 'app-group-fill', '', '3', 'admin:sysRole:query', 52, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-03-03 13:41:42');
-INSERT INTO `sys_menu` VALUES (226, '', '修改角色', 'app-group-fill', '', '3', 'admin:sysRole:update', 52, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (227, '', '删除角色', 'app-group-fill', '', '3', 'admin:sysRole:remove', 52, '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (228, '', '查询部门', 'app-group-fill', '', '3', 'admin:sysDept:query', 56, '2', '', '', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (229, '', '新增部门', 'app-group-fill', '', '3', 'admin:sysDept:add', 56, '2', '', '', 10, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (230, '', '修改部门', 'app-group-fill', '', '3', 'admin:sysDept:edit', 56, '2', '', '', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (231, '', '删除部门', 'app-group-fill', '', '3', 'admin:sysDept:remove', 56, '2', '', '', 20, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (232, '', '查询岗位', 'app-group-fill', '', '3', 'admin:sysPost:query', 57, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (233, '', '新增岗位', 'app-group-fill', '', '3', 'admin:sysPost:add', 57, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (234, '', '修改岗位', 'app-group-fill', '', '3', 'admin:sysPost:edit', 57, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (235, '', '删除岗位', 'app-group-fill', '', '3', 'admin:sysPost:remove', 57, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (236, '', '查询字典', 'app-group-fill', '', '3', 'admin:sysDictType:query', 58, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (237, '', '新增类型', 'app-group-fill', '', '3', 'admin:sysDictType:add', 58, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (238, '', '修改类型', 'app-group-fill', '', '3', 'admin:sysDictType:edit', 58, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (239, '', '删除类型', 'app-group-fill', '', '3', 'admin:sysdicttype:remove', 58, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (240, '', '查询数据', 'app-group-fill', '', '3', 'admin:sysDictData:query', 59, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (241, '', '新增数据', 'app-group-fill', '', '3', 'admin:sysDictData:add', 59, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (242, '', '修改数据', 'app-group-fill', '', '3', 'admin:sysDictData:edit', 59, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (243, '', '删除数据', 'app-group-fill', '', '3', 'admin:sysDictData:remove', 59, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (244, '', '查询参数', 'app-group-fill', '', '3', 'admin:sysConfig:query', 62, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (245, '', '新增参数', 'app-group-fill', '', '3', 'admin:sysConfig:add', 62, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (246, '', '修改参数', 'app-group-fill', '', '3', 'admin:sysConfig:edit', 62, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (247, '', '删除参数', 'app-group-fill', '', '3', 'admin:sysConfig:remove', 62, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (248, '', '查询登录日志', 'app-group-fill', '', '3', 'admin:sysLoginLog:query', 212, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (249, '', '删除登录日志', 'app-group-fill', '', '3', 'admin:sysLoginLog:remove', 212, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (250, '', '查询操作日志', 'app-group-fill', '', '3', 'admin:sysOperLog:query', 216, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (251, '', '删除操作日志', 'app-group-fill', '', '3', 'admin:sysOperLog:remove', 216, '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (261, 'SysGen', '代码生成', 'code', '/sys-tools/sys-gen', '2', '', 537, '2', '', '/sys/tools/gen/index.vue', 20, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-09-01 09:37:52');
-INSERT INTO `sys_menu` VALUES (262, 'SysEditTable', '代码生成修改', 'build', '/sys-tools/sys-editTable', '2', '', 537, '2', '', '/sys/tools/gen/editTable.vue', 100, '1', '2', 1, 1, '2020-04-11 15:52:48', '2021-09-01 09:38:05');
-INSERT INTO `sys_menu` VALUES (269, 'SysMonitor', '服务监控', 'druid', '/sys-tools/sys-monitor', '2', 'admin:monitor:list', 537, '2', '', '/sys/tools/monitor/monitor.vue', 0, '2', '2', 1, 1, '2020-04-14 00:28:19', '2021-06-16 21:26:12');
-INSERT INTO `sys_menu` VALUES (528, 'SysApi', '接口管理', 'api-doc', '/sys/sys-api', '2', 'admin:sysApi:list', 2, '2', '', '/sys/api/index.vue', 0, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-03-08 10:02:50');
-INSERT INTO `sys_menu` VALUES (529, '', '查询接口', 'app-group-fill', '', '3', 'admin:sysApi:query', 528, '2', '', '', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (531, '', '修改接口', 'app-group-fill', '', '3', 'admin:sysApi:edit', 528, '2', '', '', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2021-11-29 15:39:04');
-INSERT INTO `sys_menu` VALUES (537, '', '系统工具', 'system-tools', '/sys-tools', '1', '', 0, '2', '', 'Layout', 330, '2', '2', 1, 1, '2021-05-21 11:13:32', '2021-07-22 16:04:17');
-INSERT INTO `sys_menu` VALUES (772, '', '文件管理', 'base-info', '/plugins/filemgr', '1', '', 843, '2', '', '/index', 90, '2', '2', 1, 1, '2021-08-13 14:19:11', '2023-03-11 23:01:14');
-INSERT INTO `sys_menu` VALUES (778, '', '内容管理', 'clipboard', '/plugins/content', '1', '', 843, '2', '', '/index', 60, '2', '2', 1, 1, '2021-08-16 18:01:20', '2023-03-11 23:01:07');
-INSERT INTO `sys_menu` VALUES (843, '', '插件管理', 'cascader', '/plugins', '1', '', 0, '', '', 'Layout', 270, '2', '2', 1, 1, '2023-03-07 10:37:37', '2023-03-08 09:27:48');
-INSERT INTO `sys_menu` VALUES (844, '', 'App应用', 'app-group-fill', '/app', '1', '', 0, '', '', 'Layout', 0, '2', '2', 1, 1, '2023-03-08 09:27:36', '2023-03-08 09:27:36');
-INSERT INTO `sys_menu` VALUES (875, '', '用户列表', 'chart', '/app/user', '1', '', 844, '', '', '/index', 30, '2', '2', 1, 1, '2023-03-09 14:24:25', '2023-03-09 23:20:06');
-INSERT INTO `sys_menu` VALUES (886, '', '财务管理', 'eye-open', '/app/account', '1', '', 844, '', '', '/index', 60, '2', '2', 1, 1, '2023-03-09 21:13:23', '2023-03-09 23:20:15');
-INSERT INTO `sys_menu` VALUES (887, 'UserLevel', '用户等级', 'pass', '/app/user/user-level', '2', 'app:user:user-level:list', 875, '2', '', '/app/user/user-level/index.vue', 60, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 23:05:34');
-INSERT INTO `sys_menu` VALUES (888, '', '分页获取用户等级', '', '', '3', 'app:user:user-level:query', 887, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
-INSERT INTO `sys_menu` VALUES (889, '', '创建用户等级', '', '', '3', 'app:user:user-level:add', 887, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
-INSERT INTO `sys_menu` VALUES (890, '', '修改用户等级', '', '', '3', 'app:user:user-level:edit', 887, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
-INSERT INTO `sys_menu` VALUES (891, '', '删除用户等级', '', '', '3', 'app:user:user-level:del', 887, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
-INSERT INTO `sys_menu` VALUES (892, '', '导出用户等级', '', '', '3', 'app:user:user-level:export', 887, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
-INSERT INTO `sys_menu` VALUES (893, 'UserAccountLog', '账变记录', 'pass', '/app/user/user-account-log', '2', 'app:user:user-account-log:list', 886, '2', '', '/app/user/user-account-log/index.vue', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:35:31');
-INSERT INTO `sys_menu` VALUES (894, '', '分页获取账变记录', '', '', '3', 'app:user:user-account-log:query', 893, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
-INSERT INTO `sys_menu` VALUES (895, '', '创建账变记录', '', '', '3', 'app:user:user-account-log:add', 893, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
-INSERT INTO `sys_menu` VALUES (896, '', '修改账变记录', '', '', '3', 'app:user:user-account-log:edit', 893, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
-INSERT INTO `sys_menu` VALUES (897, '', '删除账变记录', '', '', '3', 'app:user:user-account-log:del', 893, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
-INSERT INTO `sys_menu` VALUES (898, '', '导出账变记录', '', '', '3', 'app:user:user-account-log:export', 893, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
-INSERT INTO `sys_menu` VALUES (899, 'UserConf', '用户配置', 'pass', '/app/user/user-conf', '2', 'app:user:user-conf:list', 875, '2', '', '/app/user/user-conf/index.vue', 90, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-11 15:02:32');
-INSERT INTO `sys_menu` VALUES (900, '', '分页获取用户配置', '', '', '3', 'app:user:user-conf:query', 899, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
-INSERT INTO `sys_menu` VALUES (901, '', '创建用户配置', '', '', '3', 'app:user:user-conf:add', 899, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
-INSERT INTO `sys_menu` VALUES (902, '', '修改用户配置', '', '', '3', 'app:user:user-conf:edit', 899, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
-INSERT INTO `sys_menu` VALUES (903, '', '删除用户配置', '', '', '3', 'app:user:user-conf:del', 899, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
-INSERT INTO `sys_menu` VALUES (904, '', '导出用户配置', '', '', '3', 'app:user:user-conf:export', 899, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
-INSERT INTO `sys_menu` VALUES (905, 'User', '用户管理', 'pass', '/app/user/user', '2', 'app:user:user:list', 875, '2', '', '/app/user/user/index.vue', 30, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-03-11 15:01:57');
-INSERT INTO `sys_menu` VALUES (906, '', '分页获取用户管理', '', '', '3', 'app:user:user:query', 905, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-03-09 23:18:49');
-INSERT INTO `sys_menu` VALUES (907, '', '创建用户管理', '', '', '3', 'app:user:user:add', 905, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-03-09 23:18:49');
-INSERT INTO `sys_menu` VALUES (908, '', '修改用户管理', '', '', '3', 'app:user:user:edit', 905, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-03-09 23:18:49');
-INSERT INTO `sys_menu` VALUES (909, '', '删除用户管理', '', '', '3', 'app:user:user:del', 905, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-03-09 23:18:49');
-INSERT INTO `sys_menu` VALUES (910, '', '导出用户管理', '', '', '3', 'app:user:user:export', 905, '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-03-09 23:18:49');
-INSERT INTO `sys_menu` VALUES (911, 'UserOperLog', '用户行为记录', 'pass', '/app/user/user-oper-log', '2', 'app:user:user-oper-log:list', 875, '2', '', '/app/user/user-oper-log/index.vue', 120, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:02:42');
-INSERT INTO `sys_menu` VALUES (912, '', '分页获取用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:query', 911, '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
-INSERT INTO `sys_menu` VALUES (913, '', '创建用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:add', 911, '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
-INSERT INTO `sys_menu` VALUES (914, '', '修改用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:edit', 911, '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
-INSERT INTO `sys_menu` VALUES (915, '', '删除用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:del', 911, '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
-INSERT INTO `sys_menu` VALUES (916, '', '导出用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:export', 911, '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
-INSERT INTO `sys_menu` VALUES (918, '', '消息管理', 'batch-update', '/plugins/msg', '1', '', 843, '', '', '/index', 0, '2', '2', 1, 1, '2023-03-12 13:27:59', '2023-03-12 19:52:02');
-INSERT INTO `sys_menu` VALUES (961, 'MsgCode', '验证码记录', 'pass', '/plugins/msg/msg-code', '2', 'plugins:msg:msg-code:list', 918, '2', '', '/plugins/msg/msg-code/index.vue', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:32');
-INSERT INTO `sys_menu` VALUES (962, '', '分页获取验证码记录', '', '', '3', 'plugins:msg:msg-code:query', 961, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
-INSERT INTO `sys_menu` VALUES (963, '', '创建验证码记录', '', '', '3', 'plugins:msg:msg-code:add', 961, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
-INSERT INTO `sys_menu` VALUES (964, '', '修改验证码记录', '', '', '3', 'plugins:msg:msg-code:edit', 961, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
-INSERT INTO `sys_menu` VALUES (965, '', '删除验证码记录', '', '', '3', 'plugins:msg:msg-code:del', 961, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
-INSERT INTO `sys_menu` VALUES (966, '', '导出验证码记录', '', '', '3', 'plugins:msg:msg-code:export', 961, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
-INSERT INTO `sys_menu` VALUES (967, 'ContentAnnouncement', '公告管理', 'pass', '/plugins/content/content-announcement', '2', 'plugins:content:content-announcement:list', 778, '2', '', '/plugins/content/content-announcement/index.vue', 90, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:48:08');
-INSERT INTO `sys_menu` VALUES (968, '', '分页获取公告管理', '', '', '3', 'plugins:content:content-announcement:query', 967, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
-INSERT INTO `sys_menu` VALUES (969, '', '创建公告管理', '', '', '3', 'plugins:content:content-announcement:add', 967, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
-INSERT INTO `sys_menu` VALUES (970, '', '修改公告管理', '', '', '3', 'plugins:content:content-announcement:edit', 967, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
-INSERT INTO `sys_menu` VALUES (971, '', '删除公告管理', '', '', '3', 'plugins:content:content-announcement:del', 967, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
-INSERT INTO `sys_menu` VALUES (972, '', '导出公告管理', '', '', '3', 'plugins:content:content-announcement:export', 967, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
-INSERT INTO `sys_menu` VALUES (973, 'ContentCategory', '内容分类', 'pass', '/plugins/content/content-category', '2', 'plugins:content:content-category:list', 778, '2', '', '/plugins/content/content-category/index.vue', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:20:35');
-INSERT INTO `sys_menu` VALUES (974, '', '分页获取内容分类', '', '', '3', 'plugins:content:content-category:query', 973, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:17:44');
-INSERT INTO `sys_menu` VALUES (975, '', '创建内容分类', '', '', '3', 'plugins:content:content-category:add', 973, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:17:44');
-INSERT INTO `sys_menu` VALUES (976, '', '修改内容分类', '', '', '3', 'plugins:content:content-category:edit', 973, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:17:44');
-INSERT INTO `sys_menu` VALUES (977, '', '删除内容分类', '', '', '3', 'plugins:content:content-category:del', 973, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:45', '2023-03-12 23:17:45');
-INSERT INTO `sys_menu` VALUES (978, '', '导出内容分类', '', '', '3', 'plugins:content:content-category:export', 973, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:45', '2023-03-12 23:17:45');
-INSERT INTO `sys_menu` VALUES (979, 'ContentArticle', '文章管理', 'pass', '/plugins/content/content-article', '2', 'plugins:content:content-article:list', 778, '2', '', '/plugins/content/content-article/index.vue', 60, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:53:12');
-INSERT INTO `sys_menu` VALUES (980, '', '分页获取文章管理', '', '', '3', 'plugins:content:content-article:query', 979, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
-INSERT INTO `sys_menu` VALUES (981, '', '创建文章管理', '', '', '3', 'plugins:content:content-article:add', 979, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
-INSERT INTO `sys_menu` VALUES (982, '', '修改文章管理', '', '', '3', 'plugins:content:content-article:edit', 979, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
-INSERT INTO `sys_menu` VALUES (983, '', '删除文章管理', '', '', '3', 'plugins:content:content-article:del', 979, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
-INSERT INTO `sys_menu` VALUES (984, '', '导出文章管理', '', '', '3', 'plugins:content:content-article:export', 979, '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:46', '2023-03-12 23:52:46');
-INSERT INTO `sys_menu` VALUES (985, 'FilemgrApp', 'App管理', 'pass', '/plugins/filemgr/filemgr-app', '2', 'plugins:filemgr:filemgr-app:list', 772, '2', '', '/plugins/filemgr/filemgr-app/index.vue', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:52');
-INSERT INTO `sys_menu` VALUES (986, '', '分页获取App管理', '', '', '3', 'plugins:filemgr:filemgr-app:query', 985, '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
-INSERT INTO `sys_menu` VALUES (987, '', '创建App管理', '', '', '3', 'plugins:filemgr:filemgr-app:add', 985, '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
-INSERT INTO `sys_menu` VALUES (988, '', '修改App管理', '', '', '3', 'plugins:filemgr:filemgr-app:edit', 985, '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
-INSERT INTO `sys_menu` VALUES (989, '', '删除App管理', '', '', '3', 'plugins:filemgr:filemgr-app:del', 985, '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
-INSERT INTO `sys_menu` VALUES (990, '', '导出App管理', '', '', '3', 'plugins:filemgr:filemgr-app:export', 985, '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
-INSERT INTO `sys_menu` VALUES (991, 'UserCountryCode', '国家区号', 'pass', '/app/user/user-country-code', '2', 'app:user:user-country-code:list', 875, '2', '', '/app/user/user-country-code/index.vue', 150, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 18:06:00');
-INSERT INTO `sys_menu` VALUES (992, '', '分页获取国家电话区号', '', '', '3', 'app:user:user-country-code:query', 991, '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 17:47:44');
-INSERT INTO `sys_menu` VALUES (993, '', '创建国家电话区号', '', '', '3', 'app:user:user-country-code:add', 991, '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 17:47:44');
-INSERT INTO `sys_menu` VALUES (994, '', '修改国家电话区号', '', '', '3', 'app:user:user-country-code:edit', 991, '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 17:47:44');
-INSERT INTO `sys_menu` VALUES (995, '', '删除国家电话区号', '', '', '3', 'app:user:user-country-code:del', 991, '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:45', '2023-03-14 17:47:45');
-INSERT INTO `sys_menu` VALUES (996, '', '导出国家电话区号', '', '', '3', 'app:user:user-country-code:export', 991, '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:45', '2023-03-14 17:47:45');
+INSERT INTO `sys_menu` VALUES (2, '', '系统管理', 'api-server', '/sys', '1', '', 0, '0,', '2', '', 'Layout', 300, '2', '2', 1, 1, '2021-05-20 21:58:46', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (3, 'SysUser', '用户管理', 'user', '/sys/sys-user', '2', 'admin:sysUser:list', 2, '0,2', '2', '', '/sys/user/index.vue', 10, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (43, '', '新增管理员', 'app-group-fill', '', '3', 'admin:sysUser:add', 3, '0,2,3,', '2', '', '', 10, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:40:14');
+INSERT INTO `sys_menu` VALUES (44, '', '查询管理员', 'app-group-fill', '', '3', 'admin:sysUser:query', 3, '0,2,3,', '2', '', '', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (45, '', '修改管理员', 'app-group-fill', '', '3', 'admin:sysUser:edit', 3, '0,2,3,', '2', '', '', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (46, '', '删除管理员', 'app-group-fill', '', '3', 'admin:sysUser:remove', 3, '0,2,3,', '2', '', '', 20, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (51, 'SysMenu', '菜单管理', 'tree-table', '/sys/sys-menu', '2', 'admin:sysMenu:list', 2, '0,2,', '2', '', '/sys/menu/index.vue', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (52, 'SysRole', '角色管理', 'peoples', '/sys/sys-role', '2', 'admin:sysRole:list', 2, '0,2,', '2', '', '/sys/role/index.vue', 20, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (56, 'SysDept', '部门管理', 'tree', '/sys/sys-dept', '2', '', 2, '0,2,', '2', '', '/sys/dept/index.vue', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (57, 'SysPost', '岗位管理', 'pass', '/sys/sys-post', '2', 'admin:sysPost:list', 2, '0,2,', '2', '', '/sys/post/index.vue', 50, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (58, 'SysDicttype', '字典管理', 'education', '/sys/sys-dicttype', '2', 'admin:sysDictType:list', 2, '0,2,', '2', '', '/sys/dicttype/index.vue', 60, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (59, 'SysDictdata', '字典数据', 'education', '/sys/sys-dictdata', '2', 'admin:sysDictData:list', 2, '0,2,', '2', '', '/sys/dictdata/index.vue', 100, '1', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (62, 'SysConfig', '参数管理', 'swagger', '/sys/sys-config', '2', 'admin:sysConfig:list', 2, '0,2,', '2', '', '/sys/config/index.vue', 70, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (212, 'SysLoginlog', '登录日志', 'logininfor', '/sys/sys-loginlog', '2', 'admin:sysLoginLog:list', 2, '0,2,', '2', '', '/sys/loginlog/index.vue', 90, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (216, 'SysOperalog', '操作日志', 'skill', '/sys/sys-operalog', '2', 'admin:sysOperLog:list', 2, '0,2,', '2', '', '/sys/operlog/index.vue', 120, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (220, '', '新增菜单', 'app-group-fill', '', '3', 'admin:sysMenu:add', 51, '0,2,51,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (221, '', '修改菜单', 'app-group-fill', '', '3', 'admin:sysMenu:edit', 51, '0,2,51,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (222, '', '查询菜单', 'app-group-fill', '', '3', 'admin:sysMenu:query', 51, '0,2,51,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (223, '', '删除菜单', 'app-group-fill', '', '3', 'admin:sysMenu:remove', 51, '0,2,51,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (224, '', '新增角色', 'app-group-fill', '', '3', 'admin:sysRole:add', 52, '0,2,52,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (225, '', '查询角色', 'app-group-fill', '', '3', 'admin:sysRole:query', 52, '0,2,52,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (226, '', '修改角色', 'app-group-fill', '', '3', 'admin:sysRole:update', 52, '0,2,52,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (227, '', '删除角色', 'app-group-fill', '', '3', 'admin:sysRole:remove', 52, '0,2,52,', '2', '', '', 1, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (228, '', '查询部门', 'app-group-fill', '', '3', 'admin:sysDept:query', 56, '0,2,56,', '2', '', '', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (229, '', '新增部门', 'app-group-fill', '', '3', 'admin:sysDept:add', 56, '0,2,56,', '2', '', '', 10, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (230, '', '修改部门', 'app-group-fill', '', '3', 'admin:sysDept:edit', 56, '0,2,56,', '2', '', '', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (231, '', '删除部门', 'app-group-fill', '', '3', 'admin:sysDept:remove', 56, '0,2,56,', '2', '', '', 20, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (232, '', '查询岗位', 'app-group-fill', '', '3', 'admin:sysPost:query', 57, '0,2,57,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (233, '', '新增岗位', 'app-group-fill', '', '3', 'admin:sysPost:add', 57, '0,2,57,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (234, '', '修改岗位', 'app-group-fill', '', '3', 'admin:sysPost:edit', 57, '0,2,57,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (235, '', '删除岗位', 'app-group-fill', '', '3', 'admin:sysPost:remove', 57, '0,2,57,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (236, '', '查询字典', 'app-group-fill', '', '3', 'admin:sysDictType:query', 58, '0,2,58,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (237, '', '新增类型', 'app-group-fill', '', '3', 'admin:sysDictType:add', 58, '0,2,58,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (238, '', '修改类型', 'app-group-fill', '', '3', 'admin:sysDictType:edit', 58, '0,2,58,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (239, '', '删除类型', 'app-group-fill', '', '3', 'admin:sysdicttype:remove', 58, '0,2,58,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (240, '', '查询数据', 'app-group-fill', '', '3', 'admin:sysDictData:query', 59, '0,2,59,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (241, '', '新增数据', 'app-group-fill', '', '3', 'admin:sysDictData:add', 59, '0,2,59,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (242, '', '修改数据', 'app-group-fill', '', '3', 'admin:sysDictData:edit', 59, '0,2,59,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (243, '', '删除数据', 'app-group-fill', '', '3', 'admin:sysDictData:remove', 59, '0,2,59,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (244, '', '查询参数', 'app-group-fill', '', '3', 'admin:sysConfig:query', 62, '0,2,62,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (245, '', '新增参数', 'app-group-fill', '', '3', 'admin:sysConfig:add', 62, '0,2,62,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (246, '', '修改参数', 'app-group-fill', '', '3', 'admin:sysConfig:edit', 62, '0,2,62,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (247, '', '删除参数', 'app-group-fill', '', '3', 'admin:sysConfig:remove', 62, '0,2,62,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (248, '', '查询登录日志', 'app-group-fill', '', '3', 'admin:sysLoginLog:query', 212, '0,2,212,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (249, '', '删除登录日志', 'app-group-fill', '', '3', 'admin:sysLoginLog:remove', 212, '0,2,212,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (250, '', '查询操作日志', 'app-group-fill', '', '3', 'admin:sysOperLog:query', 216, '0,2,216,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (251, '', '删除操作日志', 'app-group-fill', '', '3', 'admin:sysOperLog:remove', 216, '0,2,216,', '2', '', '', 0, '2', '2', 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (261, 'SysGen', '代码生成', 'code', '/sys-tools/sys-gen', '2', '', 537, '0,537,', '2', '', '/sys/tools/gen/index.vue', 20, '2', '2', 1, 1, '2020-04-11 15:52:48', '2021-09-01 09:37:52');
+INSERT INTO `sys_menu` VALUES (262, 'SysEditTable', '代码生成修改', 'build', '/sys-tools/sys-editTable', '2', '', 537, '0,537,', '2', '', '/sys/tools/gen/editTable.vue', 100, '1', '2', 1, 1, '2020-04-11 15:52:48', '2021-09-01 09:38:05');
+INSERT INTO `sys_menu` VALUES (269, 'SysMonitor', '服务监控', 'druid', '/sys-tools/sys-monitor', '2', 'admin:monitor:list', 537, '0,537,', '2', '', '/sys/tools/monitor/monitor.vue', 0, '2', '2', 1, 1, '2020-04-14 00:28:19', '2021-06-16 21:26:12');
+INSERT INTO `sys_menu` VALUES (528, 'SysApi', '接口管理', 'api-doc', '/sys/sys-api', '2', 'admin:sysApi:list', 2, '0,2,', '2', '', '/sys/api/index.vue', 0, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (529, '', '查询接口', 'app-group-fill', '', '3', 'admin:sysApi:query', 528, '0,2,528,', '2', '', '', 40, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (531, '', '修改接口', 'app-group-fill', '', '3', 'admin:sysApi:edit', 528, '0,2,528,', '2', '', '', 30, '2', '2', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` VALUES (537, '', '系统工具', 'system-tools', '/sys-tools', '1', '', 0, '0,', '2', '', 'Layout', 330, '2', '2', 1, 1, '2021-05-21 11:13:32', '2021-07-22 16:04:17');
+INSERT INTO `sys_menu` VALUES (772, '', '文件管理', 'base-info', '/plugins/filemgr', '1', '', 843, '0,843,', '2', '', '/index', 90, '2', '2', 1, 1, '2021-08-13 14:19:11', '2023-03-11 23:01:14');
+INSERT INTO `sys_menu` VALUES (778, '', '内容管理', 'clipboard', '/plugins/content', '1', '', 843, '0,843,', '2', '', '/index', 60, '2', '2', 1, 1, '2021-08-16 18:01:20', '2023-03-11 23:01:07');
+INSERT INTO `sys_menu` VALUES (843, '', '插件管理', 'cascader', '/plugins', '1', '', 0, '0,', '', '', 'Layout', 270, '2', '2', 1, 1, '2023-03-07 10:37:37', '2023-03-08 09:27:48');
+INSERT INTO `sys_menu` VALUES (844, '', 'App应用', 'app-group-fill', '/app', '1', '', 0, '0,', '', '', 'Layout', 0, '2', '2', 1, 1, '2023-03-08 09:27:36', '2023-03-08 09:27:36');
+INSERT INTO `sys_menu` VALUES (875, '', '用户列表', 'chart', '/app/user', '1', '', 844, '0,844,', '', '', '/index', 30, '2', '2', 1, 1, '2023-03-09 14:24:25', '2023-03-09 23:20:06');
+INSERT INTO `sys_menu` VALUES (886, '', '财务管理', 'eye-open', '/app/account', '1', '', 844, '0,844,', '', '', '/index', 60, '2', '2', 1, 1, '2023-03-09 21:13:23', '2023-03-09 23:20:15');
+INSERT INTO `sys_menu` VALUES (887, 'UserLevel', '用户等级', 'pass', '/app/user/user-level', '2', 'app:user:user-level:list', 875, '0,844,875,', '2', '', '/app/user/user-level/index.vue', 60, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 23:05:34');
+INSERT INTO `sys_menu` VALUES (888, '', '分页获取用户等级', '', '', '3', 'app:user:user-level:query', 887, '0,844,875,887,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
+INSERT INTO `sys_menu` VALUES (889, '', '创建用户等级', '', '', '3', 'app:user:user-level:add', 887, '0,844,875,887,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
+INSERT INTO `sys_menu` VALUES (890, '', '修改用户等级', '', '', '3', 'app:user:user-level:edit', 887, '0,844,875,887,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
+INSERT INTO `sys_menu` VALUES (891, '', '删除用户等级', '', '', '3', 'app:user:user-level:del', 887, '0,844,875,887,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
+INSERT INTO `sys_menu` VALUES (892, '', '导出用户等级', '', '', '3', 'app:user:user-level:export', 887, '0,844,875,887,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:49', '2023-03-09 21:33:49');
+INSERT INTO `sys_menu` VALUES (893, 'UserAccountLog', '账变记录', 'pass', '/app/user/user-account-log', '2', 'app:user:user-account-log:list', 886, '0,844,886,', '2', '', '/app/user/user-account-log/index.vue', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:35:31');
+INSERT INTO `sys_menu` VALUES (894, '', '分页获取账变记录', '', '', '3', 'app:user:user-account-log:query', 893, '0,844,886,893,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
+INSERT INTO `sys_menu` VALUES (895, '', '创建账变记录', '', '', '3', 'app:user:user-account-log:add', 893, '0,844,886,893,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
+INSERT INTO `sys_menu` VALUES (896, '', '修改账变记录', '', '', '3', 'app:user:user-account-log:edit', 893, '0,844,886,893,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
+INSERT INTO `sys_menu` VALUES (897, '', '删除账变记录', '', '', '3', 'app:user:user-account-log:del', 893, '0,844,886,893,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
+INSERT INTO `sys_menu` VALUES (898, '', '导出账变记录', '', '', '3', 'app:user:user-account-log:export', 893, '0,844,886,893,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 21:33:51', '2023-03-09 21:33:51');
+INSERT INTO `sys_menu` VALUES (899, 'UserConf', '用户配置', 'pass', '/app/user/user-conf', '2', 'app:user:user-conf:list', 875, '0,844,875,', '2', '', '/app/user/user-conf/index.vue', 90, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-11 15:02:32');
+INSERT INTO `sys_menu` VALUES (900, '', '分页获取用户配置', '', '', '3', 'app:user:user-conf:query', 899, '0,844,875,899,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
+INSERT INTO `sys_menu` VALUES (901, '', '创建用户配置', '', '', '3', 'app:user:user-conf:add', 899, '0,844,875,899,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
+INSERT INTO `sys_menu` VALUES (902, '', '修改用户配置', '', '', '3', 'app:user:user-conf:edit', 899, '0,844,875,899,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
+INSERT INTO `sys_menu` VALUES (903, '', '删除用户配置', '', '', '3', 'app:user:user-conf:del', 899, '0,844,875,899,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
+INSERT INTO `sys_menu` VALUES (904, '', '导出用户配置', '', '', '3', 'app:user:user-conf:export', 899, '0,844,875,899,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:04:40', '2023-03-09 23:04:40');
+INSERT INTO `sys_menu` VALUES (905, 'User', '用户管理', 'pass', '/app/user/user', '2', 'app:user:user:list', 875, '0,844,875,', '2', '', '/app/user/user/index.vue', 30, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-05-08 16:19:31');
+INSERT INTO `sys_menu` VALUES (906, '', '分页获取用户管理', '', '', '3', 'app:user:user:query', 905, '0,844,875,905,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-05-08 22:30:33');
+INSERT INTO `sys_menu` VALUES (907, '', '创建用户管理', '', '', '3', 'app:user:user:add', 905, '0,844,875,905,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-05-08 22:30:51');
+INSERT INTO `sys_menu` VALUES (908, '', '修改用户管理', '', '', '3', 'app:user:user:edit', 905, '0,844,875,905,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-05-08 22:36:28');
+INSERT INTO `sys_menu` VALUES (910, '', '导出用户管理', '', '', '3', 'app:user:user:export', 905, '0,844,875,905,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-09 23:18:49', '2023-05-08 22:37:31');
+INSERT INTO `sys_menu` VALUES (911, 'UserOperLog', '用户行为记录', 'pass', '/app/user/user-oper-log', '2', 'app:user:user-oper-log:list', 875, '0,844,875,', '2', '', '/app/user/user-oper-log/index.vue', 120, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:02:42');
+INSERT INTO `sys_menu` VALUES (912, '', '分页获取用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:query', 911, '0,844,875,911,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
+INSERT INTO `sys_menu` VALUES (913, '', '创建用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:add', 911, '0,844,875,911,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
+INSERT INTO `sys_menu` VALUES (914, '', '修改用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:edit', 911, '0,844,875,911,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
+INSERT INTO `sys_menu` VALUES (915, '', '删除用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:del', 911, '0,844,875,911,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
+INSERT INTO `sys_menu` VALUES (916, '', '导出用户关键行为日志表', '', '', '3', 'app:user:user-oper-log:export', 911, '0,844,875,911,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:00:06');
+INSERT INTO `sys_menu` VALUES (918, '', '消息管理', 'batch-update', '/plugins/msg', '1', '', 843, '0,843,', '', '', '/index', 0, '2', '2', 1, 1, '2023-03-12 13:27:59', '2023-03-12 19:52:02');
+INSERT INTO `sys_menu` VALUES (961, 'MsgCode', '验证码记录', 'pass', '/plugins/msg/msg-code', '2', 'plugins:msg:msg-code:list', 918, '0,843,918,', '2', '', '/plugins/msg/msg-code/index.vue', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:32');
+INSERT INTO `sys_menu` VALUES (962, '', '分页获取验证码记录', '', '', '3', 'plugins:msg:msg-code:query', 961, '0,843,961,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
+INSERT INTO `sys_menu` VALUES (963, '', '创建验证码记录', '', '', '3', 'plugins:msg:msg-code:add', 961, '0,843,961,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
+INSERT INTO `sys_menu` VALUES (964, '', '修改验证码记录', '', '', '3', 'plugins:msg:msg-code:edit', 961, '0,843,961,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
+INSERT INTO `sys_menu` VALUES (965, '', '删除验证码记录', '', '', '3', 'plugins:msg:msg-code:del', 961, '0,843,961,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
+INSERT INTO `sys_menu` VALUES (966, '', '导出验证码记录', '', '', '3', 'plugins:msg:msg-code:export', 961, '0,843,961,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:02');
+INSERT INTO `sys_menu` VALUES (967, 'ContentAnnouncement', '公告管理', 'pass', '/plugins/content/content-announcement', '2', 'plugins:content:content-announcement:list', 778, '0,843,778,', '2', '', '/plugins/content/content-announcement/index.vue', 90, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:48:08');
+INSERT INTO `sys_menu` VALUES (968, '', '分页获取公告管理', '', '', '3', 'plugins:content:content-announcement:query', 967, '0,843,778,967,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
+INSERT INTO `sys_menu` VALUES (969, '', '创建公告管理', '', '', '3', 'plugins:content:content-announcement:add', 967, '0,843,778,967,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
+INSERT INTO `sys_menu` VALUES (970, '', '修改公告管理', '', '', '3', 'plugins:content:content-announcement:edit', 967, '0,843,778,967,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
+INSERT INTO `sys_menu` VALUES (971, '', '删除公告管理', '', '', '3', 'plugins:content:content-announcement:del', 967, '0,843,778,967,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
+INSERT INTO `sys_menu` VALUES (972, '', '导出公告管理', '', '', '3', 'plugins:content:content-announcement:export', 967, '0,843,778,967,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:47:11');
+INSERT INTO `sys_menu` VALUES (973, 'ContentCategory', '内容分类', 'pass', '/plugins/content/content-category', '2', 'plugins:content:content-category:list', 778, '0,843,778,', '2', '', '/plugins/content/content-category/index.vue', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:20:35');
+INSERT INTO `sys_menu` VALUES (974, '', '分页获取内容分类', '', '', '3', 'plugins:content:content-category:query', 973, '0,843,778,973,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:17:44');
+INSERT INTO `sys_menu` VALUES (975, '', '创建内容分类', '', '', '3', 'plugins:content:content-category:add', 973, '0,843,778,973,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:17:44');
+INSERT INTO `sys_menu` VALUES (976, '', '修改内容分类', '', '', '3', 'plugins:content:content-category:edit', 973, '0,843,778,973,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:17:44');
+INSERT INTO `sys_menu` VALUES (977, '', '删除内容分类', '', '', '3', 'plugins:content:content-category:del', 973, '0,843,778,973,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:45', '2023-03-12 23:17:45');
+INSERT INTO `sys_menu` VALUES (978, '', '导出内容分类', '', '', '3', 'plugins:content:content-category:export', 973, '0,843,778,973,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:17:45', '2023-03-12 23:17:45');
+INSERT INTO `sys_menu` VALUES (979, 'ContentArticle', '文章管理', 'pass', '/plugins/content/content-article', '2', 'plugins:content:content-article:list', 778, '0,843,778,', '2', '', '/plugins/content/content-article/index.vue', 60, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:53:12');
+INSERT INTO `sys_menu` VALUES (980, '', '分页获取文章管理', '', '', '3', 'plugins:content:content-article:query', 979, '0,843,778,979,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
+INSERT INTO `sys_menu` VALUES (981, '', '创建文章管理', '', '', '3', 'plugins:content:content-article:add', 979, '0,843,778,979,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
+INSERT INTO `sys_menu` VALUES (982, '', '修改文章管理', '', '', '3', 'plugins:content:content-article:edit', 979, '0,843,778,979,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
+INSERT INTO `sys_menu` VALUES (983, '', '删除文章管理', '', '', '3', 'plugins:content:content-article:del', 979, '0,843,778,979,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:52:45');
+INSERT INTO `sys_menu` VALUES (984, '', '导出文章管理', '', '', '3', 'plugins:content:content-article:export', 979, '0,843,778,979,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-12 23:52:46', '2023-03-12 23:52:46');
+INSERT INTO `sys_menu` VALUES (985, 'FilemgrApp', 'App管理', 'pass', '/plugins/filemgr/filemgr-app', '2', 'plugins:filemgr:filemgr-app:list', 772, '0,843,772,', '2', '', '/plugins/filemgr/filemgr-app/index.vue', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:52');
+INSERT INTO `sys_menu` VALUES (986, '', '分页获取App管理', '', '', '3', 'plugins:filemgr:filemgr-app:query', 985, '0,843,772,985,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
+INSERT INTO `sys_menu` VALUES (987, '', '创建App管理', '', '', '3', 'plugins:filemgr:filemgr-app:add', 985, '0,843,772,985,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
+INSERT INTO `sys_menu` VALUES (988, '', '修改App管理', '', '', '3', 'plugins:filemgr:filemgr-app:edit', 985, '0,843,772,985,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
+INSERT INTO `sys_menu` VALUES (989, '', '删除App管理', '', '', '3', 'plugins:filemgr:filemgr-app:del', 985, '0,843,772,985,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
+INSERT INTO `sys_menu` VALUES (990, '', '导出App管理', '', '', '3', 'plugins:filemgr:filemgr-app:export', 985, '0,843,772,985,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:02');
+INSERT INTO `sys_menu` VALUES (991, 'UserCountryCode', '国家区号', 'pass', '/app/user/user-country-code', '2', 'app:user:user-country-code:list', 875, '0,844,875,', '2', '', '/app/user/user-country-code/index.vue', 150, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 18:06:00');
+INSERT INTO `sys_menu` VALUES (992, '', '分页获取国家电话区号', '', '', '3', 'app:user:user-country-code:query', 991, '0,844,875,991,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 17:47:44');
+INSERT INTO `sys_menu` VALUES (993, '', '创建国家电话区号', '', '', '3', 'app:user:user-country-code:add', 991, '0,844,875,991,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 17:47:44');
+INSERT INTO `sys_menu` VALUES (994, '', '修改国家电话区号', '', '', '3', 'app:user:user-country-code:edit', 991, '0,844,875,991,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:44', '2023-03-14 17:47:44');
+INSERT INTO `sys_menu` VALUES (995, '', '删除国家电话区号', '', '', '3', 'app:user:user-country-code:del', 991, '0,844,875,991,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:45', '2023-03-14 17:47:45');
+INSERT INTO `sys_menu` VALUES (996, '', '导出国家电话区号', '', '', '3', 'app:user:user-country-code:export', 991, '0,844,875,991,', '2', '', '', 0, '2', '2', 1, 1, '2023-03-14 17:47:45', '2023-03-14 17:47:45');
 
 -- ----------------------------
 -- Table structure for sys_menu_api_rule
@@ -981,10 +1236,29 @@ CREATE TABLE `sys_menu_api_rule`  (
   INDEX `fk_sys_menu_api_rule_sys_api`(`sys_api_id` ASC) USING BTREE,
   CONSTRAINT `fk_sys_menu_api_rule_sys_api` FOREIGN KEY (`sys_api_id`) REFERENCES `sys_api` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_sys_menu_api_rule_sys_menu` FOREIGN KEY (`sys_menu_menu_id`) REFERENCES `sys_menu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu_api_rule
+-- ----------------------------
+INSERT INTO `sys_menu_api_rule` VALUES (906, 30);
+INSERT INTO `sys_menu_api_rule` VALUES (910, 45);
+INSERT INTO `sys_menu_api_rule` VALUES (908, 46);
+INSERT INTO `sys_menu_api_rule` VALUES (907, 99);
+INSERT INTO `sys_menu_api_rule` VALUES (908, 122);
+
+-- ----------------------------
+-- Table structure for sys_migration
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_migration`;
+CREATE TABLE `sys_migration`  (
+  `version` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `apply_time` datetime(3) NULL DEFAULT NULL,
+  PRIMARY KEY (`version`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_migration
 -- ----------------------------
 
 -- ----------------------------
@@ -1011,11 +1285,61 @@ CREATE TABLE `sys_oper_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_opera_log_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_opera_log_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11074 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11074 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '操作日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
+INSERT INTO `sys_oper_log` VALUES (11024, 'GET', 1, '/admin-api/v1/getinfo', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:47', '{\"requestId\":\"2503ec27-6297-410a-a935-2ae6ece18a78\",\"code\":200,\"data\":{\"avatar\":\"/static/uploadfile/', '', '53.671203ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:47', '2023-03-01 16:13:47', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11025, 'GET', 1, '/admin-api/v1/menurole', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"9795559d-2619-48ac-854b-d3c826e69c5c\",\"code\":200,\"data\":[{\"menuId\":778,\"name\":\"content', '', '347.447748ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11026, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"de938987-da4e-4101-be07-6886e6a1bccd\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":18', '', '54.264428ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11027, 'GET', 1, '/admin-api/v1/config?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"968f9eaf-23c5-48d2-9ece-e568ceece919\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '54.989684ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11028, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_is_frontend', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"105a4f21-607d-4ebb-95e6-a6f5973f2ae7\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":19', '', '192.458836ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:49', '2023-03-01 16:13:49', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11029, 'GET', 1, '/admin-api/v1/sys-oper-log?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:52', '{\"requestId\":\"e65e8d29-abe5-40fd-8671-c8e95a80e113\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '47.163686ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:52', '2023-03-01 16:13:52', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11030, 'GET', 1, '/admin-api/v1/getinfo', '127.0.0.1', '内部IP', '200', '2023-03-01 16:19:20', '{\"requestId\":\"a5ac1951-88e8-4849-b5e6-d60a4b6f7f53\",\"code\":200,\"data\":{\"avatar\":\"/static/uploadfile/', '', '41.406572ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:19:20', '2023-03-01 16:19:20', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11031, 'GET', 1, '/admin-api/v1/menurole', '127.0.0.1', '内部IP', '200', '2023-03-01 16:19:20', '{\"requestId\":\"e8b645d7-35d2-4f04-a793-9dacfc1e1153\",\"code\":200,\"data\":[{\"menuId\":778,\"name\":\"content', '', '356.505892ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:19:20', '2023-03-01 16:19:20', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11032, 'GET', 1, '/admin-api/v1/sys-oper-log?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:19:21', '{\"requestId\":\"db511ddf-e3ea-4c3a-9822-491f6d8a3002\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '49.065686ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:19:21', '2023-03-01 16:19:21', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11033, 'GET', 1, '/admin-api/v1/sys-oper-log/export?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '0', '2023-03-01 16:19:26', '', '', '104.895467ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:19:26', '2023-03-01 16:19:26', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11034, 'GET', 1, '/admin-api/v1/sys-oper-log?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:05', '{\"requestId\":\"90e825d9-b75a-43b2-a4ed-777ceef5afad\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '47.969646ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:05', '2023-03-01 16:21:05', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11035, 'GET', 1, '/admin-api/v1/config?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:10', '{\"requestId\":\"f5f6fe88-c1a5-4169-bbd0-9f7ecded3e9f\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '45.246593ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:10', '2023-03-01 16:21:10', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11036, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:10', '{\"requestId\":\"f80c1262-eadb-4b3c-b703-03c4c44cc2cc\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":18', '', '86.46368ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:11', '2023-03-01 16:21:11', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11037, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_is_frontend', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:10', '{\"requestId\":\"854b95de-02c9-4805-b06a-83353903c24a\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":19', '', '255.508831ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:11', '2023-03-01 16:21:11', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11038, 'GET', 1, '/admin-api/v1/dict/type?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:12', '{\"requestId\":\"4931e8da-f1c0-433e-b715-18f9668c4ed3\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '70.912448ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:12', '2023-03-01 16:21:12', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11039, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_api_action', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:15', '{\"requestId\":\"e33cceb3-48b3-48e7-8242-402539fe9346\",\"code\":200,\"msg\":\"操作成功\",\"data\":[]}', '', '337.089007ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:15', '2023-03-01 16:21:15', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11040, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_api_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:15', '{\"requestId\":\"ce824e11-265a-48e2-b859-8c09c60e5fc9\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":17', '', '346.799522ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:15', '2023-03-01 16:21:15', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11041, 'GET', 1, '/admin-api/v1/sys-api?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:15', '{\"requestId\":\"54e44efe-b3c7-4cba-b381-1a13707b6318\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '350.999227ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:15', '2023-03-01 16:21:15', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11042, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:31', '{\"requestId\":\"c53dea67-4d05-4e2d-86df-f3fd8bf1e928\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":18', '', '42.335793ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:31', '2023-03-01 16:21:31', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11043, 'GET', 1, '/admin-api/v1/config?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:31', '{\"requestId\":\"948fdf5f-460a-459f-8c39-1048f8898619\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '42.640723ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:32', '2023-03-01 16:21:32', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11044, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_is_frontend', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:32', '{\"requestId\":\"2c42111c-4b8a-444b-ac6a-d0cb35371c7c\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":19', '', '151.410185ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:32', '2023-03-01 16:21:32', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11045, 'GET', 1, '/admin-api/v1/dict/type?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:34', '{\"requestId\":\"ab5a0cdf-f9b5-4a7e-907a-3063692a4fe2\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '38.931444ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:34', '2023-03-01 16:21:34', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11046, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_api_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:37', '{\"requestId\":\"57e72ddd-5fcf-461a-9f82-b95d3e523ca9\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":17', '', '45.17595ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:37', '2023-03-01 16:21:37', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11047, 'GET', 1, '/admin-api/v1/sys-api?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:37', '{\"requestId\":\"02c374bf-a976-4db0-92e1-9f70e43f9a86\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '47.269421ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:37', '2023-03-01 16:21:37', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11048, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_api_action', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:37', '{\"requestId\":\"574f1151-0d83-4820-be9c-58cc2f05afde\",\"code\":200,\"msg\":\"操作成功\",\"data\":[]}', '', '174.783793ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:37', '2023-03-01 16:21:37', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11049, 'GET', 1, '/admin-api/v1/server-monitor', '127.0.0.1', '内部IP', '0', '2023-03-01 16:21:44', '{\"code\":200,\"cpu\":{\"Percent\":12.04,\"cpuInfo\":[{\"cpu\":0,\"vendorId\":\"GenuineIntel\",\"family\":\"6\",\"model', '', '258.418915ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:45', '2023-03-01 16:21:45', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11050, 'GET', 1, '/admin-api/v1/sys/tables/page?pageIndex=1&pageSize=10&beginTime=&endTime=', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:53', '{\"requestId\":\"c16cb69b-147c-4dc8-81da-a4c9a07ae139\",\"code\":200,\"msg\":\"查询成功\",\"data\":{\"count\":', '', '55.068542ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:53', '2023-03-01 16:21:53', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11051, 'GET', 1, '/admin-api/v1/gen/tabletree', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:57', '{\"requestId\":\"42f3661c-6e00-409d-8b48-8c72d8db436f\",\"code\":200,\"data\":[{\"tableId\":46,\"tableName\":\"co', '', '712.347023ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:57', '2023-03-01 16:21:57', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11052, 'GET', 1, '/admin-api/v1/sys/tables/page?pageIndex=1&pageSize=10&beginTime=&endTime=', '127.0.0.1', '内部IP', '200', '2023-03-01 16:21:58', '{\"requestId\":\"30c55688-9626-48f4-aabe-1e6c9aaa59a2\",\"code\":200,\"msg\":\"查询成功\",\"data\":{\"count\":', '', '52.427747ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:21:58', '2023-03-01 16:21:58', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11053, 'GET', 1, '/admin-api/v1/server-monitor', '127.0.0.1', '内部IP', '0', '2023-03-01 16:22:01', '{\"code\":200,\"cpu\":{\"Percent\":11.96,\"cpuInfo\":[{\"cpu\":0,\"vendorId\":\"GenuineIntel\",\"family\":\"6\",\"model', '', '256.278441ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:22:01', '2023-03-01 16:22:01', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11054, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_api_action', '127.0.0.1', '内部IP', '200', '2023-03-01 16:22:05', '{\"requestId\":\"017c6a3a-2cd0-42e9-95b4-a4da224b21c1\",\"code\":200,\"msg\":\"操作成功\",\"data\":[]}', '', '42.863135ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:22:05', '2023-03-01 16:22:05', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11055, 'GET', 1, '/admin-api/v1/sys-api?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:22:05', '{\"requestId\":\"b0f4d174-70ca-4000-b634-96bd499379c7\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '43.662339ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:22:05', '2023-03-01 16:22:05', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11056, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_api_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:22:05', '{\"requestId\":\"f8c952f4-8c08-4ac4-b246-e90e12837f09\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":17', '', '146.237988ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:22:05', '2023-03-01 16:22:05', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11057, 'GET', 0, '/admin-api/v1/captcha', '127.0.0.1', '内部IP', '0', '2023-03-02 12:34:58', '{\"code\":200,\"data\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAABQCAMAAAAQlwhOAAAA81BMVEUAAA', '', '9.656253ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:34:58', '2023-03-02 12:34:58', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11058, 'GET', 0, '/admin-api/v1/app-config', '127.0.0.1', '内部IP', '200', '2023-03-02 12:34:58', '{\"requestId\":\"2eaf6c42-80ce-455d-b923-bf5b9dad3fc4\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"sys_app', '', '52.23529ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:34:58', '2023-03-02 12:34:58', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11059, 'GET', 1, '/admin-api/v1/getinfo', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:06', '{\"requestId\":\"45b8c374-e549-4389-9f6c-29d4ae0465ae\",\"code\":200,\"data\":{\"avatar\":\"/static/uploadfile/', '', '49.061941ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:06', '2023-03-02 12:35:06', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11060, 'GET', 1, '/admin-api/v1/menurole', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:06', '{\"requestId\":\"eceb4fc3-a815-4fb5-b8ea-898119c5a4b5\",\"code\":200,\"data\":[{\"menuId\":778,\"name\":\"content', '', '187.819605ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:06', '2023-03-02 12:35:06', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11061, 'GET', 1, '/admin-api/v1/content/category?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:11', '{\"requestId\":\"f67e625d-d55f-4897-9ca3-a5be4601c026\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '51.053073ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:11', '2023-03-02 12:35:11', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11062, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_status', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:13', '{\"requestId\":\"5df9875e-fb10-406e-92db-b405c53d6af6\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":32', '', '53.495618ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:13', '2023-03-02 12:35:13', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11063, 'GET', 1, '/admin-api/v1/content/article?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:13', '{\"requestId\":\"8ce8af2f-9d4a-417f-866b-3e2eba608056\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '96.548874ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:14', '2023-03-02 12:35:14', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11064, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=app_platform', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:16', '{\"requestId\":\"d0621d8b-3e1a-412f-887f-7b9db5fc0316\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":13', '', '107.145359ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:16', '2023-03-02 12:35:16', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11065, 'GET', 1, '/admin-api/v1/filemgr/app?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:16', '{\"requestId\":\"8bec3fd4-10d2-46e0-8a08-ae315036da82\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '108.520308ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:17', '2023-03-02 12:35:17', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11066, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=plugin_filemgr_app_publish_status', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:16', '{\"requestId\":\"50254af8-23df-44d8-8e7d-76b363264749\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":14', '', '228.866981ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:17', '2023-03-02 12:35:17', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11067, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=plugin_filemgr_app_type', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:16', '{\"requestId\":\"2f18f2a3-ee99-4f08-b416-a8fd46835606\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":13', '', '234.407543ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:17', '2023-03-02 12:35:17', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11068, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=plugin_filemgr_app_download_type', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:17', '{\"requestId\":\"0a33b147-7ba2-475f-9b52-e85c1b00d1d0\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":14', '', '326.900692ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:17', '2023-03-02 12:35:17', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11069, 'GET', 1, '/admin-api/v1/sys-oper-log?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:24', '{\"requestId\":\"129a5883-6e55-494e-8ad2-d8c0785d6bed\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '67.537645ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:24', '2023-03-02 12:35:24', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11070, 'GET', 1, '/admin-api/v1/config?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:27', '{\"requestId\":\"b8ff7cfd-caf7-4832-96f9-92317449a049\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '42.449431ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:27', '2023-03-02 12:35:27', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11071, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_type', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:27', '{\"requestId\":\"d4ce80c3-413a-4ae3-9549-61a1faeb11db\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":18', '', '48.42459ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:27', '2023-03-02 12:35:27', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11072, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_is_frontend', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:27', '{\"requestId\":\"ab26b60f-3669-4813-a740-29f3280fd186\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":19', '', '174.561043ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:27', '2023-03-02 12:35:27', 0, 0);
+INSERT INTO `sys_oper_log` VALUES (11073, 'GET', 1, '/admin-api/v1/dict/type?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-02 12:35:33', '{\"requestId\":\"edccb0d9-c268-4be3-83b5-fa2491815a7c\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '51.595866ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', '2023-03-02 12:35:34', '2023-03-02 12:35:34', 0, 0);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1035,7 +1359,7 @@ CREATE TABLE `sys_post`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_post_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_post_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_post
@@ -1063,12 +1387,13 @@ CREATE TABLE `sys_role`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_role_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_role_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '系统管理员', 'admin', 1, '', '', '1', 1, 1, '2021-05-13 19:56:37.913', '2023-03-03 01:04:03.641');
+INSERT INTO `sys_role` VALUES (18, 'test', 'test', 0, '', '', '1', 1, 1, '2023-04-27 14:33:47.437', '2023-04-27 16:40:14.207');
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -1078,7 +1403,7 @@ CREATE TABLE `sys_role_dept`  (
   `role_id` smallint NOT NULL,
   `dept_id` smallint NOT NULL,
   PRIMARY KEY (`role_id`, `dept_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_dept
@@ -1095,11 +1420,12 @@ CREATE TABLE `sys_role_menu`  (
   INDEX `fk_sys_role_menu_sys_menu`(`menu_id` ASC) USING BTREE,
   CONSTRAINT `fk_sys_role_menu_sys_menu` FOREIGN KEY (`menu_id`) REFERENCES `sys_menu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_sys_role_menu_sys_role` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
+INSERT INTO `sys_role_menu` VALUES (18, 43);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -1127,11 +1453,12 @@ CREATE TABLE `sys_user`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_user_create_by`(`create_by` ASC) USING BTREE,
   INDEX `idx_sys_user_update_by`(`update_by` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$ZFMtvc.ROtYwk2UNOaBLCOrpr.Mq/i1ae4PVZfoWgHTb4ffORW/lm', 'admin', '13700000000', 1, '', '/files/admin/avatar/5226ae82-349c-48cc-b312-b19f78233086.jpg', '1', 'admin@admin.com', 1, 1, '', '1', 1, 1, '2021-05-13 19:56:38', '2023-03-14 09:27:36');
+INSERT INTO `sys_user` VALUES (10, 'test', '$2a$10$IZufMe1mAFjoghFGrsrz9OEtXEmLmvlaJfcNCWe7UieboiMb9Sl72', 'test', '13711111111', 18, '', '', '1', '13711111111@qq.com', 6, 1, '', '1', 1, 1, '2023-04-27 14:34:57', '2023-04-27 14:34:57');
 
 SET FOREIGN_KEY_CHECKS = 1;
