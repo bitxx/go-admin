@@ -73,16 +73,16 @@
           </el-table-column>
           <el-table-column width="120" label="接口编号" align="center" prop="id" :show-overflow-tooltip="true" />
           <el-table-column width="240" label="标题" align="center" prop="title" :show-overflow-tooltip="true" />
+          <el-table-column width="100" label="接口类型" align="center" prop="type" :formatter="apiTypeFormat">
+            <template slot-scope="scope">
+              {{ apiTypeFormat(scope.row) }}
+            </template>
+          </el-table-column>
           <el-table-column width="300" label="Handle" align="center" prop="handle" :show-overflow-tooltip="true" />
           <el-table-column width="300" label="请求地址" align="center" prop="path" :show-overflow-tooltip="true" />
           <el-table-column width="100" label="请求方法" align="center" prop="action" :formatter="actionFormat">
             <template slot-scope="scope">
               {{ actionFormat(scope.row) }}
-            </template>
-          </el-table-column>
-          <el-table-column width="100" label="接口类型" align="center" prop="type" :formatter="apiTypeFormat">
-            <template slot-scope="scope">
-              {{ apiTypeFormat(scope.row) }}
             </template>
           </el-table-column>
           <el-table-column width="200" label="更新时间" align="center" prop="updatedAt" :show-overflow-tooltip="true">
