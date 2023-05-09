@@ -1,7 +1,6 @@
 package apis
 
 import (
-	"github.com/coreos/etcd/pkg/fileutil"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/google/uuid"
@@ -13,6 +12,7 @@ import (
 	"go-admin/common/core/config"
 	"go-admin/common/core/pkg/captcha"
 	_ "go-admin/common/core/pkg/response"
+	"go-admin/common/core/pkg/utils"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/middleware/auth/authdto"
@@ -271,13 +271,14 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 	files := form.File["avatar"]
 	guid := uuid.New().String()
 	reqPath := config.ApplicationConfig.FileRootPath + "admin/avatar/"
-	isExist := fileutil.Exist(reqPath)
-	if !isExist {
-		err = fileutil.CreateDirAll(reqPath)
+	err = utils.IsNotExistMkDir(reqPath)
+	if err != nil {
+		e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
+		/*err = fileutil.CreateDirAll(reqPath)
 		if err != nil {
 			e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
 			return
-		}
+		}*/
 	}
 	filPath := reqPath + guid + ".jpg"
 	for _, file := range files {

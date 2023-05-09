@@ -12,7 +12,6 @@ require (
 	github.com/bsm/redislock v0.9.1
 	github.com/bytedance/go-tagexpr/v2 v2.9.7
 	github.com/casbin/casbin/v2 v2.65.2
-	github.com/coreos/etcd v3.3.27+incompatible
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/ghodss/yaml v1.0.0
