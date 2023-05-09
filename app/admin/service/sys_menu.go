@@ -134,6 +134,10 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	if err != nil {
 		return 0, respCode, err
 	}
+
+	var alist = make([]models.SysApi, 0)
+	e.Orm.Where("id in ?", c.Apis).Find(&alist)
+
 	now := time.Now()
 	data := models.SysMenu{}
 	data.Name = c.Name
@@ -141,13 +145,13 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	data.Icon = c.Icon
 	data.Path = c.Path
 	data.MenuType = c.MenuType
-	data.SysApi = c.SysApi
 	data.Permission = c.Permission
 	data.ParentId = c.ParentId
 	data.ParentIds = m.ParentIds + strconv.FormatInt(m.Id, 10) + ","
 	data.KeepAlive = c.KeepAlive
 	data.Breadcrumb = c.Breadcrumb
 	data.Component = c.Component
+	data.SysApi = alist
 	data.Sort = c.Sort
 	data.Hidden = c.Hidden
 	data.IsFrame = c.IsFrame
