@@ -4,6 +4,10 @@
 Gin、Vue2.0等
 ![启动](/doc/1.png)
 
+两个账户：
+账户：admin 密码：123456  顶级账户
+账户：test  密码：123456  菜单权限受限的账户
+
 ## 1. 项目地址
 [github go-admin](https://github.com/jason-wj/go-admin)  
 [gitee go-admin](https://gitee.com/jason-wj/go-admin)
