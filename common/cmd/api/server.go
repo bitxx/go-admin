@@ -9,7 +9,7 @@ import (
 	"go-admin/common/core/api"
 	"go-admin/common/core/config"
 	"go-admin/common/core/config/sdk/source/file"
-	pkg2 "go-admin/common/core/pkg"
+	"go-admin/common/core/pkg"
 	"go-admin/common/core/runtime"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/storage/cache"
@@ -25,7 +25,7 @@ import (
 	"github.com/spf13/cobra"
 	"go-admin/app/admin/models"
 	"go-admin/common/global"
-	common "go-admin/common/middleware"
+	"go-admin/common/middleware"
 )
 
 var (
@@ -86,7 +86,7 @@ func setup() {
 }
 
 func run() error {
-	if config.ApplicationConfig.Mode == pkg2.ModeProd.String() {
+	if config.ApplicationConfig.Mode == pkg.ModeProd.String() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	initRouter()
@@ -131,18 +131,18 @@ func run() error {
 			}
 		}
 	}()
-	fmt.Println(pkg2.Red(string(global.LogoContent)))
+	fmt.Println(pkg.Red(string(global.LogoContent)))
 	tip()
-	fmt.Println(pkg2.Green("Server run at:"))
+	fmt.Println(pkg.Green("Server run at:"))
 	fmt.Printf("-  Local:   http://localhost:%d/ \r\n", config.ApplicationConfig.Port)
-	fmt.Printf("-  Network: http://%s:%d/ \r\n", pkg2.GetLocaHonst(), config.ApplicationConfig.Port)
+	fmt.Printf("-  Network: http://%s:%d/ \r\n", pkg.GetLocaHonst(), config.ApplicationConfig.Port)
 
-	fmt.Printf("%s Enter Control + C Shutdown Server \r\n", pkg2.GetCurrentTimeStr())
+	fmt.Printf("%s Enter Control + C Shutdown Server \r\n", pkg.GetCurrentTimeStr())
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
-	fmt.Printf("%s Shutdown Server ... \r\n", pkg2.GetCurrentTimeStr())
+	fmt.Printf("%s Shutdown Server ... \r\n", pkg.GetCurrentTimeStr())
 
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
@@ -155,7 +155,7 @@ func run() error {
 var Router runtime.Router
 
 func tip() {
-	usageStr := `欢迎使用 ` + pkg2.Green(`go-admin `+global.Version) + ` 可以使用 ` + pkg2.Red(`-h`) + ` 查看命令`
+	usageStr := `欢迎使用 ` + pkg.Green(`go-admin `+global.Version) + ` 可以使用 ` + pkg.Red(`-h`) + ` 查看命令`
 	fmt.Printf("%s \n\n", usageStr)
 }
 
@@ -177,11 +177,11 @@ func initRouter() {
 		r.Use(TlsHandler())
 	}
 	//r.Use(middleware.Metrics())
-	r.Use(common.Sentinel()).
-		Use(common.RequestId(pkg2.TrafficKey)).
+	r.Use(middleware.Sentinel()).
+		Use(middleware.RequestId(pkg.TrafficKey)).
 		Use(api.SetRequestLogger)
 
-	common.InitMiddleware(r)
+	middleware.InitMiddleware(r)
 
 }
 

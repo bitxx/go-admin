@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
 	"go-admin/common/core/config"
-	log "go-admin/common/core/logger"
-	pkg2 "go-admin/common/core/pkg"
+	"go-admin/common/core/logger"
+	"go-admin/common/core/pkg"
 	"go-admin/common/core/pkg/response"
 	"go-admin/common/middleware/auth"
 	"gorm.io/gorm"
@@ -25,19 +25,19 @@ type DataPermission struct {
 
 func PermissionAction() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db, err := pkg2.GetOrm(c)
+		db, err := pkg.GetOrm(c)
 		if err != nil {
-			log.Error(err)
+			logger.Error(err)
 			return
 		}
 
-		msgID := pkg2.GenerateMsgIDFromContext(c)
+		msgID := pkg.GenerateMsgIDFromContext(c)
 		var p = new(DataPermission)
 		userId, _, _ := auth.Auth.GetUserId(c)
 		if userId > 0 {
 			p, err = newDataPermission(db, userId)
 			if err != nil {
-				log.Errorf("MsgID[%s] PermissionAction error: %s", msgID, err)
+				logger.Errorf("MsgID[%s] PermissionAction error: %s", msgID, err)
 				response.Error(c, 500, "权限范围鉴定错误")
 				c.Abort()
 				return
@@ -78,7 +78,7 @@ func Permission(tableName string, p *DataPermission) func(db *gorm.DB) *gorm.DB 
 			return db.Where(tableName+".create_by in (SELECT id from sys_user where dept_id = ? )", p.DeptId)
 		case constant.DataScope4:
 			//本部门及以下数据权限
-			return db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+pkg2.Int64ToString(p.DeptId)+"/%")
+			return db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+pkg.Int64ToString(p.DeptId)+"/%")
 		case constant.DataScope5:
 			//仅本人数据权限
 			return db.Where(tableName+".create_by = ?", p.UserId)

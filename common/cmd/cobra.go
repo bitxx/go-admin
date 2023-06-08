@@ -40,7 +40,7 @@ func init() {
 	rootCmd.AddCommand(version.StartCmd)
 }
 
-//Execute : apply commands
+// Execute : apply commands
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(-1)
