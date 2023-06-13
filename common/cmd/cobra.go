@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"go-admin/common/cmd/api"
-	"go-admin/common/cmd/version"
 	"go-admin/common/core/pkg"
 	"go-admin/common/global"
 	"os"
@@ -17,6 +16,7 @@ var rootCmd = &cobra.Command{
 	Short:        "go-admin",
 	SilenceUsage: true,
 	Long:         `go-admin`,
+	Version:      global.Version,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
 			tip()
@@ -37,7 +37,6 @@ func tip() {
 
 func init() {
 	rootCmd.AddCommand(api.StartCmd)
-	rootCmd.AddCommand(version.StartCmd)
 }
 
 // Execute : apply commands

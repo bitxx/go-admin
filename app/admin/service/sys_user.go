@@ -6,10 +6,9 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common"
 	"go-admin/common/core"
 	"go-admin/common/core/config"
-	pkg2 "go-admin/common/core/pkg"
+	"go-admin/common/core/pkg"
 	"go-admin/common/core/service"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
@@ -435,7 +434,7 @@ func (e *SysUser) GetUser(login *dto.LoginReq) (*models.SysUser, int, error) {
 	if err != nil && err == gorm.ErrRecordNotFound {
 		return nil, sysLang.SysUserNoExistCode, lang.MsgErr(sysLang.SysUserNoExistCode, e.Lang)
 	}
-	if !pkg2.CompareHashAndPassword(user.Password, login.Password) {
+	if !pkg.CompareHashAndPassword(user.Password, login.Password) {
 		return nil, sysLang.SysUserPwdErrCode, lang.MsgErr(sysLang.SysUserPwdErrCode, e.Lang)
 	}
 	return user, lang.SuccessCode, nil
@@ -599,11 +598,11 @@ func (e *SysUser) UpdatePwd(c dto.UpdateSysUserPwdReq, p *middleware.DataPermiss
 		return false, respCode, err
 	}
 
-	if !pkg2.CompareHashAndPassword(u.Password, c.OldPassword) {
+	if !pkg.CompareHashAndPassword(u.Password, c.OldPassword) {
 		return false, sysLang.SysUserPwdErrCode, lang.MsgErr(sysLang.SysUserPwdErrCode, e.Lang)
 	}
 
-	if !pkg2.CompareHashAndPassword(u.Password, c.NewPassword) {
+	if !pkg.CompareHashAndPassword(u.Password, c.NewPassword) {
 		now := time.Now()
 		u.Password = c.NewPassword
 		u.UpdateBy = c.CurrUserId
@@ -629,11 +628,11 @@ func (e *SysUser) LoginLogToDB(c *gin.Context, status string, msg string, userId
 	l := make(map[string]interface{})
 
 	ua := user_agent.New(c.Request.UserAgent())
-	l["ipaddr"] = common.GetClientIP(c)
+	l["ipaddr"] = pkg.GetClientIP(c)
 	//用于定位ip所在城市
 	//fmt.Println("gaConfig.ExtConfig.AMap.Key", config.ApplicationConfig.AmpKey)
-	l["loginLocation"] = pkg2.GetLocation(common.GetClientIP(c), config.ApplicationConfig.AmpKey)
-	l["loginTime"] = pkg2.GetCurrentTime()
+	l["loginLocation"] = pkg.GetLocation(pkg.GetClientIP(c), config.ApplicationConfig.AmpKey)
+	l["loginTime"] = pkg.GetCurrentTime()
 	l["status"] = status
 	l["agent"] = c.Request.UserAgent()
 	browserName, browserVersion := ua.Browser()

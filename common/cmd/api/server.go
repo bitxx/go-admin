@@ -64,7 +64,6 @@ func init() {
 
 	StartCmd.PersistentFlags().StringVarP(&configPath, "config", "c", "config/settings.yml", "Start server with provided configuration file")
 	StartCmd.PersistentFlags().BoolVarP(&apiCheck, "api", "a", false, "Start server with check api data")
-	global.ConfigPath = configPath
 }
 
 func setup() {
