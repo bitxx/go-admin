@@ -94,14 +94,12 @@ func (e Cache) Decrease(prefix, key string) error {
 	return e.store.Decrease(prefix, key)
 }
 
-//
-//  Expire
-//  @Description:
-//  @receiver e
-//  @param key
-//  @param expire 有效时间  秒
-//  @return error
-//
+// Expire
+// @Description:
+// @receiver e
+// @param key
+// @param expire 有效时间  秒
+// @return error
 func (e Cache) Expire(prefix, key string, expire int) error {
 	prefix = appPrefix + IntervalTenant + prefix
 	return e.store.Expire(prefix, key, expire)

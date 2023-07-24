@@ -2,9 +2,9 @@ package lang
 
 import "go-admin/config/lang"
 
-//多语言翻译 i18n
+// 多语言翻译 i18n
 const (
-    //编码不得和整个项目中的别的模块有重复
+	//编码不得和整个项目中的别的模块有重复
 	HelloWorldCode = 888
 )
 

@@ -18,15 +18,13 @@ type UserCountryCode struct {
 	api.Api
 }
 
-//
 // GetPage
 // @Description: 获取国家电话区号列表
 // @receiver e
 // @param c
-//
 func (e UserCountryCode) GetPage(c *gin.Context) {
-    req := dto.UserCountryCodeQueryReq{}
-    s := service.UserCountryCode{}
+	req := dto.UserCountryCodeQueryReq{}
+	s := service.UserCountryCode{}
 	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).
@@ -45,12 +43,10 @@ func (e UserCountryCode) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
 // Get
 // @Description: 获取国家电话区号
 // @receiver e
 // @param c
-//
 func (e UserCountryCode) Get(c *gin.Context) {
 	req := dto.UserCountryCodeGetReq{}
 	s := service.UserCountryCode{}
@@ -72,15 +68,13 @@ func (e UserCountryCode) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
 // Insert
 // @Description: 创建国家电话区号
 // @receiver e
 // @param c
-//
 func (e UserCountryCode) Insert(c *gin.Context) {
-    req := dto.UserCountryCodeInsertReq{}
-    s := service.UserCountryCode{}
+	req := dto.UserCountryCodeInsertReq{}
+	s := service.UserCountryCode{}
 	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).
@@ -104,15 +98,13 @@ func (e UserCountryCode) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
 // Update
 // @Description: 修改国家电话区号
 // @receiver e
 // @param c
-//
 func (e UserCountryCode) Update(c *gin.Context) {
-    req := dto.UserCountryCodeUpdateReq{}
-    s := service.UserCountryCode{}
+	req := dto.UserCountryCodeUpdateReq{}
+	s := service.UserCountryCode{}
 	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).
@@ -141,15 +133,13 @@ func (e UserCountryCode) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
 // Delete
 // @Description:国家电话区号
 // @receiver e
 // @param c
-//
 func (e UserCountryCode) Delete(c *gin.Context) {
-    s := service.UserCountryCode{}
-    req := dto.UserCountryCodeDeleteReq{}
+	s := service.UserCountryCode{}
+	req := dto.UserCountryCodeDeleteReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).
@@ -169,15 +159,13 @@ func (e UserCountryCode) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
 // Export
 // @Description: 导出国家电话区号
 // @receiver e
 // @param c
-//
 func (e UserCountryCode) Export(c *gin.Context) {
-    req := dto.UserCountryCodeQueryReq{}
-    s := service.UserCountryCode{}
+	req := dto.UserCountryCodeQueryReq{}
+	s := service.UserCountryCode{}
 	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).

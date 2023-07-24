@@ -5,8 +5,7 @@ package global
  */
 
 const (
-	Version = "v1.0.0"
-	
+
 	// SysStatusOk 通用-正常
 	SysStatusOk    = "1"
 	SysStatusNotOk = "2"

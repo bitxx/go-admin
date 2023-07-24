@@ -10,7 +10,6 @@ import (
 	"go-admin/common/core/config"
 	"go-admin/common/core/config/sdk/source/file"
 	"go-admin/common/core/pkg"
-	"go-admin/common/core/runtime"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/storage/cache"
 	"go-admin/common/storage/database"
@@ -40,7 +39,7 @@ func init() {
 	StartCmd = &cobra.Command{
 		Use:          "server",
 		Short:        "Start API server",
-		Example:      "admin-api server -c config/settings.yml",
+		Example:      config.ApplicationConfig.Name + " server -c config/settings.yml",
 		SilenceUsage: true,
 		PreRun: func(cmd *cobra.Command, args []string) {
 			setup()
@@ -151,11 +150,9 @@ func run() error {
 	return nil
 }
 
-var Router runtime.Router
-
 func tip() {
-	usageStr := `欢迎使用 ` + pkg.Green(`go-admin `+global.Version) + ` 可以使用 ` + pkg.Red(`-h`) + ` 查看命令`
-	fmt.Printf("%s \n\n", usageStr)
+	usageStr := `欢迎使用 ` + pkg.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + pkg.Red(`-h`) + ` 查看命令`
+	fmt.Printf("%s\n", usageStr)
 }
 
 func initRouter() {
