@@ -3,12 +3,12 @@ package api
 import (
 	"context"
 	"fmt"
+	"github.com/jason-wj/load-config/source/file"
 	"github.com/unrolled/secure"
 	"go-admin/app"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
 	"go-admin/common/core/config"
-	"go-admin/common/core/config/sdk/source/file"
 	"go-admin/common/core/pkg"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/storage/cache"

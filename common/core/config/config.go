@@ -2,8 +2,8 @@ package config
 
 import (
 	"fmt"
-	"go-admin/common/core/config/sdk"
-	"go-admin/common/core/config/sdk/source"
+	"github.com/jason-wj/load-config"
+	"github.com/jason-wj/load-config/source"
 	"log"
 )
 
@@ -82,9 +82,9 @@ func Setup(s source.Source,
 		callbacks: fs,
 	}
 	var err error
-	sdk.DefaultConfig, err = sdk.NewConfig(
-		sdk.WithSource(s),
-		sdk.WithEntity(_cfg),
+	loadconfig.DefaultConfig, err = loadconfig.NewConfig(
+		loadconfig.WithSource(s),
+		loadconfig.WithEntity(_cfg),
 	)
 	if err != nil {
 		log.Fatal(fmt.Sprintf("New config object fail: %s", err.Error()))
