@@ -10,8 +10,8 @@ Gin、Vue2.0等
 账户：test  密码：123456  菜单权限受限的账户
 
 ## 1. 项目地址
-[github go-admin](https://github.com/jason-wj/go-admin)  
-[gitee go-admin](https://gitee.com/jason-wj/go-admin)
+[github go-admin](https://github.com/bitxx/go-admin)  
+[gitee go-admin](https://gitee.com/bitxx/go-admin)
 
 ## 2. 当前主要功能
 基础功能：   

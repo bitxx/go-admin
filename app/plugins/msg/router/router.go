@@ -1,8 +1,8 @@
 package router
 
 import (
+	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
-	"github.com/jason-wj/logger/logbase"
 	"go-admin/common/core"
 	"os"
 )

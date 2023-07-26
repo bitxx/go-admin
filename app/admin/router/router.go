@@ -1,11 +1,11 @@
 package router
 
 import (
+	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
-	"github.com/jason-wj/logger/logbase"
 	"go-admin/app/admin/apis"
+	"go-admin/common/config"
 	"go-admin/common/core"
-	"go-admin/common/core/config"
 	"go-admin/common/core/pkg/ws"
 	"go-admin/common/middleware"
 	"mime"

@@ -1,9 +1,9 @@
 package database
 
 import (
-	"github.com/jason-wj/logger/logbase"
+	"github.com/bitxx/logger/logbase"
+	toolsConfig "go-admin/common/config"
 	"go-admin/common/core"
-	toolsConfig "go-admin/common/core/config"
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/pkg/casbin"
 	"gorm.io/driver/mysql"

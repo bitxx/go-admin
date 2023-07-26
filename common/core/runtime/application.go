@@ -1,8 +1,8 @@
 package runtime
 
 import (
+	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
-	"github.com/jason-wj/logger/logbase"
 	"net/http"
 	"sync"
 

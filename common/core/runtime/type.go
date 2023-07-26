@@ -1,9 +1,9 @@
 package runtime
 
 import (
+	"github.com/bitxx/logger/logbase"
 	"github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
-	"github.com/jason-wj/logger/logbase"
 	"net/http"
 
 	"github.com/robfig/cron/v3"

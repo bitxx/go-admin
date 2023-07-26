@@ -2,8 +2,8 @@ package config
 
 import (
 	"fmt"
-	"github.com/jason-wj/load-config"
-	"github.com/jason-wj/load-config/source"
+	loadconfig "github.com/bitxx/load-config"
+	"github.com/bitxx/load-config/source"
 	"log"
 )
 

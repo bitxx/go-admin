@@ -3,8 +3,8 @@ package jwtauth
 import (
 	"crypto/rsa"
 	"errors"
+	"go-admin/common/config"
 	"go-admin/common/core"
-	"go-admin/common/core/config"
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/tools/language"
 	"go-admin/common/middleware/auth/authdto"

@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/jason-wj/logger"
+	"github.com/bitxx/logger"
 )
 
 type Logger struct {

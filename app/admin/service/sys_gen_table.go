@@ -7,7 +7,7 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/core/config"
+	"go-admin/common/config"
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/service"
 	cDto "go-admin/common/dto"

@@ -2,7 +2,7 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/common/core/config"
+	"go-admin/common/config"
 	"go-admin/common/middleware/auth/jwtauth"
 	"go-admin/common/middleware/auth/sessionauth"
 )

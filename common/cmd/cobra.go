@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"go-admin/common/cmd/api"
-	"go-admin/common/core/config"
+	"go-admin/common/config"
 	"go-admin/common/core/pkg"
 	"os"
 

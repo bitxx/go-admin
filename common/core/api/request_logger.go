@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/jason-wj/logger/logbase"
+	"github.com/bitxx/logger/logbase"
 	"go-admin/common/core"
 	"go-admin/common/core/pkg"
 	"strings"

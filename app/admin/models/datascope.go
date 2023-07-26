@@ -2,8 +2,8 @@ package models
 
 import (
 	"errors"
-	"github.com/jason-wj/logger/logbase"
-	"go-admin/common/core/config"
+	"github.com/bitxx/logger/logbase"
+	"go-admin/common/config"
 	"go-admin/common/core/pkg"
 	"gorm.io/gorm"
 )

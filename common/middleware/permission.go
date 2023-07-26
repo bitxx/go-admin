@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"errors"
+	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
-	"github.com/jason-wj/logger/logbase"
 	"go-admin/app/admin/constant"
-	"go-admin/common/core/config"
+	"go-admin/common/config"
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/pkg/response"
 	"go-admin/common/middleware/auth"

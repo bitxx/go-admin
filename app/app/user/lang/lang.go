@@ -1,7 +1,7 @@
 package lang
 
 import (
-	"github.com/jason-wj/logger/logbase"
+	"github.com/bitxx/logger/logbase"
 	"go-admin/config/lang"
 	"os"
 )

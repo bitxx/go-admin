@@ -3,8 +3,8 @@ package middleware
 import (
 	"github.com/alibaba/sentinel-golang/core/system"
 	sentinelPlugin "github.com/alibaba/sentinel-golang/pkg/adapters/gin"
+	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
-	"github.com/jason-wj/logger/logbase"
 )
 
 // Sentinel 限流

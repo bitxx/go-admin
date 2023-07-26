@@ -8,8 +8,8 @@
 package cache
 
 import (
+	"go-admin/common/config"
 	"go-admin/common/core"
-	"go-admin/common/core/config"
 	"go-admin/common/core/pkg/captcha"
 	"log"
 )
