@@ -3,12 +3,11 @@ package logger
 import (
 	"context"
 	"fmt"
+	"github.com/jason-wj/logger/logbase"
 	"time"
 
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/utils"
-
-	loggerCore "go-admin/common/core/logger"
 )
 
 // Colors
@@ -33,14 +32,14 @@ type gormLogger struct {
 	traceStr, traceErrStr, traceWarnStr string
 }
 
-func (l *gormLogger) getLogger(ctx context.Context) loggerCore.Logger {
+func (l *gormLogger) getLogger(ctx context.Context) logbase.Logger {
 	requestId := ctx.Value("X-Request-Id")
 	if requestId != nil {
-		return loggerCore.DefaultLogger.Fields(map[string]interface{}{
+		return logbase.DefaultLogger.Fields(map[string]interface{}{
 			"x-request-id": requestId,
 		})
 	}
-	return loggerCore.DefaultLogger
+	return logbase.DefaultLogger
 }
 
 // LogMode log mode
@@ -55,7 +54,7 @@ func (l gormLogger) Info(ctx context.Context, msg string, data ...interface{}) {
 	if l.LogLevel >= logger.Info {
 		//l.Printf(l.infoStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 		log := l.getLogger(ctx)
-		log.Logf(loggerCore.InfoLevel, l.infoStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
+		log.Logf(logbase.InfoLevel, l.infoStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 	}
 }
 
@@ -64,7 +63,7 @@ func (l gormLogger) Warn(ctx context.Context, msg string, data ...interface{}) {
 	if l.LogLevel >= logger.Warn {
 		//l.Printf(l.warnStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 		log := l.getLogger(ctx)
-		log.Logf(loggerCore.WarnLevel, l.warnStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
+		log.Logf(logbase.WarnLevel, l.warnStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 	}
 }
 
@@ -73,7 +72,7 @@ func (l gormLogger) Error(ctx context.Context, msg string, data ...interface{}) 
 	if l.LogLevel >= logger.Error {
 		//l.Printf(l.errStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 		log := l.getLogger(ctx)
-		log.Logf(loggerCore.ErrorLevel, l.errStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
+		log.Logf(logbase.ErrorLevel, l.errStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 	}
 }
 
@@ -87,29 +86,29 @@ func (l gormLogger) Trace(ctx context.Context, begin time.Time, fc func() (strin
 			sql, rows := fc()
 			if rows == -1 {
 				//l.Printf(l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, "-", sql)
-				log.Logf(loggerCore.TraceLevel, l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, "-", sql)
+				log.Logf(logbase.TraceLevel, l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, "-", sql)
 			} else {
 				//l.Printf(l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, rows, sql)
-				log.Logf(loggerCore.TraceLevel, l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, rows, sql)
+				log.Logf(logbase.TraceLevel, l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, rows, sql)
 			}
 		case elapsed > l.SlowThreshold && l.SlowThreshold != 0 && l.LogLevel >= logger.Warn:
 			sql, rows := fc()
 			slowLog := fmt.Sprintf("SLOW SQL >= %v", l.SlowThreshold)
 			if rows == -1 {
 				//l.Printf(l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, "-", sql)
-				log.Logf(loggerCore.TraceLevel, l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, "-", sql)
+				log.Logf(logbase.TraceLevel, l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, "-", sql)
 			} else {
 				//l.Printf(l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, rows, sql)
-				log.Logf(loggerCore.TraceLevel, l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, rows, sql)
+				log.Logf(logbase.TraceLevel, l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, rows, sql)
 			}
 		case l.LogLevel == logger.Info:
 			sql, rows := fc()
 			if rows == -1 {
 				//l.Printf(l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, "-", sql)
-				log.Logf(loggerCore.TraceLevel, l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, "-", sql)
+				log.Logf(logbase.TraceLevel, l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, "-", sql)
 			} else {
 				//l.Printf(l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, rows, sql)
-				log.Logf(loggerCore.TraceLevel, l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, rows, sql)
+				log.Logf(logbase.TraceLevel, l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, rows, sql)
 			}
 		}
 	}

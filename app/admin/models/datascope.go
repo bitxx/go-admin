@@ -2,11 +2,10 @@ package models
 
 import (
 	"errors"
+	"github.com/jason-wj/logger/logbase"
 	"go-admin/common/core/config"
-	pkg2 "go-admin/common/core/pkg"
+	"go-admin/common/core/pkg"
 	"gorm.io/gorm"
-
-	log "go-admin/common/core/logger"
 )
 
 type DataPermission struct {
@@ -19,8 +18,8 @@ type DataPermission struct {
 func (e *DataPermission) GetDataScope(tableName string, db *gorm.DB) (*gorm.DB, error) {
 
 	if !config.ApplicationConfig.EnableDP {
-		usageStr := `数据权限已经为您` + pkg2.Green(`关闭`) + `，如需开启请参考配置文件字段说明`
-		log.Debug("%s\n", usageStr)
+		usageStr := `数据权限已经为您` + pkg.Green(`关闭`) + `，如需开启请参考配置文件字段说明`
+		logbase.Debug("%s\n", usageStr)
 		return db, nil
 	}
 	user := new(SysUser)
@@ -40,7 +39,7 @@ func (e *DataPermission) GetDataScope(tableName string, db *gorm.DB) (*gorm.DB, 
 		db = db.Where(tableName+".create_by in (SELECT id from sys_user where dept_id = ? )", user.DeptId)
 	}
 	if role.DataScope == "4" {
-		db = db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%"+pkg2.IntToString(user.DeptId)+"%")
+		db = db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%"+pkg.IntToString(user.DeptId)+"%")
 	}
 	if role.DataScope == "5" || role.DataScope == "" {
 		db = db.Where(tableName+".create_by = ?", e.UserId)

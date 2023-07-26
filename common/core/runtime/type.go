@@ -3,10 +3,10 @@ package runtime
 import (
 	"github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
+	"github.com/jason-wj/logger/logbase"
 	"net/http"
 
 	"github.com/robfig/cron/v3"
-	"go-admin/common/core/logger"
 	"go-admin/common/core/storage"
 	"gorm.io/gorm"
 )
@@ -28,8 +28,8 @@ type Runtime interface {
 	GetRouter() []Router
 
 	// SetLogger 使用go-admin定义的logger，参考来源go-micro
-	SetLogger(logger logger.Logger)
-	GetLogger() logger.Logger
+	SetLogger(logger logbase.Logger)
+	GetLogger() logbase.Logger
 
 	// SetCrontab crontab
 	SetCrontab(key string, crontab *cron.Cron)

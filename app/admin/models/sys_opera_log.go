@@ -3,10 +3,10 @@ package models
 import (
 	"encoding/json"
 	"errors"
+	"github.com/jason-wj/logger/logbase"
 	"go-admin/common/core"
 	"time"
 
-	log "go-admin/common/core/logger"
 	"go-admin/common/core/storage"
 )
 
@@ -39,21 +39,21 @@ func SaveOperLog(message storage.Messager) (err error) {
 	db := core.Runtime.GetDbByKey(message.GetPrefix())
 	if db == nil {
 		err = errors.New("db not exist")
-		log.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())
+		logbase.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}
 	var rb []byte
 	rb, err = json.Marshal(message.GetValues())
 	if err != nil {
-		log.Errorf("json Marshal error, %s", err.Error())
+		logbase.Errorf("json Marshal error, %s", err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}
 	var l SysOperLog
 	err = json.Unmarshal(rb, &l)
 	if err != nil {
-		log.Errorf("json Unmarshal error, %s", err.Error())
+		logbase.Errorf("json Unmarshal error, %s", err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}
@@ -63,7 +63,7 @@ func SaveOperLog(message storage.Messager) (err error) {
 	}
 	err = db.Create(&l).Error
 	if err != nil {
-		log.Errorf("db create error, %s", err.Error())
+		logbase.Errorf("db create error, %s", err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}

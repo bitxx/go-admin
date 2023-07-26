@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"fmt"
+	"github.com/jason-wj/logger/logbase"
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/pkg/response"
 	"go-admin/common/core/service"
@@ -10,7 +11,6 @@ import (
 	vd "github.com/bytedance/go-tagexpr/v2/validator"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go-admin/common/core/logger"
 	"go-admin/common/core/tools/language"
 	"gorm.io/gorm"
 	"net/http"
@@ -20,7 +20,7 @@ var DefaultLanguage = "zh-CN"
 
 type Api struct {
 	Context *gin.Context
-	Logger  *logger.Helper
+	Logger  *logbase.Helper
 	Orm     *gorm.DB
 	Lang    string //语言 en 英文 zh-cn中文
 	Errors  error
@@ -43,7 +43,7 @@ func (e *Api) MakeContext(c *gin.Context) *Api {
 }
 
 // GetLogger 获取上下文提供的日志
-func (e Api) GetLogger() *logger.Helper {
+func (e Api) GetLogger() *logbase.Helper {
 	return GetRequestLogger(e.Context)
 }
 

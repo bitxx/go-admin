@@ -1,7 +1,7 @@
 package lang
 
 import (
-	log "go-admin/common/core/logger"
+	"github.com/jason-wj/logger/logbase"
 	"go-admin/config/lang"
 	"os"
 )
@@ -82,7 +82,7 @@ func Init() {
 		if lang.MsgInfo[k] == "" {
 			lang.MsgInfo[k] = v
 		} else {
-			log.Fatal("Your plugin lang code %d is used by system or other plugins,please check")
+			logbase.Fatal("Your plugin lang code %d is used by system or other plugins,please check")
 			os.Exit(-1)
 		}
 	}

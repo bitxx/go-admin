@@ -3,10 +3,10 @@ package models
 import (
 	"encoding/json"
 	"errors"
+	"github.com/jason-wj/logger/logbase"
 	"go-admin/common/core"
 	"time"
 
-	log "go-admin/common/core/logger"
 	"go-admin/common/core/storage"
 )
 
@@ -39,24 +39,24 @@ func SaveLoginLog(message storage.Messager) (err error) {
 	db := core.Runtime.GetDbByKey(prefix)
 	if db == nil {
 		err = errors.New("db not exist")
-		log.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())
+		logbase.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())
 		return err
 	}
 	var rb []byte
 	rb, err = json.Marshal(message.GetValues())
 	if err != nil {
-		log.Errorf("json Marshal error, %s", err.Error())
+		logbase.Errorf("json Marshal error, %s", err.Error())
 		return err
 	}
 	var l SysLoginLog
 	err = json.Unmarshal(rb, &l)
 	if err != nil {
-		log.Errorf("json Unmarshal error, %s", err.Error())
+		logbase.Errorf("json Unmarshal error, %s", err.Error())
 		return err
 	}
 	err = db.Create(&l).Error
 	if err != nil {
-		log.Errorf("db create error, %s", err.Error())
+		logbase.Errorf("db create error, %s", err.Error())
 		return err
 	}
 	return nil

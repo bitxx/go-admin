@@ -1,9 +1,8 @@
 package mycasbin
 
 import (
+	"github.com/jason-wj/logger/logbase"
 	"sync/atomic"
-
-	"go-admin/common/core/logger"
 )
 
 // Logger is the implementation for a Logger using golang log.
@@ -34,22 +33,22 @@ func (l *Logger) LogModel(model [][]string) {
 		}
 		str += "\n"
 	}
-	logger.DefaultLogger.Log(logger.InfoLevel, str)
+	logbase.DefaultLogger.Log(logbase.InfoLevel, str)
 }
 
 // LogEnforce log info related to enforce.
 func (l *Logger) LogEnforce(matcher string, request []interface{}, result bool, explains [][]string) {
-	logger.DefaultLogger.Fields(map[string]interface{}{
+	logbase.DefaultLogger.Fields(map[string]interface{}{
 		"matcher":  matcher,
 		"request":  request,
 		"result":   result,
 		"explains": explains,
-	}).Log(logger.InfoLevel, nil)
+	}).Log(logbase.InfoLevel, nil)
 }
 
 // LogRole log info related to role.
 func (l *Logger) LogRole(roles []string) {
-	logger.DefaultLogger.Fields(map[string]interface{}{
+	logbase.DefaultLogger.Fields(map[string]interface{}{
 		"roles": roles,
 	})
 }
@@ -60,7 +59,7 @@ func (l *Logger) LogPolicy(policy map[string][][]string) {
 	for k := range policy {
 		data[k] = policy[k]
 	}
-	logger.DefaultLogger.Fields(data).Log(logger.InfoLevel, nil)
+	logbase.DefaultLogger.Fields(data).Log(logbase.InfoLevel, nil)
 }
 
 //func (l *Logger) Print(v ...interface{}) {

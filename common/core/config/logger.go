@@ -1,7 +1,7 @@
 package config
 
 import (
-	logger2 "go-admin/common/core/pkg/logger"
+	"github.com/jason-wj/logger"
 )
 
 type Logger struct {
@@ -15,13 +15,14 @@ type Logger struct {
 
 // Setup 设置logger
 func (e Logger) Setup() {
-	logger2.SetupLogger(
-		logger2.WithType(e.Type),
-		logger2.WithPath(e.Path),
-		logger2.WithLevel(e.Level),
-		logger2.WithStdout(e.Stdout),
-		logger2.WithCap(e.Cap),
+	l := logger.SetupLogger(
+		logger.WithType(e.Type),
+		logger.WithPath(e.Path),
+		logger.WithLevel(e.Level),
+		logger.WithStdout(e.Stdout),
+		logger.WithCap(e.Cap),
 	)
+	l.Init()
 }
 
 var LoggerConfig = new(Logger)

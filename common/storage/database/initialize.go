@@ -1,6 +1,7 @@
 package database
 
 import (
+	"github.com/jason-wj/logger/logbase"
 	"go-admin/common/core"
 	toolsConfig "go-admin/common/core/config"
 	"go-admin/common/core/pkg"
@@ -8,7 +9,6 @@ import (
 	"gorm.io/driver/mysql"
 	"time"
 
-	log "go-admin/common/core/logger"
 	toolsDB "go-admin/common/core/tools/database"
 	. "go-admin/common/core/tools/gorm/logger"
 	"gorm.io/gorm"
@@ -24,7 +24,7 @@ func Setup() {
 }
 
 func setupSimpleDatabase(host string, c *toolsConfig.Database) {
-	log.Infof("%s => %s", host, pkg.Green(c.Source))
+	logbase.Infof("%s => %s", host, pkg.Green(c.Source))
 	registers := make([]toolsDB.ResolverConfigure, len(c.Registers))
 	for i := range c.Registers {
 		registers[i] = toolsDB.NewResolverConfigure(
@@ -43,15 +43,15 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 				SlowThreshold: time.Second,
 				Colorful:      true,
 				LogLevel: logger.LogLevel(
-					log.DefaultLogger.Options().Level.LevelForGorm()),
+					logbase.DefaultLogger.Options().Level.LevelForGorm()),
 			},
 		),
 	}, mysql.Open)
 
 	if err != nil {
-		log.Fatal(pkg.Red(c.Driver+" connect error :"), err)
+		logbase.Fatal(pkg.Red(c.Driver+" connect error :"), err)
 	} else {
-		log.Info(pkg.Green(c.Driver + " connect success !"))
+		logbase.Info(pkg.Green(c.Driver + " connect success !"))
 	}
 
 	e := mycasbin.Setup(db, "sys_")

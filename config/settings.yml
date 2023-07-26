@@ -28,6 +28,10 @@ settings:
     level: trace
     # 数据库日志开关 dev模式，将自动开启
     enableddb: false
+    # 支持default、zap、logrus
+    type: default
+    # 单文件条数
+    cap: 100
   auth:
     # 仅支持jwt或session。如若不设置，默认session
     use: session

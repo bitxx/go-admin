@@ -5,7 +5,7 @@ package lang
 import (
 	"errors"
 	"fmt"
-	"go-admin/common/core/logger"
+	"github.com/jason-wj/logger/logbase"
 	"go-admin/common/utils/i18n"
 	"strings"
 )
@@ -146,7 +146,7 @@ func MsgErrf(errCode int, lang string, f ...interface{}) error {
 // @param lang  语言
 // @param f
 // @return error
-func MsgLogErrf(log *logger.Helper, lang string, errCodeReplace, errCode int, f ...interface{}) error {
+func MsgLogErrf(log *logbase.Helper, lang string, errCodeReplace, errCode int, f ...interface{}) error {
 	err := MsgErrf(errCode, lang, f)
 	log.Error(err)
 	if errCodeReplace <= 0 || errCodeReplace == errCode {
@@ -162,7 +162,7 @@ func MsgLogErrf(log *logger.Helper, lang string, errCodeReplace, errCode int, f 
 // @param errCodeReplace
 // @param errCode
 // @return error
-func MsgLogErr(log *logger.Helper, lang string, errCodeReplace, errCode int) error {
+func MsgLogErr(log *logbase.Helper, lang string, errCodeReplace, errCode int) error {
 	err := MsgErr(errCode, lang)
 	log.Error(err)
 	if errCodeReplace <= 0 || errCodeReplace == errCode {
