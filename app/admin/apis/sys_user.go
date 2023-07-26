@@ -8,7 +8,6 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/config"
 	"go-admin/common/core/api"
 	"go-admin/common/core/pkg/captcha"
 	_ "go-admin/common/core/pkg/response"
@@ -16,6 +15,7 @@ import (
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/middleware/auth/authdto"
+	"go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
 )

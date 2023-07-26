@@ -5,10 +5,10 @@ import (
 	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
-	"go-admin/common/config"
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/pkg/response"
 	"go-admin/common/middleware/auth"
+	"go-admin/config/config"
 	"gorm.io/gorm"
 )
 

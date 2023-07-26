@@ -5,7 +5,6 @@ import (
 	"github.com/casbin/casbin/v2/util"
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
-	"go-admin/common/config"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
 	"go-admin/common/core/pkg"
@@ -13,6 +12,7 @@ import (
 	"go-admin/common/middleware/auth/authdto"
 	"go-admin/common/middleware/auth/casbin"
 	"go-admin/common/utils/i18n"
+	config2 "go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
 	"time"
@@ -24,17 +24,17 @@ type JwtAuth struct{}
 
 func (j *JwtAuth) Init() {
 	timeout := time.Hour
-	if config.ApplicationConfig.Mode == "dev" {
+	if config2.ApplicationConfig.Mode == "dev" {
 		timeout = time.Duration(876010) * time.Hour
 	} else {
-		if config.AuthConfig.Timeout != 0 {
-			timeout = time.Duration(config.AuthConfig.Timeout) * time.Second
+		if config2.AuthConfig.Timeout != 0 {
+			timeout = time.Duration(config2.AuthConfig.Timeout) * time.Second
 		}
 	}
 	var err error
 	jwtAuthMiddleware, err = New(&GinJWTMiddleware{
-		Realm:           config.ApplicationConfig.Name,
-		Key:             []byte(config.AuthConfig.Secret),
+		Realm:           config2.ApplicationConfig.Name,
+		Key:             []byte(config2.AuthConfig.Secret),
 		Timeout:         timeout,
 		MaxRefresh:      time.Hour,
 		PayloadFunc:     PayloadFunc,

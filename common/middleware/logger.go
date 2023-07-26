@@ -5,11 +5,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"go-admin/common/config"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
 	"go-admin/common/core/pkg"
 	"go-admin/common/middleware/auth"
+	config2 "go-admin/config/config"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -91,7 +91,7 @@ func LoggerToFile() gin.HandlerFunc {
 		}
 		log.WithFields(logData).Info()
 
-		if c.Request.Method != "OPTIONS" && config.LoggerConfig.EnabledDB && statusCode != 404 {
+		if c.Request.Method != "OPTIONS" && config2.LoggerConfig.EnabledDB && statusCode != 404 {
 			SetDBOperLog(c, clientIP, statusCode, reqUri, reqMethod, latencyTime, body, result, statusBus)
 		}
 	}
@@ -106,7 +106,7 @@ func SetDBOperLog(c *gin.Context, clientIP string, statusCode int, reqUri string
 	l["operIp"] = clientIP
 	//用于定位ip所在城市
 	/*fmt.Println("gaConfig.ExtConfig.AMap.Key", config.ApplicationConfig.AmpKey)*/
-	l["operLocation"] = pkg.GetLocation(clientIP, config.ApplicationConfig.AmpKey)
+	l["operLocation"] = pkg.GetLocation(clientIP, config2.ApplicationConfig.AmpKey)
 	userId, _, _ := auth.Auth.GetUserId(c)
 	l["userId"] = userId
 	l["requestMethod"] = c.Request.Method

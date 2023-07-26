@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"go-admin/common/cmd/api"
-	"go-admin/common/config"
 	"go-admin/common/core/pkg"
+	"go-admin/config/config"
 	"os"
 
 	"github.com/spf13/cobra"

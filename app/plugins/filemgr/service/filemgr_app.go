@@ -10,12 +10,12 @@ import (
 	fLang "go-admin/app/plugins/filemgr/lang"
 	"go-admin/app/plugins/filemgr/models"
 	"go-admin/app/plugins/filemgr/service/dto"
-	"go-admin/common/config"
 	"go-admin/common/core/service"
 	cDto "go-admin/common/dto"
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateUtils"
 	"go-admin/common/utils/fileUtils/ossUtils"
+	"go-admin/config/config"
 	"mime/multipart"
 	"path"
 

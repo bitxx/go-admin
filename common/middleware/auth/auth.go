@@ -2,9 +2,9 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/common/config"
 	"go-admin/common/middleware/auth/jwtauth"
 	"go-admin/common/middleware/auth/sessionauth"
+	"go-admin/config/config"
 )
 
 const (

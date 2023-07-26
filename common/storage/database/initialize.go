@@ -2,10 +2,10 @@ package database
 
 import (
 	"github.com/bitxx/logger/logbase"
-	toolsConfig "go-admin/common/config"
 	"go-admin/common/core"
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/pkg/casbin"
+	toolsConfig "go-admin/config/config"
 	"gorm.io/driver/mysql"
 	"time"
 

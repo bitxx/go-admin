@@ -6,7 +6,6 @@ import (
 	"github.com/bitxx/load-config/source/file"
 	"github.com/unrolled/secure"
 	"go-admin/app"
-	"go-admin/common/config"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
 	"go-admin/common/core/pkg"
@@ -14,6 +13,7 @@ import (
 	"go-admin/common/storage/cache"
 	"go-admin/common/storage/database"
 	"go-admin/common/utils/i18n"
+	config2 "go-admin/config/config"
 	"log"
 	"net/http"
 	"os"
@@ -39,7 +39,7 @@ func init() {
 	StartCmd = &cobra.Command{
 		Use:          "server",
 		Short:        "Start API server",
-		Example:      config.ApplicationConfig.Name + " server -c config/settings.yml",
+		Example:      config2.ApplicationConfig.Name + " server -c config/settings.yml",
 		SilenceUsage: true,
 		PreRun: func(cmd *cobra.Command, args []string) {
 			setup()
@@ -67,7 +67,7 @@ func init() {
 
 func setup() {
 	//1. 读取配置
-	config.Setup(
+	config2.Setup(
 		file.NewSource(file.WithPath(configPath)),
 		database.Setup,
 		cache.Setup,
@@ -84,7 +84,7 @@ func setup() {
 }
 
 func run() error {
-	if config.ApplicationConfig.Mode == pkg.ModeProd.String() {
+	if config2.ApplicationConfig.Mode == pkg.ModeProd.String() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	initRouter()
@@ -94,7 +94,7 @@ func run() error {
 	}
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
+		Addr:    fmt.Sprintf("%s:%d", config2.ApplicationConfig.Host, config2.ApplicationConfig.Port),
 		Handler: core.Runtime.GetEngine(),
 	}
 
@@ -119,8 +119,8 @@ func run() error {
 
 	go func() {
 		// 服务连接
-		if config.SslConfig.Enable {
-			if err := srv.ListenAndServeTLS(config.SslConfig.Pem, config.SslConfig.KeyStr); err != nil && err != http.ErrServerClosed {
+		if config2.SslConfig.Enable {
+			if err := srv.ListenAndServeTLS(config2.SslConfig.Pem, config2.SslConfig.KeyStr); err != nil && err != http.ErrServerClosed {
 				log.Fatal("listen: ", err)
 			}
 		} else {
@@ -132,8 +132,8 @@ func run() error {
 	fmt.Println(pkg.Red(string(global.LogoContent)))
 	tip()
 	fmt.Println(pkg.Green("Server run at:"))
-	fmt.Printf("-  Local:   http://localhost:%d/ \r\n", config.ApplicationConfig.Port)
-	fmt.Printf("-  Network: http://%s:%d/ \r\n", pkg.GetLocaHonst(), config.ApplicationConfig.Port)
+	fmt.Printf("-  Local:   http://localhost:%d/ \r\n", config2.ApplicationConfig.Port)
+	fmt.Printf("-  Network: http://%s:%d/ \r\n", pkg.GetLocaHonst(), config2.ApplicationConfig.Port)
 
 	fmt.Printf("%s Enter Control + C Shutdown Server \r\n", pkg.GetCurrentTimeStr())
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
@@ -151,7 +151,7 @@ func run() error {
 }
 
 func tip() {
-	usageStr := `欢迎使用 ` + pkg.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + pkg.Red(`-h`) + ` 查看命令`
+	usageStr := `欢迎使用 ` + pkg.Green(config2.ApplicationConfig.Name+" "+config2.ApplicationConfig.Version) + ` 可以使用 ` + pkg.Red(`-h`) + ` 查看命令`
 	fmt.Printf("%s\n", usageStr)
 }
 
@@ -169,7 +169,7 @@ func initRouter() {
 		log.Fatal("not support other engine")
 		os.Exit(-1)
 	}
-	if config.SslConfig.Enable {
+	if config2.SslConfig.Enable {
 		r.Use(TlsHandler())
 	}
 	//r.Use(middleware.Metrics())
@@ -185,7 +185,7 @@ func TlsHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		secureMiddleware := secure.New(secure.Options{
 			SSLRedirect: true,
-			SSLHost:     config.SslConfig.Domain,
+			SSLHost:     config2.SslConfig.Domain,
 		})
 		err := secureMiddleware.Process(c.Writer, c.Request)
 		if err != nil {
