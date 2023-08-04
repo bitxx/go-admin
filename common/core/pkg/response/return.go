@@ -20,7 +20,7 @@ func Error(c *gin.Context, code int, msg string) {
 	//res.SetSuccess(false) //多余，暂不使用
 	c.Set("result", res)
 	c.Set("status", code)
-	status := http.StatusOK
+	status := http.StatusBadRequest
 	if code <= 600 {
 		status = code
 	}
