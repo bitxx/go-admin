@@ -129,10 +129,13 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	}
 
 	var err error
-
-	m, respCode, err := e.Get(c.ParentId, nil)
-	if err != nil {
-		return 0, respCode, err
+	m := &models.SysMenu{Id: 0}
+	if c.ParentId > 0 {
+		respM, respCode, err := e.Get(c.ParentId, nil)
+		if err != nil {
+			return 0, respCode, err
+		}
+		m = respM
 	}
 
 	var alist = make([]models.SysApi, 0)
