@@ -58,7 +58,8 @@ func (e *SysMenu) GetPage(c *dto.SysMenuQueryReq, p *middleware.DataPermission) 
 // Get 获取SysMenu对象
 func (e *SysMenu) Get(id int64, p *middleware.DataPermission) (*models.SysMenu, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		//id<=0,表示为顶级根菜单
+		return &models.SysMenu{Id: 0, ParentIds: ""}, lang.SuccessCode, nil
 	}
 	data := &models.SysMenu{}
 	err := e.Orm.Scopes(
@@ -128,14 +129,9 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 		return 0, sysLang.SysMenuSortEmptyCode, lang.MsgErr(sysLang.SysMenuSortEmptyCode, e.Lang)
 	}
 
-	var err error
-	m := &models.SysMenu{Id: 0}
-	if c.ParentId > 0 {
-		respM, respCode, err := e.Get(c.ParentId, nil)
-		if err != nil {
-			return 0, respCode, err
-		}
-		m = respM
+	m, respCode, err := e.Get(c.ParentId, nil)
+	if err != nil {
+		return 0, respCode, err
 	}
 
 	var alist = make([]models.SysApi, 0)
