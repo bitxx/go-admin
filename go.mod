@@ -8,7 +8,7 @@ require (
 	github.com/alibaba/sentinel-golang/pkg/adapters/gin v0.0.0-20221011112204-0d804bbadda5
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.6+incompatible
 	github.com/bitxx/load-config v1.5.1
-	github.com/bitxx/logger v1.5.3
+	github.com/bitxx/logger v1.6.1
 	github.com/bsm/redislock v0.9.1
 	github.com/bytedance/go-tagexpr/v2 v2.9.7
 	github.com/casbin/casbin/v2 v2.65.2

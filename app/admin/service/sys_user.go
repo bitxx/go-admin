@@ -13,7 +13,7 @@ import (
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateUtils"
 	"go-admin/common/utils/strutils"
-	config2 "go-admin/config/config"
+	"go-admin/config/config"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"time"
@@ -622,7 +622,7 @@ func (e *SysUser) UpdatePwd(c dto.UpdateSysUserPwdReq, p *middleware.DataPermiss
 
 // LoginLogToDB Write log to database
 func (e *SysUser) LoginLogToDB(c *gin.Context, status string, msg string, userId int64) {
-	if !config2.LoggerConfig.EnabledDB {
+	if !config.LoggerConfig.EnabledDB {
 		return
 	}
 	l := make(map[string]interface{})
@@ -631,7 +631,7 @@ func (e *SysUser) LoginLogToDB(c *gin.Context, status string, msg string, userId
 	l["ipaddr"] = pkg.GetClientIP(c)
 	//用于定位ip所在城市
 	//fmt.Println("gaConfig.ExtConfig.AMap.Key", config.ApplicationConfig.AmpKey)
-	l["loginLocation"] = pkg.GetLocation(pkg.GetClientIP(c), config2.ApplicationConfig.AmpKey)
+	l["loginLocation"] = pkg.GetLocation(pkg.GetClientIP(c), config.ApplicationConfig.AmpKey)
 	l["loginTime"] = pkg.GetCurrentTime()
 	l["status"] = status
 	l["agent"] = c.Request.UserAgent()

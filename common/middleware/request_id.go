@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/bitxx/logger/logbase"
 	"go-admin/common/core/pkg"
+	"go-admin/config/config"
 	"net/http"
 	"strings"
 
@@ -26,11 +26,7 @@ func RequestId(trafficKey string) gin.HandlerFunc {
 		}
 		c.Request.Header.Set(trafficKey, requestId)
 		c.Set(trafficKey, requestId)
-		c.Set(pkg.LoggerKey,
-			logbase.NewHelper(logbase.DefaultLogger).
-				WithFields(map[string]interface{}{
-					trafficKey: requestId,
-				}))
+		c.Set(pkg.LoggerKey, config.LoggerConfig.GetLogger(trafficKey, requestId))
 		c.Next()
 	}
 }

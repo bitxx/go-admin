@@ -2,11 +2,9 @@ package api
 
 import (
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common/core"
-	"go-admin/common/core/pkg"
-	"strings"
-
 	"github.com/gin-gonic/gin"
+	"go-admin/common/core/pkg"
+	"go-admin/config/config"
 )
 
 type loggerKey struct{}
@@ -24,17 +22,11 @@ func GetRequestLogger(c *gin.Context) *logbase.Helper {
 	}
 	//如果没有在上下文中放入logger
 	requestId := pkg.GenerateMsgIDFromContext(c)
-	log = logbase.NewHelper(core.Runtime.GetLogger()).WithFields(map[string]interface{}{
-		strings.ToLower(pkg.TrafficKey): requestId,
-	})
-	return log
+	return config.LoggerConfig.GetLogger(pkg.TrafficKey, requestId)
 }
 
 // SetRequestLogger 设置logger中间件
 func SetRequestLogger(c *gin.Context) {
 	requestId := pkg.GenerateMsgIDFromContext(c)
-	log := logbase.NewHelper(core.Runtime.GetLogger()).WithFields(map[string]interface{}{
-		strings.ToLower(pkg.TrafficKey): requestId,
-	})
-	c.Set(pkg.LoggerKey, log)
+	c.Set(pkg.LoggerKey, config.LoggerConfig.GetLogger(pkg.TrafficKey, requestId))
 }

@@ -2,7 +2,11 @@ package config
 
 import (
 	"github.com/bitxx/logger"
+	"github.com/bitxx/logger/logbase"
+	"strings"
 )
+
+var logInner *logbase.Helper
 
 type Logger struct {
 	Type      string
@@ -13,16 +17,21 @@ type Logger struct {
 	Cap       uint
 }
 
-// Setup 设置logger
 func (e Logger) Setup() {
-	l := logger.SetupLogger(
+	logInner = logger.NewLogger(
 		logger.WithType(e.Type),
 		logger.WithPath(e.Path),
 		logger.WithLevel(e.Level),
 		logger.WithStdout(e.Stdout),
 		logger.WithCap(e.Cap),
 	)
-	l.Init()
+}
+
+// GetLogger 设置logger
+func (e Logger) GetLogger(key, requestId string) *logbase.Helper {
+	return logInner.WithFields(map[string]interface{}{
+		strings.ToLower(key): requestId,
+	})
 }
 
 var LoggerConfig = new(Logger)
