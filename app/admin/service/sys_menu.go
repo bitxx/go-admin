@@ -274,7 +274,7 @@ func (e *SysMenu) Remove(ids []int64, p *middleware.DataPermission) (int, error)
 
 	//删除列表
 	var data models.SysMenu
-	err = e.Orm.Scopes(
+	err = tx.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
