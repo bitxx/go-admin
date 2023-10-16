@@ -4,13 +4,14 @@ import "go-admin/config/lang"
 
 //多语言翻译 i18n
 const (
-    //编码不得和整个项目中的别的模块有重复
-	HelloWorldCode = 888
+    //todo 编码不得和整个项目中的别的模块有重复，demo：
+	 //HelloWorldCode = 888
 )
 
 var (
 	MsgInfo = map[int]string{
-		HelloWorldCode: "HelloWorld!",
+    //todo demo：
+		//HelloWorldCode: "HelloWorld!",
 	}
 )
 

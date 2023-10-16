@@ -1,7 +1,6 @@
 package router
 
 import (
-	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/apis"
 	"go-admin/common/core"
@@ -9,7 +8,6 @@ import (
 	"go-admin/common/middleware"
 	"go-admin/config/config"
 	"mime"
-	"os"
 )
 
 var (
@@ -22,15 +20,13 @@ func InitRouter() {
 	var r *gin.Engine
 	h := core.Runtime.GetEngine()
 	if h == nil {
-		logbase.Fatal("not found engine...")
-		os.Exit(-1)
+		panic("not found engine...")
 	}
 	switch h.(type) {
 	case *gin.Engine:
 		r = h.(*gin.Engine)
 	default:
-		logbase.Fatal("not support other engine")
-		os.Exit(-1)
+		panic("not found engine...")
 	}
 	InitSysRouter(r)
 
