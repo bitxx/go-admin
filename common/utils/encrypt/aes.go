@@ -7,7 +7,7 @@ import (
 	"errors"
 )
 
-var defaultKey = []byte{159, 88, 162, 9, 70, 180, 126, 25, 0, 3, 236, 113, 108, 28, 69, 125}
+var defaultKey = []byte{34, 54, 12, 3, 43, 12, 132, 126, 32, 45, 74, 23, 201, 23, 14, 142}
 
 func AesEncryptDefault(text string) (string, error) {
 	if text == "" {

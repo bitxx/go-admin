@@ -10,7 +10,6 @@ import (
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/utils/dateUtils"
-	"go-admin/common/utils/encrypt"
 	"go-admin/config/lang"
 	"time"
 )
@@ -66,12 +65,6 @@ func (e User) Get(c *gin.Context) {
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
-	}
-	if result.Mobile != "" {
-		result.Mobile, _ = encrypt.AesDecryptDefault(result.Mobile)
-	}
-	if result.Email != "" {
-		result.Email, _ = encrypt.AesDecryptDefault(result.Email)
 	}
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }

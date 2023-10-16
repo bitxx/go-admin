@@ -11,6 +11,7 @@ import (
 	"go-admin/common/middleware"
 	"go-admin/common/utils/encrypt"
 	"go-admin/common/utils/strutils"
+	"go-admin/config/config"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 )
@@ -45,13 +46,13 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 	var count int64
 	var err error
 	if c.Mobile != "" {
-		c.Mobile, err = encrypt.AesEncryptDefault(c.Mobile)
+		c.Mobile, err = encrypt.AesEncrypt(c.Mobile, []byte(config.AuthConfig.Secret))
 		if err != nil {
 			c.Mobile = ""
 		}
 	}
 	if c.Email != "" {
-		c.Email, err = encrypt.AesEncryptDefault(c.Email)
+		c.Email, err = encrypt.AesEncrypt(c.Email, []byte(config.AuthConfig.Secret))
 		if err != nil {
 			c.Email = ""
 		}
@@ -69,7 +70,7 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 
 	for index, item := range list {
 		if item.User != nil && item.User.Mobile != "" {
-			mobile, err := encrypt.AesDecryptDefault(item.User.Mobile)
+			mobile, err := encrypt.AesDecrypt(item.User.Mobile, []byte(config.AuthConfig.Secret))
 			if err == nil {
 				if c.ShowInfo {
 					list[index].User.Mobile = mobile
@@ -80,7 +81,7 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 		}
 
 		if item.User != nil && item.User.Email != "" {
-			email, err := encrypt.AesDecryptDefault(item.User.Email)
+			email, err := encrypt.AesDecrypt(item.User.Email, []byte(config.AuthConfig.Secret))
 			if err == nil {
 				if c.ShowInfo {
 					list[index].User.Email = email

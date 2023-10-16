@@ -37,7 +37,7 @@ settings:
     use: session
     # token 过期时间 单位：秒，默认一周
     timeout: 604800
-    # token 密钥，生产环境时及的修改
+    # token 密钥，包括aes密钥共用，生产环境需修改
     secret: admin-api
   database:
     # 目前仅支持mysql

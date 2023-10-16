@@ -12,7 +12,7 @@ import (
 	"go-admin/common/middleware/auth/authdto"
 	"go-admin/common/middleware/auth/casbin"
 	"go-admin/common/utils/i18n"
-	config2 "go-admin/config/config"
+	"go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
 	"strconv"
@@ -47,14 +47,14 @@ func (s *SessionAuth) Login(c *gin.Context) {
 
 	//获取sid，并用sid保存userId
 	sid := uuid.NewV4().String()
-	err := core.Runtime.GetCacheAdapter().Set(SessionLoginPrefixTmp, sid, userId, config2.AuthConfig.Timeout)
+	err := core.Runtime.GetCacheAdapter().Set(SessionLoginPrefixTmp, sid, userId, config.AuthConfig.Timeout)
 	log := api.GetRequestLogger(c)
 	if err != nil {
 		log.Error(err)
 		c.JSON(lang.RequestErr, errResp)
 		return
 	}
-	if config2.ApplicationConfig.IsSingleLogin {
+	if config.ApplicationConfig.IsSingleLogin {
 		_ = core.Runtime.GetCacheAdapter().Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
 	}
 
@@ -81,7 +81,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		sid: string(sessionInfo),
 	}
 	//用userId保存sid，记录登录状态（此操作可用于多点登录）
-	err = core.Runtime.GetCacheAdapter().HashSet(config2.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
+	err = core.Runtime.GetCacheAdapter().HashSet(config.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
 	log = api.GetRequestLogger(c)
 	if err != nil {
 		log.Error(err)
@@ -95,7 +95,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		Code:      http.StatusOK,
 		Data: authdto.Data{
 			Token:    sid,
-			Expire:   time.Now().Add(time.Duration(config2.AuthConfig.Timeout) * time.Second).Format(time.RFC3339),
+			Expire:   time.Now().Add(time.Duration(config.AuthConfig.Timeout) * time.Second).Format(time.RFC3339),
 			UserInfo: userInfo,
 		},
 	}
@@ -209,8 +209,8 @@ func (s *SessionAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 			return
 		}
 		c.Set(authdto.LoginUserId, uid)
-		_ = cache.Expire(SessionLoginPrefixTmp, sid, config2.AuthConfig.Timeout)
-		_ = cache.Expire(SessionLoginPrefix, uid, config2.AuthConfig.Timeout)
+		_ = cache.Expire(SessionLoginPrefixTmp, sid, config.AuthConfig.Timeout)
+		_ = cache.Expire(SessionLoginPrefix, uid, config.AuthConfig.Timeout)
 		c.Next()
 	}
 }

@@ -15,6 +15,7 @@ import (
 	"go-admin/common/utils/encrypt"
 	"go-admin/common/utils/idgen"
 	"go-admin/common/utils/strutils"
+	"go-admin/config/config"
 	"strconv"
 	"strings"
 
@@ -52,11 +53,11 @@ func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]mod
 	var list []models.User
 	var count int64
 	if c.Mobile != "" {
-		c.Mobile, _ = encrypt.AesEncryptDefault(c.Mobile)
+		c.Mobile, _ = encrypt.AesEncrypt(c.Mobile, []byte(config.AuthConfig.Secret))
 	}
 
 	if c.Email != "" {
-		c.Email, _ = encrypt.AesEncryptDefault(c.Email)
+		c.Email, _ = encrypt.AesEncrypt(c.Email, []byte(config.AuthConfig.Secret))
 	}
 
 	//上级邀请码查询
@@ -100,12 +101,12 @@ func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]mod
 			list[index].ParentUserName = parentUser.UserName
 		}
 
-		mobile, err := encrypt.AesDecryptDefault(user.Mobile)
+		mobile, err := encrypt.AesDecrypt(user.Mobile, []byte(config.AuthConfig.Secret))
 		if err == nil {
 			list[index].Mobile = strutils.HidePartStr(mobile, 3)
 		}
 
-		email, err := encrypt.AesDecryptDefault(user.Email)
+		email, err := encrypt.AesDecrypt(user.Email, []byte(config.AuthConfig.Secret))
 		if err == nil {
 			list[index].Email = strutils.HidePartStr(email, 5)
 		}
@@ -134,6 +135,12 @@ func (e *User) Get(id int64, p *middleware.DataPermission) (*models.User, int, e
 	}
 	if err == gorm.ErrRecordNotFound {
 		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+	}
+	if data.Mobile != "" {
+		data.Mobile, _ = encrypt.AesEncrypt(data.Mobile, []byte(config.AuthConfig.Secret))
+	}
+	if data.Email != "" {
+		data.Email, _ = encrypt.AesEncrypt(data.Email, []byte(config.AuthConfig.Secret))
 	}
 	return data, lang.SuccessCode, nil
 }
@@ -258,7 +265,7 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	}()
 
 	for _, mobile := range mobiles {
-		mobile, err = encrypt.AesEncryptDefault(mobile)
+		mobile, err = encrypt.AesEncrypt(mobile, []byte(config.AuthConfig.Secret))
 		if err != nil {
 			return uLang.AppUserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserMobileEncryptErrCode, uLang.AppUserMobileEncryptErrLogCode, err)
 		}
@@ -268,7 +275,7 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 		}
 	}
 	for _, email := range emails {
-		email, err = encrypt.AesEncryptDefault(email)
+		email, err = encrypt.AesEncrypt(email, []byte(config.AuthConfig.Secret))
 		if err != nil {
 			return uLang.AppUserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserEmailEncryptErrCode, uLang.AppUserEmailEncryptErrLogCode, err)
 		}
@@ -303,9 +310,9 @@ func (e *User) register(registerType, email, mobile, mobileTitle string, refUser
 	if count > 0 {
 		account := ""
 		if email != "" {
-			account, _ = encrypt.AesDecryptDefault(email)
+			account, _ = encrypt.AesDecrypt(email, []byte(config.AuthConfig.Secret))
 		} else if mobile != "" {
-			account, _ = encrypt.AesDecryptDefault(mobile)
+			account, _ = encrypt.AesDecrypt(mobile, []byte(config.AuthConfig.Secret))
 		}
 		return uLang.AppUserAccountExistLogCode, lang.MsgErrf(uLang.AppUserAccountExistLogCode, e.Lang, account)
 	}
@@ -442,7 +449,7 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 
 	mobile := ""
 	if c.Mobile != "" {
-		mobile, err = encrypt.AesEncryptDefault(strings.TrimSpace(c.Mobile))
+		mobile, err = encrypt.AesEncrypt(strings.TrimSpace(c.Mobile), []byte(config.AuthConfig.Secret))
 		if err != nil {
 			return false, uLang.AppUserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserMobileEncryptErrCode, uLang.AppUserMobileEncryptErrLogCode, err)
 		}
@@ -451,7 +458,7 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 	//邮箱加密
 	email := ""
 	if c.Email != "" {
-		email, err = encrypt.AesEncryptDefault(c.Email)
+		email, err = encrypt.AesEncrypt(c.Email, []byte(config.AuthConfig.Secret))
 		if err != nil {
 			return false, uLang.AppUserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserEmailEncryptErrCode, uLang.AppUserEmailEncryptErrLogCode, err)
 		}
