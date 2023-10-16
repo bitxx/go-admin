@@ -17,14 +17,10 @@ func Error(c *gin.Context, code int, msg string) {
 	}
 	res.SetTraceID(pkg.GenerateMsgIDFromContext(c))
 	res.SetCode(int32(code))
-	//res.SetSuccess(false) //多余，暂不使用
 	c.Set("result", res)
 	c.Set("status", code)
-	status := http.StatusBadRequest
-	if code <= 600 {
-		status = code
-	}
-	c.AbortWithStatusJSON(status, res)
+	//status := code
+	c.AbortWithStatusJSON(http.StatusOK, res)
 }
 
 func OKByCode(c *gin.Context, data interface{}, code int, msg string) {
@@ -38,11 +34,7 @@ func OKByCode(c *gin.Context, data interface{}, code int, msg string) {
 	//res.SetSuccess(false) //多余，暂不使用
 	c.Set("result", res)
 	c.Set("status", code)
-	status := http.StatusOK
-	if code <= 600 {
-		status = code
-	}
-	c.AbortWithStatusJSON(status, res)
+	c.AbortWithStatusJSON(http.StatusOK, res)
 }
 
 // OK 通常成功数据处理
