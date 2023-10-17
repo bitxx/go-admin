@@ -97,6 +97,7 @@ request.interceptors.response.use(
   },
   error => {
     if (error.message === 'Network Error') {
+      console.log('err' + error) // for debug
       Message({
         message: '服务器连接异常，请检查服务器！',
         type: 'error',
@@ -104,7 +105,14 @@ request.interceptors.response.use(
       })
       return
     }
-    console.log('err' + error) // for debug
+    if (error.message === 'Request failed with status code 401') {
+      Message({
+        message: '登录状态失效，请重新登录',
+        type: 'error',
+        duration: 5 * 1000
+      })
+      return
+    }
 
     Message({
       message: error.message,
