@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	cLang "go-admin/app/plugins/content/lang"
 	"go-admin/app/plugins/content/models"
 	"go-admin/app/plugins/content/service/dto"
@@ -260,14 +260,14 @@ func (e *ContentAnnouncement) Remove(ids []int64, p *middleware.DataPermission) 
 func (e *ContentAnnouncement) GetExcel(list []models.ContentAnnouncement) ([]byte, error) {
 	sheetName := "ContentAnnouncement"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
-	xlsx.SetColWidth(sheetName, "A", "E", 25)
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	no, _ := xlsx.NewSheet(sheetName)
+	_ = xlsx.SetColWidth(sheetName, "A", "E", 25)
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"公告编号", "标题", "内容", "阅读次数", "备注信息"})
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.Title, item.Content, item.Num, item.Remark,
 		})
 	}

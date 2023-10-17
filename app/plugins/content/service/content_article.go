@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	sysLang "go-admin/app/admin/lang"
 	cLang "go-admin/app/plugins/content/lang"
 	"go-admin/app/plugins/content/models"
@@ -278,15 +278,15 @@ func (e *ContentArticle) Remove(ids []int64, p *middleware.DataPermission) (int,
 func (e *ContentArticle) GetExcel(list []models.ContentArticle) ([]byte, error) {
 	sheetName := "ContentArticle"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
-	xlsx.SetColWidth(sheetName, "A", "P", 25)
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	no, _ := xlsx.NewSheet(sheetName)
+	_ = xlsx.SetColWidth(sheetName, "A", "P", 25)
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"文章编号", "分类名称", "标题", "内容", "备注", "时间"})
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
 
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.ContentCategory.Name, item.Name, item.Content, item.Remark, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}

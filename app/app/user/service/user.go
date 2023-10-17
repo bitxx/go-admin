@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/app/user/constant"
 	uLang "go-admin/app/app/user/lang"
@@ -563,9 +563,10 @@ func (e *User) UpdateStatus(c *dto.UserStatusUpdateReq, p *middleware.DataPermis
 func (e *User) GetExcel(list []models.User) ([]byte, error) {
 	sheetName := "User"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
-	xlsx.SetColWidth(sheetName, "A", "L", 25)
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	defer xlsx.Close()
+	no, _ := xlsx.NewSheet(sheetName)
+	_ = xlsx.SetColWidth(sheetName, "A", "L", 25)
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"编号", "状态"})
 	dictService := adminService.NewSysDictDataService(&e.Service)
 	for i, item := range list {
@@ -573,7 +574,7 @@ func (e *User) GetExcel(list []models.User) ([]byte, error) {
 		status := dictService.GetLabel("sys_status", item.Status)
 
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, status,
 		})
 	}

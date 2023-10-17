@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
@@ -243,16 +243,16 @@ func (e *SysDictType) GetExcel(list []models.SysDictType) ([]byte, error) {
 	//sheet名称
 	sheetName := "DictType"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
+	no, _ := xlsx.NewSheet(sheetName)
 	//各列间隔
-	xlsx.SetColWidth(sheetName, "A", "E", 25)
+	_ = xlsx.SetColWidth(sheetName, "A", "E", 25)
 	//头部描述
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"字典编号", "字典名称", "字典类型", "备注", "创建时间"})
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.DictName, item.DictType, item.Remark, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}

@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/app/user/constant"
 	appLang "go-admin/app/app/user/lang"
@@ -216,9 +216,9 @@ func (e *UserOperLog) Insert(c *dto.UserOperLogInsertReq) (int64, int, error) {
 func (e *UserOperLog) GetExcel(list []models.UserOperLog) ([]byte, error) {
 	sheetName := "UserOperLog"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
-	xlsx.SetColWidth(sheetName, "A", "G", 25)
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	no, _ := xlsx.NewSheet(sheetName)
+	_ = xlsx.SetColWidth(sheetName, "A", "G", 25)
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"编号", "用户邮箱", "用户手机号", "昵称", "用户行为类型", "更新用户类型", "更新者编号", "更新时间"})
 	var dictDataService = adminService.NewSysDictDataService(&e.Service)
 	for i, item := range list {
@@ -237,7 +237,7 @@ func (e *UserOperLog) GetExcel(list []models.UserOperLog) ([]byte, error) {
 		}
 
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, email, mobile, userName, actionType, byType, item.UpdateBy, dateUtils.ConvertToStr(*item.UpdatedAt, -1),
 		})
 	}

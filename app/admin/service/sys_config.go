@@ -2,8 +2,8 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/shopspring/decimal"
+	"github.com/xuri/excelize/v2"
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/common/core/service"
 	"go-admin/common/middleware"
@@ -239,11 +239,11 @@ func (e *SysConfig) GetExcel(list []models.SysConfig) ([]byte, error) {
 	//sheet名称
 	sheetName := "config"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
+	no, _ := xlsx.NewSheet(sheetName)
 	//各列间隔
-	xlsx.SetColWidth(sheetName, "A", "H", 25)
+	_ = xlsx.SetColWidth(sheetName, "A", "H", 25)
 	//头部描述
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"配置编号", "配置名称", "键名", "键值", "配置类型", "是否前端展示", "备注", "创建时间"})
 	dictService := NewSysDictDataService(&e.Service)
 
@@ -252,7 +252,7 @@ func (e *SysConfig) GetExcel(list []models.SysConfig) ([]byte, error) {
 		configType := dictService.GetLabel("sys_config_type", item.ConfigType)
 		isFrontend := dictService.GetLabel("sys_config_is_frontend", item.IsFrontend)
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.ConfigName, item.ConfigKey, item.ConfigValue, item.Remark, configType, isFrontend, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}

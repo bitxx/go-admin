@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	"go-admin/common/core/service"
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateUtils"
@@ -131,11 +131,11 @@ func (e *SysApi) GetExcel(list []models.SysApi) ([]byte, error) {
 	//sheet名称
 	sheetName := "Api"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
+	no, _ := xlsx.NewSheet(sheetName)
 	//各列间隔
-	xlsx.SetColWidth(sheetName, "A", "F", 25)
+	_ = xlsx.SetColWidth(sheetName, "A", "F", 25)
 	//头部描述
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"编号", "标题", "请求地址", "请求方法", "请求类型", "创建时间"})
 
 	dictService := NewSysDictDataService(&e.Service)
@@ -144,7 +144,7 @@ func (e *SysApi) GetExcel(list []models.SysApi) ([]byte, error) {
 		action := dictService.GetLabel("sys_api_action", item.Action)
 		apiType := dictService.GetLabel("sys_api_type", item.ApiType)
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.Title, item.Path, action, apiType, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}

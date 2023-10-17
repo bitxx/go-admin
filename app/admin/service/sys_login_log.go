@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/core/service"
@@ -81,11 +81,11 @@ func (e *SysLoginLog) GetExcel(list []models.SysLoginLog) ([]byte, error) {
 	//sheet名称
 	sheetName := "LoginLog"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
+	no, _ := xlsx.NewSheet(sheetName)
 	//各列间隔
-	xlsx.SetColWidth(sheetName, "A", "P", 25)
+	_ = xlsx.SetColWidth(sheetName, "A", "P", 25)
 	//头部描述
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"编号", "用户编号", "日志状态", "ip地址", "归属地", "代理", "浏览器", "系统", "固件", "登录时间", "备注"})
 	dictService := NewSysDictDataService(&e.Service)
 
@@ -93,7 +93,7 @@ func (e *SysLoginLog) GetExcel(list []models.SysLoginLog) ([]byte, error) {
 		axis := fmt.Sprintf("A%d", i+2)
 		loginLogStatus := dictService.GetLabel("sys_loginlog_status", item.Status) //平台
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.UserId, loginLogStatus, item.Ipaddr, item.LoginLocation, item.Agent,
 			item.Browser, item.Os, item.Platform, dateUtils.ConvertToStrByPrt(item.LoginTime, -1), item.Remark,
 		})

@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/core/service"
@@ -80,18 +80,18 @@ func (e *SysOperLog) GetExcel(list []models.SysOperLog) ([]byte, error) {
 	//sheet名称
 	sheetName := "OperLog"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
+	no, _ := xlsx.NewSheet(sheetName)
 	//各列间隔
-	xlsx.SetColWidth(sheetName, "A", "J", 25)
+	_ = xlsx.SetColWidth(sheetName, "A", "J", 25)
 	//头部描述
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"日志编号", "用户编号", "请求方法", "请求地址", "请求IP", "访问位置", "返回码",
 		"耗时", "用户代理", "操作时间"})
 
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.UserId, item.RequestMethod, item.OperUrl, item.OperIp,
 			item.OperLocation, item.Status, item.LatencyTime, item.UserAgent, item.OperTime,
 		})

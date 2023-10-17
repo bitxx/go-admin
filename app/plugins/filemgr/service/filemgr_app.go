@@ -3,8 +3,8 @@ package service
 import (
 	"errors"
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/google/uuid"
+	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/plugins/filemgr/constant"
 	fLang "go-admin/app/plugins/filemgr/lang"
@@ -342,9 +342,9 @@ func (e *FilemgrApp) GetSingleUploadFileInfo(form *multipart.Form, file *multipa
 func (e *FilemgrApp) GetExcel(list []models.FilemgrApp) ([]byte, error) {
 	sheetName := "FilemgrApp"
 	xlsx := excelize.NewFile()
-	no := xlsx.NewSheet(sheetName)
-	xlsx.SetColWidth(sheetName, "A", "J", 25)
-	xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
+	no, _ := xlsx.NewSheet(sheetName)
+	_ = xlsx.SetColWidth(sheetName, "A", "J", 25)
+	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
 		"App编号", "版本号", "系统平台", "App类型", "下载类型", "发布状态", "下载地址", "服务器本地地址",
 		"更新内容", "创建时间"})
 	dictService := adminService.NewSysDictDataService(&e.Service)
@@ -355,7 +355,7 @@ func (e *FilemgrApp) GetExcel(list []models.FilemgrApp) ([]byte, error) {
 		downloadType := dictService.GetLabel("plugin_filemgr_app_download_type", item.DownloadType) //下载类型
 		publishStatus := dictService.GetLabel("plugin_filemgr_publish_status", item.Status)         //下载类型
 		//按标签对应输入数据
-		xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
+		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.Version, platform, appType, downloadType, publishStatus, item.DownloadUrl, item.Remark, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
