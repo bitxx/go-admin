@@ -14,7 +14,13 @@ import (
 	"go-admin/common/global"
 		{{- end }}
 	{{- end }}
-
+	{{- $hasDecimal := false }}
+	{{- range .SysGenColumns }}
+		{{- if eq .GoType "decimal.Decimal"}}{{- $hasDecimal = true }}{{- end }}
+	{{- end }}
+	{{- if eq $hasDecimal true }}
+		"github.com/shopspring/decimal"
+	{{- end }}
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"time"
@@ -205,11 +211,17 @@ func (e *{{.ClassName}}) Update(c *dto.{{.ClassName}}UpdateReq, p *middleware.Da
 	{{- range .SysGenColumns }}
 		{{- if and (eq .IsRequired "1") (eq .IsEdit "1") }}
 			{{- if eq .GoType "string" }}
-	if c.{{.GoField}} != "" && data.{{.GoField}} != c.{{.GoField}}{
+	if c.{{.GoField}} != "" && data.{{.GoField}} != c.{{.GoField}} {
 		updates["{{.ColumnName}}"] = c.{{.GoField}}
-	}		{{- end }}
+	}
+			{{- end }}
 			{{- if or (eq .GoType "uint64") (eq .GoType "uint32") (eq .GoType "uint16") (eq .GoType "uint8") (eq .GoType "uint") (eq .GoType "int64") (eq .GoType "int32") (eq .GoType "int8") (eq .GoType "int") (eq .GoType "int32") (eq .GoType "float64") (eq .GoType "float") }}
-	if c.{{.GoField}} > 0 && data.{{.GoField}} != c.{{.GoField}}{
+	if c.{{.GoField}} >= 0 && data.{{.GoField}} != c.{{.GoField}}{
+		updates["{{.ColumnName}}"] = c.{{.GoField}}
+	}
+			{{- end }}
+			{{- if or (eq .GoType "decimal.Decimal") }}
+	if c.{{.GoField}}.Cmp(decimal.Zero) >= 0 && data.{{.GoField}}.Cmp(c.{{.GoField}}) != 0 {
 		updates["{{.ColumnName}}"] = c.{{.GoField}}
 	}
 			{{- end }}
