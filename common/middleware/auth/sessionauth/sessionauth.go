@@ -12,6 +12,7 @@ import (
 	"go-admin/common/middleware/auth/authdto"
 	"go-admin/common/middleware/auth/casbin"
 	"go-admin/common/utils/i18n"
+	"go-admin/common/utils/strutils"
 	"go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
@@ -33,7 +34,7 @@ func (s *SessionAuth) Init() {}
 
 func (s *SessionAuth) Login(c *gin.Context) {
 	errResp := authdto.Resp{
-		RequestId: pkg.GenerateMsgIDFromContext(c),
+		RequestId: strutils.GenerateMsgIDFromContext(c),
 		Msg:       lang.MsgByCode(lang.RequestErr, i18n.GetAcceptLanguage(c)),
 		Code:      lang.RequestErr,
 		Data:      nil,
@@ -90,7 +91,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 	}
 	userInfo, _ := c.Get(authdto.UserInfo)
 	resp := authdto.Resp{
-		RequestId: pkg.GenerateMsgIDFromContext(c),
+		RequestId: strutils.GenerateMsgIDFromContext(c),
 		Msg:       "",
 		Code:      http.StatusOK,
 		Data: authdto.Data{
@@ -109,7 +110,7 @@ func (s *SessionAuth) Logout(c *gin.Context) {
 	}
 	_ = core.Runtime.GetCacheAdapter().Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
 	c.JSON(http.StatusOK, authdto.Resp{
-		RequestId: pkg.GenerateMsgIDFromContext(c),
+		RequestId: strutils.GenerateMsgIDFromContext(c),
 		Msg:       "",
 		Code:      http.StatusOK,
 		Data:      nil,
@@ -184,7 +185,7 @@ func (s *SessionAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 		sid := strings.Replace(c.Request.Header.Get(authdto.HeaderAuthorization), authdto.HeaderTokenName+" ", "", -1)
 		isExist := cache.Exist(SessionLoginPrefixTmp, sid)
 		errResp := authdto.Resp{
-			RequestId: pkg.GenerateMsgIDFromContext(c),
+			RequestId: strutils.GenerateMsgIDFromContext(c),
 			Msg:       lang.MsgByCode(lang.AuthErr, i18n.GetAcceptLanguage(c)),
 			Code:      lang.AuthErr,
 			Data:      nil,

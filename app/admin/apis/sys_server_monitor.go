@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"github.com/shirou/gopsutil/host"
 	"go-admin/common/core/api"
-	pkg2 "go-admin/common/core/pkg"
+	"go-admin/common/core/pkg"
+	"go-admin/common/utils/fileUtils"
 	"runtime"
 	"strconv"
 	"time"
@@ -58,8 +59,8 @@ func (e ServerMonitor) ServerInfo(c *gin.Context) {
 	osDic["compiler"] = runtime.Compiler
 	osDic["version"] = runtime.Version()
 	osDic["numGoroutine"] = runtime.NumGoroutine()
-	osDic["ip"] = pkg2.GetLocaHonst()
-	osDic["projectDir"] = pkg2.GetCurrentPath()
+	osDic["ip"] = pkg.GetLocaHonst()
+	osDic["projectDir"] = fileUtils.GetCurrentPath()
 	osDic["hostName"] = sysInfo.Hostname
 	osDic["time"] = time.Now().Format("2006-01-02 15:04:05")
 
@@ -84,7 +85,7 @@ func (e ServerMonitor) ServerInfo(c *gin.Context) {
 	cpuDic := make(map[string]interface{}, 0)
 	cpuDic["cpuInfo"], _ = cpu.Info()
 	percent, _ := cpu.Percent(0, false)
-	cpuDic["Percent"] = pkg2.Round(percent[0], 2)
+	cpuDic["Percent"] = pkg.Round(percent[0], 2)
 	cpus, _ := cpu.Percent(time.Duration(200)*time.Millisecond, true)
 	cpuDic["cpus"] = cpus
 	cpuDic["cpuNum"], _ = cpu.Counts(false)

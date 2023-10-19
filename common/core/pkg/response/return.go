@@ -1,7 +1,7 @@
 package response
 
 import (
-	"go-admin/common/core/pkg"
+	"go-admin/common/utils/strutils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ func Error(c *gin.Context, code int, msg string) {
 	if msg != "" {
 		res.SetMsg(msg)
 	}
-	res.SetTraceID(pkg.GenerateMsgIDFromContext(c))
+	res.SetTraceID(strutils.GenerateMsgIDFromContext(c))
 	res.SetCode(int32(code))
 	c.Set("result", res)
 	c.Set("status", code)
@@ -28,7 +28,7 @@ func OKByCode(c *gin.Context, data interface{}, code int, msg string) {
 	if msg != "" {
 		res.SetMsg(msg)
 	}
-	res.SetTraceID(pkg.GenerateMsgIDFromContext(c))
+	res.SetTraceID(strutils.GenerateMsgIDFromContext(c))
 	res.SetData(data)
 	res.SetCode(int32(code))
 	//res.SetSuccess(false) //多余，暂不使用
@@ -45,7 +45,7 @@ func OK(c *gin.Context, data interface{}, msg string) {
 	if msg != "" {
 		res.SetMsg(msg)
 	}
-	res.SetTraceID(pkg.GenerateMsgIDFromContext(c))
+	res.SetTraceID(strutils.GenerateMsgIDFromContext(c))
 	res.SetCode(http.StatusOK)
 	c.Set("result", res)
 	c.Set("status", http.StatusOK)
@@ -73,7 +73,7 @@ func PageOK(c *gin.Context, result, extend interface{}, count int64, pageIndex i
 
 // Custum 兼容函数
 func Custum(c *gin.Context, data gin.H) {
-	data["requestId"] = pkg.GenerateMsgIDFromContext(c)
+	data["requestId"] = strutils.GenerateMsgIDFromContext(c)
 	c.Set("result", data)
 	c.AbortWithStatusJSON(http.StatusOK, data)
 }

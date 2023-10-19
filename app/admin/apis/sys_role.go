@@ -8,8 +8,8 @@ import (
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
+	mycasbin "go-admin/common/core/pkg/casbin"
 	_ "go-admin/common/core/pkg/response"
-	"go-admin/common/global"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/config/lang"
@@ -88,7 +88,7 @@ func (e SysRole) Insert(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	_, _ = global.LoadPolicy(c)
+	_, _ = mycasbin.LoadPolicy(c)
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
@@ -119,7 +119,7 @@ func (e SysRole) Update(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	_, _ = global.LoadPolicy(c)
+	_, _ = mycasbin.LoadPolicy(c)
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
@@ -142,7 +142,7 @@ func (e SysRole) Delete(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	_, _ = global.LoadPolicy(c)
+	_, _ = mycasbin.LoadPolicy(c)
 	e.OK(req.Ids, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 

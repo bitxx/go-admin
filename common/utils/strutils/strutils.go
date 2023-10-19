@@ -1,10 +1,19 @@
 package strutils
 
 import (
+	"crypto/md5"
+	"encoding/base64"
+	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
+	"go-admin/common/global"
+	"golang.org/x/crypto/bcrypt"
+	"io/ioutil"
 	"math/rand"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -124,4 +133,96 @@ func IsMobile(mobile string) bool {
 		return false
 	}
 	return true
+}
+
+func Hmac(data string) string {
+	h := md5.New()
+	h.Write([]byte(data))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+func IsStringEmpty(str string) bool {
+	return strings.Trim(str, " ") == ""
+}
+
+func PathExists(path string) bool {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true
+	}
+
+	if os.IsNotExist(err) {
+		return false
+	}
+
+	return false
+}
+
+func Base64ToImage(imageBase64 string) ([]byte, error) {
+	image, err := base64.StdEncoding.DecodeString(imageBase64)
+	if err != nil {
+		return nil, err
+	}
+
+	return image, nil
+}
+
+func GetDirFiles(dir string) ([]string, error) {
+	dirList, err := ioutil.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	filesRet := make([]string, 0)
+
+	for _, file := range dirList {
+		if file.IsDir() {
+			files, err := GetDirFiles(dir + string(os.PathSeparator) + file.Name())
+			if err != nil {
+				return nil, err
+			}
+
+			filesRet = append(filesRet, files...)
+		} else {
+			filesRet = append(filesRet, dir+string(os.PathSeparator)+file.Name())
+		}
+	}
+
+	return filesRet, nil
+}
+
+func GetCurrentTimeStamp() int64 {
+	return time.Now().UnixNano() / 1e6
+}
+
+// slice去重
+func RemoveRepByMap(slc []string) []string {
+	result := []string{}
+	tempMap := map[string]byte{}
+	for _, e := range slc {
+		l := len(tempMap)
+		tempMap[e] = 0
+		if len(tempMap) != l {
+			result = append(result, e)
+		}
+	}
+	return result
+}
+
+func CompareHashAndPassword(e string, p string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(e), []byte(p))
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+// GenerateMsgIDFromContext 生成msgID
+func GenerateMsgIDFromContext(c *gin.Context) string {
+	requestId := c.GetHeader(global.TrafficKey)
+	if requestId == "" {
+		requestId = uuid.New().String()
+		c.Header(global.TrafficKey, requestId)
+	}
+	return requestId
 }

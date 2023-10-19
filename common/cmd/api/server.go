@@ -84,7 +84,7 @@ func setup() {
 }
 
 func run() error {
-	if config.ApplicationConfig.Mode == pkg.ModeProd.String() {
+	if config.ApplicationConfig.Mode == global.ModeProd.String() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	initRouter()
@@ -174,7 +174,7 @@ func initRouter() {
 	}
 	//r.Use(middleware.Metrics())
 	r.Use(middleware.Sentinel()).
-		Use(middleware.RequestId(pkg.TrafficKey)).
+		Use(middleware.RequestId(global.TrafficKey)).
 		Use(api.SetRequestLogger)
 
 	middleware.InitMiddleware(r)

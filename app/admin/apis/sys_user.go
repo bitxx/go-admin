@@ -11,10 +11,10 @@ import (
 	"go-admin/common/core/api"
 	"go-admin/common/core/pkg/captcha"
 	_ "go-admin/common/core/pkg/response"
-	"go-admin/common/core/pkg/utils"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/middleware/auth/authdto"
+	"go-admin/common/utils/fileUtils"
 	"go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
@@ -271,7 +271,7 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 	files := form.File["avatar"]
 	guid := uuid.New().String()
 	reqPath := config.ApplicationConfig.FileRootPath + "admin/avatar/"
-	err = utils.IsNotExistMkDir(reqPath)
+	err = fileUtils.IsNotExistMkDir(reqPath)
 	if err != nil {
 		e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
 		/*err = fileutil.CreateDirAll(reqPath)

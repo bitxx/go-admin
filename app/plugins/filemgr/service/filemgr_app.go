@@ -14,7 +14,7 @@ import (
 	cDto "go-admin/common/dto"
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateUtils"
-	"go-admin/common/utils/fileUtils/ossUtils"
+	"go-admin/common/utils/ossUtils"
 	"go-admin/config/config"
 	"mime/multipart"
 	"path"

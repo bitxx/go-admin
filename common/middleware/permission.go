@@ -8,6 +8,7 @@ import (
 	"go-admin/common/core/pkg"
 	"go-admin/common/core/pkg/response"
 	"go-admin/common/middleware/auth"
+	"go-admin/common/utils/strutils"
 	"go-admin/config/config"
 	"gorm.io/gorm"
 )
@@ -31,7 +32,7 @@ func PermissionAction() gin.HandlerFunc {
 			return
 		}
 
-		msgID := pkg.GenerateMsgIDFromContext(c)
+		msgID := strutils.GenerateMsgIDFromContext(c)
 		var p = new(DataPermission)
 		userId, _, _ := auth.Auth.GetUserId(c)
 		if userId > 0 {

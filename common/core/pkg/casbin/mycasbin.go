@@ -2,9 +2,10 @@ package mycasbin
 
 import (
 	"github.com/casbin/casbin/v2"
-	"github.com/casbin/casbin/v2/log"
 	"github.com/casbin/casbin/v2/model"
-	gormAdapter "go-admin/common/core/gorm-adapter"
+	"github.com/gin-gonic/gin"
+	"go-admin/common/core"
+	"go-admin/common/core/api"
 	"gorm.io/gorm"
 )
 
@@ -24,7 +25,7 @@ m = r.sub == p.sub && (keyMatch2(r.obj, p.obj) || keyMatch(r.obj, p.obj)) && (r.
 `
 
 func Setup(db *gorm.DB, _ string) *casbin.SyncedEnforcer {
-	Apter, err := gormAdapter.NewAdapterByDB(db)
+	Apter, err := NewAdapterByDB(db)
 	if err != nil {
 		panic(err)
 	}
@@ -41,7 +42,16 @@ func Setup(db *gorm.DB, _ string) *casbin.SyncedEnforcer {
 		panic(err)
 	}
 
-	log.SetLogger(&Logger{})
 	e.EnableLog(true)
 	return e
+}
+
+func LoadPolicy(c *gin.Context) (*casbin.SyncedEnforcer, error) {
+	log := api.GetRequestLogger(c)
+	if err := core.Runtime.GetCasbinKey(c.Request.Host).LoadPolicy(); err == nil {
+		return core.Runtime.GetCasbinKey(c.Request.Host), err
+	} else {
+		log.Errorf("casbin rbac_model or policy init error, %s ", err.Error())
+		return nil, err
+	}
 }

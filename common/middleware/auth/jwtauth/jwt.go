@@ -4,9 +4,9 @@ import (
 	"crypto/rsa"
 	"errors"
 	"go-admin/common/core"
-	"go-admin/common/core/pkg"
 	"go-admin/common/core/tools/language"
 	"go-admin/common/middleware/auth/authdto"
+	"go-admin/common/utils/strutils"
 	config2 "go-admin/config/config"
 	"go-admin/config/lang"
 	"io/ioutil"
@@ -309,7 +309,7 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 		mw.LoginResponse = func(c *gin.Context, code int, token string, expire time.Time) {
 			userInfo, _ := c.Get(authdto.UserInfo)
 			c.JSON(http.StatusOK, gin.H{
-				"requestId": pkg.GenerateMsgIDFromContext(c),
+				"requestId": strutils.GenerateMsgIDFromContext(c),
 				"msg":       "",
 				"code":      http.StatusOK,
 				"data": gin.H{
@@ -324,7 +324,7 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 	if mw.RefreshResponse == nil {
 		mw.RefreshResponse = func(c *gin.Context, code int, token string, expire time.Time) {
 			c.JSON(http.StatusOK, gin.H{
-				"requestId": pkg.GenerateMsgIDFromContext(c),
+				"requestId": strutils.GenerateMsgIDFromContext(c),
 				"msg":       "",
 				"code":      http.StatusOK,
 				"data": gin.H{

@@ -434,7 +434,7 @@ func (e *SysUser) GetUser(login *dto.LoginReq) (*models.SysUser, int, error) {
 	if err != nil && err == gorm.ErrRecordNotFound {
 		return nil, sysLang.SysUserNoExistCode, lang.MsgErr(sysLang.SysUserNoExistCode, e.Lang)
 	}
-	if !pkg.CompareHashAndPassword(user.Password, login.Password) {
+	if !strutils.CompareHashAndPassword(user.Password, login.Password) {
 		return nil, sysLang.SysUserPwdErrCode, lang.MsgErr(sysLang.SysUserPwdErrCode, e.Lang)
 	}
 	return user, lang.SuccessCode, nil
@@ -598,11 +598,11 @@ func (e *SysUser) UpdatePwd(c dto.UpdateSysUserPwdReq, p *middleware.DataPermiss
 		return false, respCode, err
 	}
 
-	if !pkg.CompareHashAndPassword(u.Password, c.OldPassword) {
+	if !strutils.CompareHashAndPassword(u.Password, c.OldPassword) {
 		return false, sysLang.SysUserPwdErrCode, lang.MsgErr(sysLang.SysUserPwdErrCode, e.Lang)
 	}
 
-	if !pkg.CompareHashAndPassword(u.Password, c.NewPassword) {
+	if !strutils.CompareHashAndPassword(u.Password, c.NewPassword) {
 		now := time.Now()
 		u.Password = c.NewPassword
 		u.UpdateBy = c.CurrUserId

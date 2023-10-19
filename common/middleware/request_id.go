@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"go-admin/common/core/pkg"
+	"go-admin/common/global"
 	"go-admin/config/config"
 	"net/http"
 	"strings"
@@ -26,7 +26,7 @@ func RequestId(trafficKey string) gin.HandlerFunc {
 		}
 		c.Request.Header.Set(trafficKey, requestId)
 		c.Set(trafficKey, requestId)
-		c.Set(pkg.LoggerKey, config.LoggerConfig.GetLogger(trafficKey, requestId))
+		c.Set(global.LoggerKey, config.LoggerConfig.GetLogger(trafficKey, requestId))
 		c.Next()
 	}
 }

@@ -7,12 +7,12 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/core/pkg"
 	"go-admin/common/core/service"
 	cDto "go-admin/common/dto"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/fileUtils"
 	config2 "go-admin/config/config"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
@@ -486,14 +486,14 @@ func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		writer := zip.NewWriter(buf)
 		defer writer.Close()
 		for _, tpl := range templateResp {
-			err = pkg.ZipFilCreate(writer, *bytes.NewBufferString(tpl.Content), tpl.Path)
+			err = fileUtils.ZipFilCreate(writer, *bytes.NewBufferString(tpl.Content), tpl.Path)
 		}
 		return buf, lang.SuccessCode, nil
 	}
 	//如果是直接生成代码
 	for _, tpl := range templateResp {
-		err = pkg.CreateDirFromFilePath(tpl.Path)
-		pkg.FileCreate(*bytes.NewBufferString(tpl.Content), tpl.Path)
+		err = fileUtils.CreateDirFromFilePath(tpl.Path)
+		fileUtils.FileCreate(*bytes.NewBufferString(tpl.Content), tpl.Path)
 	}
 	return nil, lang.SuccessCode, nil
 }
