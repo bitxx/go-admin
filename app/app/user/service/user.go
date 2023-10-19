@@ -137,10 +137,10 @@ func (e *User) Get(id int64, p *middleware.DataPermission) (*models.User, int, e
 		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
 	}
 	if data.Mobile != "" {
-		data.Mobile, _ = encrypt.AesEncrypt(data.Mobile, []byte(config.AuthConfig.Secret))
+		data.Mobile, _ = encrypt.AesDecrypt(data.Mobile, []byte(config.AuthConfig.Secret))
 	}
 	if data.Email != "" {
-		data.Email, _ = encrypt.AesEncrypt(data.Email, []byte(config.AuthConfig.Secret))
+		data.Email, _ = encrypt.AesDecrypt(data.Email, []byte(config.AuthConfig.Secret))
 	}
 	return data, lang.SuccessCode, nil
 }
