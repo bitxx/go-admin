@@ -9,8 +9,6 @@ import (
 const (
 	// FromQueryTag tag标记
 	FromQueryTag = "search"
-	// Mysql 数据库标识
-	Mysql = "mysql"
 )
 
 // ResolveSearchQuery 解析
