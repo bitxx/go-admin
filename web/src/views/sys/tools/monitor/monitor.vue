@@ -13,8 +13,9 @@
                   <el-progress :color="$store.state.settings.theme" type="circle" :percentage="info.cpu.Percent" />
                 </div>
                 <div class="monitor-footer">
-                  <Cell label="CPU主频" :value="info.cpu.cpuInfo[0].modelName.split('@ ')[1]" border />
-                  <Cell label="核心数" :value="`${info.cpu.cpuInfo[0].cores}`" />
+                  <Cell v-if="info.cpu.cpuInfo!=null" label="CPU主频" :value="info.cpu.cpuInfo[0].modelName.split('@ ')[1]" border />
+                  <Cell v-else label="CPU主频" value="未知" border />
+                  <Cell label="核心数" :value="`${info.cpu.cpuNum}`" />
                 </div>
               </div>
             </el-card>
@@ -73,7 +74,8 @@
             <Cell label="操作系统" :value="info.os.goOs" border />
             <Cell label="服务器IP" :value="info.os.ip" border />
             <Cell label="系统架构" :value="info.os.arch" border />
-            <Cell label="CPU" :value="info.cpu.cpuInfo[0].modelName" border />
+            <Cell v-if="info.cpu.cpuInfo!=null" label="CPU"  :value="info.cpu.cpuInfo[0].modelName" border />
+            <Cell v-else label="CPU" value="未知" border />
             <Cell label="当前时间" :value="info.os.time" />
           </div>
         </el-card>
@@ -133,8 +135,8 @@ export default {
   methods: {
     getServerInfo() {
       getServer().then(ret => {
-        console.log(ret)
         if (ret.code === 200) {
+          console.log(ret)
           this.info = ret
         }
       })
