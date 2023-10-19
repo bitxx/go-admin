@@ -153,6 +153,15 @@ func (e *SysDictType) Update(c *dto.SysDictTypeUpdateReq, p *middleware.DataPerm
 		return false, respCode, err
 	}
 
+	e.Orm = e.Orm.Begin()
+	defer func() {
+		if err != nil {
+			e.Orm.Rollback()
+		} else {
+			e.Orm.Commit()
+		}
+	}()
+
 	updates := map[string]interface{}{}
 	if c.DictName != "" && data.DictName != c.DictName {
 		updates["dict_name"] = c.DictName
@@ -162,14 +171,20 @@ func (e *SysDictType) Update(c *dto.SysDictTypeUpdateReq, p *middleware.DataPerm
 		//判断是否已存在
 		req := dto.SysDictTypeQueryReq{}
 		req.DictType = c.DictType
-		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		resp, respCode, er := e.QueryOne(&req, nil)
+		if er != nil && respCode != lang.DataNotFoundCode {
+			err = er
 			return false, respCode, err
 		}
 		if respCode == lang.SuccessCode && resp.Id != data.Id {
 			return false, sysLang.SysDictTypeTypeExistCode, lang.MsgErr(sysLang.SysDictTypeTypeExistCode, e.Lang)
 		}
 		updates["dict_type"] = c.DictType
+		dictDataService := NewSysDictDataService(&e.Service)
+		respCode, err = dictDataService.UpdateDictType(data.DictType, c.DictType)
+		if err != nil {
+			return false, respCode, err
+		}
 	}
 	if c.Remark != "" && data.Remark != c.Remark {
 		updates["remark"] = c.Remark

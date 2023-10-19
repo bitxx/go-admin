@@ -194,6 +194,21 @@ func (e *SysDictData) Update(c *dto.SysDictDataUpdateReq, p *middleware.DataPerm
 	return false, lang.SuccessCode, nil
 }
 
+// UpdateDictType 用于sys_dict_type同步修改
+func (e *SysDictData) UpdateDictType(oldDictType, newDictType string) (int, error) {
+	if oldDictType == newDictType {
+		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+	}
+
+	updates := map[string]interface{}{}
+	updates["dict_type"] = newDictType
+	err := e.Orm.Model(&models.SysDictData{}).Where("dict_type=?", oldDictType).Updates(&updates).Error
+	if err != nil {
+		return lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+	}
+	return lang.SuccessCode, nil
+}
+
 // Remove 删除
 func (e *SysDictData) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
