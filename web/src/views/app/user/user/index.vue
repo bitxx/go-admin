@@ -289,6 +289,7 @@ export default {
         this.dataList = response.data.list
         this.total = response.data.count
         this.loading = false
+        this.summaryData = response.data.extend
       })
     },
     // 取消按钮
@@ -391,7 +392,7 @@ export default {
     },
     /** 显示选项框selectUserLevel */
     selectUserLevel() {
-      this.$refs.userLevel.show('1')
+      this.$refs.userLevel.show('')
     },
     /** 获取返回的信息 */
     getSelectUserLevelInfo(row) {
