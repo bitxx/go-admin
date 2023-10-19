@@ -41,7 +41,8 @@ func (e User) GetPage(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	result, _, _ := s.GetSummaries(&req, p)
+	e.PageOK(list, result, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
 // Get

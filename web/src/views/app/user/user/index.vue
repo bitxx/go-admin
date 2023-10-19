@@ -80,7 +80,7 @@
           </el-col>
         </el-row>
 
-        <el-table v-loading="loading" stripe border :data="dataList">
+        <el-table v-loading="loading" stripe border show-summary :summary-method="getSummaries" :data="dataList">
           <el-table-column label="序号" type="index" align="center" width="80">
             <template slot-scope="scope">
               <span>{{ (queryParams.pageIndex - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
@@ -231,6 +231,8 @@ export default {
       // 是否显示弹出层
       open: false,
       isEdit: false,
+      // 统计数据
+      summaryData: {},
       // 日期范围
       dateRange: [],
       // 类型数据字典
@@ -396,6 +398,21 @@ export default {
       this.form.levelId = row.id
       this.levelName = row.name.toString()
       this.$refs['form'].validateField('levelId')
+    },
+    /** 统计 */
+    getSummaries(param) {
+      const { columns } = param
+      const sums = []
+      columns.forEach((column, index) => {
+        if (index === 1) {
+          sums[index] = '合计'
+          return
+        }
+        if (column.property === 'money') {
+          sums[index] = this.summaryData.money
+        }
+      })
+      return sums
     }
   }
 }

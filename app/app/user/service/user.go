@@ -582,3 +582,22 @@ func (e *User) GetExcel(list []models.User) ([]byte, error) {
 	data, _ := xlsx.WriteToBuffer()
 	return data.Bytes(), nil
 }
+
+// GetSummaries 统计用户数据信息Z
+func (e *User) GetSummaries(c *dto.UserQueryReq, p *middleware.DataPermission) (*models.User, int, error) {
+	var err error
+	var data models.User
+
+	result := models.User{}
+	err = e.Orm.Model(&models.User{}).
+		Select("sum(app_user.money) as money").
+		Scopes(
+			cDto.MakeCondition(c.GetNeedSearch()),
+			middleware.Permission(data.TableName(), p),
+		).Find(&result).Limit(-1).Offset(-1).Error
+
+	if err != nil {
+		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	return &result, lang.SuccessCode, nil
+}
