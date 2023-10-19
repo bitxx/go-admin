@@ -3,9 +3,9 @@ package jwtauth
 import (
 	"crypto/rsa"
 	"errors"
-	"go-admin/common/core"
-	"go-admin/common/core/tools/language"
+	"go-admin/common"
 	"go-admin/common/middleware/auth/authdto"
+	"go-admin/common/utils/langutils"
 	"go-admin/common/utils/strutils"
 	config2 "go-admin/config/config"
 	"go-admin/config/lang"
@@ -431,7 +431,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) 
 		claims[key] = value
 	}
 
-	saveTokenStr, _ := core.Runtime.GetCacheAdapter().Get(JWTLoginPrefix, strconv.FormatInt(int64(claims[authdto.LoginUserId].(float64)), 10))
+	saveTokenStr, _ := common.Runtime.GetCacheAdapter().Get(JWTLoginPrefix, strconv.FormatInt(int64(claims[authdto.LoginUserId].(float64)), 10))
 	//单点登录
 	if config2.ApplicationConfig.IsSingleLogin && saveTokenStr != tokenStr {
 		return nil, lang.MsgErr(lang.AuthErr, mw.GetAcceptLanguage(c))
@@ -489,7 +489,7 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 			mw.CookieHTTPOnly,
 		)
 	}
-	err = core.Runtime.GetCacheAdapter().Set(JWTLoginPrefix, strconv.FormatInt(claims[authdto.LoginUserId].(int64), 10), tokenString, config2.AuthConfig.Timeout)
+	err = common.Runtime.GetCacheAdapter().Set(JWTLoginPrefix, strconv.FormatInt(claims[authdto.LoginUserId].(int64), 10), tokenString, config2.AuthConfig.Timeout)
 	if err != nil {
 		mw.unauthorized(c, http.StatusInternalServerError, mw.HTTPStatusMessageFunc(ErrMissingAuthenticatorFunc, c))
 		return
@@ -732,7 +732,7 @@ func (mw *GinJWTMiddleware) unauthorized(c *gin.Context, code int, message strin
 
 // getAcceptLanguage 获取当前语言
 func (mw *GinJWTMiddleware) GetAcceptLanguage(c *gin.Context) string {
-	languages := language.ParseAcceptLanguage(c.GetHeader("Accept-Language"), nil)
+	languages := langutils.ParseAcceptLanguage(c.GetHeader("Accept-Language"), nil)
 	if len(languages) == 0 {
 		return "zh-CN"
 	}

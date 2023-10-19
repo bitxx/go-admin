@@ -3,7 +3,7 @@ package service
 import (
 	"go-admin/app/admin/constant"
 	sysLang "go-admin/app/admin/lang"
-	"go-admin/common/core/service"
+	"go-admin/common/dto/service"
 	"go-admin/common/middleware"
 	"go-admin/config/lang"
 	"gorm.io/gorm/clause"

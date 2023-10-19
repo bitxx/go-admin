@@ -3,7 +3,7 @@ package apis
 import (
 	"github.com/gin-gonic/gin"
 	adminService "go-admin/app/admin/service"
-	"go-admin/common/core/api"
+	"go-admin/common/dto/api"
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"

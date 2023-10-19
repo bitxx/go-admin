@@ -8,9 +8,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"go-admin/common/global"
+	"go-admin/common/utils/idgen"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"math"
@@ -224,7 +224,7 @@ func CompareHashAndPassword(e string, p string) bool {
 func GenerateMsgIDFromContext(c *gin.Context) string {
 	requestId := c.GetHeader(global.TrafficKey)
 	if requestId == "" {
-		requestId = uuid.New().String()
+		requestId = idgen.UUID()
 		c.Header(global.TrafficKey, requestId)
 	}
 	return requestId

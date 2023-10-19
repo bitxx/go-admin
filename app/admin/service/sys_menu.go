@@ -3,7 +3,7 @@ package service
 import (
 	"go-admin/app/admin/constant"
 	sysLang "go-admin/app/admin/lang"
-	"go-admin/common/core/service"
+	"go-admin/common/dto/service"
 	"go-admin/common/middleware"
 	"go-admin/config/lang"
 	"strconv"
@@ -34,9 +34,8 @@ func (e *SysMenu) GetPage(c *dto.SysMenuQueryReq, p *middleware.DataPermission) 
 	var data models.SysMenu
 	var count int64
 
-	err := e.Orm.Model(&data).
+	err := e.Orm.Model(&data).Order("sort asc").
 		Scopes(
-			cDto.OrderDest("sort", false),
 			cDto.MakeCondition(c.GetNeedSearch()),
 			middleware.Permission(data.TableName(), p),
 		).Preload("SysApi").Find(&list).Limit(-1).Offset(-1).Count(&count).Error

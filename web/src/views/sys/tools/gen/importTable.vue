@@ -97,10 +97,7 @@ export default {
     handleImportTable() {
       this.loading = true
       this.visible = true
-      // this.tables.join(',')
       const reqStr = { dbTableNames: this.tables }
-      const req = JSON.stringify(reqStr)
-      console.log(req)
       importTable(reqStr).then(res => {
         this.msgSuccess(res.msg)
         if (res.code === 200) {

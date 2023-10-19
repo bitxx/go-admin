@@ -1,9 +1,9 @@
 package captchautils
 
 import (
+	"go-admin/common/utils/idgen"
 	"image/color"
 
-	"github.com/google/uuid"
 	"github.com/mojocn/base64Captcha"
 )
 
@@ -26,7 +26,7 @@ type configJsonBody struct {
 
 func DriverStringFunc() (id, b64s string, err error) {
 	e := configJsonBody{}
-	e.Id = uuid.New().String()
+	e.Id = idgen.UUID()
 	e.DriverString = base64Captcha.NewDriverString(46, 140, 2, 2, 4, "234567890abcdefghjkmnpqrstuvwxyz", &color.RGBA{R: 240, G: 240, B: 246, A: 246}, nil, []string{"wqy-microhei.ttc"})
 	driver := e.DriverString.ConvertFonts()
 	cap := base64Captcha.NewCaptcha(driver, base64Captcha.DefaultMemStore)
@@ -35,7 +35,7 @@ func DriverStringFunc() (id, b64s string, err error) {
 
 func DriverDigitFunc() (id, b64s string, err error) {
 	e := configJsonBody{}
-	e.Id = uuid.New().String()
+	e.Id = idgen.UUID()
 	e.DriverDigit = base64Captcha.NewDriverDigit(80, 240, 4, 0.7, 80)
 	driver := e.DriverDigit
 	cap := base64Captcha.NewCaptcha(driver, base64Captcha.DefaultMemStore)

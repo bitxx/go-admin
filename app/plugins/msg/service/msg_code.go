@@ -3,8 +3,8 @@ package service
 import (
 	"go-admin/app/plugins/msg/models"
 	"go-admin/app/plugins/msg/service/dto"
-	"go-admin/common/core/service"
 	cDto "go-admin/common/dto"
+	"go-admin/common/dto/service"
 	"go-admin/common/middleware"
 	"go-admin/config/lang"
 	"gorm.io/gorm"

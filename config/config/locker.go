@@ -2,8 +2,8 @@ package config
 
 import (
 	"github.com/redis/go-redis/v9"
-	"go-admin/common/core/storage"
-	"go-admin/common/core/storage/locker"
+	"go-admin/common/utils/storage"
+	"go-admin/common/utils/storage/locker"
 )
 
 var LockerConfig = new(Locker)

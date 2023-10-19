@@ -2,7 +2,7 @@ package dto
 
 import (
 	vd "github.com/bytedance/go-tagexpr/v2/validator"
-	"go-admin/common/core/api"
+	"go-admin/common/dto/api"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common/utils/i18n"
+	"go-admin/common/utils/langutils/i18n"
 	"strings"
 )
 

@@ -3,7 +3,7 @@ package service
 import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
-	"go-admin/common/core/service"
+	"go-admin/common/dto/service"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
 	"go-admin/config/lang"

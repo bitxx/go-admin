@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -17,8 +16,6 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-
-	"github.com/shamsher31/goimgext"
 )
 
 // GetSize 获取文件大小
@@ -77,37 +74,6 @@ func Open(name string, flag int, perm os.FileMode) (*os.File, error) {
 	}
 
 	return f, nil
-}
-
-// GetImgType 获取Img文件类型
-func GetImgType(p string) (string, error) {
-	file, err := os.Open(p)
-
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-
-	buff := make([]byte, 512)
-
-	_, err = file.Read(buff)
-
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-
-	filetype := http.DetectContentType(buff)
-
-	ext := imgext.Get()
-
-	for i := 0; i < len(ext); i++ {
-		if strings.Contains(ext[i], filetype[6:len(filetype)]) {
-			return filetype, nil
-		}
-	}
-
-	return "", errors.New("Invalid image type")
 }
 
 // GetType 获取文件类型

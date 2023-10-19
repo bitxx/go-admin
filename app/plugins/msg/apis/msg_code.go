@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/plugins/msg/service"
 	"go-admin/app/plugins/msg/service/dto"
-	"go-admin/common/core/api"
-	_ "go-admin/common/core/response"
+	"go-admin/common/dto/api"
+	_ "go-admin/common/dto/response"
 	"go-admin/common/middleware"
 	"go-admin/config/lang"
 )

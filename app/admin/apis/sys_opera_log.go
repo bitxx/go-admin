@@ -5,7 +5,7 @@ import (
 	"go-admin/app/admin/service"
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/core/api"
+	"go-admin/common/dto/api"
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"

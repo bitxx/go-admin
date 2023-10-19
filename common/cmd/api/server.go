@@ -6,13 +6,13 @@ import (
 	"github.com/bitxx/load-config/source/file"
 	"github.com/unrolled/secure"
 	"go-admin/app"
-	"go-admin/common/core"
-	"go-admin/common/core/api"
+	"go-admin/common"
+	"go-admin/common/dto/api"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/storage/cache"
 	"go-admin/common/storage/database"
-	"go-admin/common/utils/i18n"
 	"go-admin/common/utils/iputils"
+	"go-admin/common/utils/langutils/i18n"
 	"go-admin/common/utils/strutils"
 	"go-admin/common/utils/textutils"
 	"go-admin/config/config"
@@ -75,7 +75,7 @@ func setup() {
 		cache.Setup,
 	)
 	//注册监听函数
-	queue := core.Runtime.GetMemoryQueue("")
+	queue := common.Runtime.GetMemoryQueue("")
 	queue.Register(global.LoginLog, models.SaveLoginLog)
 	queue.Register(global.OperateLog, models.SaveOperLog)
 	queue.Register(global.ApiCheck, models.SaveSysApi)
@@ -97,15 +97,15 @@ func run() error {
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
-		Handler: core.Runtime.GetEngine(),
+		Handler: common.Runtime.GetEngine(),
 	}
 
 	if apiCheck {
-		var routers = core.Runtime.GetRouter()
-		q := core.Runtime.GetMemoryQueue("")
+		var routers = common.Runtime.GetRouter()
+		q := common.Runtime.GetMemoryQueue("")
 		mp := make(map[string]interface{}, 0)
 		mp["List"] = routers
-		message, err := core.Runtime.GetStreamMessage("", global.ApiCheck, mp)
+		message, err := common.Runtime.GetStreamMessage("", global.ApiCheck, mp)
 		if err != nil {
 			log.Printf("GetStreamMessage error, %s \n", err.Error())
 			//日志报错错误，不中断请求
@@ -159,10 +159,10 @@ func tip() {
 
 func initRouter() {
 	var r *gin.Engine
-	h := core.Runtime.GetEngine()
+	h := common.Runtime.GetEngine()
 	if h == nil {
 		h = gin.New()
-		core.Runtime.SetEngine(h)
+		common.Runtime.SetEngine(h)
 	}
 	switch h.(type) {
 	case *gin.Engine:

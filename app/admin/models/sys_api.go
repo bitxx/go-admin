@@ -3,12 +3,11 @@ package models
 import (
 	"encoding/json"
 	"fmt"
-	"go-admin/common/core"
-	"go-admin/common/core/runtime"
+	"go-admin/common"
+	"go-admin/common/runtime"
+	"go-admin/common/utils/storage"
 	"strings"
 	"time"
-
-	"go-admin/common/core/storage"
 )
 
 type SysApi struct {
@@ -42,7 +41,7 @@ func SaveSysApi(message storage.Messager) (err error) {
 		fmt.Errorf("json Unmarshal error, %s", err.Error())
 		return err
 	}
-	dbList := core.Runtime.GetDb()
+	dbList := common.Runtime.GetDb()
 	for _, d := range dbList {
 		for _, v := range l.List {
 			if v.HttpMethod != "HEAD" ||

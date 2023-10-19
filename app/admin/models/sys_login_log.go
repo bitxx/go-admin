@@ -4,10 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common/core"
+	"go-admin/common"
+	"go-admin/common/utils/storage"
 	"time"
-
-	"go-admin/common/core/storage"
 )
 
 type SysLoginLog struct {
@@ -36,7 +35,7 @@ func (SysLoginLog) TableName() string {
 func SaveLoginLog(message storage.Messager) (err error) {
 	//准备db
 	prefix := message.GetPrefix()
-	db := core.Runtime.GetDbByKey(prefix)
+	db := common.Runtime.GetDbByKey(prefix)
 	if db == nil {
 		err = errors.New("db not exist")
 		logbase.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())

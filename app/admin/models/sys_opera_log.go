@@ -4,10 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common/core"
+	"go-admin/common"
+	"go-admin/common/utils/storage"
 	"time"
-
-	"go-admin/common/core/storage"
 )
 
 type SysOperLog struct {
@@ -36,7 +35,7 @@ func (SysOperLog) TableName() string {
 // SaveOperLog 从队列中获取操作日志
 func SaveOperLog(message storage.Messager) (err error) {
 	//准备db
-	db := core.Runtime.GetDbByKey(message.GetPrefix())
+	db := common.Runtime.GetDbByKey(message.GetPrefix())
 	if db == nil {
 		err = errors.New("db not exist")
 		logbase.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())

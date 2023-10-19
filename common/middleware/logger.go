@@ -5,8 +5,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"go-admin/common/core"
-	"go-admin/common/core/api"
+	"go-admin/common"
+	"go-admin/common/dto/api"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/utils/iputils"
 	config2 "go-admin/config/config"
@@ -117,8 +117,8 @@ func SetDBOperLog(c *gin.Context, clientIP string, statusCode int, reqUri string
 	l["latencyTime"] = latencyTime.String()
 	l["statusCode"] = statusCode
 	l["status"] = strconv.Itoa(status)
-	q := core.Runtime.GetMemoryQueue(c.Request.Host)
-	message, err := core.Runtime.GetStreamMessage("", global.OperateLog, l)
+	q := common.Runtime.GetMemoryQueue(c.Request.Host)
+	message, err := common.Runtime.GetStreamMessage("", global.OperateLog, l)
 	if err != nil {
 		log.Errorf("GetStreamMessage error, %s", err.Error())
 		//日志报错错误，不中断请求

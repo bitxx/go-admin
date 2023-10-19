@@ -2,7 +2,7 @@ package captchautils
 
 import (
 	"github.com/mojocn/base64Captcha"
-	"go-admin/common/core/storage"
+	"go-admin/common/utils/storage"
 )
 
 const (

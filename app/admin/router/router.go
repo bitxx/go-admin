@@ -3,9 +3,9 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/apis"
-	"go-admin/common/core"
-	"go-admin/common/core/ws"
+	"go-admin/common"
 	"go-admin/common/middleware"
+	"go-admin/common/ws"
 	"go-admin/config/config"
 	"mime"
 )
@@ -18,7 +18,7 @@ var (
 // InitRouter
 func InitRouter() {
 	var r *gin.Engine
-	h := core.Runtime.GetEngine()
+	h := common.Runtime.GetEngine()
 	if h == nil {
 		panic("not found engine...")
 	}

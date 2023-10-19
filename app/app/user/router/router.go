@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/common/core"
+	"go-admin/common"
 )
 
 var (
@@ -13,7 +13,7 @@ var (
 // InitRouter 初始化路由
 func InitRouter() {
 	var r *gin.Engine
-	h := core.Runtime.GetEngine()
+	h := common.Runtime.GetEngine()
 	if h == nil {
 		panic("not found engine...")
 	}

@@ -1,17 +1,17 @@
 package dto
 
 import (
-	"go-admin/common/core/tools/search"
+	search2 "go-admin/common/dto/search"
 	"gorm.io/gorm"
 )
 
 func MakeCondition(q interface{}) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-		condition := &search.GormCondition{
-			GormPublic: search.GormPublic{},
-			Join:       make([]*search.GormJoin, 0),
+		condition := &search2.GormCondition{
+			GormPublic: search2.GormPublic{},
+			Join:       make([]*search2.GormJoin, 0),
 		}
-		search.ResolveSearchQuery(q, condition)
+		search2.ResolveSearchQuery(q, condition)
 		for _, join := range condition.Join {
 			if join == nil {
 				continue

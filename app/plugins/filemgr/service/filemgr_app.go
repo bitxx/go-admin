@@ -3,17 +3,17 @@ package service
 import (
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
 	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/plugins/filemgr/constant"
 	fLang "go-admin/app/plugins/filemgr/lang"
 	"go-admin/app/plugins/filemgr/models"
 	"go-admin/app/plugins/filemgr/service/dto"
-	"go-admin/common/core/service"
 	cDto "go-admin/common/dto"
+	"go-admin/common/dto/service"
 	"go-admin/common/middleware"
 	"go-admin/common/utils/dateutils"
+	"go-admin/common/utils/idgen"
 	"go-admin/common/utils/ossutils"
 	"go-admin/config/config"
 	"mime/multipart"
@@ -324,7 +324,7 @@ func (e *FilemgrApp) GetSingleUploadFileInfo(form *multipart.Form, file *multipa
 			return fLang.PluginsAppSelectOneFileUploadCode, lang.MsgErr(fLang.PluginsAppSelectOneFileUploadCode, e.Lang)
 		}
 		for _, item := range files {
-			*dst = config.ApplicationConfig.FileRootPath + "app/" + uuid.New().String() + path.Ext(item.Filename)
+			*dst = config.ApplicationConfig.FileRootPath + "app/" + idgen.UUID() + path.Ext(item.Filename)
 			*file = *item
 			return lang.SuccessCode, nil
 		}

@@ -2,15 +2,14 @@ package database
 
 import (
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common/core"
-	"go-admin/common/core/casbin"
+	"go-admin/common"
+	"go-admin/common/casbin"
 	"go-admin/common/utils/textutils"
 	toolsConfig "go-admin/config/config"
+	"go-admin/config/config/database"
 	"gorm.io/driver/mysql"
 	"time"
 
-	toolsDB "go-admin/common/core/tools/database"
-	. "go-admin/common/core/tools/gorm/logger"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
@@ -25,15 +24,15 @@ func Setup() {
 
 func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 	logbase.Infof("%s => %s", host, textutils.Green(c.Source))
-	registers := make([]toolsDB.ResolverConfigure, len(c.Registers))
+	registers := make([]database.ResolverConfigure, len(c.Registers))
 	for i := range c.Registers {
-		registers[i] = toolsDB.NewResolverConfigure(
+		registers[i] = database.NewResolverConfigure(
 			c.Registers[i].Sources,
 			c.Registers[i].Replicas,
 			c.Registers[i].Policy,
 			c.Registers[i].Tables)
 	}
-	resolverConfig := toolsDB.NewConfigure(c.Source, c.MaxIdleConns, c.MaxOpenConns, c.ConnMaxIdleTime, c.ConnMaxLifeTime, registers)
+	resolverConfig := database.NewConfigure(c.Source, c.MaxIdleConns, c.MaxOpenConns, c.ConnMaxIdleTime, c.ConnMaxLifeTime, registers)
 	db, err := resolverConfig.Init(&gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
@@ -56,6 +55,6 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 
 	e := mycasbin.Setup(db, "sys_")
 
-	core.Runtime.SetDb(host, db)
-	core.Runtime.SetCasbin(host, e)
+	common.Runtime.SetDb(host, db)
+	common.Runtime.SetCasbin(host, e)
 }

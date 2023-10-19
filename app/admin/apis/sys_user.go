@@ -3,18 +3,18 @@ package apis
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/google/uuid"
 	"go-admin/app/admin/constant"
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/core/api"
-	_ "go-admin/common/core/response"
+	"go-admin/common/dto/api"
+	_ "go-admin/common/dto/response"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/middleware/auth/authdto"
 	"go-admin/common/utils/captchautils"
 	"go-admin/common/utils/fileutils"
+	"go-admin/common/utils/idgen"
 	"go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
@@ -269,7 +269,7 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 
 	form, _ := c.MultipartForm()
 	files := form.File["avatar"]
-	guid := uuid.New().String()
+	guid := idgen.UUID()
 	reqPath := config.ApplicationConfig.FileRootPath + "admin/avatar/"
 	err = fileutils.IsNotExistMkDir(reqPath)
 	if err != nil {
