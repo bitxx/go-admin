@@ -3,8 +3,8 @@ package database
 import (
 	"github.com/bitxx/logger/logbase"
 	"go-admin/common/core"
-	"go-admin/common/core/pkg"
-	"go-admin/common/core/pkg/casbin"
+	"go-admin/common/core/casbin"
+	"go-admin/common/utils/textutils"
 	toolsConfig "go-admin/config/config"
 	"gorm.io/driver/mysql"
 	"time"
@@ -24,7 +24,7 @@ func Setup() {
 }
 
 func setupSimpleDatabase(host string, c *toolsConfig.Database) {
-	logbase.Infof("%s => %s", host, pkg.Green(c.Source))
+	logbase.Infof("%s => %s", host, textutils.Green(c.Source))
 	registers := make([]toolsDB.ResolverConfigure, len(c.Registers))
 	for i := range c.Registers {
 		registers[i] = toolsDB.NewResolverConfigure(
@@ -49,9 +49,9 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 	}, mysql.Open)
 
 	if err != nil {
-		logbase.Fatal(pkg.Red(c.Driver+" connect error :"), err)
+		logbase.Fatal(textutils.Red(c.Driver+" connect error :"), err)
 	} else {
-		logbase.Info(pkg.Green(c.Driver + " connect success !"))
+		logbase.Info(textutils.Green(c.Driver + " connect success !"))
 	}
 
 	e := mycasbin.Setup(db, "sys_")

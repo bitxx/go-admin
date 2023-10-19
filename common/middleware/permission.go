@@ -5,8 +5,8 @@ import (
 	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
-	"go-admin/common/core/pkg"
-	"go-admin/common/core/pkg/response"
+	"go-admin/common/core"
+	"go-admin/common/core/response"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/utils/strutils"
 	"go-admin/config/config"
@@ -26,7 +26,7 @@ type DataPermission struct {
 
 func PermissionAction() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db, err := pkg.GetOrm(c)
+		db, err := core.GetOrm(c)
 		if err != nil {
 			logbase.Error(err)
 			return
@@ -79,7 +79,7 @@ func Permission(tableName string, p *DataPermission) func(db *gorm.DB) *gorm.DB 
 			return db.Where(tableName+".create_by in (SELECT id from sys_user where dept_id = ? )", p.DeptId)
 		case constant.DataScope4:
 			//本部门及以下数据权限
-			return db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+pkg.Int64ToString(p.DeptId)+"/%")
+			return db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+strutils.Int64ToString(p.DeptId)+"/%")
 		case constant.DataScope5:
 			//仅本人数据权限
 			return db.Where(tableName+".create_by = ?", p.UserId)

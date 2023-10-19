@@ -6,9 +6,9 @@ import (
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/common/core/api"
-	_ "go-admin/common/core/pkg/response"
+	_ "go-admin/common/core/response"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"time"
 )
@@ -101,6 +101,6 @@ func (e UserAccountLog) Export(c *gin.Context) {
 		return
 	}
 	data, _ := s.GetExcel(list)
-	fileName := "user-account-log_" + dateUtils.ConvertToStr(time.Now(), 3) + ".xlsx"
+	fileName := "user-account-log_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

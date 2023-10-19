@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/base64"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -12,9 +13,11 @@ import (
 	"go-admin/common/global"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
+	"math"
 	"math/rand"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -225,4 +228,45 @@ func GenerateMsgIDFromContext(c *gin.Context) string {
 		c.Header(global.TrafficKey, requestId)
 	}
 	return requestId
+}
+
+func IntToString(e int) string {
+	return strconv.Itoa(e)
+}
+
+func UIntToString(e uint) string {
+	return strconv.Itoa(int(e))
+}
+
+func Int64ToString(e int64) string {
+	return strconv.FormatInt(e, 10)
+}
+
+func Round(f float64, n int) float64 {
+	pow10_n := math.Pow10(n)
+	return math.Trunc((f+0.5/pow10_n)*pow10_n) / pow10_n // TODO +0.5 是为了四舍五入，如果不希望这样去掉这个
+}
+
+func StringToInt(e string) (int, error) {
+	return strconv.Atoi(e)
+}
+
+func StringToInt64(e string) (int64, error) {
+	return strconv.ParseInt(e, 10, 64)
+}
+
+func GetCurrentTimeStr() string {
+	return time.Now().Format("2006-01-02 15:04:05")
+}
+
+func GetCurrentTime() time.Time {
+	return time.Now()
+}
+
+func StructToJsonStr(e interface{}) (string, error) {
+	if b, err := json.Marshal(e); err == nil {
+		return string(b), err
+	} else {
+		return "", err
+	}
 }

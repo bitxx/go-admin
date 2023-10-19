@@ -6,10 +6,10 @@ import (
 	"go-admin/app/plugins/content/service"
 	"go-admin/app/plugins/content/service/dto"
 	"go-admin/common/core/api"
-	_ "go-admin/common/core/pkg/response"
+	_ "go-admin/common/core/response"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"time"
 )
@@ -191,6 +191,6 @@ func (e ContentCategory) Export(c *gin.Context) {
 		return
 	}
 	data, _ := s.GetExcel(list)
-	fileName := "content-category_" + dateUtils.ConvertToStr(time.Now(), 3) + ".xlsx"
+	fileName := "content-category_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

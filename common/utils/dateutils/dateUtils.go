@@ -1,13 +1,11 @@
-package dateUtils
+package dateutils
 
 import "time"
 
-//
-//  GetDistanceOfTwoDate
-//  @param timeStart
-//  @param timeEnd
-//  @return int64
-//
+// GetDistanceOfTwoDate
+// @param timeStart
+// @param timeEnd
+// @return int64
 func GetDistanceOfTwoDate(timeStart, timeEnd time.Time) int64 {
 	before := timeStart.Unix()
 	after := timeEnd.Unix()
@@ -67,13 +65,11 @@ func ParseTimestrToTime(timeStr string, flag int) time.Time {
 	return t1
 }
 
-//
-//  ConvertToStrByPrt
-//  @Description:
-//  @param dateTime
-//  @param flag
-//  @return string
-//
+// ConvertToStrByPrt
+// @Description:
+// @param dateTime
+// @param flag
+// @return string
 func ConvertToStrByPrt(dateTime *time.Time, flag int) string {
 	if dateTime == nil {
 		return ""

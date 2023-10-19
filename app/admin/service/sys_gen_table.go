@@ -11,8 +11,8 @@ import (
 	cDto "go-admin/common/dto"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
-	"go-admin/common/utils/fileUtils"
+	"go-admin/common/utils/dateutils"
+	"go-admin/common/utils/fileutils"
 	config2 "go-admin/config/config"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
@@ -249,7 +249,7 @@ func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, 
 	var respList []dto.DBTableResp
 	for _, item := range list {
 		dbTableResp := dto.DBTableResp{}
-		dbTableResp.CreatedAt = dateUtils.ConvertToStrByPrt(item.CreateTime, -1)
+		dbTableResp.CreatedAt = dateutils.ConvertToStrByPrt(item.CreateTime, -1)
 		dbTableResp.TableName = item.TBName
 		dbTableResp.TableComment = item.TableComment
 		respList = append(respList, dbTableResp)
@@ -486,14 +486,14 @@ func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		writer := zip.NewWriter(buf)
 		defer writer.Close()
 		for _, tpl := range templateResp {
-			err = fileUtils.ZipFilCreate(writer, *bytes.NewBufferString(tpl.Content), tpl.Path)
+			err = fileutils.ZipFilCreate(writer, *bytes.NewBufferString(tpl.Content), tpl.Path)
 		}
 		return buf, lang.SuccessCode, nil
 	}
 	//如果是直接生成代码
 	for _, tpl := range templateResp {
-		err = fileUtils.CreateDirFromFilePath(tpl.Path)
-		fileUtils.FileCreate(*bytes.NewBufferString(tpl.Content), tpl.Path)
+		err = fileutils.CreateDirFromFilePath(tpl.Path)
+		fileutils.FileCreate(*bytes.NewBufferString(tpl.Content), tpl.Path)
 	}
 	return nil, lang.SuccessCode, nil
 }

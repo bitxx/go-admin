@@ -8,7 +8,7 @@ import (
 	"go-admin/common/core/service"
 	cDto "go-admin/common/dto"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 )
@@ -95,7 +95,7 @@ func (e *SysLoginLog) GetExcel(list []models.SysLoginLog) ([]byte, error) {
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.UserId, loginLogStatus, item.Ipaddr, item.LoginLocation, item.Agent,
-			item.Browser, item.Os, item.Platform, dateUtils.ConvertToStrByPrt(item.LoginTime, -1), item.Remark,
+			item.Browser, item.Os, item.Platform, dateutils.ConvertToStrByPrt(item.LoginTime, -1), item.Remark,
 		})
 	}
 	xlsx.SetActiveSheet(no)

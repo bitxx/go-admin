@@ -1,4 +1,4 @@
-package pkg
+package encrypt
 
 import (
 	"encoding/hex"

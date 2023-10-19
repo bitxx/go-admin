@@ -9,12 +9,12 @@ import (
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/core/api"
-	"go-admin/common/core/pkg/captcha"
-	_ "go-admin/common/core/pkg/response"
+	_ "go-admin/common/core/response"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/middleware/auth/authdto"
-	"go-admin/common/utils/fileUtils"
+	"go-admin/common/utils/captchautils"
+	"go-admin/common/utils/fileutils"
 	"go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
@@ -271,7 +271,7 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 	files := form.File["avatar"]
 	guid := uuid.New().String()
 	reqPath := config.ApplicationConfig.FileRootPath + "admin/avatar/"
-	err = fileUtils.IsNotExistMkDir(reqPath)
+	err = fileutils.IsNotExistMkDir(reqPath)
 	if err != nil {
 		e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
 		/*err = fileutil.CreateDirAll(reqPath)
@@ -521,7 +521,7 @@ func (e SysUser) Login(c *gin.Context) {
 	}
 
 	if config.ApplicationConfig.Mode != "dev" {
-		if !captcha.Verify(req.UUID, req.Code, true) {
+		if !captchautils.Verify(req.UUID, req.Code, true) {
 			e.Error(sysLang.SysUseCapErrLogCode, lang.MsgByCode(sysLang.SysUseCapErrLogCode, e.Lang))
 			return
 		}
@@ -574,7 +574,7 @@ func (e SysUser) GenCaptcha(c *gin.Context) {
 		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
 		return
 	}
-	id, b64s, err := captcha.DriverDigitFunc()
+	id, b64s, err := captchautils.DriverDigitFunc()
 	if err != nil {
 		e.Error(sysLang.SysUseGenCaptchaErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseGenCaptchaErrCode, sysLang.SysUseGenCaptchaErrLogCode, err).Error())
 		return

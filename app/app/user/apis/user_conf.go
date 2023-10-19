@@ -5,7 +5,7 @@ import (
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/common/core/api"
-	_ "go-admin/common/core/pkg/response"
+	_ "go-admin/common/core/response"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
 	"go-admin/config/lang"

@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"github.com/shirou/gopsutil/host"
 	"go-admin/common/core/api"
-	"go-admin/common/core/pkg"
-	"go-admin/common/utils/fileUtils"
+	"go-admin/common/utils/fileutils"
+	"go-admin/common/utils/iputils"
+	"go-admin/common/utils/strutils"
 	"runtime"
 	"strconv"
 	"time"
@@ -14,7 +15,7 @@ import (
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
-	_ "go-admin/common/core/pkg/response"
+	_ "go-admin/common/core/response"
 )
 
 const (
@@ -59,8 +60,8 @@ func (e ServerMonitor) ServerInfo(c *gin.Context) {
 	osDic["compiler"] = runtime.Compiler
 	osDic["version"] = runtime.Version()
 	osDic["numGoroutine"] = runtime.NumGoroutine()
-	osDic["ip"] = pkg.GetLocaHonst()
-	osDic["projectDir"] = fileUtils.GetCurrentPath()
+	osDic["ip"] = iputils.GetLocaHonst()
+	osDic["projectDir"] = fileutils.GetCurrentPath()
 	osDic["hostName"] = sysInfo.Hostname
 	osDic["time"] = time.Now().Format("2006-01-02 15:04:05")
 
@@ -85,7 +86,7 @@ func (e ServerMonitor) ServerInfo(c *gin.Context) {
 	cpuDic := make(map[string]interface{}, 0)
 	cpuDic["cpuInfo"], _ = cpu.Info()
 	percent, _ := cpu.Percent(0, false)
-	cpuDic["Percent"] = pkg.Round(percent[0], 2)
+	cpuDic["Percent"] = strutils.Round(percent[0], 2)
 	cpus, _ := cpu.Percent(time.Duration(200)*time.Millisecond, true)
 	cpuDic["cpus"] = cpus
 	cpuDic["cpuNum"], _ = cpu.Counts(false)

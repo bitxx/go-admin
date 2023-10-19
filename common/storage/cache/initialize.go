@@ -9,7 +9,7 @@ package cache
 
 import (
 	"go-admin/common/core"
-	"go-admin/common/core/pkg/captcha"
+	captcha2 "go-admin/common/utils/captchautils"
 	config2 "go-admin/config/config"
 	"log"
 )
@@ -23,7 +23,7 @@ func Setup() {
 	}
 	core.Runtime.SetCacheAdapter(cacheAdapter)
 	//5. 设置验证码store
-	captcha.SetStore(captcha.NewCacheStore(cacheAdapter, 600))
+	captcha2.SetStore(captcha2.NewCacheStore(cacheAdapter, 600))
 
 	//6. 设置队列
 	if !config2.QueueConfig.Empty() {

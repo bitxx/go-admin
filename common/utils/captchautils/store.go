@@ -1,4 +1,4 @@
-package captcha
+package captchautils
 
 import (
 	"github.com/mojocn/base64Captcha"

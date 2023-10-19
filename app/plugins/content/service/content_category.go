@@ -11,7 +11,7 @@ import (
 	cDto "go-admin/common/dto"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 
 	"go-admin/config/lang"
 	"gorm.io/gorm"
@@ -265,7 +265,7 @@ func (e *ContentCategory) GetExcel(list []models.ContentCategory) ([]byte, error
 		axis := fmt.Sprintf("A%d", i+2)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.Name, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.Name, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)

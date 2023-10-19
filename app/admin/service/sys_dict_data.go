@@ -8,7 +8,7 @@ import (
 	"go-admin/common/core/service"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"time"
@@ -289,7 +289,7 @@ func (e *SysDictData) GetExcel(list []models.SysDictData) ([]byte, error) {
 		axis := fmt.Sprintf("A%d", i+2)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.DictLabel, item.DictValue, item.DictSort, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.DictLabel, item.DictValue, item.DictSort, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)

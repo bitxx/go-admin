@@ -2,7 +2,7 @@ package antd
 
 import (
 	"fmt"
-	resp "go-admin/common/core/pkg/response"
+	resp "go-admin/common/core/response"
 )
 
 const (

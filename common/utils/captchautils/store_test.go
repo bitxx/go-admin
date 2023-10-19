@@ -1,4 +1,4 @@
-package captcha
+package captchautils
 
 import (
 	"fmt"

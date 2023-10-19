@@ -3,7 +3,7 @@ package ws
 import (
 	"context"
 	"fmt"
-	"go-admin/common/utils/fileUtils"
+	"go-admin/common/utils/fileutils"
 	"log"
 	"net/http"
 	"sync"
@@ -305,7 +305,7 @@ func (manager *Manager) WsClient(c *gin.Context) {
 	go client.Write(ctx)
 	time.Sleep(time.Second * 15)
 
-	fileUtils.FileMonitoringById(ctx, "tmp/logs/job/db-20200820.log", c.Param("id"), c.Param("channel"), SendOne)
+	fileutils.FileMonitoringById(ctx, "tmp/logs/job/db-20200820.log", c.Param("id"), c.Param("channel"), SendOne)
 }
 
 func (manager *Manager) UnWsClient(c *gin.Context) {

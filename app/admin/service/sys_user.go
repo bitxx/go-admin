@@ -7,11 +7,11 @@ import (
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/core"
-	"go-admin/common/core/pkg"
 	"go-admin/common/core/service"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
+	"go-admin/common/utils/iputils"
 	"go-admin/common/utils/strutils"
 	"go-admin/config/config"
 	"go-admin/config/lang"
@@ -401,7 +401,7 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	//respUser.DeptId = user.DeptId
 	respUser.Phone = user.Phone
 	respUser.Username = user.Username
-	respUser.CreatedAt = dateUtils.ConvertToStrByPrt(user.CreatedAt, -1)
+	respUser.CreatedAt = dateutils.ConvertToStrByPrt(user.CreatedAt, -1)
 	respUser.Sex = user.Sex
 	respUser.Dept = *user.Dept
 	respUser.Role = *user.Role
@@ -628,11 +628,11 @@ func (e *SysUser) LoginLogToDB(c *gin.Context, status string, msg string, userId
 	l := make(map[string]interface{})
 
 	ua := user_agent.New(c.Request.UserAgent())
-	l["ipaddr"] = pkg.GetClientIP(c)
+	l["ipaddr"] = iputils.GetClientIP(c)
 	//用于定位ip所在城市
 	//fmt.Println("gaConfig.ExtConfig.AMap.Key", config.ApplicationConfig.AmpKey)
-	l["loginLocation"] = pkg.GetLocation(pkg.GetClientIP(c), config.ApplicationConfig.AmpKey)
-	l["loginTime"] = pkg.GetCurrentTime()
+	l["loginLocation"] = iputils.GetLocation(iputils.GetClientIP(c), config.ApplicationConfig.AmpKey)
+	l["loginTime"] = strutils.GetCurrentTime()
 	l["status"] = status
 	l["agent"] = c.Request.UserAgent()
 	browserName, browserVersion := ua.Browser()

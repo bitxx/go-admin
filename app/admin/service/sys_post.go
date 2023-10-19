@@ -6,7 +6,7 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/common/core/service"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"time"
@@ -255,7 +255,7 @@ func (e *SysPost) GetExcel(list []models.SysPost) ([]byte, error) {
 		postStatus := dictService.GetLabel("sys_status", item.Status)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.PostName, item.PostCode, item.Sort, postStatus, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.PostName, item.PostCode, item.Sort, postStatus, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)

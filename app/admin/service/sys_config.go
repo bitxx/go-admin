@@ -7,7 +7,7 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/common/core/service"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"strconv"
@@ -253,7 +253,7 @@ func (e *SysConfig) GetExcel(list []models.SysConfig) ([]byte, error) {
 		isFrontend := dictService.GetLabel("sys_config_is_frontend", item.IsFrontend)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.ConfigName, item.ConfigKey, item.ConfigValue, item.Remark, configType, isFrontend, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.ConfigName, item.ConfigKey, item.ConfigValue, item.Remark, configType, isFrontend, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)

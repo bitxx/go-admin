@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"go-admin/common/cmd/api"
-	"go-admin/common/core/pkg"
+	"go-admin/common/utils/textutils"
 	"go-admin/config/config"
 	"os"
 
@@ -20,7 +20,7 @@ var rootCmd = &cobra.Command{
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
 			tip()
-			return errors.New(pkg.Red("requires at least one arg"))
+			return errors.New(textutils.Red("requires at least one arg"))
 		}
 		return nil
 	},
@@ -31,7 +31,7 @@ var rootCmd = &cobra.Command{
 }
 
 func tip() {
-	usageStr := `欢迎使用 ` + pkg.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + pkg.Red(`-h`) + ` 查看命令`
+	usageStr := `欢迎使用 ` + textutils.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + textutils.Red(`-h`) + ` 查看命令`
 	fmt.Printf("%s\n", usageStr)
 }
 

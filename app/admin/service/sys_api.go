@@ -5,7 +5,7 @@ import (
 	"github.com/xuri/excelize/v2"
 	"go-admin/common/core/service"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"time"
@@ -145,7 +145,7 @@ func (e *SysApi) GetExcel(list []models.SysApi) ([]byte, error) {
 		apiType := dictService.GetLabel("sys_api_type", item.ApiType)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.Title, item.Path, action, apiType, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.Title, item.Path, action, apiType, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)

@@ -10,7 +10,7 @@ import (
 	cDto "go-admin/common/dto"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"time"
@@ -268,7 +268,7 @@ func (e *SysDictType) GetExcel(list []models.SysDictType) ([]byte, error) {
 		axis := fmt.Sprintf("A%d", i+2)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.DictName, item.DictType, item.Remark, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.DictName, item.DictType, item.Remark, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)

@@ -6,7 +6,7 @@ import (
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/core/api"
-	_ "go-admin/common/core/pkg/response"
+	_ "go-admin/common/core/response"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"

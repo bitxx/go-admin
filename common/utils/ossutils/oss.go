@@ -1,4 +1,4 @@
-package ossUtils
+package ossutils
 
 import (
 	"errors"

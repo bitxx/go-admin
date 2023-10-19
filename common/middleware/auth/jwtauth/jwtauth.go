@@ -7,11 +7,11 @@ import (
 	"go-admin/app/admin/constant"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
-	"go-admin/common/core/pkg"
-	"go-admin/common/core/pkg/response"
+	"go-admin/common/core/response"
 	"go-admin/common/middleware/auth/authdto"
 	"go-admin/common/middleware/auth/casbin"
 	"go-admin/common/utils/i18n"
+	"go-admin/common/utils/strutils"
 	config2 "go-admin/config/config"
 	"go-admin/config/lang"
 	"net/http"
@@ -64,7 +64,7 @@ func (j *JwtAuth) Get(c *gin.Context, key string) (interface{}, int, error) {
 	defer func() {
 		if err != nil {
 			log := api.GetRequestLogger(c)
-			log.Error(pkg.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
+			log.Error(strutils.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
 		}
 	}()
 	data := ExtractClaims(c)

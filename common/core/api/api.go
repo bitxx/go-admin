@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common/core/pkg"
-	"go-admin/common/core/pkg/response"
+	"go-admin/common/core"
+	"go-admin/common/core/response"
 	"go-admin/common/core/service"
 
 	vd "github.com/bytedance/go-tagexpr/v2/validator"
@@ -80,7 +80,7 @@ func (e *Api) Bind(d interface{}, bindings ...binding.Binding) *Api {
 
 // GetOrm 获取Orm DB
 func (e Api) GetOrm() (*gorm.DB, error) {
-	db, err := pkg.GetOrm(e.Context)
+	db, err := core.GetOrm(e.Context)
 	if err != nil {
 		e.Logger.Error(http.StatusInternalServerError, err, "数据库连接获取失败")
 		return nil, err
@@ -96,7 +96,7 @@ func (e *Api) MakeOrm() *Api {
 		e.AddError(err)
 		return e
 	}
-	db, err := pkg.GetOrm(e.Context)
+	db, err := core.GetOrm(e.Context)
 	if err != nil {
 		e.Logger.Error(http.StatusInternalServerError, err, "数据库连接获取失败")
 		e.AddError(err)

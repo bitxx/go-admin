@@ -13,8 +13,8 @@ import (
 	"go-admin/common/core/service"
 	cDto "go-admin/common/dto"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
-	"go-admin/common/utils/ossUtils"
+	"go-admin/common/utils/dateutils"
+	"go-admin/common/utils/ossutils"
 	"go-admin/config/config"
 	"mime/multipart"
 	"path"
@@ -356,7 +356,7 @@ func (e *FilemgrApp) GetExcel(list []models.FilemgrApp) ([]byte, error) {
 		publishStatus := dictService.GetLabel("plugin_filemgr_publish_status", item.Status)         //下载类型
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.Version, platform, appType, downloadType, publishStatus, item.DownloadUrl, item.Remark, dateUtils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.Version, platform, appType, downloadType, publishStatus, item.DownloadUrl, item.Remark, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)
@@ -415,9 +415,9 @@ func (e *FilemgrApp) generateAppOssUrl(App *models.FilemgrApp) (string, error) {
 // @Description: 获取oss客户端
 // @receiver e
 // @param App
-// @return *ossUtils.ALiYunOSS
+// @return *ossutils.ALiYunOSS
 // @return error
-func (e *FilemgrApp) getOssClient() (*ossUtils.ALiYunOSS, error) {
+func (e *FilemgrApp) getOssClient() (*ossutils.ALiYunOSS, error) {
 	var sysConfService = adminService.NewSysConfigService(&e.Service)
 	endPoint, _, _ := sysConfService.GetWithKeyStr("plugin_filemgr_app_oss_endpoint")
 	key, _, _ := sysConfService.GetWithKeyStr("plugin_filemgr_app_oss_access_key_id")
@@ -426,7 +426,7 @@ func (e *FilemgrApp) getOssClient() (*ossUtils.ALiYunOSS, error) {
 	if endPoint == "" || key == "" || secret == "" || bucketName == "" {
 		return nil, errors.New("oss param config empty")
 	}
-	oss := ossUtils.ALiYunOSS{}
+	oss := ossutils.ALiYunOSS{}
 	err := oss.InitOssClient(key, secret, endPoint, bucketName)
 	if err != nil {
 		return nil, err

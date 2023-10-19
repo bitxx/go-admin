@@ -7,7 +7,7 @@ import (
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/core/api"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"time"
 )
@@ -112,6 +112,6 @@ func (e SysOperLog) Export(c *gin.Context) {
 		return
 	}
 	data, _ := s.GetExcel(list)
-	fileName := "operlog_" + dateUtils.ConvertToStr(time.Now(), 3) + ".xlsx"
+	fileName := "operlog_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

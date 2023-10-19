@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
-	"go-admin/common/core/pkg"
 	"go-admin/common/middleware/auth"
+	"go-admin/common/utils/iputils"
 	config2 "go-admin/config/config"
 	"io"
 	"io/ioutil"
@@ -78,7 +78,7 @@ func LoggerToFile() gin.HandlerFunc {
 		// 状态码
 		statusCode := c.Writer.Status()
 		// 请求IP
-		clientIP := pkg.GetClientIP(c)
+		clientIP := iputils.GetClientIP(c)
 		// 执行时间
 		latencyTime := endTime.Sub(startTime)
 		// 日志格式
@@ -106,7 +106,7 @@ func SetDBOperLog(c *gin.Context, clientIP string, statusCode int, reqUri string
 	l["operIp"] = clientIP
 	//用于定位ip所在城市
 	/*fmt.Println("gaConfig.ExtConfig.AMap.Key", config.ApplicationConfig.AmpKey)*/
-	l["operLocation"] = pkg.GetLocation(clientIP, config2.ApplicationConfig.AmpKey)
+	l["operLocation"] = iputils.GetLocation(clientIP, config2.ApplicationConfig.AmpKey)
 	userId, _, _ := auth.Auth.GetUserId(c)
 	l["userId"] = userId
 	l["requestMethod"] = c.Request.Method

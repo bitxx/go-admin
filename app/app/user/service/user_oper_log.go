@@ -12,7 +12,7 @@ import (
 	cDto "go-admin/common/dto"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/common/utils/encrypt"
 	"go-admin/common/utils/strutils"
 	"go-admin/config/config"
@@ -238,7 +238,7 @@ func (e *UserOperLog) GetExcel(list []models.UserOperLog) ([]byte, error) {
 
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, email, mobile, userName, actionType, byType, item.UpdateBy, dateUtils.ConvertToStr(*item.UpdatedAt, -1),
+			item.Id, email, mobile, userName, actionType, byType, item.UpdateBy, dateutils.ConvertToStr(*item.UpdatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)

@@ -1,4 +1,4 @@
-package pkg
+package iputils
 
 import (
 	"encoding/json"

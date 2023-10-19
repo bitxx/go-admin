@@ -6,10 +6,10 @@ import (
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/common/core/api"
-	_ "go-admin/common/core/pkg/response"
+	_ "go-admin/common/core/response"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"time"
 )
@@ -191,6 +191,6 @@ func (e UserCountryCode) Export(c *gin.Context) {
 		return
 	}
 	data, _ := s.GetExcel(list)
-	fileName := "user-country-code_" + dateUtils.ConvertToStr(time.Now(), 3) + ".xlsx"
+	fileName := "user-country-code_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

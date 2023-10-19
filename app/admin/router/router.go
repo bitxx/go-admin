@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/apis"
 	"go-admin/common/core"
-	"go-admin/common/core/pkg/ws"
+	"go-admin/common/core/ws"
 	"go-admin/common/middleware"
 	"go-admin/config/config"
 	"mime"

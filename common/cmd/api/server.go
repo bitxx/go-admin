@@ -8,11 +8,13 @@ import (
 	"go-admin/app"
 	"go-admin/common/core"
 	"go-admin/common/core/api"
-	"go-admin/common/core/pkg"
 	"go-admin/common/middleware/auth"
 	"go-admin/common/storage/cache"
 	"go-admin/common/storage/database"
 	"go-admin/common/utils/i18n"
+	"go-admin/common/utils/iputils"
+	"go-admin/common/utils/strutils"
+	"go-admin/common/utils/textutils"
 	"go-admin/config/config"
 	"log"
 	"net/http"
@@ -129,18 +131,18 @@ func run() error {
 			}
 		}
 	}()
-	fmt.Println(pkg.Red(string(global.LogoContent)))
+	fmt.Println(textutils.Red(string(global.LogoContent)))
 	tip()
-	fmt.Println(pkg.Green("Server run at:"))
+	fmt.Println(textutils.Green("Server run at:"))
 	fmt.Printf("-  Local:   http://localhost:%d/ \r\n", config.ApplicationConfig.Port)
-	fmt.Printf("-  Network: http://%s:%d/ \r\n", pkg.GetLocaHonst(), config.ApplicationConfig.Port)
+	fmt.Printf("-  Network: http://%s:%d/ \r\n", iputils.GetLocaHonst(), config.ApplicationConfig.Port)
 
-	fmt.Printf("%s Enter Control + C Shutdown Server \r\n", pkg.GetCurrentTimeStr())
+	fmt.Printf("%s Enter Control + C Shutdown Server \r\n", strutils.GetCurrentTimeStr())
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
-	fmt.Printf("%s Shutdown Server ... \r\n", pkg.GetCurrentTimeStr())
+	fmt.Printf("%s Shutdown Server ... \r\n", strutils.GetCurrentTimeStr())
 
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
@@ -151,7 +153,7 @@ func run() error {
 }
 
 func tip() {
-	usageStr := `欢迎使用 ` + pkg.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + pkg.Red(`-h`) + ` 查看命令`
+	usageStr := `欢迎使用 ` + textutils.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + textutils.Red(`-h`) + ` 查看命令`
 	fmt.Printf("%s\n", usageStr)
 }
 

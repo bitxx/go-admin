@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"fmt"
-	"go-admin/common/core/pkg"
+	"go-admin/common/utils/iputils"
 	"net/http"
 	"strconv"
 	"strings"
@@ -34,7 +34,7 @@ func CustomError(c *gin.Context) {
 						c.Request.URL,
 						statusCode,
 						c.Request.RequestURI,
-						pkg.GetClientIP(c),
+						iputils.GetClientIP(c),
 						p[2],
 					)
 					c.JSON(http.StatusOK, gin.H{

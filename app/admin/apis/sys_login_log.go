@@ -5,7 +5,7 @@ import (
 	adminService "go-admin/app/admin/service"
 	"go-admin/common/core/api"
 	"go-admin/common/middleware"
-	"go-admin/common/utils/dateUtils"
+	"go-admin/common/utils/dateutils"
 	"go-admin/config/lang"
 	"time"
 
@@ -113,6 +113,6 @@ func (e SysLoginLog) Export(c *gin.Context) {
 		return
 	}
 	data, _ := s.GetExcel(list)
-	fileName := "loginlog_" + dateUtils.ConvertToStr(time.Now(), 3) + ".xlsx"
+	fileName := "loginlog_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }
