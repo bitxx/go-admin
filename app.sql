@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : sqlpub
+ Source Server         : Jason
  Source Server Type    : MySQL
- Source Server Version : 80032
- Source Host           : mysql.sqlpub.com:3306
- Source Schema         : wjadmin
+ Source Server Version : 80033
+ Source Host           : 127.0.0.1:3306
+ Source Schema         : app
 
  Target Server Type    : MySQL
- Target Server Version : 80032
+ Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 09/05/2023 13:38:29
+ Date: 19/10/2023 14:15:16
 */
 
 SET NAMES utf8mb4;
@@ -53,9 +53,9 @@ CREATE TABLE `app_user` (
 -- Records of app_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (198, 0, '- -', '- -', 0.000000000000000000, '0d5a60d4098ac0b2a59638e94ef12996', '', '', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'akIiWm', 0, '0,', 1, '1,', '2', 1, '1', '', 0, 199, '2023-04-03 21:09:13', '2023-04-03 21:28:38');
-INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (200, 0, '- -', '- -', 0.000000000000000000, '05c3450057b8c2b47ddb56c02948aecf', '', '', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'GQFz6v', 198, '0,198,', 1, '1,1,', '1', 2, '1', '', 0, 0, '2023-04-03 21:29:34', '2023-04-03 21:29:34');
-INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (201, 0, '- -', '- -', 0.000000000000000000, '86f37bdb5fb06ad0b39a2e5b66b52a63', '', '', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'tT1Fbk', 198, '0,198,', 2, '1,2,', '1', 2, '1', '', 0, 0, '2023-04-03 21:29:35', '2023-04-03 21:29:35');
+INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (198, 0, '- -', '- -', 1.000000000000000000, 'fb0cc809bbed1743bd7d2d8f444e2bae099e69819f4e072f7057bb1e4249bf3d', '86', '6d84b6afd68a5c7188779114f16c46e9', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'akIiWm', 0, '0,', 1, '1,', '2', 1, '1', '', 0, 1, '2023-04-03 21:09:13', '2023-10-19 14:03:37');
+INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (200, 18, '- -', '- -', 0.000000000000000000, 'dca887a13d1225ccd447dc52a712861c099e69819f4e072f7057bb1e4249bf3d', '86', '84ace68f39f53a315d8114c61413505d', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'GQFz6v', 198, '0,198,', 1, '1,1,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:34', '2023-10-19 14:06:49');
+INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (201, 18, '- -', '- -', 0.000000000000000000, '4884f3537b62e668d33c6af76ddf6670099e69819f4e072f7057bb1e4249bf3d', '86', 'ff4273c3b1372055923122f9881b651b', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'tT1Fbk', 198, '0,198,', 2, '1,2,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:35', '2023-10-19 14:06:37');
 COMMIT;
 
 -- ----------------------------
@@ -664,7 +664,7 @@ CREATE TABLE `sys_dict_data` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `idx_sys_dict_data_create_by` (`create_by`),
   KEY `idx_sys_dict_data_update_by` (`update_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -1092,7 +1092,7 @@ CREATE TABLE `sys_menu` (
   `menu_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `permission` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `parent_id` int DEFAULT NULL COMMENT '上级菜单id集合',
-  `parent_ids` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `parent_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `keep_alive` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否缓存',
   `breadcrumb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
