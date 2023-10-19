@@ -52,9 +52,9 @@
           <el-table-column width="100" label="配置编号" align="center" prop="id" :show-overflow-tooltip="true" />
           <el-table-column width="100" label="用户编号" align="center" prop="userId" :show-overflow-tooltip="true" />
           <el-table-column width="100" label="用户名称" align="center" prop="user.userName" :show-overflow-tooltip="true" />
-          <el-table-column width="150" label="用户邮箱" align="center" prop="user.email" :show-overflow-tooltip="true" />
+          <el-table-column width="180" label="用户邮箱" align="center" prop="user.email" :show-overflow-tooltip="true" />
           <el-table-column width="150" label="用户手机号" align="center" prop="user.mobile" :show-overflow-tooltip="true" />
-          <el-table-column label="是否允许登录" align="center" prop="canLogin" :formatter="canLoginFormat">
+          <el-table-column width="100" label="是否允许登录" align="center" prop="canLogin" :formatter="canLoginFormat">
             <template slot-scope="scope">
               {{ canLoginFormat(scope.row) }}
             </template>
