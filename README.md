@@ -53,10 +53,10 @@ Gin、Vue2.0等
 ```shell
 go mod tidy
 
-# 我本人是mac环境，直接如下编译
+# 直接编译
 go build -a -o go-admin-api main.go
 
-# 可交叉编译为linux的：
+# 交叉编译为linux amd64：
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o go-admin-api main.go
 ```
 2. 项目根目录，找到`conf/`，可以直接再`settings.yml`中配置数据库，或者可以拷贝一份，重新命名，比如：`settings.dev.yml`，具体的配置信息，请自行去文件中参考
