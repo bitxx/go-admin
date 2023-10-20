@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"github.com/casbin/casbin/v2/util"
 	"go-admin/app/admin/constant"
-	"go-admin/common"
 	"go-admin/common/dto/api"
 	"go-admin/common/dto/response"
 	"go-admin/common/middleware/auth/authdto"
 	"go-admin/common/middleware/auth/casbin"
+	"go-admin/common/runtime"
 	"go-admin/common/utils/idgen"
 	"go-admin/common/utils/langutils/i18n"
 	"go-admin/common/utils/strutils"
@@ -47,7 +47,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 
 	//获取sid，并用sid保存userId
 	sid := idgen.UUID()
-	err := common.Runtime.GetCacheAdapter().Set(SessionLoginPrefixTmp, sid, userId, config.AuthConfig.Timeout)
+	err := runtime.RuntimeConfig.GetCacheAdapter().Set(SessionLoginPrefixTmp, sid, userId, config.AuthConfig.Timeout)
 	log := api.GetRequestLogger(c)
 	if err != nil {
 		log.Error(err)
@@ -55,7 +55,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		return
 	}
 	if config.ApplicationConfig.IsSingleLogin {
-		_ = common.Runtime.GetCacheAdapter().Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
+		_ = runtime.RuntimeConfig.GetCacheAdapter().Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
 	}
 
 	//session信息
@@ -81,7 +81,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		sid: string(sessionInfo),
 	}
 	//用userId保存sid，记录登录状态（此操作可用于多点登录）
-	err = common.Runtime.GetCacheAdapter().HashSet(config.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
+	err = runtime.RuntimeConfig.GetCacheAdapter().HashSet(config.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
 	log = api.GetRequestLogger(c)
 	if err != nil {
 		log.Error(err)
@@ -107,7 +107,7 @@ func (s *SessionAuth) Logout(c *gin.Context) {
 	if userId <= 0 {
 		return
 	}
-	_ = common.Runtime.GetCacheAdapter().Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
+	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
 	c.JSON(http.StatusOK, authdto.Resp{
 		RequestId: strutils.GenerateMsgIDFromContext(c),
 		Msg:       "",
@@ -124,7 +124,7 @@ func (s *SessionAuth) Get(c *gin.Context, key string) (interface{}, int, error) 
 			log.Error(strutils.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
 		}
 	}()
-	cache := common.Runtime.GetCacheAdapter()
+	cache := runtime.RuntimeConfig.GetCacheAdapter()
 	sid := strings.Replace(c.Request.Header.Get(authdto.HeaderAuthorization), authdto.HeaderTokenName+" ", "", -1)
 	uid, err := cache.Get(SessionLoginPrefixTmp, sid)
 	if sid == "" || uid == "" || err != nil {
@@ -180,7 +180,7 @@ func (s *SessionAuth) GetRoleKey(c *gin.Context) string {
 }
 func (s *SessionAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		cache := common.Runtime.GetCacheAdapter()
+		cache := runtime.RuntimeConfig.GetCacheAdapter()
 		sid := strings.Replace(c.Request.Header.Get(authdto.HeaderAuthorization), authdto.HeaderTokenName+" ", "", -1)
 		isExist := cache.Exist(SessionLoginPrefixTmp, sid)
 		errResp := authdto.Resp{
@@ -239,7 +239,7 @@ func (s *SessionAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		e := common.Runtime.GetCasbinKey(c.Request.Host)
+		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
 		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
 			log.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)

@@ -8,44 +8,44 @@
 package cache
 
 import (
-	"go-admin/common"
-	captcha2 "go-admin/common/utils/captchautils"
-	config2 "go-admin/config/config"
+	"go-admin/common/runtime"
+	"go-admin/common/utils/captchautils"
+	"go-admin/config/config"
 	"log"
 )
 
 // Setup 配置storage组件
 func Setup() {
 	//4. 设置缓存
-	cacheAdapter, err := config2.CacheConfig.Setup()
+	cacheAdapter, err := config.CacheConfig.Setup()
 	if err != nil {
 		log.Fatalf("cache setup error, %s\n", err.Error())
 	}
-	common.Runtime.SetCacheAdapter(cacheAdapter)
+	runtime.RuntimeConfig.SetCacheAdapter(cacheAdapter)
 	//5. 设置验证码store
-	captcha2.SetStore(captcha2.NewCacheStore(cacheAdapter, 600))
+	captchautils.SetStore(captchautils.NewCacheStore(cacheAdapter, 600))
 
 	//6. 设置队列
-	if !config2.QueueConfig.Empty() {
-		if q := common.Runtime.GetQueueAdapter(); q != nil {
+	if !config.QueueConfig.Empty() {
+		if q := runtime.RuntimeConfig.GetQueueAdapter(); q != nil {
 			q.Shutdown()
 		}
-		queueAdapter, err := config2.QueueConfig.Setup()
+		queueAdapter, err := config.QueueConfig.Setup()
 		if err != nil {
 			log.Fatalf("queue setup error, %s\n", err.Error())
 		}
-		common.Runtime.SetQueueAdapter(queueAdapter)
+		runtime.RuntimeConfig.SetQueueAdapter(queueAdapter)
 		defer func() {
 			go queueAdapter.Run()
 		}()
 	}
 
 	//7. 设置分布式锁
-	if !config2.LockerConfig.Empty() {
-		lockerAdapter, err := config2.LockerConfig.Setup()
+	if !config.LockerConfig.Empty() {
+		lockerAdapter, err := config.LockerConfig.Setup()
 		if err != nil {
 			log.Fatalf("locker setup error, %s\n", err.Error())
 		}
-		common.Runtime.SetLockerAdapter(lockerAdapter)
+		runtime.RuntimeConfig.SetLockerAdapter(lockerAdapter)
 	}
 }

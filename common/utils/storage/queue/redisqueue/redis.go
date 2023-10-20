@@ -7,8 +7,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-
-	"github.com/pkg/errors"
 )
 
 var redisVersionRE = regexp.MustCompile(`redis_version:(.+)`)
@@ -61,7 +59,7 @@ func incrementMessageID(id string) (string, error) {
 	index := parts[1]
 	parsed, err := strconv.ParseInt(index, 10, 64)
 	if err != nil {
-		return "", errors.Wrapf(err, "error parsing message ID %q", id)
+		return "", fmt.Errorf("%s: %s, id: %s", err, "error parsing message ID %q", id)
 	}
 	return fmt.Sprintf("%s-%d", parts[0], parsed+1), nil
 }

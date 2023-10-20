@@ -4,8 +4,8 @@ import (
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/model"
 	"github.com/gin-gonic/gin"
-	"go-admin/common"
 	"go-admin/common/dto/api"
+	"go-admin/common/runtime"
 	"gorm.io/gorm"
 )
 
@@ -48,8 +48,8 @@ func Setup(db *gorm.DB, _ string) *casbin.SyncedEnforcer {
 
 func LoadPolicy(c *gin.Context) (*casbin.SyncedEnforcer, error) {
 	log := api.GetRequestLogger(c)
-	if err := common.Runtime.GetCasbinKey(c.Request.Host).LoadPolicy(); err == nil {
-		return common.Runtime.GetCasbinKey(c.Request.Host), err
+	if err := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host).LoadPolicy(); err == nil {
+		return runtime.RuntimeConfig.GetCasbinKey(c.Request.Host), err
 	} else {
 		log.Errorf("casbin rbac_model or policy init error, %s ", err.Error())
 		return nil, err

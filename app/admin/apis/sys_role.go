@@ -6,12 +6,12 @@ import (
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common"
 	"go-admin/common/casbin"
 	"go-admin/common/dto/api"
 	_ "go-admin/common/dto/response"
 	"go-admin/common/middleware"
 	"go-admin/common/middleware/auth"
+	"go-admin/common/runtime"
 	"go-admin/config/lang"
 )
 
@@ -82,7 +82,7 @@ func (e SysRole) Insert(c *gin.Context) {
 		return
 	}
 	req.CurrUserId = uid
-	cb := common.Runtime.GetCasbinKey(c.Request.Host)
+	cb := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
 	id, respCode, err := s.Insert(&req, cb)
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -113,7 +113,7 @@ func (e SysRole) Update(c *gin.Context) {
 	}
 	req.CurrUserId = uid
 
-	cb := common.Runtime.GetCasbinKey(c.Request.Host)
+	cb := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
 	respCode, err := s.Update(&req, cb)
 	if err != nil {
 		e.Error(respCode, err.Error())

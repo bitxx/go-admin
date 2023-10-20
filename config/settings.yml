@@ -1,3 +1,4 @@
+# 更多配置请前往源码位置：config/config中查阅
 settings:
   application:
     Author: Jason
@@ -77,5 +78,6 @@ settings:
   #        concurrency: 10
   #        blockingTimeout: 5
   #        reclaimInterval: 1
+  #    nsq: 自行根据代码配置 config/option_nsg.go
   locker:
     redis:

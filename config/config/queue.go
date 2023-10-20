@@ -3,8 +3,8 @@ package config
 import (
 	"github.com/redis/go-redis/v9"
 	"go-admin/common/utils/storage"
-	queue2 "go-admin/common/utils/storage/queue"
-	redisqueue2 "go-admin/common/utils/storage/queue/redisqueue"
+	"go-admin/common/utils/storage/queue"
+	"go-admin/common/utils/storage/queue/redisqueue"
 	"time"
 )
 
@@ -16,8 +16,8 @@ type Queue struct {
 
 type QueueRedis struct {
 	RedisConnectOptions
-	Producer *redisqueue2.ProducerOptions
-	Consumer *redisqueue2.ConsumerOptions
+	Producer *redisqueue.ProducerOptions
+	Consumer *redisqueue.ConsumerOptions
 }
 
 type QueueMemory struct {
@@ -53,14 +53,14 @@ func (e Queue) Setup() (storage.AdapterQueue, error) {
 		}
 		e.Redis.Producer.RedisClient = client
 		e.Redis.Consumer.RedisClient = client
-		return queue2.NewRedis(e.Redis.Producer, e.Redis.Consumer)
+		return queue.NewRedis(e.Redis.Producer, e.Redis.Consumer)
 	}
 	if e.NSQ != nil {
 		cfg, err := e.NSQ.GetNSQOptions()
 		if err != nil {
 			return nil, err
 		}
-		return queue2.NewNSQ(e.NSQ.Addresses, cfg, e.NSQ.ChannelPrefix)
+		return queue.NewNSQ(e.NSQ.Addresses, cfg, e.NSQ.ChannelPrefix)
 	}
-	return queue2.NewMemory(e.Memory.PoolSize), nil
+	return queue.NewMemory(e.Memory.PoolSize), nil
 }

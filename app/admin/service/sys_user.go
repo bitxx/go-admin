@@ -6,10 +6,10 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common"
 	"go-admin/common/dto/service"
 	"go-admin/common/global"
 	"go-admin/common/middleware"
+	"go-admin/common/runtime"
 	"go-admin/common/utils/dateutils"
 	"go-admin/common/utils/iputils"
 	"go-admin/common/utils/strutils"
@@ -642,8 +642,8 @@ func (e *SysUser) LoginLogToDB(c *gin.Context, status string, msg string, userId
 	l["userId"] = userId
 	l["remark"] = msg
 
-	q := common.Runtime.GetMemoryQueue(c.Request.Host)
-	message, err := common.Runtime.GetStreamMessage("", global.LoginLog, l)
+	q := runtime.RuntimeConfig.GetMemoryQueue(c.Request.Host)
+	message, err := runtime.RuntimeConfig.GetStreamMessage("", global.LoginLog, l)
 	if err != nil {
 		e.Log.Errorf("SysUserService LoginLogToDB error:%s", err)
 		//日志报错错误，不中断请求

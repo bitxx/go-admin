@@ -5,9 +5,9 @@ import (
 	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
-	"go-admin/common"
 	"go-admin/common/dto/response"
 	"go-admin/common/middleware/auth"
+	"go-admin/common/utils/ginutils"
 	"go-admin/common/utils/strutils"
 	"go-admin/config/config"
 	"gorm.io/gorm"
@@ -26,7 +26,7 @@ type DataPermission struct {
 
 func PermissionAction() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db, err := common.GetOrm(c)
+		db, err := ginutils.GetOrm(c)
 		if err != nil {
 			logbase.Error(err)
 			return

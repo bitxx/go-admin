@@ -2,8 +2,8 @@ package database
 
 import (
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common"
 	"go-admin/common/casbin"
+	"go-admin/common/runtime"
 	"go-admin/common/utils/textutils"
 	toolsConfig "go-admin/config/config"
 	"go-admin/config/config/database"
@@ -55,6 +55,6 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 
 	e := mycasbin.Setup(db, "sys_")
 
-	common.Runtime.SetDb(host, db)
-	common.Runtime.SetCasbin(host, e)
+	runtime.RuntimeConfig.SetDb(host, db)
+	runtime.RuntimeConfig.SetCasbin(host, e)
 }

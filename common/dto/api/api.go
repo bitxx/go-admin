@@ -7,9 +7,9 @@ import (
 	vd "github.com/bytedance/go-tagexpr/v2/validator"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go-admin/common"
 	"go-admin/common/dto/response"
 	"go-admin/common/dto/service"
+	"go-admin/common/utils/ginutils"
 	"go-admin/common/utils/langutils"
 	"gorm.io/gorm"
 	"net/http"
@@ -79,7 +79,7 @@ func (e *Api) Bind(d interface{}, bindings ...binding.Binding) *Api {
 
 // GetOrm 获取Orm DB
 func (e Api) GetOrm() (*gorm.DB, error) {
-	db, err := common.GetOrm(e.Context)
+	db, err := ginutils.GetOrm(e.Context)
 	if err != nil {
 		e.Logger.Error(http.StatusInternalServerError, err, "数据库连接获取失败")
 		return nil, err
@@ -95,7 +95,7 @@ func (e *Api) MakeOrm() *Api {
 		e.AddError(err)
 		return e
 	}
-	db, err := common.GetOrm(e.Context)
+	db, err := ginutils.GetOrm(e.Context)
 	if err != nil {
 		e.Logger.Error(http.StatusInternalServerError, err, "数据库连接获取失败")
 		e.AddError(err)

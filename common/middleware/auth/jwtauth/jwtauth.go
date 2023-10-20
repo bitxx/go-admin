@@ -5,11 +5,11 @@ import (
 	"github.com/casbin/casbin/v2/util"
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
-	"go-admin/common"
 	"go-admin/common/dto/api"
 	"go-admin/common/dto/response"
 	"go-admin/common/middleware/auth/authdto"
 	"go-admin/common/middleware/auth/casbin"
+	"go-admin/common/runtime"
 	"go-admin/common/utils/langutils/i18n"
 	"go-admin/common/utils/strutils"
 	config2 "go-admin/config/config"
@@ -146,7 +146,7 @@ func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		e := common.Runtime.GetCasbinKey(c.Request.Host)
+		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
 		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
 			log.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)

@@ -2,7 +2,7 @@ package redisqueue
 
 import (
 	"context"
-	"github.com/pkg/errors"
+	"errors"
 	"github.com/redis/go-redis/v9"
 	"os"
 	"testing"

@@ -2,13 +2,13 @@ package redisqueue
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"github.com/redis/go-redis/v9"
 	"net"
 	"os"
 	"sync"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 // ConsumerFunc is a type alias for the functions that will be used to handle
@@ -194,7 +194,7 @@ func (c *Consumer) Run() {
 		err := c.redis.XGroupCreateMkStream(context.Background(), stream, c.options.GroupName, consumer.id).Err()
 		// ignoring the BUSYGROUP error makes this a noop
 		if err != nil && err.Error() != "BUSYGROUP Consumer Group name already exists" {
-			c.Errors <- errors.Wrap(err, "error creating consumer group")
+			c.Errors <- fmt.Errorf("%s: %s", err, "error creating consumer group")
 			return
 		}
 	}
@@ -265,7 +265,7 @@ func (c *Consumer) reclaim() {
 						Count:  int64(c.options.BufferSize - len(c.queue)),
 					}).Result()
 					if err != nil && err != redis.Nil {
-						c.Errors <- errors.Wrap(err, "error listing pending messages")
+						c.Errors <- fmt.Errorf("%s: %s", err, "error listing pending messages")
 						break
 					}
 
@@ -285,7 +285,7 @@ func (c *Consumer) reclaim() {
 								Messages: []string{r.ID},
 							}).Result()
 							if err != nil && err != redis.Nil {
-								c.Errors <- errors.Wrapf(err, "error claiming %d message(s)", len(msgs))
+								c.Errors <- fmt.Errorf("%s: %s, len:%d", err, "error claiming %d message(s)", len(msgs))
 								break
 							}
 							// If the Redis nil error is returned, it means that
@@ -300,7 +300,7 @@ func (c *Consumer) reclaim() {
 							if err == redis.Nil {
 								err = c.redis.XAck(context.Background(), stream, c.options.GroupName, r.ID).Err()
 								if err != nil {
-									c.Errors <- errors.Wrapf(err, "error acknowledging after failed claim for %q stream and %q message", stream, r.ID)
+									c.Errors <- fmt.Errorf("%s: %s, stream:%s, id: %s", err, "error acknowledging after failed claim for %q stream and %q message", stream, r.ID)
 									continue
 								}
 							}
@@ -350,7 +350,8 @@ func (c *Consumer) poll() {
 				if err == redis.Nil {
 					continue
 				}
-				c.Errors <- errors.Wrap(err, "error reading redis stream")
+
+				c.Errors <- fmt.Errorf("%s: %s", err, "error reading redis stream")
 				continue
 			}
 
@@ -387,12 +388,12 @@ func (c *Consumer) work() {
 		case msg := <-c.queue:
 			err := c.process(msg)
 			if err != nil {
-				c.Errors <- errors.Wrapf(err, "error calling ConsumerFunc for %q stream and %q message", msg.Stream, msg.ID)
+				c.Errors <- fmt.Errorf("%s: %s, stream: %s, id: %s", err, "error calling ConsumerFunc for %q stream and %q message", msg.Stream, msg.ID)
 				continue
 			}
 			err = c.redis.XAck(context.Background(), msg.Stream, c.options.GroupName, msg.ID).Err()
 			if err != nil {
-				c.Errors <- errors.Wrapf(err, "error acknowledging after success for %q stream and %q message", msg.Stream, msg.ID)
+				c.Errors <- fmt.Errorf("%s: %s, stream: %s, id: %s", err, "error acknowledging after success for %q stream and %q message", msg.Stream, msg.ID)
 				continue
 			}
 		case <-c.stopWorkers:
@@ -405,10 +406,10 @@ func (c *Consumer) process(msg *Message) (err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			if e, ok := r.(error); ok {
-				err = errors.Wrap(e, "ConsumerFunc panic")
+				err = fmt.Errorf("%s: %s", e, "ConsumerFunc panic")
 				return
 			}
-			err = errors.Errorf("ConsumerFunc panic: %v", r)
+			err = fmt.Errorf("ConsumerFunc panic: %v", r)
 		}
 	}()
 	err = c.consumers[msg.Stream].fn(msg)
