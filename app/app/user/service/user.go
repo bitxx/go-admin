@@ -97,8 +97,11 @@ func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]mod
 					userCache[parentId] = parentUser
 				}
 			}
-			list[index].ParentRefCode = parentUser.RefCode
-			list[index].ParentUserName = parentUser.UserName
+			if parentUser != nil {
+				list[index].ParentRefCode = parentUser.RefCode
+				list[index].ParentUserName = parentUser.UserName
+			}
+
 		}
 
 		mobile, err := encrypt.AesDecrypt(user.Mobile, []byte(config.AuthConfig.Secret))
