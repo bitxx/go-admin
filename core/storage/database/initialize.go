@@ -3,11 +3,10 @@ package database
 import (
 	"github.com/bitxx/logger/logbase"
 	"go-admin/core/casbin"
-	toolsConfig "go-admin/core/config"
-	database2 "go-admin/core/config/database"
+	"go-admin/core/config"
+	"go-admin/core/config/database"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/textutils"
-	"gorm.io/driver/mysql"
 	"time"
 
 	"gorm.io/gorm"
@@ -17,22 +16,22 @@ import (
 
 // Setup 配置数据库
 func Setup() {
-	for k := range toolsConfig.DatabasesConfig {
-		setupSimpleDatabase(k, toolsConfig.DatabasesConfig[k])
+	for k := range config.DatabasesConfig {
+		setupSimpleDatabase(k, config.DatabasesConfig[k])
 	}
 }
 
-func setupSimpleDatabase(host string, c *toolsConfig.Database) {
+func setupSimpleDatabase(host string, c *config.Database) {
 	logbase.Infof("%s => %s", host, textutils.Green(c.Source))
-	registers := make([]database2.ResolverConfigure, len(c.Registers))
+	registers := make([]database.ResolverConfigure, len(c.Registers))
 	for i := range c.Registers {
-		registers[i] = database2.NewResolverConfigure(
+		registers[i] = database.NewResolverConfigure(
 			c.Registers[i].Sources,
 			c.Registers[i].Replicas,
 			c.Registers[i].Policy,
 			c.Registers[i].Tables)
 	}
-	resolverConfig := database2.NewConfigure(c.Source, c.MaxIdleConns, c.MaxOpenConns, c.ConnMaxIdleTime, c.ConnMaxLifeTime, registers)
+	resolverConfig := database.NewConfigure(c.Source, c.MaxIdleConns, c.MaxOpenConns, c.ConnMaxIdleTime, c.ConnMaxLifeTime, registers)
 	db, err := resolverConfig.Init(&gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
@@ -45,7 +44,7 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 					logbase.DefaultLogger.Options().Level.LevelForGorm()),
 			},
 		),
-	}, mysql.Open)
+	}, opens[c.Driver])
 
 	if err != nil {
 		logbase.Fatal(textutils.Red(c.Driver+" connect error :"), err)
