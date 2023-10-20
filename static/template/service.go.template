@@ -6,12 +6,12 @@ import (
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/models"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
-	"go-admin/common/middleware"
-	"go-admin/common/core/service"
-	cDto "go-admin/common/dto"
+	"go-admin/core/middleware"
+	"go-admin/core/core/service"
+	cDto "go-admin/core/dto"
 	{{- range .SysGenColumns }}
 		{{- if and (eq .ColumnName "status") ( ne .IsRequired "1" ) }}
-	"go-admin/common/global"
+	"go-admin/core/global"
 		{{- end }}
 	{{- end }}
 	{{- $hasDecimal := false }}

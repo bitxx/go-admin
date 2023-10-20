@@ -10,7 +10,7 @@ import (
     {{- if eq $hasDecimal true }}
     "github.com/shopspring/decimal"
     {{- end }}
-    "go-admin/common/dto"
+    "go-admin/core/dto"
     "time"
 )
 
