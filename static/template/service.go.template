@@ -7,7 +7,7 @@ import (
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/models"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
 	"go-admin/core/middleware"
-	"go-admin/core/core/service"
+	"go-admin/core/dto/service"
 	cDto "go-admin/core/dto"
 	{{- range .SysGenColumns }}
 		{{- if and (eq .ColumnName "status") ( ne .IsRequired "1" ) }}
@@ -21,7 +21,7 @@ import (
 	{{- if eq $hasDecimal true }}
 		"github.com/shopspring/decimal"
 	{{- end }}
-	"go-admin/config/lang"
+	"go-admin/core/lang"
 	"gorm.io/gorm"
 	"time"
 )

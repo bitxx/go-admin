@@ -5,11 +5,11 @@ import (
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
-	"go-admin/core/api"
+	"go-admin/core/dot/api"
 	_ "go-admin/core/dto/response"
 	"go-admin/core/middleware"
 	"go-admin/core/middleware/auth"
-	"go-admin/core/utils/dateUtils"
+	"go-admin/core/utils/dateutils"
 	"go-admin/core/lang"
 	"time"
 )
@@ -203,6 +203,6 @@ func (e {{.ClassName}}) Export(c *gin.Context) {
 		return
 	}
 	data, _ := s.GetExcel(list)
-	fileName := "{{.ModuleName}}_" + dateUtils.ConvertToStr(time.Now(), 3) + ".xlsx"
+	fileName := "{{.ModuleName}}_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }
