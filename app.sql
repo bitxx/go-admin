@@ -47,7 +47,7 @@ CREATE TABLE `app_user` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户管理';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户管理';
 
 -- ----------------------------
 -- Records of app_user
@@ -78,7 +78,7 @@ CREATE TABLE `app_user_account_log` (
   `remarks` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `idx_qyc_user_status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='账变记录';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='账变记录';
 
 -- ----------------------------
 -- Records of app_user_account_log
@@ -229,9 +229,7 @@ CREATE TABLE `plugins_content_announcement` (
   `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_content_create_by` (`create_by`),
-  KEY `idx_sys_content_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='公告管理';
 
 -- ----------------------------
@@ -257,9 +255,7 @@ CREATE TABLE `plugins_content_article` (
   `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_content_create_by` (`create_by`),
-  KEY `idx_sys_content_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文章管理';
 
 -- ----------------------------
@@ -282,9 +278,7 @@ CREATE TABLE `plugins_content_category` (
   `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_category_create_by` (`create_by`),
-  KEY `idx_sys_category_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文章分类管理';
 
 -- ----------------------------
@@ -368,9 +362,7 @@ CREATE TABLE `sys_api` (
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   `create_by` int DEFAULT NULL COMMENT '创建者',
   `update_by` int DEFAULT NULL COMMENT '更新者',
-  PRIMARY KEY (`id`),
-  KEY `idx_sys_api_create_by` (`create_by`),
-  KEY `idx_sys_api_update_by` (`update_by`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -568,9 +560,7 @@ CREATE TABLE `sys_config` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`),
-  KEY `idx_sys_config_create_by` (`create_by`),
-  KEY `idx_sys_config_update_by` (`update_by`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -624,9 +614,7 @@ CREATE TABLE `sys_dept` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_dept_create_by` (`create_by`),
-  KEY `idx_sys_dept_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -661,9 +649,7 @@ CREATE TABLE `sys_dict_data` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_dict_data_create_by` (`create_by`),
-  KEY `idx_sys_dict_data_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -777,9 +763,7 @@ CREATE TABLE `sys_dict_type` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_dict_type_create_by` (`create_by`),
-  KEY `idx_sys_dict_type_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -846,9 +830,7 @@ CREATE TABLE `sys_gen_column` (
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   `create_by` int DEFAULT NULL COMMENT '创建者',
   `update_by` int DEFAULT NULL COMMENT '更新者',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_columns_create_by` (`create_by`),
-  KEY `idx_sys_columns_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=411 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -1023,9 +1005,7 @@ CREATE TABLE `sys_gen_table` (
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   `create_by` bigint DEFAULT NULL COMMENT '创建者',
   `update_by` bigint DEFAULT NULL COMMENT '更新者',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_tables_create_by` (`create_by`),
-  KEY `idx_sys_tables_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -1065,9 +1045,7 @@ CREATE TABLE `sys_login_log` (
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   `create_by` int DEFAULT NULL COMMENT '创建者',
   `update_by` int DEFAULT NULL COMMENT '更新者',
-  PRIMARY KEY (`id`),
-  KEY `idx_sys_login_log_create_by` (`create_by`),
-  KEY `idx_sys_login_log_update_by` (`update_by`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -1102,9 +1080,7 @@ CREATE TABLE `sys_menu` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_menu_create_by` (`create_by`),
-  KEY `idx_sys_menu_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -1354,9 +1330,7 @@ CREATE TABLE `sys_oper_log` (
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   `create_by` int DEFAULT NULL COMMENT '创建者',
   `update_by` int DEFAULT NULL COMMENT '更新者',
-  PRIMARY KEY (`id`),
-  KEY `idx_sys_opera_log_create_by` (`create_by`),
-  KEY `idx_sys_opera_log_update_by` (`update_by`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11074 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='操作日志';
 
 -- ----------------------------
@@ -1384,9 +1358,7 @@ CREATE TABLE `sys_post` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_post_create_by` (`create_by`),
-  KEY `idx_sys_post_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -1414,9 +1386,7 @@ CREATE TABLE `sys_role` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime(3) DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime(3) DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_role_create_by` (`create_by`),
-  KEY `idx_sys_role_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
@@ -1486,9 +1456,7 @@ CREATE TABLE `sys_user` (
   `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_sys_user_create_by` (`create_by`),
-  KEY `idx_sys_user_update_by` (`update_by`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
