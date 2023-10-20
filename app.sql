@@ -53,9 +53,9 @@ CREATE TABLE `app_user` (
 -- Records of app_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (198, 0, '- -', '- -', 1.000000000000000000, 'fb0cc809bbed1743bd7d2d8f444e2bae099e69819f4e072f7057bb1e4249bf3d', '86', '6d84b6afd68a5c7188779114f16c46e9', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'akIiWm', 0, '0,', 1, '1,', '2', 1, '1', '', 0, 1, '2023-04-03 21:09:13', '2023-10-19 14:03:37');
-INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (200, 18, '- -', '- -', 0.000000000000000000, 'dca887a13d1225ccd447dc52a712861c099e69819f4e072f7057bb1e4249bf3d', '86', '84ace68f39f53a315d8114c61413505d', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'GQFz6v', 198, '0,198,', 1, '1,1,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:34', '2023-10-19 14:06:49');
-INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (201, 18, '- -', '- -', 0.000000000000000000, '4884f3537b62e668d33c6af76ddf6670099e69819f4e072f7057bb1e4249bf3d', '86', 'ff4273c3b1372055923122f9881b651b', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'tT1Fbk', 198, '0,198,', 2, '1,2,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:35', '2023-10-19 14:06:37');
+INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (1, 0, '- -', '- -', 1.000000000000000000, 'fb0cc809bbed1743bd7d2d8f444e2bae099e69819f4e072f7057bb1e4249bf3d', '86', '6d84b6afd68a5c7188779114f16c46e9', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'akIiWm', 0, '0,', 1, '1,', '2', 1, '1', '', 0, 1, '2023-04-03 21:09:13', '2023-10-19 14:03:37');
+INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (2, 18, '- -', '- -', 0.000000000000000000, 'dca887a13d1225ccd447dc52a712861c099e69819f4e072f7057bb1e4249bf3d', '86', '84ace68f39f53a315d8114c61413505d', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'GQFz6v', 198, '0,198,', 1, '1,1,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:34', '2023-10-19 14:06:49');
+INSERT INTO `app_user` (`id`, `level_id`, `user_name`, `true_name`, `money`, `email`, `mobile_title`, `mobile`, `avatar`, `pay_pwd`, `pwd`, `ref_code`, `parent_id`, `parent_ids`, `tree_sort`, `tree_sorts`, `tree_leaf`, `tree_level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (3, 18, '- -', '- -', 0.000000000000000000, '4884f3537b62e668d33c6af76ddf6670099e69819f4e072f7057bb1e4249bf3d', '86', 'ff4273c3b1372055923122f9881b651b', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'tT1Fbk', 198, '0,198,', 2, '1,2,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:35', '2023-10-19 14:06:37');
 COMMIT;
 
 -- ----------------------------
@@ -84,6 +84,7 @@ CREATE TABLE `app_user_account_log` (
 -- Records of app_user_account_log
 -- ----------------------------
 BEGIN;
+INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (1, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
 INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (2, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
 INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (3, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
 INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (4, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
@@ -92,7 +93,6 @@ INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_mon
 INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (7, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
 INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (8, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
 INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (9, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
-INSERT INTO `app_user_account_log` (`id`, `user_id`, `change_money`, `before_money`, `after_money`, `money_type`, `change_type`, `status`, `create_by`, `created_at`, `update_by`, `updated_date`, `remarks`) VALUES (10, 186, 10.00, 0.000000000000010000, 20.000000000000000000, '1', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -110,15 +110,15 @@ CREATE TABLE `app_user_conf` (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='用户配置';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='用户配置';
 
 -- ----------------------------
 -- Records of app_user_conf
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_user_conf` (`id`, `user_id`, `can_login`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (177, 198, '1', '', '1', 198, 198, '2023-04-03 21:09:13', '2023-04-03 21:09:13');
-INSERT INTO `app_user_conf` (`id`, `user_id`, `can_login`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (179, 200, '1', '', '1', 200, 200, '2023-04-03 21:29:34', '2023-04-03 21:29:34');
-INSERT INTO `app_user_conf` (`id`, `user_id`, `can_login`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (180, 201, '1', '', '1', 201, 201, '2023-04-03 21:29:35', '2023-04-03 21:29:35');
+INSERT INTO `app_user_conf` (`id`, `user_id`, `can_login`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (1, 1, '1', '', '1', 198, 198, '2023-04-03 21:09:13', '2023-04-03 21:09:13');
+INSERT INTO `app_user_conf` (`id`, `user_id`, `can_login`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (2, 2, '1', '', '1', 200, 200, '2023-04-03 21:29:34', '2023-04-03 21:29:34');
+INSERT INTO `app_user_conf` (`id`, `user_id`, `can_login`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (3, 3, '1', '', '1', 201, 201, '2023-04-03 21:29:35', '2023-04-03 21:29:35');
 COMMIT;
 
 -- ----------------------------
@@ -173,14 +173,14 @@ CREATE TABLE `app_user_level` (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户等级';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户等级';
 
 -- ----------------------------
 -- Records of app_user_level
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_user_level` (`id`, `name`, `level_type`, `level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (17, 'test3', '2', 2, '1', '', 1, 1, '2023-03-09 17:05:24', '2023-03-09 17:05:24');
-INSERT INTO `app_user_level` (`id`, `name`, `level_type`, `level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (18, 'test34', '1', 1, '1', '', 1, 1, '2023-03-09 17:05:37', '2023-03-09 20:19:19');
+INSERT INTO `app_user_level` (`id`, `name`, `level_type`, `level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (1, 'test3', '2', 2, '1', '', 1, 1, '2023-03-09 17:05:24', '2023-03-09 17:05:24');
+INSERT INTO `app_user_level` (`id`, `name`, `level_type`, `level`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (2, 'test34', '1', 1, '1', '', 1, 1, '2023-03-09 17:05:37', '2023-03-09 20:19:19');
 COMMIT;
 
 -- ----------------------------
@@ -199,19 +199,19 @@ CREATE TABLE `app_user_oper_log` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户关键行为日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户关键行为日志表';
 
 -- ----------------------------
 -- Records of app_user_oper_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (87, 0, '', '2', '1', 1, 1, '2023-03-11 15:39:31', '2023-03-11 15:39:31', '');
-INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (88, 0, '', '2', '1', 1, 1, '2023-03-11 15:41:16', '2023-03-11 15:41:16', '');
-INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (89, 191, '', '1', '1', 1, 1, '2023-03-11 15:45:44', '2023-03-11 15:45:44', '');
-INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (90, 191, '', '1', '1', 1, 1, '2023-03-11 15:46:13', '2023-03-11 15:46:13', '');
-INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (91, 191, '2', '1', '1', 1, 1, '2023-03-11 15:54:05', '2023-03-11 15:54:05', '');
-INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (92, 191, '1', '1', '1', 1, 1, '2023-03-11 15:56:36', '2023-03-11 15:56:36', '');
-INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (93, 191, '2', '1', '1', 1, 1, '2023-03-11 16:03:35', '2023-03-11 16:03:35', '');
+INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (1, 1, '', '2', '1', 1, 1, '2023-03-11 15:39:31', '2023-03-11 15:39:31', '');
+INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (2, 2, '', '2', '1', 1, 1, '2023-03-11 15:41:16', '2023-03-11 15:41:16', '');
+INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (3, 3, '', '1', '1', 1, 1, '2023-03-11 15:45:44', '2023-03-11 15:45:44', '');
+INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (4, 1, '', '1', '1', 1, 1, '2023-03-11 15:46:13', '2023-03-11 15:46:13', '');
+INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (5, 3, '2', '1', '1', 1, 1, '2023-03-11 15:54:05', '2023-03-11 15:54:05', '');
+INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (6, 2, '1', '1', '1', 1, 1, '2023-03-11 15:56:36', '2023-03-11 15:56:36', '');
+INSERT INTO `app_user_oper_log` (`id`, `user_id`, `action_type`, `by_type`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`, `remark`) VALUES (7, 1, '2', '1', '1', 1, 1, '2023-03-11 16:03:35', '2023-03-11 16:03:35', '');
 COMMIT;
 
 -- ----------------------------
@@ -230,14 +230,14 @@ CREATE TABLE `plugins_content_announcement` (
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='公告管理';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='公告管理';
 
 -- ----------------------------
 -- Records of plugins_content_announcement
 -- ----------------------------
 BEGIN;
-INSERT INTO `plugins_content_announcement` (`id`, `title`, `content`, `num`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (3, 'test', '<p>tes</p>', 4, 'test', '1', 1, 1, '2023-02-27 12:36:52', '2023-02-27 11:50:56');
-INSERT INTO `plugins_content_announcement` (`id`, `title`, `content`, `num`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (5, 'test2', '<p>test</p>', 1, 'test', '1', 1, 1, '2023-02-27 23:49:05', '2023-02-27 23:49:05');
+INSERT INTO `plugins_content_announcement` (`id`, `title`, `content`, `num`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (1, 'test', '<p>tes</p>', 4, 'test', '1', 1, 1, '2023-02-27 12:36:52', '2023-02-27 11:50:56');
+INSERT INTO `plugins_content_announcement` (`id`, `title`, `content`, `num`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (2, 'test2', '<p>test</p>', 1, 'test', '1', 1, 1, '2023-02-27 23:49:05', '2023-02-27 23:49:05');
 COMMIT;
 
 -- ----------------------------
@@ -256,13 +256,13 @@ CREATE TABLE `plugins_content_article` (
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文章管理';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文章管理';
 
 -- ----------------------------
 -- Records of plugins_content_article
 -- ----------------------------
 BEGIN;
-INSERT INTO `plugins_content_article` (`id`, `cate_id`, `name`, `content`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (21, 11, 'test', '<p>test</p>', '111', '1', 1, 1, '2023-03-13 00:04:40', '2023-03-13 00:04:40');
+INSERT INTO `plugins_content_article` (`id`, `cate_id`, `name`, `content`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (1,1, 'test', '<p>test</p>', '111', '1', 1, 1, '2023-03-13 00:04:40', '2023-03-13 00:04:40');
 COMMIT;
 
 -- ----------------------------
@@ -279,15 +279,15 @@ CREATE TABLE `plugins_content_category` (
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文章分类管理';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文章分类管理';
 
 -- ----------------------------
 -- Records of plugins_content_category
 -- ----------------------------
 BEGIN;
-INSERT INTO `plugins_content_category` (`id`, `name`, `status`, `remark`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (8, 'test', '1', '', 1, 1, '2023-02-27 23:21:29', '2023-02-27 23:21:29');
-INSERT INTO `plugins_content_category` (`id`, `name`, `status`, `remark`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (10, 'test2', '1', '', 1, 1, '2023-02-27 23:22:00', '2023-02-27 23:22:00');
-INSERT INTO `plugins_content_category` (`id`, `name`, `status`, `remark`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (11, 'test23', '1', '', 1, 1, '2023-02-27 23:42:01', '2023-02-27 23:42:01');
+INSERT INTO `plugins_content_category` (`id`, `name`, `status`, `remark`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (1, 'test', '1', '', 1, 1, '2023-02-27 23:21:29', '2023-02-27 23:21:29');
+INSERT INTO `plugins_content_category` (`id`, `name`, `status`, `remark`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (2, 'test2', '1', '', 1, 1, '2023-02-27 23:22:00', '2023-02-27 23:22:00');
+INSERT INTO `plugins_content_category` (`id`, `name`, `status`, `remark`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (3, 'test23', '1', '', 1, 1, '2023-02-27 23:42:01', '2023-02-27 23:42:01');
 COMMIT;
 
 -- ----------------------------
@@ -310,17 +310,17 @@ CREATE TABLE `plugins_filemgr_app` (
   `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='app升级管理';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='app升级管理';
 
 -- ----------------------------
 -- Records of plugins_filemgr_app
 -- ----------------------------
 BEGIN;
-INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (2, '1.0.1', '1', '1', 'files/app/4b6ea3c0-d7fa-49f1-9d50-f9d73caad45f.apk', 0, '3', '', 'test', '1', 1, '2023-03-12 11:34:54', 1, '2023-03-13 01:00:30');
-INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (3, '1.0.0', '1', '1', 'files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', 0, '1', 'http://localhost:9999/files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', 'test', '1', 1, '2023-03-13 01:06:21', 1, '2023-03-13 01:06:21');
-INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (4, '1.0.2', '1', '1', '', 0, '2', 'http://localhost:9999/test.apk', 'test2', '1', 1, '2023-03-13 01:07:00', 1, '2023-03-13 01:07:00');
-INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (5, '1.0.3', '1', '1', 'files/app/962bebc9-fdb6-41b5-b62b-b184ee2fd1c0.apk', 0, '3', '', 'test2', '1', 1, '2023-03-13 01:07:24', 1, '2023-03-13 01:07:24');
-INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (6, '2.0.0', '1', '1', 'files/app/9ab7880d-4f64-40ba-8804-3023ea5e93ff.apk', 0, '1', 'https://localhost:8888/files/app/9ab7880d-4f64-40ba-8804-3023ea5e93ff.apk', 'test', '2', 1, '2023-03-14 17:29:09', 1, '2023-03-14 17:29:18');
+INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (1, '1.0.1', '1', '1', 'files/app/4b6ea3c0-d7fa-49f1-9d50-f9d73caad45f.apk', 0, '3', '', 'test', '1', 1, '2023-03-12 11:34:54', 1, '2023-03-13 01:00:30');
+INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (2, '1.0.0', '1', '1', 'files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', 0, '1', 'http://localhost:9999/files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', 'test', '1', 1, '2023-03-13 01:06:21', 1, '2023-03-13 01:06:21');
+INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (3, '1.0.2', '1', '1', '', 0, '2', 'http://localhost:9999/test.apk', 'test2', '1', 1, '2023-03-13 01:07:00', 1, '2023-03-13 01:07:00');
+INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (4, '1.0.3', '1', '1', 'files/app/962bebc9-fdb6-41b5-b62b-b184ee2fd1c0.apk', 0, '3', '', 'test2', '1', 1, '2023-03-13 01:07:24', 1, '2023-03-13 01:07:24');
+INSERT INTO `plugins_filemgr_app` (`id`, `version`, `platform`, `app_type`, `local_address`, `download_num`, `download_type`, `download_url`, `remark`, `status`, `create_by`, `created_at`, `update_by`, `updated_at`) VALUES (5, '2.0.0', '1', '1', 'files/app/9ab7880d-4f64-40ba-8804-3023ea5e93ff.apk', 0, '1', 'https://localhost:8888/files/app/9ab7880d-4f64-40ba-8804-3023ea5e93ff.apk', 'test', '2', 1, '2023-03-14 17:29:09', 1, '2023-03-14 17:29:18');
 COMMIT;
 
 -- ----------------------------
@@ -339,7 +339,7 @@ CREATE TABLE `plugins_msg_code` (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='验证码记录';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='验证码记录';
 
 -- ----------------------------
 -- Records of plugins_msg_code
@@ -1046,14 +1046,14 @@ CREATE TABLE `sys_login_log` (
   `create_by` int DEFAULT NULL COMMENT '创建者',
   `update_by` int DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Records of sys_login_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_login_log` (`id`, `user_id`, `ipaddr`, `login_location`, `browser`, `os`, `agent`, `platform`, `login_time`, `status`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (23, 0, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', 'Macintosh', '2023-03-01 14:50:52', '2', '退出成功', '2023-03-01 14:50:52', '2023-03-01 14:50:52', 0, 0);
-INSERT INTO `sys_login_log` (`id`, `user_id`, `ipaddr`, `login_location`, `browser`, `os`, `agent`, `platform`, `login_time`, `status`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (25, 1, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', 'Macintosh', '2023-03-02 12:35:06', '1', '登录操作', '2023-03-02 12:35:06', '2023-03-02 12:35:06', 0, 0);
+INSERT INTO `sys_login_log` (`id`, `user_id`, `ipaddr`, `login_location`, `browser`, `os`, `agent`, `platform`, `login_time`, `status`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (1,1, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', 'Macintosh', '2023-03-01 14:50:52', '2', '退出成功', '2023-03-01 14:50:52', '2023-03-01 14:50:52', 0, 0);
+INSERT INTO `sys_login_log` (`id`, `user_id`, `ipaddr`, `login_location`, `browser`, `os`, `agent`, `platform`, `login_time`, `status`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (2, 2, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', 'Macintosh', '2023-03-02 12:35:06', '1', '登录操作', '2023-03-02 12:35:06', '2023-03-02 12:35:06', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1331,16 +1331,16 @@ CREATE TABLE `sys_oper_log` (
   `create_by` int DEFAULT NULL COMMENT '创建者',
   `update_by` int DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11074 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='操作日志';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='操作日志';
 
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11024, 'GET', 1, '/admin-api/v1/getinfo', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:47', '{\"requestId\":\"2503ec27-6297-410a-a935-2ae6ece18a78\",\"code\":200,\"data\":{\"avatar\":\"/static/uploadfile/', '', '53.671203ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:47', '2023-03-01 16:13:47', 0, 0);
-INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11025, 'GET', 1, '/admin-api/v1/menurole', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"9795559d-2619-48ac-854b-d3c826e69c5c\",\"code\":200,\"data\":[{\"menuId\":778,\"name\":\"content', '', '347.447748ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
-INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11026, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"de938987-da4e-4101-be07-6886e6a1bccd\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":18', '', '54.264428ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
-INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11027, 'GET', 1, '/admin-api/v1/config?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"968f9eaf-23c5-48d2-9ece-e568ceece919\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '54.989684ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
+INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (1, 'GET', 1, '/admin-api/v1/getinfo', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:47', '{\"requestId\":\"2503ec27-6297-410a-a935-2ae6ece18a78\",\"code\":200,\"data\":{\"avatar\":\"/static/uploadfile/', '', '53.671203ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:47', '2023-03-01 16:13:47', 0, 0);
+INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (2, 'GET', 1, '/admin-api/v1/menurole', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"9795559d-2619-48ac-854b-d3c826e69c5c\",\"code\":200,\"data\":[{\"menuId\":778,\"name\":\"content', '', '347.447748ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
+INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (3, 'GET', 1, '/admin-api/v1/dict-data/option-select?dictType=sys_config_type', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"de938987-da4e-4101-be07-6886e6a1bccd\",\"code\":200,\"msg\":\"操作成功\",\"data\":[{\"id\":18', '', '54.264428ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
+INSERT INTO `sys_oper_log` (`id`, `request_method`, `user_id`, `oper_url`, `oper_ip`, `oper_location`, `status`, `oper_time`, `json_result`, `remark`, `latency_time`, `user_agent`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (4, 'GET', 1, '/admin-api/v1/config?pageIndex=1&pageSize=10', '127.0.0.1', '内部IP', '200', '2023-03-01 16:13:48', '{\"requestId\":\"968f9eaf-23c5-48d2-9ece-e568ceece919\",\"code\":200,\"msg\":\"操作成功\",\"data\":{\"count\":', '', '54.989684ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', '2023-03-01 16:13:48', '2023-03-01 16:13:48', 0, 0);
 COMMIT;
 
 -- ----------------------------
