@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
-	"go-admin/common/runtime"
+	"go-admin/core/runtime"
 	"os"
 )
 

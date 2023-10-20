@@ -3,10 +3,10 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/apis"
-	"go-admin/common/middleware"
-	"go-admin/common/runtime"
-	"go-admin/common/ws"
-	"go-admin/config/config"
+	"go-admin/core/config"
+	"go-admin/core/middleware"
+	"go-admin/core/runtime"
+	"go-admin/core/ws"
 	"mime"
 )
 

@@ -4,11 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
-	"go-admin/common/dto/api"
-	_ "go-admin/common/dto/response"
-	"go-admin/common/middleware"
-	"go-admin/common/middleware/auth"
-	"go-admin/config/lang"
+	"go-admin/core/dto/api"
+	_ "go-admin/core/dto/response"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
+	"go-admin/core/middleware/auth"
 )
 
 type UserConf struct {

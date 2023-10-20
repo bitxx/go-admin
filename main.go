@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-admin/common/cmd"
+	"go-admin/core/cmd"
 )
 
 //go:generate go env -w GO111MODULE=on

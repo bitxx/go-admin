@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"go-admin/common/dto"
+	"go-admin/core/dto"
 )
 
 // SysConfigQueryReq 列表或者搜索使用结构体

@@ -3,10 +3,10 @@ package apis
 import (
 	"fmt"
 	"github.com/shirou/gopsutil/host"
-	"go-admin/common/dto/api"
-	"go-admin/common/utils/fileutils"
-	"go-admin/common/utils/iputils"
-	"go-admin/common/utils/strutils"
+	"go-admin/core/dto/api"
+	"go-admin/core/utils/fileutils"
+	"go-admin/core/utils/iputils"
+	"go-admin/core/utils/strutils"
 	"runtime"
 	"strconv"
 	"time"
@@ -15,7 +15,7 @@ import (
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
-	_ "go-admin/common/dto/response"
+	_ "go-admin/core/dto/response"
 )
 
 const (

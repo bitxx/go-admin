@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/plugins/msg/apis"
-	"go-admin/common/middleware"
+	"go-admin/core/middleware"
 )
 
 func init() {

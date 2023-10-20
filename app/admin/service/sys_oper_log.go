@@ -5,10 +5,10 @@ import (
 	"github.com/xuri/excelize/v2"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
-	cDto "go-admin/common/dto"
-	"go-admin/common/dto/service"
-	"go-admin/common/middleware"
-	"go-admin/config/lang"
+	cDto "go-admin/core/dto"
+	"go-admin/core/dto/service"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
 	"gorm.io/gorm"
 )
 

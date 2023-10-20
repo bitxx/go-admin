@@ -1,6 +1,8 @@
 package lang
 
-import "go-admin/config/lang"
+import (
+	"go-admin/core/lang"
+)
 
 // 多语言翻译 i18n
 const (

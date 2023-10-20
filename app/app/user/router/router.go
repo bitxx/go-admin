@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/common/runtime"
+	"go-admin/core/runtime"
 )
 
 var (

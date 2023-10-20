@@ -3,7 +3,7 @@ package dto
 import (
 	"github.com/shopspring/decimal"
 	commDto "go-admin/app/app/common/dto"
-	"go-admin/common/dto"
+	"go-admin/core/dto"
 	"time"
 )
 

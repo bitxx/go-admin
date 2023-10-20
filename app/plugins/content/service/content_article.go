@@ -7,12 +7,12 @@ import (
 	cLang "go-admin/app/plugins/content/lang"
 	"go-admin/app/plugins/content/models"
 	"go-admin/app/plugins/content/service/dto"
-	cDto "go-admin/common/dto"
-	"go-admin/common/dto/service"
-	"go-admin/common/middleware"
-	"go-admin/common/utils/dateutils"
+	cDto "go-admin/core/dto"
+	"go-admin/core/dto/service"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
+	"go-admin/core/utils/dateutils"
 
-	"go-admin/config/lang"
 	"gorm.io/gorm"
 	"time"
 )

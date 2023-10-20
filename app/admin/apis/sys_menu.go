@@ -4,10 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/dto/api"
-	"go-admin/common/middleware"
-	"go-admin/common/middleware/auth"
-	"go-admin/config/lang"
+	"go-admin/core/dto/api"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
+	"go-admin/core/middleware/auth"
 )
 
 type SysMenu struct {

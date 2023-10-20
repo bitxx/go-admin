@@ -3,16 +3,16 @@ package service
 import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
-	"go-admin/common/dto/service"
-	"go-admin/common/global"
-	"go-admin/common/middleware"
-	"go-admin/config/lang"
+	"go-admin/core/dto/service"
+	"go-admin/core/global"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
 	"gorm.io/gorm"
 	"strconv"
 	"time"
 
 	"go-admin/app/admin/service/dto"
-	cDto "go-admin/common/dto"
+	cDto "go-admin/core/dto"
 )
 
 type SysDept struct {

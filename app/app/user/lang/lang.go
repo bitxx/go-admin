@@ -2,7 +2,7 @@ package lang
 
 import (
 	"github.com/bitxx/logger/logbase"
-	"go-admin/config/lang"
+	"go-admin/core/lang"
 	"os"
 )
 

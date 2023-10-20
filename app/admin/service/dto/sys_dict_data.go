@@ -2,7 +2,7 @@ package dto
 
 import (
 	"github.com/shopspring/decimal"
-	"go-admin/common/dto"
+	"go-admin/core/dto"
 )
 
 type SysDictDataQueryReq struct {

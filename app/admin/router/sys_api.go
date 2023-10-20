@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"go-admin/app/admin/apis"
-	"go-admin/common/middleware"
+	"go-admin/core/middleware"
 )
 
 func init() {

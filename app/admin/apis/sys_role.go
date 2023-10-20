@@ -6,13 +6,13 @@ import (
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/casbin"
-	"go-admin/common/dto/api"
-	_ "go-admin/common/dto/response"
-	"go-admin/common/middleware"
-	"go-admin/common/middleware/auth"
-	"go-admin/common/runtime"
-	"go-admin/config/lang"
+	"go-admin/core/casbin"
+	"go-admin/core/dto/api"
+	_ "go-admin/core/dto/response"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
+	"go-admin/core/middleware/auth"
+	"go-admin/core/runtime"
 )
 
 type SysRole struct {

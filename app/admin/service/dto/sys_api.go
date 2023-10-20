@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"go-admin/common/dto"
+	"go-admin/core/dto"
 )
 
 // SysApiQueryReq 功能列表请求参数

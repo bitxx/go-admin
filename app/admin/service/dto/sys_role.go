@@ -2,7 +2,7 @@ package dto
 
 import (
 	"go-admin/app/admin/models"
-	"go-admin/common/dto"
+	"go-admin/core/dto"
 )
 
 // SysRoleQueryReq 列表或者搜索使用结构体

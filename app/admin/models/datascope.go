@@ -3,9 +3,9 @@ package models
 import (
 	"errors"
 	"github.com/bitxx/logger/logbase"
-	"go-admin/common/utils/strutils"
-	"go-admin/common/utils/textutils"
-	"go-admin/config/config"
+	"go-admin/core/config"
+	"go-admin/core/utils/strutils"
+	"go-admin/core/utils/textutils"
 	"gorm.io/gorm"
 )
 

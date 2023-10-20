@@ -2,7 +2,7 @@ package dto
 
 import (
 	commDto "go-admin/app/app/common/dto"
-	"go-admin/common/dto"
+	"go-admin/core/dto"
 	"time"
 )
 

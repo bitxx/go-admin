@@ -7,14 +7,14 @@ import (
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
-	cDto "go-admin/common/dto"
-	"go-admin/common/dto/service"
-	"go-admin/common/global"
-	"go-admin/common/middleware"
-	"go-admin/common/utils/dateutils"
-	"go-admin/common/utils/fileutils"
-	config2 "go-admin/config/config"
-	"go-admin/config/lang"
+	"go-admin/core/config"
+	cDto "go-admin/core/dto"
+	"go-admin/core/dto/service"
+	"go-admin/core/global"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
+	"go-admin/core/utils/dateutils"
+	"go-admin/core/utils/fileutils"
 	"gorm.io/gorm"
 	"strings"
 	"text/template"
@@ -314,7 +314,7 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 			sysTable.TableComment = sysTable.ClassName
 		}
 		sysTable.FunctionName = sysTable.TableComment
-		sysTable.FunctionAuthor = config2.ApplicationConfig.Author
+		sysTable.FunctionAuthor = config.ApplicationConfig.Author
 
 		columnsService := NewSysColumnsService(&e.Service)
 		columns, respCode, err := columnsService.GetDBColumnList(table.TBName)
@@ -449,10 +449,10 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 			path = path + table.PackageName + "/" + table.BusinessName + "/constant/constant.go.bk"
 		}
 		if k == constant.JsName {
-			path = config2.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + ".js"
+			path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + ".js"
 		}
 		if k == constant.VueName {
-			path = config2.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.vue"
+			path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.vue"
 		}
 
 		tplResp := dto.TemplateResp{

@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"go-admin/common/dto"
+	"go-admin/core/dto"
 )
 
 type SysGenColumnQueryReq struct {

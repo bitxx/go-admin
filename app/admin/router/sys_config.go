@@ -2,7 +2,7 @@ package router
 
 import (
 	"go-admin/app/admin/apis"
-	"go-admin/common/middleware"
+	"go-admin/core/middleware"
 
 	"github.com/gin-gonic/gin"
 )

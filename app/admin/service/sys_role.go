@@ -3,9 +3,9 @@ package service
 import (
 	"go-admin/app/admin/constant"
 	sysLang "go-admin/app/admin/lang"
-	"go-admin/common/dto/service"
-	"go-admin/common/middleware"
-	"go-admin/config/lang"
+	"go-admin/core/dto/service"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
 	"gorm.io/gorm/clause"
 	"time"
 
@@ -15,7 +15,7 @@ import (
 
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
-	cDto "go-admin/common/dto"
+	cDto "go-admin/core/dto"
 )
 
 type SysRole struct {

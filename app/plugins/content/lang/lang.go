@@ -1,6 +1,8 @@
 package lang
 
-import "go-admin/config/lang"
+import (
+	"go-admin/core/lang"
+)
 
 const (
 	PluginsAnnouncementTitleEmptyCode   = 20000

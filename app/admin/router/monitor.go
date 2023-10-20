@@ -1,7 +1,7 @@
 package router
 
 import (
-	"go-admin/common/utils/ginutils"
+	"go-admin/core/utils/ginutils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -5,12 +5,12 @@ import (
 	"go-admin/app/admin/service"
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
-	"go-admin/common/dto/api"
-	_ "go-admin/common/dto/response"
-	"go-admin/common/middleware"
-	"go-admin/common/middleware/auth"
-	"go-admin/common/utils/dateutils"
-	"go-admin/config/lang"
+	"go-admin/core/dto/api"
+	_ "go-admin/core/dto/response"
+	"go-admin/core/lang"
+	"go-admin/core/middleware"
+	"go-admin/core/middleware/auth"
+	"go-admin/core/utils/dateutils"
 	"time"
 )
 
