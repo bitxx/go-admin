@@ -11,7 +11,7 @@ settings:
     # 版本
     version: 2.0.0
     # 端口号
-    port: 8000 # 服务端口号
+    port: 8888 # 服务端口号
     readtimeout: 1
     writertimeout: 2
     # 数据权限功能开关
@@ -46,7 +46,7 @@ settings:
     # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
     source: 账号:密码@tcp(ip:端口号)/数据库名?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
   #  databases:
-  #    'locaohost:8000':
+  #    'locaohost:8888':
   #      driver: mysql
   #        # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
   #        source: user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
