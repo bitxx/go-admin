@@ -81,16 +81,19 @@ npm install --force
 ```shell
 npm run dev
 ```
-3. 编译：
+浏览器打开：http://127.0.0.1:1688
+
+3. 补充：编译：
 ```shell
 npm run build:prod
 ```
-4. 检测package.json中哪些依赖是否有用，可以精简无效依赖，我已经精简了，这里记录下：
+4. 补充：检测package.json中哪些依赖是否有用，可以精简无效依赖，我已经精简了，这里记录下：
 ```shell
 npm i -g npm-check
 cd web
 npm-check
 ```
+
 
 ## 4. 其余
 这里只是大概讲了下基本情况，具体更多内容，还是需要在使用中一点点去发现。  
