@@ -5,7 +5,7 @@ import (
 	adminService "go-admin/app/admin/service"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
-	"go-admin/core/dot/api"
+	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
 	"go-admin/core/middleware"
 	"go-admin/core/middleware/auth"
