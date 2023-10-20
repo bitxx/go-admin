@@ -64,7 +64,7 @@
               <el-table-column width="120" label="部门" align="center" prop="dept.deptName" :show-overflow-tooltip="true" />
               <el-table-column width="150" label="角色" align="center" prop="role.roleName" :show-overflow-tooltip="true" />
               <el-table-column width="150" label="手机号" align="center" prop="phone" />
-              <el-table-column width="150" label="邮箱" align="center" prop="email" />
+              <el-table-column width="180" label="邮箱" align="center" prop="email" />
               <el-table-column width="80" label="状态" align="center" sortable="custom">
                 <template slot-scope="scope">
                   <el-switch
@@ -75,7 +75,7 @@
                   />
                 </template>
               </el-table-column>
-              <el-table-column label="创建时间" prop="createdAt" align="center" sortable="custom">
+              <el-table-column width="180" label="创建时间" prop="createdAt" align="center" sortable="custom">
                 <template slot-scope="scope">
                   <span>{{ parseTime(scope.row.createdAt) }}</span>
                 </template>
