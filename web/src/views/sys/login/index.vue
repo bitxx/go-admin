@@ -163,8 +163,8 @@ export default {
       cookiePassword: '',
       refreshParticles: true,
       loginForm: {
-        username: '',
-        password: '',
+        username: 'admin',
+        password: '123456',
         reuserMe: false,
         code: '',
         uuid: ''
