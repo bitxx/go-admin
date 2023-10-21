@@ -1444,8 +1444,8 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` (`id`, `username`, `password`, `nick_name`, `phone`, `role_id`, `salt`, `avatar`, `sex`, `email`, `dept_id`, `post_id`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (1, 'admin', '$2a$10$ZFMtvc.ROtYwk2UNOaBLCOrpr.Mq/i1ae4PVZfoWgHTb4ffORW/lm', 'admin', '13700000000', 1, '', '/files/admin/avatar/5226ae82-349c-48cc-b312-b19f78233086.jpg', '1', 'admin@admin.com', 1, 1, '', '1', 1, 1, '2021-05-13 19:56:38', '2023-03-14 09:27:36');
-INSERT INTO `sys_user` (`id`, `username`, `password`, `nick_name`, `phone`, `role_id`, `salt`, `avatar`, `sex`, `email`, `dept_id`, `post_id`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (2, 'test', '$2a$10$IZufMe1mAFjoghFGrsrz9OEtXEmLmvlaJfcNCWe7UieboiMb9Sl72', 'test', '13711111111', 2, '', '', '1', '13711111111@qq.com', 6, 1, '', '1', 1, 1, '2023-04-27 14:34:57', '2023-04-27 14:34:57');
+INSERT INTO `sys_user` (`id`, `username`, `password`, `nick_name`, `phone`, `role_id`, `salt`, `avatar`, `sex`, `email`, `dept_id`, `post_id`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (1, 'admin', '$2a$10$ZFMtvc.ROtYwk2UNOaBLCOrpr.Mq/i1ae4PVZfoWgHTb4ffORW/lm', 'admin', '13700000000', 1, '', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '1', 'admin@admin.com', 1, 1, '', '1', 1, 1, '2021-05-13 19:56:38', '2023-03-14 09:27:36');
+INSERT INTO `sys_user` (`id`, `username`, `password`, `nick_name`, `phone`, `role_id`, `salt`, `avatar`, `sex`, `email`, `dept_id`, `post_id`, `remark`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (2, 'test', '$2a$10$IZufMe1mAFjoghFGrsrz9OEtXEmLmvlaJfcNCWe7UieboiMb9Sl72', 'test', '13711111111', 2, '', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '1', '13711111111@qq.com', 6, 1, '', '1', 1, 1, '2023-04-27 14:34:57', '2023-04-27 14:34:57');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
