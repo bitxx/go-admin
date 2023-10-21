@@ -1411,7 +1411,7 @@ CREATE TABLE `sys_role_menu` (
 -- Records of sys_role_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES (18, 43);
+INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES (2, 43);
 COMMIT;
 
 -- ----------------------------
