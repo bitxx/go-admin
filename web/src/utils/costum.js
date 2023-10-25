@@ -4,14 +4,15 @@ export function parseTime(time, pattern) {
   if (arguments.length === 0 || !time) {
     return null
   }
-  if (time.indexOf('01-01-01') > -1) {
-    return '-'
-  }
+
   const format = pattern || '{y}-{m}-{d} {h}:{i}:{s}'
   let date
   if (typeof time === 'object') {
     date = time
   } else {
+    if (time.indexOf('01-01-01') > -1) {
+      return '-'
+    }
     if ((typeof time === 'string') && (/^[0-9]+$/.test(time))) {
       time = parseInt(time)
     }
