@@ -3,8 +3,8 @@ package lang
 import (
 	"encoding/csv"
 	"fmt"
+	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
-	"log"
 	"os"
 )
 
@@ -24,7 +24,8 @@ func InitLang() {
 	var err error
 	enLang, err := newI18n("config/lang", "en")
 	if err != nil {
-		log.Fatalln(err)
+		logbase.Warnf("en lang init error: %s", err.Error())
+		return
 	}
 	EnLang = enLang
 }
