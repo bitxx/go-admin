@@ -12,14 +12,14 @@ settings:
     version: 2.0.0
     # 端口号
     port: 8888 # 服务端口号
-    readtimeout: 1
-    writertimeout: 2
     # 数据权限功能开关
-    enabledp: false
+    enableDP: false
     # file根目录地址，不能是static，不能以./或/开头，只可输入：英文和/
     fileRootPath: files/
     # 是否单点登录
     isSingleLogin: true
+    # 用于从restapi获取定位信息，方便定位每个登录用户的具体信息
+    ampKey: ---
   logger:
     # 日志存放路径
     path: files/logs
@@ -28,7 +28,7 @@ settings:
     # 日志等级, trace, debug, info, warn, error, fatal
     level: trace
     # 数据库日志开关 dev模式，将自动开启
-    enableddb: false
+    enabledDB: false
     # 支持default、zap、logrus
     type: default
     # 单文件条数
