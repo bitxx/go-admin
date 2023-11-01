@@ -1,7 +1,6 @@
 package runtime
 
 import (
-	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
 	"go-admin/core/utils/storage"
 	queue2 "go-admin/core/utils/storage/queue"
@@ -103,16 +102,6 @@ func (e *Application) setRouter() []Router {
 		}
 	}
 	return e.routers
-}
-
-// SetLogger 设置日志组件
-func (e *Application) SetLogger(l logbase.Logger) {
-	logbase.DefaultLogger = l
-}
-
-// GetLogger 获取日志组件
-func (e *Application) GetLogger() logbase.Logger {
-	return logbase.DefaultLogger
 }
 
 // NewConfig 默认值

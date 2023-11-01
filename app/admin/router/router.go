@@ -92,12 +92,6 @@ func sysStaticFileRouter(r *gin.RouterGroup) {
 }
 
 func sysCheckRoleRouterInit(r *gin.RouterGroup) {
-	wss := r.Group("").Use(middleware.Auth())
-	{
-		wss.GET("/ws/:id/:channel", ws.WebsocketManager.WsClient)
-		wss.GET("/wslogout/:id/:channel", ws.WebsocketManager.UnWsClient)
-	}
-
 	v1 := r.Group("/admin-api/v1")
 	registerBaseRouter(v1)
 }

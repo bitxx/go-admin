@@ -5,13 +5,13 @@ import (
 	"github.com/casbin/casbin/v2/util"
 	"go-admin/app/admin/constant"
 	"go-admin/core/config"
-	"go-admin/core/dto/api"
 	"go-admin/core/dto/response"
 	"go-admin/core/lang"
 	"go-admin/core/middleware/auth/authdto"
 	"go-admin/core/middleware/auth/casbin"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/idgen"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
 	"net/http"
 	"strconv"
@@ -47,9 +47,9 @@ func (s *SessionAuth) Login(c *gin.Context) {
 	//获取sid，并用sid保存userId
 	sid := idgen.UUID()
 	err := runtime.RuntimeConfig.GetCacheAdapter().Set(SessionLoginPrefixTmp, sid, userId, config.AuthConfig.Timeout)
-	log := api.GetRequestLogger(c)
+	rLog := log.GetRequestLogger(c)
 	if err != nil {
-		log.Error(err)
+		rLog.Error(err)
 		c.JSON(lang.RequestErr, errResp)
 		return
 	}
@@ -72,7 +72,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		authdto.DeptId:      deptId,
 	})
 	if err != nil {
-		log.Error(err)
+		rLog.Error(err)
 		c.JSON(lang.RequestErr, errResp)
 		return
 	}
@@ -81,9 +81,8 @@ func (s *SessionAuth) Login(c *gin.Context) {
 	}
 	//用userId保存sid，记录登录状态（此操作可用于多点登录）
 	err = runtime.RuntimeConfig.GetCacheAdapter().HashSet(config.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
-	log = api.GetRequestLogger(c)
 	if err != nil {
-		log.Error(err)
+		rLog.Error(err)
 		c.JSON(lang.RequestErr, errResp)
 		return
 	}
@@ -119,8 +118,8 @@ func (s *SessionAuth) Get(c *gin.Context, key string) (interface{}, int, error) 
 	var err error
 	defer func() {
 		if err != nil {
-			log := api.GetRequestLogger(c)
-			log.Error(strutils.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
+			rLog := log.GetRequestLogger(c)
+			rLog.Error(strutils.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
 		}
 	}()
 	cache := runtime.RuntimeConfig.GetCacheAdapter()
@@ -217,7 +216,7 @@ func (s *SessionAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 func (s *SessionAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		roleKey := s.GetRoleKey(c)
-		log := api.GetRequestLogger(c)
+		rLog := log.GetRequestLogger(c)
 		var res, casbinExclude bool
 		var err error
 
@@ -234,23 +233,23 @@ func (s *SessionAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 			}
 		}
 		if casbinExclude {
-			log.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
+			rLog.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
 			c.Next()
 			return
 		}
 		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
 		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
-			log.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
+			rLog.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
 			response.Error(c, lang.ServerErr, lang.MsgByCode(lang.ServerErr, lang.GetAcceptLanguage(c)))
 			return
 		}
 
 		if res {
-			log.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
+			rLog.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
 			c.Next()
 		} else {
-			log.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
+			rLog.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
 			response.Error(c, lang.ForbitErr, lang.MsgByCode(lang.ForbitErr, lang.GetAcceptLanguage(c)))
 			c.Abort()
 			return

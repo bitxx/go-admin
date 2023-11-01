@@ -2,13 +2,13 @@ package middleware
 
 import (
 	"errors"
-	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
 	"go-admin/core/config"
 	"go-admin/core/dto/response"
 	"go-admin/core/middleware/auth"
 	"go-admin/core/utils/ginutils"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
 	"gorm.io/gorm"
 )
@@ -28,7 +28,7 @@ func PermissionAction() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db, err := ginutils.GetOrm(c)
 		if err != nil {
-			logbase.Error(err)
+			log.Error(err)
 			return
 		}
 
@@ -38,8 +38,8 @@ func PermissionAction() gin.HandlerFunc {
 		if userId > 0 {
 			p, err = newDataPermission(db, userId)
 			if err != nil {
-				logbase.Errorf("MsgID[%s] PermissionAction error: %s", msgID, err)
-				response.Error(c, 500, "权限范围鉴定错误")
+				log.Errorf("MsgID[%s] PermissionAction error: %s", msgID, err)
+				response.Error(c, 500, "PermissionAction error")
 				c.Abort()
 				return
 			}

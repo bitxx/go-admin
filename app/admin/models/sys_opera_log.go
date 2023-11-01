@@ -3,8 +3,8 @@ package models
 import (
 	"encoding/json"
 	"errors"
-	"github.com/bitxx/logger/logbase"
 	"go-admin/core/runtime"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/storage"
 	"time"
 )
@@ -38,21 +38,21 @@ func SaveOperLog(message storage.Messager) (err error) {
 	db := runtime.RuntimeConfig.GetDbByKey(message.GetPrefix())
 	if db == nil {
 		err = errors.New("db not exist")
-		logbase.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())
+		log.Errorf("host[%s]'s %s", message.GetPrefix(), err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}
 	var rb []byte
 	rb, err = json.Marshal(message.GetValues())
 	if err != nil {
-		logbase.Errorf("json Marshal error, %s", err.Error())
+		log.Errorf("json Marshal error, %s", err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}
 	var l SysOperLog
 	err = json.Unmarshal(rb, &l)
 	if err != nil {
-		logbase.Errorf("json Unmarshal error, %s", err.Error())
+		log.Errorf("json Unmarshal error, %s", err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}
@@ -62,7 +62,7 @@ func SaveOperLog(message storage.Messager) (err error) {
 	}
 	err = db.Create(&l).Error
 	if err != nil {
-		logbase.Errorf("db create error, %s", err.Error())
+		log.Errorf("db create error, %s", err.Error())
 		// Log writing to the database ignores error
 		return nil
 	}

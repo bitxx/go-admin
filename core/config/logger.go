@@ -1,11 +1,8 @@
 package config
 
 import (
-	"github.com/bitxx/logger"
-	"github.com/bitxx/logger/logbase"
+	"go-admin/core/utils/log"
 )
-
-var logInner *logbase.Helper
 
 type Logger struct {
 	Type      string
@@ -17,23 +14,15 @@ type Logger struct {
 }
 
 func (e Logger) Setup() {
-	logInner = logger.NewLogger(
-		logger.WithType(e.Type),
-		logger.WithPath(e.Path),
-		logger.WithLevel(e.Level),
-		logger.WithStdout(e.Stdout),
-		logger.WithCap(e.Cap),
-	)
-}
 
-// GetLoggerWithFields 设置logger
-func (e Logger) GetLoggerWithFields(fields map[string]interface{}) *logbase.Helper {
-	return logInner.WithFields(fields)
-}
-
-// GetLogger 获取logger
-func (e Logger) GetLogger() *logbase.Helper {
-	return logInner
+	log.Init(log.LoggerConf{
+		Type:      e.Type,
+		Path:      e.Path,
+		Level:     e.Level,
+		Stdout:    e.Stdout,
+		EnabledDB: e.EnabledDB,
+		Cap:       e.Cap,
+	})
 }
 
 var LoggerConfig = new(Logger)

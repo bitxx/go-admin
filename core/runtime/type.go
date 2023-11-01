@@ -1,7 +1,6 @@
 package runtime
 
 import (
-	"github.com/bitxx/logger/logbase"
 	"github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
 	"go-admin/core/utils/storage"
@@ -25,10 +24,6 @@ type Runtime interface {
 	GetEngine() http.Handler
 
 	GetRouter() []Router
-
-	// SetLogger 使用go-admin定义的logger，参考来源go-micro
-	SetLogger(logger logbase.Logger)
-	GetLogger() logbase.Logger
 
 	// SetMiddleware middleware
 	SetMiddleware(string, interface{})

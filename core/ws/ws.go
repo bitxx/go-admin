@@ -2,9 +2,8 @@ package ws
 
 import (
 	"context"
-	"go-admin/core/config"
 	"go-admin/core/utils/fileutils"
-	"log"
+	"go-admin/core/utils/log"
 	"net/http"
 	"sync"
 	"time"
@@ -33,20 +32,20 @@ type Client struct {
 	Message    chan []byte
 }
 
-// messageData 单个发送数据信息
+// MessageData 单个发送数据信息
 type MessageData struct {
 	Id, Group string
 	Context   context.Context
 	Message   []byte
 }
 
-// groupMessageData 组广播数据信息
+// GroupMessageData 组广播数据信息
 type GroupMessageData struct {
 	Group   string
 	Message []byte
 }
 
-// 广播发送数据信息
+// BroadCastMessageData 广播发送数据信息
 type BroadCastMessageData struct {
 	Message []byte
 }
@@ -55,9 +54,9 @@ type BroadCastMessageData struct {
 func (c *Client) Read(cxt context.Context) {
 	defer func(cxt context.Context) {
 		WebsocketManager.UnRegister <- c
-		log.Printf("client [%s] disconnect", c.Id)
+		log.Infof("client [%s] disconnect", c.Id)
 		if err := c.Socket.Close(); err != nil {
-			log.Printf("client [%s] disconnect err: %s", c.Id, err)
+			log.Infof("client [%s] disconnect err: %s", c.Id, err)
 		}
 	}(cxt)
 
@@ -69,7 +68,7 @@ func (c *Client) Read(cxt context.Context) {
 		if err != nil || messageType == websocket.CloseMessage {
 			break
 		}
-		log.Printf("client [%s] receive message: %s", c.Id, string(message))
+		log.Infof("client [%s] receive message: %s", c.Id, string(message))
 		c.Message <- message
 	}
 }
@@ -77,9 +76,9 @@ func (c *Client) Read(cxt context.Context) {
 // 写信息，从 channel 变量 Send 中读取数据写入 websocket 连接
 func (c *Client) Write(cxt context.Context) {
 	defer func(cxt context.Context) {
-		log.Printf("client [%s] disconnect", c.Id)
+		log.Infof("client [%s] disconnect", c.Id)
 		if err := c.Socket.Close(); err != nil {
-			log.Printf("client [%s] disconnect err: %s", c.Id, err)
+			log.Infof("client [%s] disconnect err: %s", c.Id, err)
 		}
 	}(cxt)
 
@@ -93,10 +92,10 @@ func (c *Client) Write(cxt context.Context) {
 				_ = c.Socket.WriteMessage(websocket.CloseMessage, []byte{})
 				return
 			}
-			log.Printf("client [%s] write message: %s", c.Id, string(message))
+			log.Infof("client [%s] write message: %s", c.Id, string(message))
 			err := c.Socket.WriteMessage(websocket.TextMessage, message)
 			if err != nil {
-				log.Printf("client [%s] writemessage err: %s", c.Id, err)
+				log.Infof("client [%s] writemessage err: %s", c.Id, err)
 			}
 		case _ = <-c.Context.Done():
 			break
@@ -104,15 +103,15 @@ func (c *Client) Write(cxt context.Context) {
 	}
 }
 
-// 启动 websocket 管理器
+// Start start websocket manager
 func (manager *Manager) Start() {
-	log.Printf("websocket manage start")
+	log.Info("websocket manage start")
 	for {
 		select {
 		// 注册
 		case client := <-manager.Register:
-			log.Printf("client [%s] connect", client.Id)
-			log.Printf("register client [%s] to group [%s]", client.Id, client.Group)
+			log.Infof("client [%s] connect", client.Id)
+			log.Infof("register client [%s] to group [%s]", client.Id, client.Group)
 
 			manager.Lock.Lock()
 			if manager.Group[client.Group] == nil {
@@ -125,7 +124,7 @@ func (manager *Manager) Start() {
 
 		// 注销
 		case client := <-manager.UnRegister:
-			log.Printf("unregister client [%s] from group [%s]", client.Id, client.Group)
+			log.Infof("unregister client [%s] from group [%s]", client.Id, client.Group)
 			manager.Lock.Lock()
 			if mGroup, ok := manager.Group[client.Group]; ok {
 				if mClient, ok := mGroup[client.Id]; ok {
@@ -133,7 +132,6 @@ func (manager *Manager) Start() {
 					delete(mGroup, client.Id)
 					manager.clientCount -= 1
 					if len(mGroup) == 0 {
-						//log.Printf("delete empty group [%s]", client.Group)
 						delete(manager.Group, client.Group)
 						manager.groupCount -= 1
 					}
@@ -153,7 +151,7 @@ func (manager *Manager) Start() {
 	}
 }
 
-// 处理单个 client 发送数据
+// SendService 处理单个 client 发送数据
 func (manager *Manager) SendService() {
 	for {
 		select {
@@ -167,7 +165,7 @@ func (manager *Manager) SendService() {
 	}
 }
 
-// 处理 group 广播数据
+// SendGroupService 处理 group 广播数据
 func (manager *Manager) SendGroupService() {
 	for {
 		select {
@@ -182,7 +180,7 @@ func (manager *Manager) SendGroupService() {
 	}
 }
 
-// 处理广播数据
+// SendAllService 处理广播数据
 func (manager *Manager) SendAllService() {
 	for {
 		select {
@@ -284,7 +282,7 @@ func (manager *Manager) WsClient(c *gin.Context) {
 
 	conn, err := upGrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-		config.LoggerConfig.GetLogger().Errorf("websocket connect error: %s", c.Param("channel"))
+		log.Errorf("websocket connect error: %s", c.Param("channel"))
 		return
 	}
 	client := &Client{
@@ -301,7 +299,7 @@ func (manager *Manager) WsClient(c *gin.Context) {
 	go client.Write(ctx)
 	time.Sleep(time.Second * 15)
 
-	fileutils.FileMonitoringById(ctx, "tmp/logs/job/db-20200820.log", c.Param("id"), c.Param("channel"), SendOne)
+	_ = fileutils.FileMonitoringById(ctx, "tmp/logs/job/db-20200820.log", c.Param("id"), c.Param("channel"), SendOne)
 }
 
 func (manager *Manager) UnWsClient(c *gin.Context) {
@@ -318,20 +316,20 @@ func (manager *Manager) UnWsClient(c *gin.Context) {
 
 func SendGroup(msg []byte) {
 	WebsocketManager.SendGroup("leffss", []byte("{\"code\":200,\"data\":"+string(msg)+"}"))
-	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
+	log.Info(WebsocketManager.Info())
 }
 
 func SendAll(msg []byte) {
 	WebsocketManager.SendAll([]byte("{\"code\":200,\"data\":" + string(msg) + "}"))
-	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
+	log.Info(WebsocketManager.Info())
 }
 
 func SendOne(ctx context.Context, id string, group string, msg []byte) {
 	WebsocketManager.Send(ctx, id, group, []byte("{\"code\":200,\"data\":"+string(msg)+"}"))
-	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
+	log.Info(WebsocketManager.Info())
 }
 
 func WsLogout(id string, group string) {
 	WebsocketManager.UnRegisterClient(&Client{Id: id, Group: group})
-	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
+	log.Info(WebsocketManager.Info())
 }

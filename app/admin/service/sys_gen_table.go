@@ -494,7 +494,13 @@ func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 	//如果是直接生成代码
 	for _, tpl := range templateResp {
 		err = fileutils.CreateDirFromFilePath(tpl.Path)
-		fileutils.FileCreate(*bytes.NewBufferString(tpl.Content), tpl.Path)
+		if err != nil {
+			e.Log.Warn(err)
+		}
+		err = fileutils.FileCreate(*bytes.NewBufferString(tpl.Content), tpl.Path)
+		if err != nil {
+			e.Log.Warn(err)
+		}
 	}
 	return nil, lang.SuccessCode, nil
 }

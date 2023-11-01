@@ -11,6 +11,7 @@ import (
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
 	"go-admin/core/utils/ginutils"
+	"go-admin/core/utils/log"
 	"gorm.io/gorm"
 	"net/http"
 )
@@ -37,13 +38,8 @@ func (e *Api) AddError(err error) {
 // MakeContext 设置http上下文
 func (e *Api) MakeContext(c *gin.Context) *Api {
 	e.Context = c
-	e.Logger = GetRequestLogger(c)
+	e.Logger = log.GetRequestLogger(c)
 	return e
-}
-
-// GetLogger 获取上下文提供的日志
-func (e Api) GetLogger() *logbase.Helper {
-	return GetRequestLogger(e.Context)
 }
 
 // Bind 参数校验

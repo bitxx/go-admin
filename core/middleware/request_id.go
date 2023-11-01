@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"go-admin/core/config"
 	"go-admin/core/global"
 	"go-admin/core/utils/idgen"
+	"go-admin/core/utils/log"
 	"net/http"
 	"strings"
 
@@ -26,7 +26,7 @@ func RequestId() gin.HandlerFunc {
 		}
 		c.Request.Header.Set(global.TrafficKey, requestId)
 		c.Set(global.TrafficKey, requestId)
-		c.Set(global.LoggerKey, config.LoggerConfig.GetLoggerWithFields(map[string]interface{}{global.TrafficKey: requestId}))
+		c.Set(global.LoggerKey, log.WithFields(map[string]interface{}{global.TrafficKey: requestId}))
 		c.Next()
 	}
 }

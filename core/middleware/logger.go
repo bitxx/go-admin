@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"go-admin/core/config"
-	"go-admin/core/dto/api"
 	"go-admin/core/middleware/auth"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/iputils"
+	"go-admin/core/utils/log"
 	"io"
 	"net/http"
 	"strconv"
@@ -22,7 +22,7 @@ import (
 // LoggerToFile 日志记录到文件
 func LoggerToFile() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		log := api.GetRequestLogger(c)
+		rLog := log.GetRequestLogger(c)
 		// 开始时间
 		startTime := time.Now()
 		// 处理请求
@@ -33,7 +33,7 @@ func LoggerToFile() gin.HandlerFunc {
 			wt := bufio.NewWriter(bf)
 			_, err := io.Copy(wt, c.Request.Body)
 			if err != nil {
-				log.Warnf("copy body error, %s", err.Error())
+				rLog.Warnf("copy body error, %s", err.Error())
 				err = nil
 			}
 			rb, _ := io.ReadAll(bf)
@@ -58,7 +58,7 @@ func LoggerToFile() gin.HandlerFunc {
 		if bl {
 			rb, err := json.Marshal(rt)
 			if err != nil {
-				log.Warnf("json Marshal result error, %s", err.Error())
+				rLog.Warnf("json Marshal result error, %s", err.Error())
 			} else {
 				result = string(rb)
 			}
@@ -88,7 +88,7 @@ func LoggerToFile() gin.HandlerFunc {
 			"method":      reqMethod,
 			"uri":         reqUri,
 		}
-		log.WithFields(logData).Info()
+		rLog.WithFields(logData).Info()
 
 		if c.Request.Method != "OPTIONS" && config.LoggerConfig.EnabledDB && statusCode != 404 {
 			SetDBOperLog(c, clientIP, statusCode, reqUri, reqMethod, latencyTime, body, result, statusBus)
@@ -98,7 +98,7 @@ func LoggerToFile() gin.HandlerFunc {
 
 // SetDBOperLog 写入操作日志表 fixme 该方法后续即将弃用
 func SetDBOperLog(c *gin.Context, clientIP string, statusCode int, reqUri string, reqMethod string, latencyTime time.Duration, body string, result string, status int) {
-	log := api.GetRequestLogger(c)
+	rLog := log.GetRequestLogger(c)
 	l := make(map[string]interface{})
 	//l["_fullPath"] = c.FullPath()  //reqUri可以取代
 	l["operUrl"] = reqUri
@@ -118,12 +118,12 @@ func SetDBOperLog(c *gin.Context, clientIP string, statusCode int, reqUri string
 	q := runtime.RuntimeConfig.GetMemoryQueue(c.Request.Host)
 	message, err := runtime.RuntimeConfig.GetStreamMessage("", global.OperateLog, l)
 	if err != nil {
-		log.Errorf("GetStreamMessage error, %s", err.Error())
+		rLog.Errorf("GetStreamMessage error, %s", err.Error())
 		//日志报错错误，不中断请求
 	} else {
 		err = q.Append(message)
 		if err != nil {
-			log.Errorf("Append message error, %s", err.Error())
+			rLog.Errorf("Append message error, %s", err.Error())
 		}
 	}
 }

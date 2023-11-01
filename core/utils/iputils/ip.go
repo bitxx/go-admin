@@ -2,8 +2,8 @@ package iputils
 
 import (
 	"encoding/json"
-	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
+	"go-admin/core/utils/log"
 	"io"
 	"net"
 	"net/http"
@@ -18,7 +18,7 @@ func GetLocation(ip, key string) string {
 	url := "https://restapi.amap.com/v5/ip?ip=" + ip + "&type=4&key=" + key
 	resp, err := http.Get(url)
 	if err != nil {
-		logbase.Errorf("restapi.amap.com failed: %s", err)
+		log.Errorf("restapi.amap.com failed: %s", err)
 		return "unknown ip"
 	}
 	defer resp.Body.Close()
@@ -28,7 +28,7 @@ func GetLocation(ip, key string) string {
 
 	err = json.Unmarshal(s, &m)
 	if err != nil {
-		logbase.Errorf("Umarshal failed: %s", err)
+		log.Errorf("Umarshal failed: %s", err)
 	}
 	//if m["province"] == "" {
 	//	return "未知位置"
@@ -36,11 +36,11 @@ func GetLocation(ip, key string) string {
 	return m["country"] + "-" + m["province"] + "-" + m["city"] + "-" + m["district"] + "-" + m["isp"]
 }
 
-// GetLocaHonst 获取局域网ip地址
-func GetLocaHonst() string {
+// GetLocaHost 获取局域网ip地址
+func GetLocaHost() string {
 	netInterfaces, err := net.Interfaces()
 	if err != nil {
-		logbase.Errorf("net.Interfaces failed, err: %s", err)
+		log.Errorf("net.Interfaces failed, err: %s", err)
 	}
 
 	for i := 0; i < len(netInterfaces); i++ {

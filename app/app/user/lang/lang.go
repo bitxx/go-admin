@@ -1,9 +1,8 @@
 package lang
 
 import (
-	"github.com/bitxx/logger/logbase"
 	"go-admin/core/lang"
-	"os"
+	"go-admin/core/utils/log"
 )
 
 // 多语言翻译 i18n
@@ -82,8 +81,7 @@ func Init() {
 		if lang.MsgInfo[k] == "" {
 			lang.MsgInfo[k] = v
 		} else {
-			logbase.Fatal("Your plugin lang code %d is used by system or other plugins,please check")
-			os.Exit(-1)
+			log.Fatal("Your plugin lang code %d is used by system or other plugins,please check")
 		}
 	}
 }

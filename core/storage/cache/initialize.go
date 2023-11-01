@@ -8,10 +8,11 @@
 package cache
 
 import (
+	"fmt"
 	"go-admin/core/config"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/captchautils"
-	"log"
+	"go-admin/core/utils/log"
 )
 
 // Setup 配置storage组件
@@ -19,8 +20,9 @@ func Setup() {
 	//4. 设置缓存
 	cacheAdapter, err := config.CacheConfig.Setup()
 	if err != nil {
-		log.Fatalf("cache setup error, %s\n", err.Error())
+		panic(fmt.Sprintf("cache setup error, %s\n", err.Error()))
 	}
+
 	runtime.RuntimeConfig.SetCacheAdapter(cacheAdapter)
 	//5. 设置验证码缓存
 	captchautils.SetStore(captchautils.NewCacheStore(cacheAdapter, config.CacheConfig.Expired))

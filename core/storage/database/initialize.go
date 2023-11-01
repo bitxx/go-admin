@@ -1,11 +1,11 @@
 package database
 
 import (
-	"github.com/bitxx/logger/logbase"
 	"go-admin/core/casbin"
 	"go-admin/core/config"
 	"go-admin/core/config/database"
 	"go-admin/core/runtime"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/textutils"
 	"time"
 
@@ -22,7 +22,7 @@ func Setup() {
 }
 
 func setupSimpleDatabase(host string, c *config.Database) {
-	logbase.Infof("%s => %s", host, textutils.Green(c.Source))
+	log.Infof("%s => %s", host, textutils.Green(c.Source))
 	registers := make([]database.ResolverConfigure, len(c.Registers))
 	for i := range c.Registers {
 		registers[i] = database.NewResolverConfigure(
@@ -41,15 +41,15 @@ func setupSimpleDatabase(host string, c *config.Database) {
 				SlowThreshold: time.Second,
 				Colorful:      true,
 				LogLevel: logger.LogLevel(
-					logbase.DefaultLogger.Options().Level.LevelForGorm()),
+					log.LevelForGorm()),
 			},
 		),
 	}, opens[c.Driver])
 
 	if err != nil {
-		logbase.Fatal(textutils.Red(c.Driver+" connect error :"), err)
+		log.Fatal(textutils.Red(c.Driver+" connect error :"), err)
 	} else {
-		logbase.Info(textutils.Green(c.Driver + " connect success !"))
+		log.Info(textutils.Green(c.Driver + " connect success !"))
 	}
 
 	e := mycasbin.Setup(db, "sys_")

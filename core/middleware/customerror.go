@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/core/config"
 	"go-admin/core/utils/iputils"
+	"go-admin/core/utils/log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -26,7 +26,7 @@ func CustomError(c *gin.Context) {
 						break
 					}
 					c.Status(statusCode)
-					config.LoggerConfig.GetLogger().Error(
+					log.Error(
 						time.Now().Format("2006-01-02 15:04:05"),
 						"[ERROR]",
 						c.Request.Method,

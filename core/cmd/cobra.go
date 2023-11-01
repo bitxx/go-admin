@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 	"go-admin/core/cmd/api"
 	"go-admin/core/config"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/textutils"
 	"os"
 
@@ -32,7 +32,7 @@ var rootCmd = &cobra.Command{
 
 func tip() {
 	usageStr := `欢迎使用 ` + textutils.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + textutils.Red(`-h`) + ` 查看命令`
-	fmt.Printf("%s\n", usageStr)
+	log.Infof("%s\n", usageStr)
 }
 
 func init() {

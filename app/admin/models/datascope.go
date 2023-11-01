@@ -2,8 +2,8 @@ package models
 
 import (
 	"errors"
-	"github.com/bitxx/logger/logbase"
 	"go-admin/core/config"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
 	"go-admin/core/utils/textutils"
 	"gorm.io/gorm"
@@ -20,7 +20,7 @@ func (e *DataPermission) GetDataScope(tableName string, db *gorm.DB) (*gorm.DB, 
 
 	if !config.ApplicationConfig.EnableDP {
 		usageStr := `数据权限已经为您` + textutils.Green(`关闭`) + `，如需开启请参考配置文件字段说明`
-		logbase.Debug("%s\n", usageStr)
+		log.Debug("%s\n", usageStr)
 		return db, nil
 	}
 	user := new(SysUser)

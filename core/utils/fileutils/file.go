@@ -5,10 +5,7 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	"go-admin/core/config"
 	"io"
-	"io/ioutil"
-	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -20,7 +17,7 @@ import (
 
 // GetSize 获取文件大小
 func GetSize(f multipart.File) (int, error) {
-	content, err := ioutil.ReadAll(f)
+	content, err := io.ReadAll(f)
 
 	return len(content), err
 }
@@ -113,16 +110,16 @@ func PathExist(addr string) bool {
 	return s.IsDir()
 }
 
-func FileCreate(content bytes.Buffer, name string) {
+func FileCreate(content bytes.Buffer, name string) error {
 	file, err := os.Create(name)
 	if err != nil {
-		config.LoggerConfig.GetLogger().Error(err)
+		return err
 	}
 	_, err = file.WriteString(content.String())
 	if err != nil {
-		config.LoggerConfig.GetLogger().Error(err)
+		return err
 	}
-	file.Close()
+	return file.Close()
 }
 
 func CreateDirFromFilePath(path string) error {
@@ -186,10 +183,10 @@ func (h ReplaceHelper) walkCallback(path string, f os.FileInfo, err error) error
 	return err
 }
 
-func FileMonitoringById(ctx context.Context, filePth string, id string, group string, hookfn func(context.Context, string, string, []byte)) {
+func FileMonitoringById(ctx context.Context, filePth string, id string, group string, hookfn func(context.Context, string, string, []byte)) error {
 	f, err := os.Open(filePth)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 	defer f.Close()
 
@@ -205,10 +202,11 @@ func FileMonitoringById(ctx context.Context, filePth string, id string, group st
 			time.Sleep(500 * time.Millisecond)
 			continue
 		} else if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 		go hookfn(ctx, id, group, line)
 	}
+	return nil
 }
 
 // GetFileSize get file size

@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"github.com/redis/go-redis/v9"
+	"go-admin/core/utils/log"
 	"os"
 )
 
@@ -57,7 +58,6 @@ func (e RedisConnectOptions) GetRedisOptions() (*redis.Options, error) {
 
 func getTLS(c *Tls) (*tls.Config, error) {
 	if c != nil && c.Cert != "" {
-		log := LoggerConfig.GetLogger()
 		// 从证书相关文件中读取和解析信息，得到证书公钥、密钥对
 		cert, err := tls.LoadX509KeyPair(c.Cert, c.Key)
 		if err != nil {

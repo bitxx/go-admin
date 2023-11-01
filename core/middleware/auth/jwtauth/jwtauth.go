@@ -6,12 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
 	"go-admin/core/config"
-	"go-admin/core/dto/api"
 	"go-admin/core/dto/response"
 	"go-admin/core/lang"
 	"go-admin/core/middleware/auth/authdto"
 	"go-admin/core/middleware/auth/casbin"
 	"go-admin/core/runtime"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
 	"net/http"
 	"time"
@@ -46,7 +46,7 @@ func (j *JwtAuth) Init() {
 		TimeFunc:        time.Now,
 	}) //TokenHeadName必须有，不能为空，否则权限识别异常
 	if err != nil {
-		config.LoggerConfig.GetLogger().Errorf(fmt.Sprintf("JWT Init Error, %s", err.Error()))
+		log.Errorf(fmt.Sprintf("JWT Init Error, %s", err.Error()))
 	}
 }
 
@@ -62,8 +62,8 @@ func (j *JwtAuth) Get(c *gin.Context, key string) (interface{}, int, error) {
 	var err error
 	defer func() {
 		if err != nil {
-			log := api.GetRequestLogger(c)
-			log.Error(strutils.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
+			rLog := log.GetRequestLogger(c)
+			rLog.Error(strutils.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
 		}
 	}()
 	data := ExtractClaims(c)
@@ -125,7 +125,7 @@ func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 		v := data.(MapClaims)
 		roleKey := v[authdto.RoleKey]
 
-		log := api.GetRequestLogger(c)
+		rLog := log.GetRequestLogger(c)
 		var res, casbinExclude bool
 		var err error
 		//检查权限
@@ -141,23 +141,23 @@ func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 			}
 		}
 		if casbinExclude {
-			log.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
+			rLog.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
 			c.Next()
 			return
 		}
 		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
 		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
-			log.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
+			rLog.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
 			response.Error(c, lang.ServerErr, lang.MsgByCode(lang.ServerErr, lang.GetAcceptLanguage(c)))
 			return
 		}
 
 		if res {
-			log.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
+			rLog.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
 			c.Next()
 		} else {
-			log.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
+			rLog.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
 			response.Error(c, lang.ForbitErr, lang.MsgByCode(lang.ForbitErr, lang.GetAcceptLanguage(c)))
 			c.Abort()
 			return

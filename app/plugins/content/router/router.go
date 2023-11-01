@@ -1,9 +1,9 @@
 package router
 
 import (
-	"github.com/bitxx/logger/logbase"
 	"github.com/gin-gonic/gin"
 	"go-admin/core/runtime"
+	"go-admin/core/utils/log"
 	"os"
 )
 
@@ -17,15 +17,14 @@ func InitRouter() {
 	var r *gin.Engine
 	h := runtime.RuntimeConfig.GetEngine()
 	if h == nil {
-		logbase.Fatal("not found engine...")
+		log.Fatal("not found engine...")
 		os.Exit(-1)
 	}
 	switch h.(type) {
 	case *gin.Engine:
 		r = h.(*gin.Engine)
 	default:
-		logbase.Fatal("not support other engine")
-		os.Exit(-1)
+		log.Fatal("not support other engine")
 	}
 
 	// 无需认证的路由

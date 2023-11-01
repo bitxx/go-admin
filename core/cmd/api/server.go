@@ -6,13 +6,13 @@ import (
 	"github.com/bitxx/load-config/source/file"
 	"go-admin/app"
 	"go-admin/core/config"
-	"go-admin/core/dto/api"
 	"go-admin/core/lang"
 	"go-admin/core/middleware/auth"
 	"go-admin/core/runtime"
 	"go-admin/core/storage/cache"
 	"go-admin/core/storage/database"
 	"go-admin/core/utils/iputils"
+	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
 	"go-admin/core/utils/textutils"
 	"net/http"
@@ -78,14 +78,13 @@ func setup() {
 	queue.Register(global.OperateLog, models.SaveOperLog)
 	queue.Register(global.ApiCheck, models.SaveSysApi)
 	go queue.Run()
-	config.LoggerConfig.GetLogger().Info(`starting api server...`)
+	log.Info(`starting api server...`)
 }
 
 func run() error {
 	if config.ApplicationConfig.Mode == global.ModeProd.String() {
 		gin.SetMode(gin.ReleaseMode)
 	}
-	log := config.LoggerConfig.GetLogger()
 	initRouter()
 
 	for _, f := range AppRouters {
@@ -126,8 +125,7 @@ func run() error {
 	tip()
 	log.Info(textutils.Green("Server run at:"))
 	log.Infof("-  Local:   http://localhost:%d/ \r", config.ApplicationConfig.Port)
-	log.Infof("-  Network: http://%s:%d/ \r", iputils.GetLocaHonst(), config.ApplicationConfig.Port)
-
+	log.Infof("-  Network: http://%s:%d/ \r", iputils.GetLocaHost(), config.ApplicationConfig.Port)
 	log.Infof("%s Enter Control + C Shutdown Server \r", strutils.GetCurrentTimeStr())
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
 	quit := make(chan os.Signal)
@@ -145,7 +143,7 @@ func run() error {
 
 func tip() {
 	usageStr := `欢迎使用 ` + textutils.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + textutils.Red(`-h`) + ` 查看命令`
-	config.LoggerConfig.GetLogger().Infof("%s", usageStr)
+	log.Infof("%s", usageStr)
 }
 
 func initRouter() {
@@ -159,12 +157,12 @@ func initRouter() {
 	case *gin.Engine:
 		r = h.(*gin.Engine)
 	default:
-		config.LoggerConfig.GetLogger().Fatal("not support other engine")
+		log.Fatal("not support other engine")
 	}
 	//r.Use(middleware.Metrics())
 	r.Use(middleware.Sentinel()).
 		Use(middleware.RequestId()).
-		Use(api.SetRequestLogger)
+		Use(log.SetRequestLogger)
 
 	middleware.InitMiddleware(r)
 

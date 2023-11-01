@@ -2,7 +2,7 @@ package dto
 
 import (
 	vd "github.com/bytedance/go-tagexpr/v2/validator"
-	"go-admin/core/dto/api"
+	"go-admin/core/utils/log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,16 +15,16 @@ type ObjectById struct {
 
 func (s *ObjectById) Bind(ctx *gin.Context) error {
 	var err error
-	log := api.GetRequestLogger(ctx)
+	rLog := log.GetRequestLogger(ctx)
 	err = ctx.ShouldBindUri(s)
 	if err != nil {
-		log.Warnf("ShouldBindUri error: %s", err.Error())
+		rLog.Warnf("ShouldBindUri error: %s", err.Error())
 		return err
 	}
 	if ctx.Request.Method == http.MethodDelete {
 		err = ctx.ShouldBind(&s)
 		if err != nil {
-			log.Warnf("ShouldBind error: %s", err.Error())
+			rLog.Warnf("ShouldBind error: %s", err.Error())
 			return err
 		}
 		if len(s.Ids) > 0 {
@@ -38,7 +38,7 @@ func (s *ObjectById) Bind(ctx *gin.Context) error {
 		}
 	}
 	if err = vd.Validate(s); err != nil {
-		log.Errorf("Validate error: %s", err.Error())
+		rLog.Errorf("Validate error: %s", err.Error())
 		return err
 	}
 	return err
@@ -58,14 +58,14 @@ type ObjectGetReq struct {
 
 func (s *ObjectGetReq) Bind(ctx *gin.Context) error {
 	var err error
-	log := api.GetRequestLogger(ctx)
+	rLog := log.GetRequestLogger(ctx)
 	err = ctx.ShouldBindUri(s)
 	if err != nil {
-		log.Warnf("ShouldBindUri error: %s", err.Error())
+		rLog.Warnf("ShouldBindUri error: %s", err.Error())
 		return err
 	}
 	if err = vd.Validate(s); err != nil {
-		log.Errorf("Validate error: %s", err.Error())
+		rLog.Errorf("Validate error: %s", err.Error())
 		return err
 	}
 	return err
@@ -81,10 +81,10 @@ type ObjectDeleteReq struct {
 
 func (s *ObjectDeleteReq) Bind(ctx *gin.Context) error {
 	var err error
-	log := api.GetRequestLogger(ctx)
+	rLog := log.GetRequestLogger(ctx)
 	err = ctx.ShouldBind(&s)
 	if err != nil {
-		log.Warnf("ShouldBind error: %s", err.Error())
+		rLog.Warnf("ShouldBind error: %s", err.Error())
 		return err
 	}
 	if len(s.Ids) > 0 {
@@ -95,7 +95,7 @@ func (s *ObjectDeleteReq) Bind(ctx *gin.Context) error {
 	}
 
 	if err = vd.Validate(s); err != nil {
-		log.Errorf("Validate error: %s", err.Error())
+		rLog.Errorf("Validate error: %s", err.Error())
 		return err
 	}
 	return err
