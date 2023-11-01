@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/bitxx/load-config/source/file"
-	"github.com/unrolled/secure"
 	"go-admin/app"
 	"go-admin/core/config"
 	"go-admin/core/dto/api"
@@ -120,15 +119,9 @@ func run() error {
 	defer cancel()
 
 	go func() {
-		// 服务连接
-		if config.SslConfig.Enable {
-			if err := srv.ListenAndServeTLS(config.SslConfig.Pem, config.SslConfig.KeyStr); err != nil && err != http.ErrServerClosed {
-				log.Fatal("listen: ", err)
-			}
-		} else {
-			if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-				log.Fatal("listen: ", err)
-			}
+		// 服务连接，不考虑https，该服务结偶，由专业的转发工具提供，如nginx
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatal("listen: ", err)
 		}
 	}()
 	fmt.Println(textutils.Red(string(global.LogoContent)))
@@ -169,10 +162,6 @@ func initRouter() {
 		r = h.(*gin.Engine)
 	default:
 		log.Fatal("not support other engine")
-		os.Exit(-1)
-	}
-	if config.SslConfig.Enable {
-		r.Use(TlsHandler())
 	}
 	//r.Use(middleware.Metrics())
 	r.Use(middleware.Sentinel()).
@@ -181,18 +170,4 @@ func initRouter() {
 
 	middleware.InitMiddleware(r)
 
-}
-
-func TlsHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		secureMiddleware := secure.New(secure.Options{
-			SSLRedirect: true,
-			SSLHost:     config.SslConfig.Domain,
-		})
-		err := secureMiddleware.Process(c.Writer, c.Request)
-		if err != nil {
-			return
-		}
-		c.Next()
-	}
 }

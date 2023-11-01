@@ -22,8 +22,8 @@ func Setup() {
 		log.Fatalf("cache setup error, %s\n", err.Error())
 	}
 	runtime.RuntimeConfig.SetCacheAdapter(cacheAdapter)
-	//5. 设置验证码store
-	captchautils.SetStore(captchautils.NewCacheStore(cacheAdapter, 600))
+	//5. 设置验证码缓存
+	captchautils.SetStore(captchautils.NewCacheStore(cacheAdapter, config.CacheConfig.Expired))
 
 	//6. 设置队列
 	if !config.QueueConfig.Empty() {

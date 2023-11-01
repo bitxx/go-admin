@@ -30,9 +30,9 @@ type RedisConnectOptions struct {
 	Username   string `yaml:"username" json:"username"`
 	Password   string `yaml:"password" json:"password"`
 	DB         int    `yaml:"db" json:"db"`
-	PoolSize   int    `yaml:"pool_size" json:"pool_size"`
+	PoolSize   int    `yaml:"poolSize" json:"poolSize"`
 	Tls        *Tls   `yaml:"tls" json:"tls"`
-	MaxRetries int    `yaml:"max_retries" json:"max_retries"`
+	MaxRetries int    `yaml:"maxRetries" json:"maxRetries"`
 }
 
 type Tls struct {

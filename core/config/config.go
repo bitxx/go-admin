@@ -42,7 +42,6 @@ func (e *Settings) init() {
 // Config 配置集合
 type Config struct {
 	Application *Application          `yaml:"application"`
-	Ssl         *Ssl                  `yaml:"ssl"`
 	Logger      *Logger               `yaml:"logger"`
 	Auth        *Auth                 `yaml:"auth"`
 	Database    *Database             `yaml:"database"`
@@ -69,7 +68,6 @@ func Setup(s source.Source,
 	_cfg = &Settings{
 		Settings: Config{
 			Application: ApplicationConfig,
-			Ssl:         SslConfig,
 			Logger:      LoggerConfig,
 			Auth:        AuthConfig,
 			Database:    DatabaseConfig,

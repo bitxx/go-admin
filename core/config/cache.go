@@ -2,12 +2,12 @@ package config
 
 import (
 	"go-admin/core/utils/storage"
-	cache2 "go-admin/core/utils/storage/cache"
+	"go-admin/core/utils/storage/cache"
 )
 
 type Cache struct {
-	Redis  *RedisConnectOptions
-	Memory interface{}
+	Expired int
+	Redis   *RedisConnectOptions
 }
 
 // CacheConfig cache配置
@@ -20,7 +20,7 @@ func (e Cache) Setup() (storage.AdapterCache, error) {
 		if err != nil {
 			return nil, err
 		}
-		r, err := cache2.NewRedis(GetRedisClient(), options)
+		r, err := cache.NewRedis(GetRedisClient(), options)
 		if err != nil {
 			return nil, err
 		}
@@ -29,5 +29,5 @@ func (e Cache) Setup() (storage.AdapterCache, error) {
 		}
 		return r, nil
 	}
-	return cache2.NewMemory(), nil
+	return cache.NewMemory(), nil
 }

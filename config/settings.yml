@@ -18,7 +18,7 @@ settings:
     fileRootPath: files/
     # 是否单点登录
     isSingleLogin: true
-    # 用于从restapi获取定位信息，方便定位每个登录用户的具体信息
+    # 用于从restapi获取定位信息，方便定位每个登录用户的具体信息，若不配置，则相关信息返回空
     ampKey: ---
   logger:
     # 日志存放路径
@@ -27,7 +27,7 @@ settings:
     stdout: '' #控制台日志，启用后，不输出到文件
     # 日志等级, trace, debug, info, warn, error, fatal
     level: trace
-    # 数据库日志开关 dev模式，将自动开启
+    # 数据库日志开关
     enabledDB: false
     # 支持default、zap、logrus
     type: default
@@ -45,6 +45,7 @@ settings:
     driver: mysql
     # 数据库连接字符串
     source: 账号:密码@tcp(ip:端口号)/数据库名?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+  #  多db服务，下方配置未完善，待定，先占位
   #  databases:
   #    'locaohost:8888':
   #      driver: mysql
@@ -55,29 +56,37 @@ settings:
   #            - user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
   gen:
     # 代码生成是使用前端代码存放位置，需要指定到src文件夹，相对路径
-    frontpath: ./web/src
+    frontPath: ./web/src
   cache:
     # 缓存默认时间 单位：秒
     expired: 300
-    # 若注释掉redis的内容，默认将使用内存缓存
+    # 若注释掉redis的内容，默认将使用内存缓存，下放配置一般使用前两个，剩余配置按需设置
 #    redis:
 #      addr: 127.0.0.1:6379
 #      password: 密码
+#      network:
+#      username:
+#      db:
+#      pool_size:
+#      tls:
+#      max_retries:
   queue:
     memory:
       poolSize: 100
-  #    redis:
-  #      addr: 127.0.0.1:6379
-  #      password: xxxxxx
-  #      producer:
-  #        streamMaxLength: 100
-  #        approximateMaxLength: true
-  #      consumer:
-  #        visibilityTimeout: 60
-  #        bufferSize: 100
-  #        concurrency: 10
-  #        blockingTimeout: 5
-  #        reclaimInterval: 1
-  #    nsq: 自行根据代码配置 config/option_nsg.go
-  locker:
-    redis:
+#    其余第三方队列服务，下方配置未完善，待定，先占位
+#    redis:
+#      addr: 127.0.0.1:6379
+#      password: xxxxxx
+#      producer:
+#        streamMaxLength: 100
+#        approximateMaxLength: true
+#      consumer:
+#        visibilityTimeout: 60
+#        bufferSize: 100
+#        concurrency: 10
+#        blockingTimeout: 5
+#        reclaimInterval: 1
+#    nsq: 自行根据代码配置 config/option_nsg.go
+#  主要是redis锁服务，下方配置未完善，待定，先占位
+#  locker:
+#    redis:
