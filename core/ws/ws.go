@@ -2,7 +2,7 @@ package ws
 
 import (
 	"context"
-	"fmt"
+	"go-admin/core/config"
 	"go-admin/core/utils/fileutils"
 	"log"
 	"net/http"
@@ -271,7 +271,6 @@ var WebsocketManager = Manager{
 
 // gin 处理 websocket handler
 func (manager *Manager) WsClient(c *gin.Context) {
-
 	ctx, cancel := context.WithCancel(context.Background())
 
 	upGrader := websocket.Upgrader{
@@ -285,12 +284,9 @@ func (manager *Manager) WsClient(c *gin.Context) {
 
 	conn, err := upGrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-		log.Printf("websocket connect error: %s", c.Param("channel"))
+		config.LoggerConfig.GetLogger().Errorf("websocket connect error: %s", c.Param("channel"))
 		return
 	}
-
-	fmt.Println("token: ", c.Query("token"))
-
 	client := &Client{
 		Id:         c.Param("id"),
 		Group:      c.Param("channel"),
@@ -322,20 +318,20 @@ func (manager *Manager) UnWsClient(c *gin.Context) {
 
 func SendGroup(msg []byte) {
 	WebsocketManager.SendGroup("leffss", []byte("{\"code\":200,\"data\":"+string(msg)+"}"))
-	fmt.Println(WebsocketManager.Info())
+	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
 }
 
 func SendAll(msg []byte) {
 	WebsocketManager.SendAll([]byte("{\"code\":200,\"data\":" + string(msg) + "}"))
-	fmt.Println(WebsocketManager.Info())
+	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
 }
 
 func SendOne(ctx context.Context, id string, group string, msg []byte) {
 	WebsocketManager.Send(ctx, id, group, []byte("{\"code\":200,\"data\":"+string(msg)+"}"))
-	fmt.Println(WebsocketManager.Info())
+	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
 }
 
 func WsLogout(id string, group string) {
 	WebsocketManager.UnRegisterClient(&Client{Id: id, Group: group})
-	fmt.Println(WebsocketManager.Info())
+	config.LoggerConfig.GetLogger().Info(WebsocketManager.Info())
 }

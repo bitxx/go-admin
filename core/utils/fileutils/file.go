@@ -5,7 +5,7 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	"fmt"
+	"go-admin/core/config"
 	"io"
 	"io/ioutil"
 	"log"
@@ -81,8 +81,7 @@ func GetType(p string) (string, error) {
 	file, err := os.Open(p)
 
 	if err != nil {
-		log.Println(err)
-		os.Exit(1)
+		return "", err
 	}
 
 	buff := make([]byte, 512)
@@ -90,7 +89,7 @@ func GetType(p string) (string, error) {
 	_, err = file.Read(buff)
 
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
 	filetype := http.DetectContentType(buff)
@@ -109,7 +108,6 @@ func PathCreate(dir string) error {
 func PathExist(addr string) bool {
 	s, err := os.Stat(addr)
 	if err != nil {
-		log.Println(err)
 		return false
 	}
 	return s.IsDir()
@@ -118,11 +116,11 @@ func PathExist(addr string) bool {
 func FileCreate(content bytes.Buffer, name string) {
 	file, err := os.Create(name)
 	if err != nil {
-		log.Println(err)
+		config.LoggerConfig.GetLogger().Error(err)
 	}
 	_, err = file.WriteString(content.String())
 	if err != nil {
-		log.Println(err)
+		config.LoggerConfig.GetLogger().Error(err)
 	}
 	file.Close()
 }
@@ -167,26 +165,23 @@ func (h ReplaceHelper) walkCallback(path string, f os.FileInfo, err error) error
 		return nil
 	}
 	if f.IsDir() {
-		log.Println("DIR:", path)
 		return nil
 	}
 
 	//文件类型需要进行过滤
 
-	buf, err := ioutil.ReadFile(path)
+	buf, err := os.ReadFile(path)
 	if err != nil {
 		//err
 		return err
 	}
 	content := string(buf)
-	log.Printf("h.OldText: %s \n", h.OldText)
-	log.Printf("h.NewText: %s \n", h.NewText)
 
 	//替换
 	newContent := strings.Replace(content, h.OldText, h.NewText, -1)
 
 	//重新写入
-	ioutil.WriteFile(path, []byte(newContent), 0)
+	_ = os.WriteFile(path, []byte(newContent), 0)
 
 	return err
 }
@@ -216,7 +211,7 @@ func FileMonitoringById(ctx context.Context, filePth string, id string, group st
 	}
 }
 
-// 获取文件大小
+// GetFileSize get file size
 func GetFileSize(filename string) int64 {
 	var result int64
 	filepath.Walk(filename, func(path string, f os.FileInfo, err error) error {
@@ -226,11 +221,8 @@ func GetFileSize(filename string) int64 {
 	return result
 }
 
-// 获取当前路径，比如：E:/abc/data/test
+// GetCurrentPath get current dir
 func GetCurrentPath() string {
-	dir, err := os.Getwd()
-	if err != nil {
-		fmt.Println(err)
-	}
+	dir, _ := os.Getwd()
 	return strings.Replace(dir, "\\", "/", -1)
 }

@@ -23,11 +23,11 @@ func GetRequestLogger(c *gin.Context) *logbase.Helper {
 	}
 	//如果没有在上下文中放入logger
 	requestId := strutils.GenerateMsgIDFromContext(c)
-	return config.LoggerConfig.GetLogger(global.TrafficKey, requestId)
+	return config.LoggerConfig.GetLoggerWithFields(map[string]interface{}{global.TrafficKey: requestId})
 }
 
 // SetRequestLogger 设置logger中间件
 func SetRequestLogger(c *gin.Context) {
 	requestId := strutils.GenerateMsgIDFromContext(c)
-	c.Set(global.LoggerKey, config.LoggerConfig.GetLogger(global.TrafficKey, requestId))
+	c.Set(global.LoggerKey, config.LoggerConfig.GetLoggerWithFields(map[string]interface{}{global.TrafficKey: requestId}))
 }

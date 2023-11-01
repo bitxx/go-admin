@@ -4,9 +4,8 @@ import (
 	"context"
 	"crypto/tls"
 	"crypto/x509"
-	"fmt"
 	"github.com/redis/go-redis/v9"
-	"io/ioutil"
+	"os"
 )
 
 var _redis *redis.Client
@@ -58,22 +57,23 @@ func (e RedisConnectOptions) GetRedisOptions() (*redis.Options, error) {
 
 func getTLS(c *Tls) (*tls.Config, error) {
 	if c != nil && c.Cert != "" {
+		log := LoggerConfig.GetLogger()
 		// 从证书相关文件中读取和解析信息，得到证书公钥、密钥对
 		cert, err := tls.LoadX509KeyPair(c.Cert, c.Key)
 		if err != nil {
-			fmt.Printf("tls.LoadX509KeyPair err: %v\n", err)
+			log.Errorf("tls.LoadX509KeyPair err: %v\n", err)
 			return nil, err
 		}
 		// 创建一个新的、空的 CertPool，并尝试解析 PEM 编码的证书，解析成功会将其加到 CertPool 中
 		certPool := x509.NewCertPool()
-		ca, err := ioutil.ReadFile(c.Ca)
+		ca, err := os.ReadFile(c.Ca)
 		if err != nil {
-			fmt.Printf("ioutil.ReadFile err: %v\n", err)
+			log.Errorf("ioutil.ReadFile err: %v\n", err)
 			return nil, err
 		}
 
 		if ok := certPool.AppendCertsFromPEM(ca); !ok {
-			fmt.Println("certPool.AppendCertsFromPEM err")
+			log.Error("certPool.AppendCertsFromPEM err")
 			return nil, err
 		}
 		return &tls.Config{

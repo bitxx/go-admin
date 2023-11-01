@@ -4,7 +4,6 @@ import (
 	"fmt"
 	loadconfig "github.com/bitxx/load-config"
 	"github.com/bitxx/load-config/source"
-	"log"
 )
 
 var (
@@ -25,12 +24,12 @@ func (e *Settings) runCallback() {
 
 func (e *Settings) OnChange() {
 	e.init()
-	log.Println("!!! config change and reload")
+	LoggerConfig.GetLogger().Warn("!!! config change and reload")
 }
 
 func (e *Settings) Init() {
 	e.init()
-	log.Println("!!! config init")
+	LoggerConfig.GetLogger().Warn("!!! config init")
 }
 
 func (e *Settings) init() {
@@ -85,7 +84,7 @@ func Setup(s source.Source,
 		loadconfig.WithEntity(_cfg),
 	)
 	if err != nil {
-		log.Fatal(fmt.Sprintf("New config object fail: %s", err.Error()))
+		LoggerConfig.GetLogger().Fatalf(fmt.Sprintf("New config object fail: %s", err.Error()))
 	}
 	_cfg.Init()
 }

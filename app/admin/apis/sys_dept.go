@@ -1,8 +1,6 @@
 package apis
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"go-admin/app/admin/service"
@@ -165,7 +163,7 @@ func (e SysDept) Get2Tree(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetDeptTreeRoleSelect
+// GetDeptTreeRoleSelect get dept tree role
 func (e SysDept) GetDeptTreeRoleSelect(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SelectDeptRole{}
@@ -196,7 +194,5 @@ func (e SysDept) GetDeptTreeRoleSelect(c *gin.Context) {
 		Depts:       result,
 		CheckedKeys: menuIds,
 	}
-	str, err := json.Marshal(resp)
-	fmt.Println(string(str))
 	e.OK(resp, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }

@@ -223,7 +223,6 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	if c.Emails != "" {
 		emails = strings.Split(c.Emails, ",")
 		for _, email := range emails {
-			fmt.Println(!strutils.IsEmail(email))
 			if !strutils.IsEmail(email) {
 				return uLang.AppUserEmailFormatErrCode, lang.MsgErr(uLang.AppUserEmailFormatErrCode, e.Lang)
 			}

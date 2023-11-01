@@ -630,7 +630,6 @@ func (e *SysUser) LoginLogToDB(c *gin.Context, status string, msg string, userId
 	ua := user_agent.New(c.Request.UserAgent())
 	l["ipaddr"] = iputils.GetClientIP(c)
 	//用于定位ip所在城市
-	//fmt.Println("gaConfig.ExtConfig.AMap.Key", config.ApplicationConfig.AmpKey)
 	l["loginLocation"] = iputils.GetLocation(iputils.GetClientIP(c), config.ApplicationConfig.AmpKey)
 	l["loginTime"] = strutils.GetCurrentTime()
 	l["status"] = status

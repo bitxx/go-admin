@@ -15,7 +15,6 @@ import (
 	"go-admin/core/utils/iputils"
 	"go-admin/core/utils/strutils"
 	"go-admin/core/utils/textutils"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -79,15 +78,14 @@ func setup() {
 	queue.Register(global.OperateLog, models.SaveOperLog)
 	queue.Register(global.ApiCheck, models.SaveSysApi)
 	go queue.Run()
-
-	usageStr := `starting api server...`
-	log.Println(usageStr)
+	config.LoggerConfig.GetLogger().Info(`starting api server...`)
 }
 
 func run() error {
 	if config.ApplicationConfig.Mode == global.ModeProd.String() {
 		gin.SetMode(gin.ReleaseMode)
 	}
+	log := config.LoggerConfig.GetLogger()
 	initRouter()
 
 	for _, f := range AppRouters {
@@ -106,12 +104,12 @@ func run() error {
 		mp["List"] = routers
 		message, err := runtime.RuntimeConfig.GetStreamMessage("", global.ApiCheck, mp)
 		if err != nil {
-			log.Printf("GetStreamMessage error, %s \n", err.Error())
+			log.Infof("GetStreamMessage error, %s \n", err.Error())
 			//日志报错错误，不中断请求
 		} else {
 			err = q.Append(message)
 			if err != nil {
-				log.Printf("Append message error, %s \n", err.Error())
+				log.Infof("Append message error, %s \n", err.Error())
 			}
 		}
 	}
@@ -124,30 +122,30 @@ func run() error {
 			log.Fatal("listen: ", err)
 		}
 	}()
-	fmt.Println(textutils.Red(string(global.LogoContent)))
+	log.Info(textutils.Red(string(global.LogoContent)))
 	tip()
-	fmt.Println(textutils.Green("Server run at:"))
-	fmt.Printf("-  Local:   http://localhost:%d/ \r\n", config.ApplicationConfig.Port)
-	fmt.Printf("-  Network: http://%s:%d/ \r\n", iputils.GetLocaHonst(), config.ApplicationConfig.Port)
+	log.Info(textutils.Green("Server run at:"))
+	log.Infof("-  Local:   http://localhost:%d/ \r", config.ApplicationConfig.Port)
+	log.Infof("-  Network: http://%s:%d/ \r", iputils.GetLocaHonst(), config.ApplicationConfig.Port)
 
-	fmt.Printf("%s Enter Control + C Shutdown Server \r\n", strutils.GetCurrentTimeStr())
+	log.Infof("%s Enter Control + C Shutdown Server \r", strutils.GetCurrentTimeStr())
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
-	fmt.Printf("%s Shutdown Server ... \r\n", strutils.GetCurrentTimeStr())
+	log.Infof("%s Shutdown Server ... \r", strutils.GetCurrentTimeStr())
 
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
 	}
-	log.Println("Server exiting")
+	log.Error("Server exiting")
 
 	return nil
 }
 
 func tip() {
 	usageStr := `欢迎使用 ` + textutils.Green(config.ApplicationConfig.Name+" "+config.ApplicationConfig.Version) + ` 可以使用 ` + textutils.Red(`-h`) + ` 查看命令`
-	fmt.Printf("%s\n", usageStr)
+	config.LoggerConfig.GetLogger().Infof("%s", usageStr)
 }
 
 func initRouter() {
@@ -161,11 +159,11 @@ func initRouter() {
 	case *gin.Engine:
 		r = h.(*gin.Engine)
 	default:
-		log.Fatal("not support other engine")
+		config.LoggerConfig.GetLogger().Fatal("not support other engine")
 	}
 	//r.Use(middleware.Metrics())
 	r.Use(middleware.Sentinel()).
-		Use(middleware.RequestId(global.TrafficKey)).
+		Use(middleware.RequestId()).
 		Use(api.SetRequestLogger)
 
 	middleware.InitMiddleware(r)

@@ -11,22 +11,22 @@ import (
 )
 
 // RequestId 自动增加requestId
-func RequestId(trafficKey string) gin.HandlerFunc {
+func RequestId() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if c.Request.Method == http.MethodOptions {
 			c.Next()
 			return
 		}
-		requestId := c.GetHeader(trafficKey)
+		requestId := c.GetHeader(global.TrafficKey)
 		if requestId == "" {
-			requestId = c.GetHeader(strings.ToLower(trafficKey))
+			requestId = c.GetHeader(strings.ToLower(global.TrafficKey))
 		}
 		if requestId == "" {
 			requestId = idgen.UUID()
 		}
-		c.Request.Header.Set(trafficKey, requestId)
-		c.Set(trafficKey, requestId)
-		c.Set(global.LoggerKey, config.LoggerConfig.GetLogger(trafficKey, requestId))
+		c.Request.Header.Set(global.TrafficKey, requestId)
+		c.Set(global.TrafficKey, requestId)
+		c.Set(global.LoggerKey, config.LoggerConfig.GetLoggerWithFields(map[string]interface{}{global.TrafficKey: requestId}))
 		c.Next()
 	}
 }

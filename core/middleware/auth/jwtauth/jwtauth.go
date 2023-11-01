@@ -46,7 +46,7 @@ func (j *JwtAuth) Init() {
 		TimeFunc:        time.Now,
 	}) //TokenHeadName必须有，不能为空，否则权限识别异常
 	if err != nil {
-		fmt.Println(fmt.Sprintf("JWT Init Error, %s", err.Error()))
+		config.LoggerConfig.GetLogger().Errorf(fmt.Sprintf("JWT Init Error, %s", err.Error()))
 	}
 }
 
@@ -118,7 +118,7 @@ func (j *JwtAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 	return jwtAuthMiddleware.MiddlewareFunc()
 }
 
-// AuthCheckRole 权限检查中间件
+// AuthCheckRoleMiddlewareFunc 权限检查中间件
 func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data, _ := c.Get(JwtPayloadKey)

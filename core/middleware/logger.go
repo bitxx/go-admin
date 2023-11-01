@@ -11,7 +11,6 @@ import (
 	"go-admin/core/runtime"
 	"go-admin/core/utils/iputils"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
@@ -37,8 +36,8 @@ func LoggerToFile() gin.HandlerFunc {
 				log.Warnf("copy body error, %s", err.Error())
 				err = nil
 			}
-			rb, _ := ioutil.ReadAll(bf)
-			c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(rb))
+			rb, _ := io.ReadAll(bf)
+			c.Request.Body = io.NopCloser(bytes.NewBuffer(rb))
 			body = string(rb)
 		}
 
@@ -105,7 +104,6 @@ func SetDBOperLog(c *gin.Context, clientIP string, statusCode int, reqUri string
 	l["operUrl"] = reqUri
 	l["operIp"] = clientIP
 	//用于定位ip所在城市
-	/*fmt.Println("gaConfig.ExtConfig.AMap.Key", config.ApplicationConfig.AmpKey)*/
 	l["operLocation"] = iputils.GetLocation(clientIP, config.ApplicationConfig.AmpKey)
 	userId, _, _ := auth.Auth.GetUserId(c)
 	l["userId"] = userId
