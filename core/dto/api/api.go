@@ -74,7 +74,7 @@ func (e *Api) Bind(d interface{}, bindings ...binding.Binding) *Api {
 }
 
 // GetOrm 获取Orm DB
-func (e Api) GetOrm() (*gorm.DB, error) {
+func (e *Api) GetOrm() (*gorm.DB, error) {
 	db, err := ginutils.GetOrm(e.Context)
 	if err != nil {
 		e.Logger.Error(http.StatusInternalServerError, err, "数据库连接获取失败")
@@ -107,34 +107,34 @@ func (e *Api) MakeService(c *service.Service) *Api {
 }
 
 // Error 通常错误数据处理
-func (e Api) Error(code int, msg string) {
+func (e *Api) Error(code int, msg string) {
 	response.Error(e.Context, code, msg)
 }
 
-func (e Api) DownloadZip(fileName string, data []byte) {
+func (e *Api) DownloadZip(fileName string, data []byte) {
 	response.Download(e.Context, data, fileName, "application/zip")
 }
 
-func (e Api) OKByCode(data interface{}, code int, msg string) {
+func (e *Api) OKByCode(data interface{}, code int, msg string) {
 	response.OKByCode(e.Context, data, code, msg)
 }
 
 // OK 通常成功数据处理
-func (e Api) OK(data interface{}, msg string) {
+func (e *Api) OK(data interface{}, msg string) {
 	response.OK(e.Context, data, msg)
 }
 
 // PageOK 分页数据处理
-func (e Api) PageOK(result, extend interface{}, count int64, pageIndex int, pageSize int, msg string) {
+func (e *Api) PageOK(result, extend interface{}, count int64, pageIndex int, pageSize int, msg string) {
 	response.PageOK(e.Context, result, extend, count, pageIndex, pageSize, msg)
 }
 
-func (e Api) DownloadExcel(fileName string, data []byte) {
+func (e *Api) DownloadExcel(fileName string, data []byte) {
 	response.Download(e.Context, data, fileName, "application/vnd.ms-excel")
 }
 
 // Custom 兼容函数
-func (e Api) Custom(data gin.H) {
+func (e *Api) Custom(data gin.H) {
 	response.Custum(e.Context, data)
 }
 
