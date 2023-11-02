@@ -8,8 +8,8 @@ import (
 	"go-admin/core/middleware/auth/authdto"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/strutils"
-	"io/ioutil"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -236,7 +236,7 @@ func (mw *GinJWTMiddleware) readKeys() error {
 }
 
 func (mw *GinJWTMiddleware) privateKey() error {
-	keyData, err := ioutil.ReadFile(mw.PrivKeyFile)
+	keyData, err := os.ReadFile(mw.PrivKeyFile)
 	if err != nil {
 		return ErrNoPrivKeyFile
 	}
@@ -249,7 +249,7 @@ func (mw *GinJWTMiddleware) privateKey() error {
 }
 
 func (mw *GinJWTMiddleware) publicKey() error {
-	keyData, err := ioutil.ReadFile(mw.PubKeyFile)
+	keyData, err := os.ReadFile(mw.PubKeyFile)
 	if err != nil {
 		return ErrNoPubKeyFile
 	}

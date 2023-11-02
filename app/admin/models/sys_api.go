@@ -30,14 +30,12 @@ func SaveSysApi(message storage.Messager) (err error) {
 	var rb []byte
 	rb, err = json.Marshal(message.GetValues())
 	if err != nil {
-		fmt.Errorf("json Marshal error, %s", err.Error())
 		return err
 	}
 
 	var l runtime.Routers
 	err = json.Unmarshal(rb, &l)
 	if err != nil {
-		fmt.Errorf("json Unmarshal error, %s", err.Error())
 		return err
 	}
 	dbList := runtime.RuntimeConfig.GetDb()

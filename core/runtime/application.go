@@ -3,7 +3,7 @@ package runtime
 import (
 	"github.com/gin-gonic/gin"
 	"go-admin/core/utils/storage"
-	queue2 "go-admin/core/utils/storage/queue"
+	"go-admin/core/utils/storage/queue"
 	"net/http"
 	"sync"
 
@@ -110,7 +110,7 @@ func NewConfig() *Application {
 		dbs:         make(map[string]*gorm.DB),
 		casbins:     make(map[string]*casbin.SyncedEnforcer),
 		middlewares: make(map[string]interface{}),
-		memoryQueue: queue2.NewMemory(10000),
+		memoryQueue: queue.NewMemory(10000),
 		handler:     make(map[string][]func(r *gin.RouterGroup, hand ...*gin.HandlerFunc)),
 		routers:     make([]Router, 0),
 	}
@@ -199,7 +199,7 @@ func (e *Application) GetHandlerPrefix(key string) []func(r *gin.RouterGroup, ha
 
 // GetStreamMessage 获取队列需要用的message
 func (e *Application) GetStreamMessage(id, stream string, value map[string]interface{}) (storage.Messager, error) {
-	message := &queue2.Message{}
+	message := &queue.Message{}
 	message.SetID(id)
 	message.SetStream(stream)
 	message.SetValues(value)
