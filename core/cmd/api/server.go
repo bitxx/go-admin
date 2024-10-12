@@ -160,9 +160,7 @@ func initRouter() {
 		log.Fatal("not support other engine")
 	}
 	//r.Use(middleware.Metrics())
-	r.Use(middleware.Sentinel()).
-		Use(middleware.RequestId()).
-		Use(log.SetRequestLogger)
+	r.Use(middleware.RequestId()).Use(log.SetRequestLogger)
 
 	middleware.InitMiddleware(r)
 
