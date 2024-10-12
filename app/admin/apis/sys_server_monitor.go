@@ -2,7 +2,7 @@ package apis
 
 import (
 	"fmt"
-	"github.com/shirou/gopsutil/host"
+	"github.com/shirou/gopsutil/v4/host"
 	"go-admin/core/dto/api"
 	"go-admin/core/utils/fileutils"
 	"go-admin/core/utils/iputils"
@@ -12,9 +12,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/disk"
-	"github.com/shirou/gopsutil/mem"
+	"github.com/shirou/gopsutil/v4/cpu"
+	"github.com/shirou/gopsutil/v4/disk"
+	"github.com/shirou/gopsutil/v4/mem"
 	_ "go-admin/core/dto/response"
 )
 
