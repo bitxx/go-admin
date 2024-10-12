@@ -3,7 +3,7 @@ module go-admin
 go 1.23.2
 
 require (
-	github.com/aliyun/aliyun-oss-go-sdk v3.0.1+incompatible
+	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
 	github.com/bitxx/load-config v1.6.0
 	github.com/bitxx/logger v1.6.2
 	github.com/bsm/redislock v0.9.4
