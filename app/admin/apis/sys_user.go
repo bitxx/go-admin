@@ -444,64 +444,6 @@ func (e SysUser) GetProfile(c *gin.Context) {
 	e.OK(user, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetInfo
-func (e SysUser) GetInfo(c *gin.Context) {
-	req := dto.SysUserGetReq{}
-	s := service.SysUser{}
-	r := service.SysRole{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		MakeService(&r.Service).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-	p := middleware.GetPermissionFromContext(c)
-	var roles = make([]string, 1)
-	roles[0] = auth.Auth.GetRoleKey(c)
-	var permissions = make([]string, 1)
-	permissions[0] = "*:*:*"
-	var buttons = make([]string, 1)
-	buttons[0] = "*:*:*"
-
-	var mp = make(map[string]interface{})
-	mp["roles"] = roles
-	if auth.Auth.GetRoleKey(c) == constant.RoleKeyAdmin {
-		mp["permissions"] = permissions
-		mp["buttons"] = buttons
-	} else {
-		roleId, _, _ := auth.Auth.GetRoleId(c)
-		list, _, _ := r.GetById(roleId)
-		mp["permissions"] = list
-		mp["buttons"] = list
-	}
-
-	uid, rCode, err := auth.Auth.GetUserId(c)
-	if err != nil {
-		e.Error(rCode, err.Error())
-		return
-	}
-	req.Id = uid
-	result, respCode, err := s.Get(req.Id, p)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	mp["introduction"] = " am a super administrator"
-	mp["avatar"] = "-"
-	if result.Avatar != "" {
-		mp["avatar"] = result.Avatar
-	}
-	mp["userName"] = result.NickName
-	mp["userId"] = result.Id
-	mp["deptId"] = result.DeptId
-	mp["name"] = result.NickName
-	mp["code"] = 200
-	e.OK(mp, lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
 func (e SysUser) Login(c *gin.Context) {
 	req := dto.LoginReq{}
 	s := service.SysUser{}

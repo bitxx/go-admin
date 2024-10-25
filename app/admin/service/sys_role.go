@@ -389,8 +389,8 @@ func (e *SysRole) GetWithName(d *dto.SysRoleQueryReq) (*models.SysRole, int, err
 	return model, lang.SuccessCode, nil
 }
 
-// GetById 获取SysRole对象
-func (e *SysRole) GetById(roleId int64) ([]string, int, error) {
+// GetPermissionsById 获取权限对象
+func (e *SysRole) GetPermissionsById(roleId int64) ([]string, int, error) {
 	permissions := make([]string, 0)
 	model := models.SysRole{}
 	model.Id = roleId

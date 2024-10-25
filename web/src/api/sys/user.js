@@ -174,11 +174,3 @@ export function refreshtoken(data) {
     data
   })
 }
-
-// getInfo 获取用户基本信息
-export function getInfo() {
-  return request({
-    url: '/admin-api/v1/getinfo',
-    method: 'get'
-  })
-}

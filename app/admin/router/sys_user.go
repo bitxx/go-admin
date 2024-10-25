@@ -14,7 +14,7 @@ func init() {
 // 需认证的路由代码
 func registerSysUserRouter(v1 *gin.RouterGroup) {
 	api := apis.SysUser{}
-	r := v1.Group("/sys-user").Use(middleware.Auth()).Use(middleware.AuthCheckRole()).Use(middleware.PermissionAction())
+	r := v1.Group("/sys-user").Use(middleware.Auth())
 	{
 		r.GET("", api.GetPage)
 		r.GET("/:id", api.Get)
@@ -29,10 +29,6 @@ func registerSysUserRouter(v1 *gin.RouterGroup) {
 		r.PUT("/pwd/set", api.UpdatePwd)
 		r.PUT("/pwd/reset", api.ResetPwd)
 		r.PUT("/status", api.UpdateStatus)
-	}
-	v1auth := v1.Group("").Use(middleware.Auth())
-	{
-		v1auth.GET("/getinfo", api.GetInfo)
 		r.POST("/logout", api.LogOut)
 	}
 }

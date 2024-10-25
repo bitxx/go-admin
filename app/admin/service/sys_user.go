@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/mssola/user_agent"
+	"go-admin/app/admin/constant"
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
@@ -172,6 +173,16 @@ func (e *SysUser) Insert(c *dto.SysUserInsertReq) (int64, int, error) {
 		}
 	}
 
+	if c.Avatar == "" {
+		sysConfService := NewSysConfigService(&e.Service)
+		defaultAvatar, respCode, err := sysConfService.GetWithKeyStr("app_user_default_avatar")
+		if err != nil {
+			return 0, respCode, err
+		}
+		c.Avatar = defaultAvatar
+	}
+
+	// insert data
 	now := time.Now()
 	data := models.SysUser{}
 	data.Username = c.Username
@@ -394,36 +405,30 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	if err != nil && err == gorm.ErrRecordNotFound {
 		return nil, sysLang.SysUserNoExistCode, lang.MsgErr(sysLang.SysUserNoExistCode, e.Lang)
 	}
+
 	respUser := &dto.SysUserResp{}
 	respUser.Id = user.Id
 	respUser.Email = user.Email
-	//respUser.PostId = user.PostId
-	//respUser.DeptId = user.DeptId
 	respUser.Phone = user.Phone
 	respUser.Username = user.Username
+	respUser.Avatar = user.Avatar
 	respUser.CreatedAt = dateutils.ConvertToStrByPrt(user.CreatedAt, -1)
 	respUser.Sex = user.Sex
 	respUser.Dept = *user.Dept
 	respUser.Role = *user.Role
+
+	if user.Role.RoleKey == constant.RoleKeyAdmin {
+		respUser.Permissions = []string{"*:*:*"}
+		respUser.Buttons = []string{"*:*:*"}
+	} else {
+		roleService := NewSysRoleService(&e.Service)
+		list, _, _ := roleService.GetPermissionsById(int64(user.RoleId))
+		respUser.Permissions = list
+		respUser.Buttons = list
+	}
+	respUser.RoleKyes = []string{respUser.Role.RoleKey}
 	return respUser, lang.SuccessCode, nil
 }
-
-/*func (e *SysUser) GetProfile(c *dto.SysUserById, user *models.SysUser, roles *[]models.SysRole, posts *[]models.SysPost) error {
-	err := e.Orm.Preload("Dept").First(user, c.GetId()).Error
-	if err != nil {
-		return err
-	}
-	err = e.Orm.Find(roles, user.RoleId).Error
-	if err != nil {
-		return err
-	}
-	err = e.Orm.Find(posts, user.PostIds).Error
-	if err != nil {
-		return err
-	}
-
-	return nil
-}*/
 
 func (e *SysUser) GetUser(login *dto.LoginReq) (*models.SysUser, int, error) {
 	user := &models.SysUser{}

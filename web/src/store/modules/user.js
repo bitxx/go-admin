@@ -1,4 +1,4 @@
-import { login, logout, getInfo, refreshtoken } from '@/api/sys/user'
+import { login, logout, refreshtoken, getUserProfile } from '@/api/sys/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 import storage from '@/utils/storage'
@@ -7,7 +7,6 @@ const state = {
   token: getToken(),
   name: '',
   avatar: '',
-  introduction: '',
   roles: [],
   permissions: [],
   permisaction: []
@@ -16,9 +15,6 @@ const state = {
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
-  },
-  SET_INTRODUCTION: (state, introduction) => {
-    state.introduction = introduction
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -56,15 +52,17 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo().then(response => {
+      getUserProfile().then(response => {
         if (!response || !response.data) {
           commit('SET_TOKEN', '')
           removeToken()
           resolve()
         }
-
-        const { roles, name, avatar, introduction, permissions } = response.data
-
+        let user = response.data
+        let roles = user.roleKeys
+        let name = user.username
+        let permissions = user.permissions
+        let avatar = user.avatar
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
@@ -73,7 +71,6 @@ const actions = {
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
         resolve(response)
       }).catch(error => {
         reject(error)
