@@ -3,6 +3,7 @@ package sessionauth
 import (
 	"encoding/json"
 	"github.com/casbin/casbin/v2/util"
+	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/constant"
 	"go-admin/core/config"
 	"go-admin/core/dto/response"
@@ -16,9 +17,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 const (
@@ -86,15 +84,15 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		c.JSON(lang.RequestErr, errResp)
 		return
 	}
-	userInfo, _ := c.Get(authdto.UserInfo)
+	//userInfo, _ := c.Get(authdto.UserInfo)
 	resp := authdto.Resp{
 		RequestId: strutils.GenerateMsgIDFromContext(c),
 		Msg:       "",
 		Code:      http.StatusOK,
 		Data: authdto.Data{
-			Token:    sid,
-			Expire:   time.Now().Add(time.Duration(config.AuthConfig.Timeout) * time.Second).Format(time.RFC3339),
-			UserInfo: userInfo,
+			Token: sid,
+			//Expire:   time.Now().Add(time.Duration(config.AuthConfig.Timeout) * time.Second).Format(time.RFC3339),
+			//UserInfo: userInfo,
 		},
 	}
 	c.JSON(http.StatusOK, resp)

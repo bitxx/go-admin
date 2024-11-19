@@ -306,15 +306,15 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 
 	if mw.LoginResponse == nil {
 		mw.LoginResponse = func(c *gin.Context, code int, token string, expire time.Time) {
-			userInfo, _ := c.Get(authdto.UserInfo)
+			//userInfo, _ := c.Get(authdto.UserInfo)
 			c.JSON(http.StatusOK, gin.H{
 				"requestId": strutils.GenerateMsgIDFromContext(c),
 				"msg":       "",
 				"code":      http.StatusOK,
 				"data": gin.H{
-					"token":    token,
-					"expire":   expire.Format(time.RFC3339),
-					"userInfo": userInfo,
+					"token": token,
+					//"expire":   expire.Format(time.RFC3339),
+					//"userInfo": userInfo,
 				},
 			})
 		}
@@ -327,8 +327,8 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 				"msg":       "",
 				"code":      http.StatusOK,
 				"data": gin.H{
-					"token":  token,
-					"expire": expire.Format(time.RFC3339),
+					"token": token,
+					//"expire": expire.Format(time.RFC3339),
 				},
 			})
 		}
