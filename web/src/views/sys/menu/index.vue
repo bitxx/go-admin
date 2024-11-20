@@ -252,7 +252,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item v-if="form.menuType === '2' || form.menuType === '3'">
+                  <el-form-item v-if="form.menuType === '3'">
                     <span slot="label">
                       权限标识
                       <el-tooltip content="前端权限控制按钮是否显示" placement="top">
@@ -263,7 +263,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item v-if="form.menuType !== '3'">
+                  <el-form-item v-if="form.menuType === '1' || form.menuType === '2'">
                     <span slot="label">
                       菜单状态
                       <el-tooltip content="需要显示在菜单列表的菜单设置为显示，否则设置为隐藏" placement="top">

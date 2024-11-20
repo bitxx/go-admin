@@ -4,6 +4,7 @@ import (
 	"go-admin/app/admin/constant"
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/core/dto/service"
+	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"strconv"
@@ -138,21 +139,31 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 
 	now := time.Now()
 	data := models.SysMenu{}
-	data.Name = c.Name
+	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
+		data.Path = c.Path
+		data.Component = c.Component
+		data.Hidden = c.Hidden
+		data.IsFrame = c.IsFrame
+		if c.MenuType == constant.MenuC {
+			c.KeepAlive = global.SysStatusNotOk
+			c.IsAffix = global.SysStatusNotOk
+			data.KeepAlive = c.KeepAlive
+			data.IsAffix = c.IsAffix
+			data.Name = c.Name
+		}
+	}
+	if c.MenuType == constant.MenuC || c.MenuType == constant.MenuF {
+		data.SysApi = alist
+		if c.MenuType == constant.MenuF {
+			data.Permission = c.Permission
+		}
+	}
 	data.Title = c.Title
 	data.Icon = c.Icon
-	data.Path = c.Path
 	data.MenuType = c.MenuType
-	data.Permission = c.Permission
 	data.ParentId = c.ParentId
 	data.ParentIds = m.ParentIds + strconv.FormatInt(m.Id, 10) + ","
-	data.KeepAlive = c.KeepAlive
-	data.Breadcrumb = c.Breadcrumb
-	data.Component = c.Component
-	data.SysApi = alist
 	data.Sort = c.Sort
-	data.Hidden = c.Hidden
-	data.IsFrame = c.IsFrame
 	data.CreateBy = c.CurrUserId
 	data.UpdateBy = c.CurrUserId
 	data.CreatedAt = &now
@@ -207,23 +218,33 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	}
 
 	now := time.Now()
-	data.Name = c.Name
+	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
+		data.Path = c.Path
+		data.Component = c.Component
+		data.Hidden = c.Hidden
+		data.IsFrame = c.IsFrame
+		if c.MenuType == constant.MenuC {
+			c.KeepAlive = global.SysStatusNotOk
+			c.IsAffix = global.SysStatusNotOk
+			data.KeepAlive = c.KeepAlive
+			data.IsAffix = c.IsAffix
+			data.Name = c.Name
+		}
+	}
+	if c.MenuType == constant.MenuC || c.MenuType == constant.MenuF {
+		data.SysApi = alist
+		if c.MenuType == constant.MenuF {
+			data.Permission = c.Permission
+		}
+	}
 	data.Title = c.Title
 	data.Icon = c.Icon
-	data.Path = c.Path
 	data.MenuType = c.MenuType
-	data.Permission = c.Permission
 	data.ParentId = c.ParentId
 	data.ParentIds = m.ParentIds + strconv.FormatInt(m.Id, 10) + ","
-	data.KeepAlive = c.KeepAlive
-	data.Breadcrumb = c.Breadcrumb
-	data.Component = c.Component
 	data.Sort = c.Sort
-	data.Hidden = c.Hidden
-	data.IsFrame = c.IsFrame
 	data.UpdateBy = c.CurrUserId
 	data.UpdatedAt = &now
-	data.SysApi = alist
 	err = tx.Model(&data).Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&data).Error
 	if err != nil {
 		return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
@@ -374,7 +395,7 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi.ParentId = list[j].ParentId
 		mi.ParentIds = list[j].ParentIds
 		mi.KeepAlive = list[j].KeepAlive
-		mi.Breadcrumb = list[j].Breadcrumb
+		mi.IsAffix = list[j].IsAffix
 		mi.Component = list[j].Component
 		mi.Sort = list[j].Sort
 		mi.Hidden = list[j].Hidden

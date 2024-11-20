@@ -30,7 +30,7 @@ type SysMenuInsertReq struct {
 	Permission string          `form:"permission" comment:"权限编码"`        //权限编码
 	ParentId   int64           `form:"parentId" comment:"上级菜单"`          //上级菜单
 	KeepAlive  string          `form:"keepAlive" comment:"是否缓存 1-是 2-否"` //是否缓存
-	Breadcrumb string          `form:"breadcrumb" comment:"是否面包屑"`       //是否面包屑
+	IsAffix    string          `form:"isAffix" comment:"是否固定 1-是 2-否"`   //是否固定
 	Component  string          `form:"component" comment:"组件"`           //组件
 	Sort       int             `form:"sort" comment:"排序"`                //排序
 	Hidden     string          `form:"hidden" comment:"1-隐藏 2-显示"`       //是否显示
@@ -50,7 +50,7 @@ type SysMenuUpdateReq struct {
 	Permission string          `form:"permission" comment:"权限编码"`        //权限编码
 	ParentId   int64           `form:"parentId" comment:"上级菜单"`          //上级菜单
 	KeepAlive  string          `form:"keepAlive" comment:"是否缓存 1-是 2-否"` //是否缓存
-	Breadcrumb string          `form:"breadcrumb" comment:"是否面包屑"`       //是否面包屑
+	IsAffix    string          `form:"isAffix" comment:"是否固定 1-是 2-否"`   //是否固定
 	Component  string          `form:"component" comment:"组件"`           //组件
 	Sort       int             `form:"sort" comment:"排序"`                //排序
 	Hidden     string          `form:"hidden" comment:"1-隐藏 2-显示"`       //是否显示
@@ -70,11 +70,6 @@ type MenuLabel struct {
 	Id       int64       `json:"id,omitempty" gorm:"-"`
 	Label    string      `json:"label,omitempty" gorm:"-"`
 	Children []MenuLabel `json:"children,omitempty" gorm:"-"`
-}
-
-type MenuRole struct {
-	models.SysMenu
-	IsSelect bool `json:"is_select" gorm:"-"`
 }
 
 type SelectMenuRole struct {

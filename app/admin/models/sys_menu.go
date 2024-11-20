@@ -12,8 +12,9 @@ type SysMenu struct {
 	Permission string     `json:"permission" gorm:"size:255;"`
 	ParentIds  string     `json:"parentIds" gorm:"size:255;"`
 	ParentId   int64      `json:"parentId" gorm:"size:11;"`
-	KeepAlive  string     `json:"keepAlive" gorm:"size:1;"`
+	KeepAlive  string     `json:"keepAlive" gorm:"size:1;comment:1-是 2-否"`
 	Breadcrumb string     `json:"breadcrumb" gorm:"size:255;"`
+	IsAffix    string     `json:"isAffix" gorm:"size:1;DEFAULT:2;comment:1-是 2-否"`
 	Component  string     `json:"component" gorm:"size:255;"`
 	Sort       int        `json:"sort" gorm:"size:4;"`
 	Hidden     string     `json:"hidden" gorm:"size:1;comment:1-隐藏 2-显示"`
@@ -24,11 +25,7 @@ type SysMenu struct {
 	CreatedAt  *time.Time `json:"createdAt" gorm:"comment:创建时间"`
 	UpdatedAt  *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
 	Apis       []int      `json:"apis" gorm:"-"`
-	DataScope  string     `json:"dataScope" gorm:"-"`
-	Params     string     `json:"params" gorm:"-"`
-	RoleId     int64      `gorm:"-"`
 	Children   []SysMenu  `json:"children,omitempty" gorm:"-"`
-	IsSelect   bool       `json:"is_select" gorm:"-"`
 }
 
 func (SysMenu) TableName() string {
