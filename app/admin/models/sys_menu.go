@@ -13,7 +13,6 @@ type SysMenu struct {
 	ParentIds  string     `json:"parentIds" gorm:"size:255;"`
 	ParentId   int64      `json:"parentId" gorm:"size:11;"`
 	KeepAlive  string     `json:"keepAlive" gorm:"size:1;comment:1-是 2-否"`
-	Breadcrumb string     `json:"breadcrumb" gorm:"size:255;"`
 	IsAffix    string     `json:"isAffix" gorm:"size:1;DEFAULT:2;comment:1-是 2-否"`
 	Component  string     `json:"component" gorm:"size:255;"`
 	Sort       int        `json:"sort" gorm:"size:4;"`
