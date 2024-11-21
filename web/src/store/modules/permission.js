@@ -1,6 +1,6 @@
 import { asyncRoutes, constantRoutes } from '@/router'
-import { getRoutes } from '@/api/sys/role'
 import Layout from '@/layout'
+import { getMenuRole } from '@/api/sys/menu'
 // import sysuserindex from '@/views/sysuser/index'
 
 /**
@@ -142,7 +142,7 @@ const actions = {
     return new Promise(resolve => {
       const loadMenuData = []
 
-      getRoutes().then(response => {
+      getMenuRole().then(response => {
         let data = response
         if (response.code !== 200) {
           this.$message({

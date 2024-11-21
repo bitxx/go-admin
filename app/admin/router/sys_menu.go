@@ -22,12 +22,6 @@ func registerSysMenuRouter(v1 *gin.RouterGroup) {
 		r.POST("", api.Insert)
 		r.PUT("/:id", api.Update)
 		r.DELETE("", api.Delete)
+		r.GET("/menurole", api.GetMenuRole)
 	}
-
-	r1 := v1.Group("").Use(middleware.Auth())
-	{
-		r1.GET("/menurole", api.GetMenuRole)
-		//r1.GET("/menuids", api.GetMenuIDS)
-	}
-
 }

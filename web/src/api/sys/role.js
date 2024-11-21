@@ -73,13 +73,6 @@ export function getListrole(id) {
   })
 }
 
-export function getRoutes() {
-  return request({
-    url: '/admin-api/v1/menurole',
-    method: 'get'
-  })
-}
-
 // export function getMenuNames() {
 //   return request({
 //     url: '/admin-api/v1/menuids',

@@ -59,3 +59,10 @@ export function delMenu(data) {
     data: data
   })
 }
+
+export function getMenuRole() {
+  return request({
+    url: '/admin-api/v1/menu/menurole',
+    method: 'get'
+  })
+}
