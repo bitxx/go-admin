@@ -7,14 +7,15 @@ type SysMenu struct {
 	Name       string     `json:"name" gorm:"size:128;"`
 	Title      string     `json:"title" gorm:"size:128;"`
 	Icon       string     `json:"icon" gorm:"size:128;"`
-	Path       string     `json:"path" gorm:"size:128;"`
+	Path       string     `json:"path" gorm:"size:255;"`
+	Component  string     `json:"component" gorm:"size:255;"`
+	Redirect   string     `json:"redirect" gorm:"size:255;"` //针对目录跳转，比如搜索出菜单
 	MenuType   string     `json:"menuType" gorm:"size:1;"`
 	Permission string     `json:"permission" gorm:"size:255;"`
 	ParentIds  string     `json:"parentIds" gorm:"size:255;"`
 	ParentId   int64      `json:"parentId" gorm:"size:11;"`
 	KeepAlive  string     `json:"keepAlive" gorm:"size:1;comment:1-是 2-否"`
 	IsAffix    string     `json:"isAffix" gorm:"size:1;DEFAULT:2;comment:1-是 2-否"`
-	Component  string     `json:"component" gorm:"size:255;"`
 	Sort       int        `json:"sort" gorm:"size:4;"`
 	Hidden     string     `json:"hidden" gorm:"size:1;comment:1-隐藏 2-显示"`
 	IsFrame    string     `json:"isFrame" gorm:"size:1;DEFAULT:0;"`

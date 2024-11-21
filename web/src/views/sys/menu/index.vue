@@ -40,7 +40,7 @@
             <template slot-scope="scope">
               <el-popover v-if="scope.row.sysApi.length>0" trigger="hover" placement="top">
                 <el-table :data="scope.row.sysApi" border style="width: 100%">
-                  <el-table-column prop="title" label="title" width="260px">
+                  <el-table-column prop="title" label="名称" width="260px">
                     <template slot-scope="scope">
                       <span v-if="scope.row.apiType==='1' && scope.row.title!==''"><el-tag type="success">{{ '['+scope.row.apiType +'] '+ scope.row.title }}</el-tag></span>
                       <span v-if="scope.row.apiType==='2' && scope.row.title!==''"><el-tag type="warning">{{ '['+scope.row.apiType +'] '+ scope.row.title }}</el-tag></span>
@@ -48,7 +48,7 @@
                       <span v-if="scope.row.title===''"><el-tag type="danger">暂无</el-tag></span>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="path" label="path" width="270px">
+                  <el-table-column prop="path" label="接口" width="270px">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.action==='GET'">{{ scope.row.action }}</el-tag>
                       <el-tag v-if="scope.row.action==='POST'" type="success">{{ scope.row.action }}</el-tag>
@@ -74,7 +74,7 @@
               {{ menuTypeFormat(scope.row) }}
             </template>
           </el-table-column>
-          <el-table-column width="300" label="组建路径" align="center" prop="path" :show-overflow-tooltip="true">
+          <el-table-column width="300" label="路由地址" align="center" prop="path" :show-overflow-tooltip="true">
             <template slot-scope="scope">
               <span v-if="scope.row.path===''">-</span>
               <span v-else>{{ scope.row.path }}</span>
@@ -248,6 +248,17 @@
                       </el-tooltip>
                     </span>
                     <el-input v-model="form.path" placeholder="请输入路由地址" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item v-if="form.menuType === '1'" prop="redirect">
+                    <span slot="label">
+                      跳转路由地址
+                      <el-tooltip content="目录默认访问的菜单路由地址，例如搜索到菜单时点击可直接跳转到指定路由页面。" placement="top">
+                        <i class="el-icon-question" />
+                      </el-tooltip>
+                    </span>
+                    <el-input v-model="form.redirect" placeholder="请输入跳转路由地址（可选）" />
                   </el-form-item>
                 </el-col>
 

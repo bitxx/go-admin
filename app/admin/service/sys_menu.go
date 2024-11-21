@@ -144,6 +144,9 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 		data.Component = c.Component
 		data.Hidden = c.Hidden
 		data.IsFrame = c.IsFrame
+		if c.MenuType == constant.MenuM {
+			data.Redirect = c.Redirect
+		}
 		if c.MenuType == constant.MenuC {
 			c.KeepAlive = global.SysStatusNotOk
 			c.IsAffix = global.SysStatusNotOk
@@ -223,6 +226,9 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 		data.Component = c.Component
 		data.Hidden = c.Hidden
 		data.IsFrame = c.IsFrame
+		if c.MenuType == constant.MenuM {
+			data.Redirect = c.Redirect
+		}
 		if c.MenuType == constant.MenuC {
 			c.KeepAlive = global.SysStatusNotOk
 			c.IsAffix = global.SysStatusNotOk
@@ -397,6 +403,7 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi.KeepAlive = list[j].KeepAlive
 		mi.IsAffix = list[j].IsAffix
 		mi.Component = list[j].Component
+		mi.Redirect = list[j].Redirect
 		mi.Sort = list[j].Sort
 		mi.Hidden = list[j].Hidden
 		mi.CreatedAt = list[j].CreatedAt

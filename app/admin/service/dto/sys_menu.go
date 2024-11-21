@@ -24,6 +24,8 @@ type SysMenuInsertReq struct {
 	Title      string          `form:"title" comment:"显示名称"`    //显示名称
 	Icon       string          `form:"icon" comment:"图标"`       //图标
 	Path       string          `form:"path" comment:"路径"`       //路径
+	Redirect   string          `form:"redirect" comment:"跳转"`   //针对目录跳转，比如搜索出菜单
+	Component  string          `form:"component" comment:"组件"`  //组件
 	MenuType   string          `form:"menuType" comment:"菜单类型"` //菜单类型
 	SysApi     []models.SysApi `form:"sysApi"`
 	Apis       []int           `form:"apis"`
@@ -31,7 +33,6 @@ type SysMenuInsertReq struct {
 	ParentId   int64           `form:"parentId" comment:"上级菜单"`          //上级菜单
 	KeepAlive  string          `form:"keepAlive" comment:"是否缓存 1-是 2-否"` //是否缓存
 	IsAffix    string          `form:"isAffix" comment:"是否固定 1-是 2-否"`   //是否固定
-	Component  string          `form:"component" comment:"组件"`           //组件
 	Sort       int             `form:"sort" comment:"排序"`                //排序
 	Hidden     string          `form:"hidden" comment:"1-隐藏 2-显示"`       //是否显示
 	IsFrame    string          `form:"isFrame" comment:"外链 1-是 2-否"`     //是否frame
@@ -44,6 +45,8 @@ type SysMenuUpdateReq struct {
 	Title      string          `form:"title" comment:"显示名称"`    //显示名称
 	Icon       string          `form:"icon" comment:"图标"`       //图标
 	Path       string          `form:"path" comment:"路径"`       //路径
+	Redirect   string          `form:"redirect" comment:"跳转"`   //针对目录跳转，比如搜索出菜单
+	Component  string          `form:"component" comment:"组件"`  //组件
 	MenuType   string          `form:"menuType" comment:"菜单类型"` //菜单类型
 	SysApi     []models.SysApi `form:"sysApi"`
 	Apis       []int           `form:"apis"`
@@ -51,7 +54,6 @@ type SysMenuUpdateReq struct {
 	ParentId   int64           `form:"parentId" comment:"上级菜单"`          //上级菜单
 	KeepAlive  string          `form:"keepAlive" comment:"是否缓存 1-是 2-否"` //是否缓存
 	IsAffix    string          `form:"isAffix" comment:"是否固定 1-是 2-否"`   //是否固定
-	Component  string          `form:"component" comment:"组件"`           //组件
 	Sort       int             `form:"sort" comment:"排序"`                //排序
 	Hidden     string          `form:"hidden" comment:"1-隐藏 2-显示"`       //是否显示
 	IsFrame    string          `form:"isFrame" comment:"外链 1-是 2-否"`     //是否frame
