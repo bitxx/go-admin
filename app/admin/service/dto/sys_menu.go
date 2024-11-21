@@ -25,7 +25,7 @@ type SysMenuInsertReq struct {
 	Icon       string          `form:"icon" comment:"图标"`       //图标
 	Path       string          `form:"path" comment:"路径"`       //路径
 	Redirect   string          `form:"redirect" comment:"跳转"`   //针对目录跳转，比如搜索出菜单
-	Component  string          `form:"component" comment:"组件"`  //组件
+	Element    string          `form:"element" comment:"组件"`    //组件
 	MenuType   string          `form:"menuType" comment:"菜单类型"` //菜单类型
 	SysApi     []models.SysApi `form:"sysApi"`
 	Apis       []int           `form:"apis"`
@@ -46,7 +46,7 @@ type SysMenuUpdateReq struct {
 	Icon       string          `form:"icon" comment:"图标"`       //图标
 	Path       string          `form:"path" comment:"路径"`       //路径
 	Redirect   string          `form:"redirect" comment:"跳转"`   //针对目录跳转，比如搜索出菜单
-	Component  string          `form:"component" comment:"组件"`  //组件
+	Element    string          `form:"element" comment:"组件"`    //组件
 	MenuType   string          `form:"menuType" comment:"菜单类型"` //菜单类型
 	SysApi     []models.SysApi `form:"sysApi"`
 	Apis       []int           `form:"apis"`

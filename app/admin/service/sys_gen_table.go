@@ -538,7 +538,7 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 		MenuType:   constant.MenuC,
 		ParentId:   0,
 		KeepAlive:  global.SysStatusNotOk,
-		Component:  path + "/index.vue",
+		Element:    path + "/index.vue",
 		Hidden:     global.SysStatusNotOk,
 		IsFrame:    global.SysStatusNotOk,
 	}

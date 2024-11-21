@@ -8,7 +8,7 @@ type SysMenu struct {
 	Title      string     `json:"title" gorm:"size:128;"`
 	Icon       string     `json:"icon" gorm:"size:128;"`
 	Path       string     `json:"path" gorm:"size:255;"`
-	Component  string     `json:"component" gorm:"size:255;"`
+	Element    string     `json:"element" gorm:"size:255;"`
 	Redirect   string     `json:"redirect" gorm:"size:255;"` //针对目录跳转，比如搜索出菜单
 	MenuType   string     `json:"menuType" gorm:"size:1;"`
 	Permission string     `json:"permission" gorm:"size:255;"`

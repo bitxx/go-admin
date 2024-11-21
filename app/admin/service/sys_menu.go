@@ -141,7 +141,7 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	data := models.SysMenu{}
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
 		data.Path = c.Path
-		data.Component = c.Component
+		data.Element = c.Element
 		data.Hidden = c.Hidden
 		data.IsFrame = c.IsFrame
 		if c.MenuType == constant.MenuM {
@@ -223,7 +223,7 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	now := time.Now()
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
 		data.Path = c.Path
-		data.Component = c.Component
+		data.Element = c.Element
 		data.Hidden = c.Hidden
 		data.IsFrame = c.IsFrame
 		if c.MenuType == constant.MenuM {
@@ -402,7 +402,7 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi.ParentIds = list[j].ParentIds
 		mi.KeepAlive = list[j].KeepAlive
 		mi.IsAffix = list[j].IsAffix
-		mi.Component = list[j].Component
+		mi.Element = list[j].Element
 		mi.Redirect = list[j].Redirect
 		mi.Sort = list[j].Sort
 		mi.Hidden = list[j].Hidden
