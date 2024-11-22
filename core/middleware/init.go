@@ -19,7 +19,7 @@ func InitMiddleware(r *gin.Engine) {
 	r.Use(LoggerToFile())
 	// 自定义错误处理
 	r.Use(CustomError)
-	// KeepAlive is a middleware function that appends headers
+	// IsKeepAlive is a middleware function that appends headers
 	r.Use(KeepAlive)
 	// 跨域处理
 	r.Use(Options)

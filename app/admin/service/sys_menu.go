@@ -142,15 +142,15 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
 		data.Path = c.Path
 		data.Element = c.Element
-		data.Hidden = c.Hidden
+		data.IsHidden = c.IsHidden
 		data.IsFrame = c.IsFrame
 		if c.MenuType == constant.MenuM {
 			data.Redirect = c.Redirect
 		}
 		if c.MenuType == constant.MenuC {
-			c.KeepAlive = global.SysStatusNotOk
+			c.IsKeepAlive = global.SysStatusNotOk
 			c.IsAffix = global.SysStatusNotOk
-			data.KeepAlive = c.KeepAlive
+			data.IsKeepAlive = c.IsKeepAlive
 			data.IsAffix = c.IsAffix
 			data.Name = c.Name
 		}
@@ -224,15 +224,15 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
 		data.Path = c.Path
 		data.Element = c.Element
-		data.Hidden = c.Hidden
+		data.IsHidden = c.IsHidden
 		data.IsFrame = c.IsFrame
 		if c.MenuType == constant.MenuM {
 			data.Redirect = c.Redirect
 		}
 		if c.MenuType == constant.MenuC {
-			c.KeepAlive = global.SysStatusNotOk
+			c.IsKeepAlive = global.SysStatusNotOk
 			c.IsAffix = global.SysStatusNotOk
-			data.KeepAlive = c.KeepAlive
+			data.IsKeepAlive = c.IsKeepAlive
 			data.IsAffix = c.IsAffix
 			data.Name = c.Name
 		}
@@ -400,12 +400,12 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi.Permission = list[j].Permission
 		mi.ParentId = list[j].ParentId
 		mi.ParentIds = list[j].ParentIds
-		mi.KeepAlive = list[j].KeepAlive
+		mi.IsKeepAlive = list[j].IsKeepAlive
 		mi.IsAffix = list[j].IsAffix
 		mi.Element = list[j].Element
 		mi.Redirect = list[j].Redirect
 		mi.Sort = list[j].Sort
-		mi.Hidden = list[j].Hidden
+		mi.IsHidden = list[j].IsHidden
 		mi.CreatedAt = list[j].CreatedAt
 		mi.SysApi = list[j].SysApi
 		mi.Children = []models.SysMenu{}

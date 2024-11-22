@@ -530,17 +530,17 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	premission := table.PackageName + ":" + table.BusinessName + ":" + table.ModuleName
 	path := "/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName
 	cMenuInsertReq := dto.SysMenuInsertReq{
-		CurrUserId: c.CurrUserId,
-		Name:       table.ClassName,
-		Title:      table.TableComment,
-		Icon:       "pass",
-		Path:       path,
-		MenuType:   constant.MenuC,
-		ParentId:   0,
-		KeepAlive:  global.SysStatusNotOk,
-		Element:    path + "/index.vue",
-		Hidden:     global.SysStatusNotOk,
-		IsFrame:    global.SysStatusNotOk,
+		CurrUserId:  c.CurrUserId,
+		Name:        table.ClassName,
+		Title:       table.TableComment,
+		Icon:        "pass",
+		Path:        path,
+		MenuType:    constant.MenuC,
+		ParentId:    0,
+		IsKeepAlive: global.SysStatusNotOk,
+		Element:     path + "/index.vue",
+		IsHidden:    global.SysStatusNotOk,
+		IsFrame:     global.SysStatusNotOk,
 	}
 	cMenuId, respCode, err := menuService.Insert(&cMenuInsertReq)
 	if err != nil {
@@ -549,14 +549,14 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 
 	//查询按钮
 	mMenuQueryInsertReq := dto.SysMenuInsertReq{
-		CurrUserId: c.CurrUserId,
-		Title:      "分页获取" + table.TableComment,
-		MenuType:   constant.MenuF,
-		Permission: premission + ":query",
-		ParentId:   cMenuId,
-		KeepAlive:  global.SysStatusNotOk,
-		Hidden:     global.SysStatusNotOk,
-		IsFrame:    global.SysStatusNotOk,
+		CurrUserId:  c.CurrUserId,
+		Title:       "分页获取" + table.TableComment,
+		MenuType:    constant.MenuF,
+		Permission:  premission + ":query",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsFrame:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuQueryInsertReq)
 	if err != nil {
@@ -565,14 +565,14 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 
 	//新增按钮
 	mMenuAddInsertReq := dto.SysMenuInsertReq{
-		CurrUserId: c.CurrUserId,
-		Title:      "创建" + table.TableComment,
-		MenuType:   constant.MenuF,
-		Permission: premission + ":add",
-		ParentId:   cMenuId,
-		KeepAlive:  global.SysStatusNotOk,
-		Hidden:     global.SysStatusNotOk,
-		IsFrame:    global.SysStatusNotOk,
+		CurrUserId:  c.CurrUserId,
+		Title:       "创建" + table.TableComment,
+		MenuType:    constant.MenuF,
+		Permission:  premission + ":add",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsFrame:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuAddInsertReq)
 	if err != nil {
@@ -581,14 +581,14 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 
 	//修改按钮
 	mMenuUpdateInsertReq := dto.SysMenuInsertReq{
-		CurrUserId: c.CurrUserId,
-		Title:      "修改" + table.TableComment,
-		MenuType:   constant.MenuF,
-		Permission: premission + ":edit",
-		ParentId:   cMenuId,
-		KeepAlive:  global.SysStatusNotOk,
-		Hidden:     global.SysStatusNotOk,
-		IsFrame:    global.SysStatusNotOk,
+		CurrUserId:  c.CurrUserId,
+		Title:       "修改" + table.TableComment,
+		MenuType:    constant.MenuF,
+		Permission:  premission + ":edit",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsFrame:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuUpdateInsertReq)
 	if err != nil {
@@ -597,14 +597,14 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 
 	//删除按钮
 	mMenuDelInsertReq := dto.SysMenuInsertReq{
-		CurrUserId: c.CurrUserId,
-		Title:      "删除" + table.TableComment,
-		MenuType:   constant.MenuF,
-		Permission: premission + ":del",
-		ParentId:   cMenuId,
-		KeepAlive:  global.SysStatusNotOk,
-		Hidden:     global.SysStatusNotOk,
-		IsFrame:    global.SysStatusNotOk,
+		CurrUserId:  c.CurrUserId,
+		Title:       "删除" + table.TableComment,
+		MenuType:    constant.MenuF,
+		Permission:  premission + ":del",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsFrame:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuDelInsertReq)
 	if err != nil {
@@ -613,14 +613,14 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 
 	//导出按钮
 	mMenuExportInsertReq := dto.SysMenuInsertReq{
-		CurrUserId: c.CurrUserId,
-		Title:      "导出" + table.TableComment,
-		MenuType:   constant.MenuF,
-		Permission: premission + ":export",
-		ParentId:   cMenuId,
-		KeepAlive:  global.SysStatusNotOk,
-		Hidden:     global.SysStatusNotOk,
-		IsFrame:    global.SysStatusNotOk,
+		CurrUserId:  c.CurrUserId,
+		Title:       "导出" + table.TableComment,
+		MenuType:    constant.MenuF,
+		Permission:  premission + ":export",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsFrame:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuExportInsertReq)
 	if err != nil {

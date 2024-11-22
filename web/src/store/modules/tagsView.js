@@ -14,7 +14,7 @@ const mutations = {
   },
   ADD_CACHED_VIEW: (state, view) => {
     if (state.cachedViews.includes(view.name)) return
-    if (!view.meta.keepAlive || view.meta.keepAlive === '2') {
+    if (!view.meta.keepAlive || view.meta.isKeepAlive === '2') {
       state.cachedViews.push(view.name)
     }
   },

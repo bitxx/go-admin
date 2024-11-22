@@ -7,7 +7,7 @@
             <el-input v-model="queryParams.title" placeholder="请输入菜单名称" clearable size="small" @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="可见">
-            <el-select v-model="queryParams.hidden" placeholder="可见状态" prop="hidden" clearable size="small">
+            <el-select v-model="queryParams.isHidden" placeholder="可见状态" prop="isHidden" clearable size="small">
               <el-option
                 v-for="dict in hiddenOptions"
                 :key="dict.dictValue"
@@ -86,7 +86,7 @@
               <span v-else>{{ scope.row.name }}</span>
             </template>
           </el-table-column>
-          <el-table-column width="100" label="可见" align="center" prop="hidden" :formatter="hiddenFormat">
+          <el-table-column width="100" label="可见" align="center" prop="isHidden" :formatter="hiddenFormat">
             <template slot-scope="scope">
               {{ hiddenFormat(scope.row) }}
             </template>
@@ -281,7 +281,7 @@
                         <i class="el-icon-question" />
                       </el-tooltip>
                     </span>
-                    <el-radio-group v-model="form.hidden">
+                    <el-radio-group v-model="form.isHidden">
                       <el-radio
                         v-for="dict in hiddenOptions"
                         :key="dict.dictValue"
@@ -364,7 +364,7 @@ export default {
       // 查询参数
       queryParams: {
         title: undefined,
-        hidden: undefined
+        isHidden: undefined
       },
       // 表单参数
       form: {
@@ -469,7 +469,7 @@ export default {
     },
     // 菜单显示状态字典翻译
     hiddenFormat(row) {
-      return this.selectDictLabel(this.hiddenOptions, row.hidden)
+      return this.selectDictLabel(this.hiddenOptions, row.isHidden)
     },
     // 取消按钮
     cancel() {
@@ -488,7 +488,7 @@ export default {
         sort: 0,
         action: undefined,
         isFrame: undefined,
-        hidden: undefined
+        isHidden: undefined
       }
       this.resetForm('form')
     },

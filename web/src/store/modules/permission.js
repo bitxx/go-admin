@@ -37,10 +37,10 @@ export function generaMenu(routes, data) {
   data.forEach(item => {
     var hidden = true
     var keepAlive = false
-    if (item.hidden === '2') {
+    if (item.isHidden === '2') {
       hidden = false
     }
-    if (item.keepAlive === '1') {
+    if (item.isKeepAlive === '1') {
       keepAlive = true
     }
     const menu = {
