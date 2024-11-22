@@ -29,7 +29,7 @@ func registerSysUserRouter(v1 *gin.RouterGroup) {
 		r.PUT("/pwd/set", api.UpdatePwd)
 		r.PUT("/pwd/reset", api.ResetPwd)
 		r.PUT("/status", api.UpdateStatus)
-		r.POST("/logout", api.LogOut)
+		r.GET("/logout", api.LogOut)
 	}
 }
 

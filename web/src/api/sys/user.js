@@ -162,7 +162,7 @@ export function login(data) {
 export function logout() {
   return request({
     url: '/admin-api/v1/sys-user/logout',
-    method: 'post'
+    method: 'get'
   })
 }
 

@@ -17,7 +17,6 @@ import (
 	"go-admin/core/utils/captchautils"
 	"go-admin/core/utils/fileutils"
 	"go-admin/core/utils/idgen"
-	"net/http"
 )
 
 type SysUser struct {
@@ -488,7 +487,7 @@ func (e SysUser) Login(c *gin.Context) {
 
 // LogOut
 func (e *SysUser) LogOut(c *gin.Context) {
-	s := service.SysUser{}
+	s := new(service.SysUser)
 	err := e.MakeContext(c).
 		MakeOrm().
 		MakeService(&s.Service).
@@ -503,10 +502,8 @@ func (e *SysUser) LogOut(c *gin.Context) {
 		return
 	}
 	s.LoginLogToDB(c, constant.UserLogoutStatus, lang.MsgByCode(sysLang.SysUseLoginOpCode, e.Lang), uid)
-	c.JSON(http.StatusOK, gin.H{
-		"code": lang.SuccessCode,
-		"msg":  lang.MsgByCode(sysLang.SysUseLogoutSuccessCode, e.Lang),
-	})
+
+	e.OK(nil, lang.MsgByCode(sysLang.SysUseLogoutSuccessCode, e.Lang))
 }
 
 // GenCaptcha 获取图形验证码
