@@ -13,7 +13,6 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-	"strings"
 	"time"
 
 	"go-admin/core/global"
@@ -42,11 +41,6 @@ func LoggerToFile() gin.HandlerFunc {
 		}
 
 		c.Next()
-		url := c.Request.RequestURI
-		if strings.Index(url, "logout") > -1 ||
-			strings.Index(url, "login") > -1 {
-			return
-		}
 		// 结束时间
 		endTime := time.Now()
 		if c.Request.Method == http.MethodOptions {
