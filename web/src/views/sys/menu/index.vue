@@ -224,8 +224,8 @@
                 <el-col :span="12">
                   <el-form-item v-if="form.menuType === '2'">
                     <span slot="label">
-                      是否外链
-                      <el-tooltip content="可以通过iframe打开指定地址" placement="top">
+                      是否内嵌
+                      <el-tooltip content="可以通过iframe打开指定地址，内部还是外部打开" placement="top">
                         <i class="el-icon-question" />
                       </el-tooltip>
                     </span>

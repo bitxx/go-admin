@@ -35,7 +35,7 @@ type SysMenuInsertReq struct {
 	IsKeepAlive string          `form:"isKeepAlive" comment:"是否缓存 1-是 2-否"` //是否缓存
 	IsAffix     string          `form:"isAffix" comment:"是否固定 1-是 2-否"`     //是否固定
 	IsHidden    string          `form:"isHidden" comment:"1-隐藏 2-显示"`       //是否显示
-	IsFrame     string          `form:"isFrame" comment:"外链 1-是 2-否"`       //是否frame
+	IsFrame     string          `form:"isFrame" comment:"内嵌 1-是 2-否"`       //是否frame
 	CurrUserId  int64           `json:"-" comment:""`
 }
 
@@ -56,7 +56,7 @@ type SysMenuUpdateReq struct {
 	IsKeepAlive string          `form:"isKeepAlive" comment:"是否缓存 1-是 2-否"` //是否缓存
 	IsAffix     string          `form:"isAffix" comment:"是否固定 1-是 2-否"`     //是否固定
 	IsHidden    string          `form:"isHidden" comment:"1-隐藏 2-显示"`       //是否显示
-	IsFrame     string          `form:"isFrame" comment:"外链 1-是 2-否"`       //是否frame
+	IsFrame     string          `form:"isFrame" comment:"内嵌 1-是 2-否"`       //是否frame
 	CurrUserId  int64           `json:"-" comment:""`
 }
 

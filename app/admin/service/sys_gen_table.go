@@ -540,7 +540,8 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 		IsKeepAlive: global.SysStatusNotOk,
 		Element:     path + "/index.vue",
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+		IsAffix:     global.SysStatusNotOk,
 	}
 	cMenuId, respCode, err := menuService.Insert(&cMenuInsertReq)
 	if err != nil {
@@ -556,7 +557,8 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+		IsAffix:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuQueryInsertReq)
 	if err != nil {
@@ -572,7 +574,8 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+		IsAffix:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuAddInsertReq)
 	if err != nil {
@@ -588,7 +591,8 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+		IsAffix:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuUpdateInsertReq)
 	if err != nil {
@@ -604,7 +608,8 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+		IsAffix:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuDelInsertReq)
 	if err != nil {
@@ -620,7 +625,8 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+		IsAffix:     global.SysStatusNotOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuExportInsertReq)
 	if err != nil {
