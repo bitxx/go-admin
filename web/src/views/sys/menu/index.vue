@@ -222,7 +222,7 @@
                 </el-col>
 
                 <el-col :span="12">
-                  <el-form-item v-if="form.menuType === '1' || form.menuType === '2'">
+                  <el-form-item v-if="form.menuType === '2'">
                     <span slot="label">
                       是否外链
                       <el-tooltip content="可以通过iframe打开指定地址" placement="top">

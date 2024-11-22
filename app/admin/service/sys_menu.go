@@ -143,7 +143,6 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 		data.Path = c.Path
 		data.Element = c.Element
 		data.IsHidden = c.IsHidden
-		data.IsFrame = c.IsFrame
 		if c.MenuType == constant.MenuM {
 			data.Redirect = c.Redirect
 		}
@@ -153,6 +152,7 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 			data.IsKeepAlive = c.IsKeepAlive
 			data.IsAffix = c.IsAffix
 			data.Name = c.Name
+			data.IsFrame = c.IsFrame
 		}
 	}
 	if c.MenuType == constant.MenuC || c.MenuType == constant.MenuF {
@@ -225,7 +225,6 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 		data.Path = c.Path
 		data.Element = c.Element
 		data.IsHidden = c.IsHidden
-		data.IsFrame = c.IsFrame
 		if c.MenuType == constant.MenuM {
 			data.Redirect = c.Redirect
 		}
@@ -235,6 +234,7 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 			data.IsKeepAlive = c.IsKeepAlive
 			data.IsAffix = c.IsAffix
 			data.Name = c.Name
+			data.IsFrame = c.IsFrame
 		}
 	}
 	if c.MenuType == constant.MenuC || c.MenuType == constant.MenuF {
