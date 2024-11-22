@@ -400,6 +400,7 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi.Permission = list[j].Permission
 		mi.ParentId = list[j].ParentId
 		mi.ParentIds = list[j].ParentIds
+		mi.IsFrame = list[j].IsFrame
 		mi.IsKeepAlive = list[j].IsKeepAlive
 		mi.IsAffix = list[j].IsAffix
 		mi.Element = list[j].Element
