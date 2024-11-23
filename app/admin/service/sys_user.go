@@ -414,8 +414,8 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	respUser.Avatar = user.Avatar
 	respUser.CreatedAt = dateutils.ConvertToStrByPrt(user.CreatedAt, -1)
 	respUser.Sex = user.Sex
-	respUser.Dept = *user.Dept
-	respUser.Role = *user.Role
+	respUser.DeptName = user.Dept.DeptName
+	respUser.RoleName = user.Role.RoleName
 
 	if user.Role.RoleKey == constant.RoleKeyAdmin {
 		respUser.Permissions = []string{"*:*:*"}
@@ -426,7 +426,7 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 		respUser.Permissions = list
 		respUser.Buttons = list
 	}
-	respUser.RoleKyes = []string{respUser.Role.RoleKey}
+	respUser.RoleKyes = []string{user.Role.RoleKey}
 	return respUser, lang.SuccessCode, nil
 }
 

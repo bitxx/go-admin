@@ -1,7 +1,6 @@
 package dto
 
 import (
-	"go-admin/app/admin/models"
 	"go-admin/core/dto"
 )
 
@@ -108,20 +107,18 @@ type SysUserGetReq struct {
 }
 
 type SysUserResp struct {
-	Id          int64          `json:"id" comment:"用户ID"` // 用户ID
-	Username    string         `json:"username"`
-	Avatar      string         `json:"avatar"`
-	Phone       string         `json:"phone"`
-	Sex         string         `json:"sex"`
-	Email       string         `json:"email"`
-	Role        models.SysRole `json:"role"`
-	Dept        models.SysDept `json:"dept"`
-	Permissions []string       `json:"permissions"`
-	Buttons     []string       `json:"buttons"`
-	RoleKyes    []string       `json:"roleKeys"`
-	//DeptId    int            `json:"deptId"`
-	//PostId    int            `json:"postId"`
-	CreatedAt string `json:"createdAt"`
+	Id          int64    `json:"id" comment:"用户ID"` // 用户ID
+	Username    string   `json:"username"`
+	Avatar      string   `json:"avatar"`
+	Phone       string   `json:"phone"`
+	Sex         string   `json:"sex"`
+	Email       string   `json:"email"`
+	DeptName    string   `json:"deptName"`
+	RoleName    string   `json:"roleName"`
+	Permissions []string `json:"permissions"`
+	Buttons     []string `json:"buttons"`
+	RoleKyes    []string `json:"roleKeys"`
+	CreatedAt   string   `json:"createdAt"`
 }
 
 type UpdateSysUserPwdReq struct {

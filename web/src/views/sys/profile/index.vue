@@ -93,11 +93,11 @@ export default {
         this.user = response.data
         this.roleIds = response.data.roleIds
         this.roleGroup = response.data.roles
-        this.roleName = response.data.role.roleName
+        this.roleName = response.data.roleName
         if (this.roleName === '' || this.roleName === undefined) {
           this.roleName = '暂无'
         }
-        this.deptName = response.data.dept.deptName
+        this.deptName = response.data.deptName
       })
     }
   }
