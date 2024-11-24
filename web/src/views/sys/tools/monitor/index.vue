@@ -136,8 +136,7 @@ export default {
     getServerInfo() {
       getServer().then(ret => {
         if (ret.code === 200) {
-          console.log(ret)
-          this.info = ret
+          this.info = ret.data
         }
       })
     }

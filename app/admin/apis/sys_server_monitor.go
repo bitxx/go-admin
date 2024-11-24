@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/shirou/gopsutil/v4/host"
 	"go-admin/core/dto/api"
+	"go-admin/core/lang"
 	"go-admin/core/utils/fileutils"
 	"go-admin/core/utils/iputils"
 	"go-admin/core/utils/strutils"
@@ -108,12 +109,12 @@ func (e ServerMonitor) ServerInfo(c *gin.Context) {
 		}
 	}
 
-	e.Custom(gin.H{
-		"code":     200,
+	result := map[string]interface{}{
 		"os":       osDic,
 		"mem":      memDic,
 		"cpu":      cpuDic,
 		"disk":     diskDic,
 		"diskList": disklist,
-	})
+	}
+	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
