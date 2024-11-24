@@ -140,7 +140,7 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
-      const loadMenuData = []
+      let loadMenuData = []
 
       getMenuRole().then(response => {
         let data = response
@@ -151,7 +151,9 @@ const actions = {
           })
         } else {
           data = response.data
-          Object.assign(loadMenuData, data)
+          const loadMenuDataTmp = []
+          Object.assign(loadMenuDataTmp, data)
+          loadMenuData = loadMenuDataTmp.filter(item => item.id !== 119 && item.id !== 120)
           generaMenu(asyncRoutes, loadMenuData)
           asyncRoutes.push({ path: '*', redirect: '/', hidden: true })
           commit('SET_ROUTES', asyncRoutes)
