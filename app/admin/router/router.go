@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/app/admin/apis"
 	"go-admin/core/config"
+	"go-admin/core/global"
 	"go-admin/core/middleware"
 	"go-admin/core/runtime"
 	"go-admin/core/ws"
@@ -40,7 +41,7 @@ func InitRouter() {
 // noCheckRoleRouter 无需认证的路由示例
 func noCheckRoleRouter(r *gin.Engine) {
 	// 可根据业务需求来设置接口版本
-	v1 := r.Group("/admin-api/v1")
+	v1 := r.Group(global.RouteRootPath + "/v1")
 
 	for _, f := range routerNoCheckRole {
 		f(v1)
@@ -50,7 +51,7 @@ func noCheckRoleRouter(r *gin.Engine) {
 // checkRoleRouter 需要认证的路由示例
 func checkRoleRouter(r *gin.Engine) {
 	// 可根据业务需求来设置接口版本
-	v1 := r.Group("/admin-api/v1")
+	v1 := r.Group(global.RouteRootPath + "/v1")
 
 	for _, f := range routerCheckRole {
 		f(v1)
@@ -87,12 +88,12 @@ func sysStaticFileRouter(r *gin.RouterGroup) {
 		return
 	}
 	//静态路由
-	r.Static(config.ApplicationConfig.FileRootPath, config.ApplicationConfig.FileRootPath)
+	r.Static(global.RouteRootPath+"/"+config.ApplicationConfig.FileRootPath, config.ApplicationConfig.FileRootPath)
 	r.Static("/static", "./static")
 }
 
 func sysCheckRoleRouterInit(r *gin.RouterGroup) {
-	v1 := r.Group("/admin-api/v1")
+	v1 := r.Group(global.RouteRootPath + "/v1")
 	registerBaseRouter(v1)
 }
 

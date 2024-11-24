@@ -48,7 +48,7 @@ func GetHourDiffer(startTime, endTime string) int64 {
 // @Description 获取JSON
 // @Tags 系统信息
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /admin-api/v1/server-monitor [get]
+// @Router global.RouteRootPath/v1/server-monitor [get]
 func (e ServerMonitor) ServerInfo(c *gin.Context) {
 	e.Context = c
 

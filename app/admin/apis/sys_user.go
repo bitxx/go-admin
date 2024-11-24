@@ -10,6 +10,7 @@ import (
 	"go-admin/core/config"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
+	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"go-admin/core/middleware/auth"
@@ -289,7 +290,7 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 		}
 	}
 	// 数据权限检查
-	req.Avatar = "/" + filPath
+	req.Avatar = global.RouteRootPath + "/" + filPath
 
 	uid, rCode, err := auth.Auth.GetUserId(c)
 	if err != nil {

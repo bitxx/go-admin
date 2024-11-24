@@ -98,7 +98,7 @@ func (e SysTables) Insert(c *gin.Context) {
 // @Param data body tools.SysGenTable true "body"
 // @Success 200 {string} string	"{"code": 200, "message": "添加成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "添加失败"}"
-// @Router /admin-api/v1/sys/tables/info [put]
+// @Router global.RouteRootPath/v1/sys/tables/info [put]
 func (e SysTables) Update(c *gin.Context) {
 	req := dto.SysGenTableUpdateReq{}
 	s := service.SysGenTable{}
