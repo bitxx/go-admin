@@ -33,7 +33,6 @@ type Runtime interface {
 	// SetCacheAdapter cache
 	SetCacheAdapter(storage.AdapterCache)
 	GetCacheAdapter() storage.AdapterCache
-	GetCachePrefix() storage.AdapterCache
 
 	GetMemoryQueue(string) storage.AdapterQueue
 	SetQueueAdapter(storage.AdapterQueue)

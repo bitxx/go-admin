@@ -42,9 +42,11 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		return
 	}
 
+	cache := runtime.RuntimeConfig.GetCacheAdapter()
+
 	//获取sid，并用sid保存userId
 	sid := idgen.UUID()
-	err := runtime.RuntimeConfig.GetCacheAdapter().Set(SessionLoginPrefixTmp, sid, userId, config.AuthConfig.Timeout)
+	err := cache.Set(SessionLoginPrefixTmp, sid, userId, config.AuthConfig.Timeout)
 	rLog := log.GetRequestLogger(c)
 	if err != nil {
 		rLog.Error(err)
@@ -52,7 +54,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		return
 	}
 	if config.ApplicationConfig.IsSingleLogin {
-		_ = runtime.RuntimeConfig.GetCacheAdapter().Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
+		_ = cache.Del(SessionLoginPrefix, strconv.FormatInt(userId, 10))
 	}
 
 	//session信息
@@ -74,11 +76,17 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		c.JSON(lang.RequestErr, errResp)
 		return
 	}
-	values := map[string]interface{}{
-		sid: string(sessionInfo),
+	values := map[string]interface{}{}
+	vs, _ := cache.HashGetAll(SessionLoginPrefix, strconv.FormatInt(userId, 10))
+	if vs != nil {
+		for k, v := range vs {
+			values[k] = v
+		}
 	}
+	values[sid] = string(sessionInfo)
+
 	//用userId保存sid，记录登录状态（此操作可用于多点登录）
-	err = runtime.RuntimeConfig.GetCacheAdapter().HashSet(config.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
+	err = cache.HashSet(config.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
 	if err != nil {
 		rLog.Error(err)
 		c.JSON(lang.RequestErr, errResp)

@@ -145,11 +145,6 @@ func (e *Application) GetCacheAdapter() storage.AdapterCache {
 	return NewCache(e.cache)
 }
 
-// GetCachePrefix 获取带租户标记的cache
-func (e *Application) GetCachePrefix() storage.AdapterCache {
-	return NewCache(e.cache)
-}
-
 // SetQueueAdapter 设置队列适配器
 func (e *Application) SetQueueAdapter(c storage.AdapterQueue) {
 	e.queue = c
