@@ -115,11 +115,13 @@ export default {
     uploadImg() {
       this.$refs.cropper.getCropBlob(data => {
         const formData = new FormData()
+        console.log(data)
         formData.append('avatar', data)
         uploadAvatar(formData).then(response => {
           if (response.code === 200) {
             this.open = false
             this.options.img = process.env.VUE_APP_BASE_API + response.data
+            console.log(this.options.img)
             this.msgSuccess(response.msg)
           } else {
             this.msgError(response.msg)

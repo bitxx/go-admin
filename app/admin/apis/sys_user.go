@@ -308,7 +308,7 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(filPath, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(req.Avatar, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
 // UpdateStatus 修改用户状态
