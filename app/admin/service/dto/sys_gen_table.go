@@ -15,8 +15,8 @@ type SysGenTableQueryReq struct {
 }
 
 type SysGenTableOrder struct {
-	TableName      string `search:"type:order;column:table_name;table:sys_gen_table" form:"tableName"`
-	TableComment   string `search:"type:order;column:table_comment;table:sys_gen_table" form:"tableComment"`
+	TableName      string `search:"type:order;column:table_name;table:sys_gen_table" form:"tableNameOrder"`
+	TableComment   string `search:"type:order;column:table_comment;table:sys_gen_table" form:"tableCommentOrder"`
 	CreatedAtOrder string `search:"type:order;column:created_at;table:sys_gen_table" form:"createdAtOrder"`
 }
 
