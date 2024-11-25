@@ -98,7 +98,8 @@ func (s *SessionAuth) Login(c *gin.Context) {
 		Msg:       "",
 		Code:      http.StatusOK,
 		Data: authdto.Data{
-			Token: sid,
+			Token:    sid,
+			UserName: userName.(string),
 			//Expire:   time.Now().Add(time.Duration(config.AuthConfig.Timeout) * time.Second).Format(time.RFC3339),
 			//UserInfo: userInfo,
 		},

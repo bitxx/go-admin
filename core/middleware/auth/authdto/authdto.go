@@ -21,7 +21,8 @@ type Resp struct {
 }
 
 type Data struct {
-	Token string `json:"token"`
+	Token    string `json:"token"`
+	UserName string `json:"username"`
 	//Expire   string      `json:"expire"`
 	//UserInfo interface{} `json:"userInfo"`
 }
