@@ -1,15 +1,12 @@
 package service
 
 import (
-	"fmt"
-	"github.com/xuri/excelize/v2"
 	sysLang "go-admin/app/admin/lang"
 	"go-admin/core/dto/service"
 	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"go-admin/core/runtime"
-	"go-admin/core/utils/dateutils"
 	"gorm.io/gorm"
 	"time"
 
@@ -271,28 +268,4 @@ func (e *SysDictData) GetLabel(dict, value string) string {
 	//添加缓存
 	_ = runtime.RuntimeConfig.GetCacheAdapter().Set("", key, label, -1)
 	return label
-}
-
-// GetExcel 导出SysDictData
-func (e *SysDictData) GetExcel(list []models.SysDictData) ([]byte, error) {
-	//sheet名称
-	sheetName := "DictData"
-	xlsx := excelize.NewFile()
-	no, _ := xlsx.NewSheet(sheetName)
-	//各列间隔
-	_ = xlsx.SetColWidth(sheetName, "A", "E", 25)
-	//头部描述
-	_ = xlsx.SetSheetRow(sheetName, "A1", &[]interface{}{
-		"字典编号", "字典标签", "字典键值", "字典排序", "创建时间"})
-
-	for i, item := range list {
-		axis := fmt.Sprintf("A%d", i+2)
-		//按标签对应输入数据
-		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.DictLabel, item.DictValue, item.DictSort, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
-		})
-	}
-	xlsx.SetActiveSheet(no)
-	data, _ := xlsx.WriteToBuffer()
-	return data.Bytes(), nil
 }

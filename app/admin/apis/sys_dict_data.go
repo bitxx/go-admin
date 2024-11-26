@@ -4,15 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"go-admin/app/admin/service"
-	adminService "go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"go-admin/core/middleware/auth"
-	"go-admin/core/utils/dateutils"
-	"time"
 )
 
 type SysDictData struct {
@@ -164,38 +161,4 @@ func (e SysDictData) GetSysDictDataAll(c *gin.Context) {
 		return
 	}
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
-// Export 导出字典
-func (e SysDictData) Export(c *gin.Context) {
-	req := dto.SysDictDataQueryReq{}
-	s := service.SysDictData{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		Bind(&req).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-
-	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
-	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
-	if err != nil {
-		e.Error(respCode, err.Error())
-	}
-
-	p := middleware.GetPermissionFromContext(c)
-	req.PageIndex = 1
-	req.PageSize = maxSize
-	list, _, respCode, err := s.GetPage(&req, p)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	data, _ := s.GetExcel(list)
-	fileName := "dictdata_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
-	e.DownloadExcel(fileName, data)
 }
