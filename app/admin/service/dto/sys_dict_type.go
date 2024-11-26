@@ -8,8 +8,8 @@ type SysDictTypeQueryReq struct {
 	dto.Pagination `search:"-"`
 	DictName       string `form:"dictName" search:"type:icontains;column:dict_name;table:sys_dict_type"`
 	DictType       string `form:"dictType" search:"type:icontains;column:dict_type;table:sys_dict_type"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:sys_dict_data" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:sys_dict_data" comment:"创建时间"`
+	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:sys_dict_type" comment:"创建时间"`
+	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:sys_dict_type" comment:"创建时间"`
 }
 
 type SysDictTypeOrder struct {
