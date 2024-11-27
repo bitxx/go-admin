@@ -118,8 +118,8 @@
 <script>
 import { getGenTable, updateGenTable } from '@/api/sys/tools/table'
 import { optionselect as getDictOptionselect } from '@/api/sys/dicttype'
-import basicInfoForm from './basicInfoForm.vue'
-import genInfoForm from './genInfoForm.vue'
+import basicInfoForm from '../basicInfoForm.vue'
+import genInfoForm from '../genInfoForm.vue'
 export default {
   name: 'SysEditTable',
   components: {

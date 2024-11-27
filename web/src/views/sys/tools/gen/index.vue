@@ -287,7 +287,7 @@ export default {
     },
     /** 修改按钮操作 */
     handleEditTable(row) {
-      this.$router.push({ path: '/sys-tools/sys-editTable', query: { tableId: row.id }})
+      this.$router.push({ path: '/sys-tools/sys-edit-table', query: { tableId: row.id }})
     },
     /** 删除按钮操作 */
     handleDelete(row) {
