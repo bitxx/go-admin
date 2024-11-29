@@ -31,8 +31,6 @@ type SysGenColumnUpdateReq struct {
 	GoField       string `json:"goField"`
 	JsonField     string `json:"jsonField"`
 	IsRequired    string `json:"isRequired"`
-	IsEdit        string `json:"isEdit"`
-	IsMust        string `json:"isMust"`
 	IsQuery       string `json:"isQuery"`
 	IsList        string `json:"isList"`
 	QueryType     string `json:"queryType"`

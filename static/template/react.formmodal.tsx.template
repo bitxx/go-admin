@@ -1,0 +1,145 @@
+import { add{{.ClassName}}Api, {{.ClassName}}Model, get{{.ClassName}}Api, update{{.ClassName}}Api } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";
+import { ResultEnum } from "@/enums/httpEnum";
+import { message } from "@/hooks/useMessage";
+import { Button, Form, Input, Modal } from "antd";
+import { forwardRef, useImperativeHandle, useState } from "react";
+
+export interface FormModalRef {
+  showAddFormModal: () => void;
+  showEditFormModal: (id: number) => void;
+}
+
+interface ModalProps {
+  onConfirm: () => void;
+}
+
+const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
+  const [form] = Form.useForm();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [model, setModel] = useState<{{.ClassName}}Model>({});
+  {{- range .SysGenColumns }}
+  {{- if and (eq .IsRequired "1") (ne .DictType "" ) }}
+  const [sys{{$.ClassName}}Optoins, set{{$.ClassName}}Optoins] = useState<Map<string, string>>(new Map());
+  {{- end }}
+  {{- end }}
+
+  useImperativeHandle(ref, () => ({
+    showAddFormModal() {
+      reset();
+      setIsModalOpen(true);
+    },
+    async showEditFormModal(id: number) {
+      const { data, msg, code } = await get{{.ClassName}}Api(id);
+      if (code !== ResultEnum.SUCCESS) {
+        message.error(msg);
+        return;
+      }
+      setModel(data);
+      form.setFieldsValue(data);
+      setIsModalOpen(true);
+    }
+  }));
+
+  const reset = () => {
+    if (model.id! > 0) {
+      setModel({});
+    } else {
+      setModel({ id: 0 });
+    }
+    setTimeout(() => form.resetFields(), 10);
+  };
+
+  const handleConfirm = () => {
+    form
+      .validateFields()
+      .then(async values => {
+        if (model.id! <= 0) {
+          const { msg, code } = await add{{.ClassName}}Api(values);
+          if (code !== ResultEnum.SUCCESS) {
+            message.error(msg);
+            return;
+          }
+          message.info(msg);
+        } else {
+          const { msg, code } = await update{{.ClassName}}Api(model.id!, values);
+          if (code !== ResultEnum.SUCCESS) {
+            message.error(msg);
+            return;
+          }
+          message.info(msg);
+        }
+        reset();
+        setIsModalOpen(false);
+        onConfirm();
+      })
+      .catch(error => {
+        message.error("表单校验失败：" + error);
+      });
+  };
+
+  return (
+    <Modal
+      title={model.id! > 0 ? "编辑" : "新增"}
+      getContainer={false}
+      width={500}
+      open={isModalOpen}
+      maskClosable={false}
+      keyboard={false}
+      onCancel={() => {
+        reset();
+        setIsModalOpen(false);
+      }}
+      destroyOnClose
+      footer={[
+        <Button
+          key="cancel"
+          onClick={() => {
+            reset();
+            setIsModalOpen(false);
+          }}
+        >
+          取消
+        </Button>,
+        <Button key="confirm" type="primary" onClick={handleConfirm}>
+          确定
+        </Button>
+      ]}
+    >
+      <Form form={form} layout="vertical" initialValues={model}>
+        {{- range .SysGenColumns }}
+        {{- if eq .IsRequired "1" }}
+        <Form.Item name="{{.JsonField}}" label="{{.ColumnComment}}" rules={[{ required: true, message: "请输入{{.ColumnComment}}" }]}>
+          {{- if eq "input" .HtmlType }}
+          <Input placeholder="请输入{{.ColumnComment}}" />
+          {{- else if eq "textarea" .HtmlType }}
+          <Input.TextArea placeholder="请输入{{.ColumnComment}}" />
+          {{- else if eq "numInput" .HtmlType }}
+          <InputNumber style={{ "{{" }} width: "100%" {{ "}}" }} min={0} />
+          {{- else if eq "datetime" .HtmlType }}
+          <DatePicker showTime />
+          {{- else if eq "select" .HtmlType }}
+          <Select placeholder="请选择">
+            {{ "{" }}{{.JsonField}}.map((option) => (
+              <Select.Option key={option.dictValue} value={option.dictValue}>
+                {option.dictLabel}
+              </Select.Option>
+            )){{ "}" }}
+          </Select>
+          {{- else if eq "radio" .HtmlType }}
+          <Radio.Group>
+            {{ "{" }}{{.JsonField}}.map((option) => (
+              <Radio key={option.dictValue} value={option.dictValue}>
+                {option.label}
+              </Radio>
+            )){{ "}" }}
+          </Radio.Group>
+          {{- end }}
+        </Form.Item>
+        {{- end }}
+        {{- end }}
+      </Form>
+    </Modal>
+  );
+});
+
+export default FormModal;

@@ -123,12 +123,6 @@ func (e *SysGenColumn) Update(c *dto.SysGenColumnUpdateReq, p *middleware.DataPe
 	if c.IsRequired != "" && data.IsRequired != c.IsRequired {
 		updates["is_required"] = c.IsRequired
 	}
-	if c.IsEdit != "" && data.IsEdit != c.IsEdit {
-		updates["is_edit"] = c.IsEdit
-	}
-	if c.IsMust != "" && data.IsMust != c.IsMust {
-		updates["is_must"] = c.IsMust
-	}
 	if c.IsQuery != "" && data.IsQuery != c.IsQuery {
 		updates["is_query"] = c.IsQuery
 	}

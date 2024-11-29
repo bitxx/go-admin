@@ -16,6 +16,7 @@ import (
 	"go-admin/core/utils/dateutils"
 	"go-admin/core/utils/fileutils"
 	"gorm.io/gorm"
+	"path/filepath"
 	"strings"
 	"text/template"
 	"time"
@@ -330,10 +331,8 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 			sysColumn.Sort = index + 1
 			sysColumn.QueryType = "EQ"
 			sysColumn.IsPk = global.SysStatusNotOk
-			sysColumn.IsEdit = global.SysStatusNotOk
 			sysColumn.IsQuery = global.SysStatusNotOk
 			sysColumn.IsList = global.SysStatusNotOk
-			sysColumn.IsMust = global.SysStatusNotOk
 
 			namelist := strings.Split(sysColumn.ColumnName, "_")
 			for i := 0; i < len(namelist); i++ {
@@ -392,6 +391,10 @@ func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int
 	return data, lang.SuccessCode, nil
 }
 
+func Contains(s, substr string) bool {
+	return strings.Contains(s, substr)
+}
+
 // Preview
 //
 //	@Description: 代码预览
@@ -414,16 +417,12 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 	}
 	var resp []dto.TemplateResp
 	for k, v := range constant.TemplatInfo {
-		tpl, err := template.ParseFiles(v)
+		tpl, err := template.New(filepath.Base(v)).Funcs(template.FuncMap{
+			"contains": strings.Contains,
+		}).ParseFiles(v)
 		if err != nil {
 			return nil, sysLang.SysGenTemplateModelReadLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysGenTemplateModelReadErrCode, sysLang.SysGenTemplateModelReadLogErrCode, err)
 		}
-
-		//template.FuncMap{
-		//			"contains": func(s, substr string) bool {
-		//				return strings.Contains(s, substr)
-		//			},
-		//		}
 
 		var content bytes.Buffer
 		err = tpl.Execute(&content, table)
@@ -432,7 +431,8 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		}
 
 		//生成文件的路径
-		path := "./app/"
+		defaultPath := "./app/"
+		path := defaultPath
 		tableName := strings.Replace(table.ModuleName, "-", "_", -1) //golang 文件名使用下划线
 		if k == constant.ModelName {
 			path = path + table.PackageName + "/" + table.BusinessName + "/models/" + tableName + ".go"
@@ -468,17 +468,26 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		}
 
 		if config.GenConfig.Type == global.GenTypeReact {
-			if k == constant.ReactTsName {
+			if k == constant.ReactApiName {
 				path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.ts"
+			}
+			if k == constant.ReactFormModalName {
+				path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/components/FormModal.tsx"
+			}
+			if k == constant.ReactViewName {
+				path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.tsx"
 			}
 		}
 
-		tplResp := dto.TemplateResp{
-			Name:    k,
-			Path:    path,
-			Content: content.String(),
+		if path != defaultPath {
+			tplResp := dto.TemplateResp{
+				Name:    k,
+				Path:    path,
+				Content: content.String(),
+			}
+			resp = append(resp, tplResp)
 		}
-		resp = append(resp, tplResp)
+
 	}
 	return resp, lang.SuccessCode, nil
 }

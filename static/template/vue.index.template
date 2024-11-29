@@ -133,11 +133,11 @@
               {{- if eq .IsRequired "1" }}
             <el-form-item label="{{.ColumnComment}}" prop="{{.JsonField}}">
                     {{- if eq "input" .HtmlType }}
-              <el-input v-model="form.{{.JsonField}}" placeholder="{{.ColumnComment}}" {{if ne .IsEdit "1" -}}:disabled="isEdit" {{- end }} />
+              <el-input v-model="form.{{.JsonField}}" placeholder="{{.ColumnComment}}" />
                     {{- else if eq "numInput" .HtmlType }}
-              <el-input v-model.number="form.{{.JsonField}}" placeholder="{{.ColumnComment}}" {{if ne .IsEdit "1" -}}:disabled="isEdit" {{- end }} />
+              <el-input v-model.number="form.{{.JsonField}}" placeholder="{{.ColumnComment}}" />
                     {{- else if eq "select" .HtmlType }}
-              <el-select v-model="form.{{.JsonField}}" placeholder="请选择" {{- if ne .IsEdit "1" }}:disabled="isEdit" {{- end }}>
+              <el-select v-model="form.{{.JsonField}}" placeholder="请选择">
                 <el-option
                   v-for="dict in {{.JsonField}}Options"
                   :key="dict.dictValue"
@@ -146,7 +146,7 @@
                 />
               </el-select>
                     {{- else if eq "radio" .HtmlType }}
-              <el-radio-group v-model="form.{{.JsonField}}" {{- if ne .IsEdit "1" }}:disabled="isEdit" {{- end }} >
+              <el-radio-group v-model="form.{{.JsonField}}" >
                 <el-radio
                   v-for="dict in {{.JsonField}}Options"
                   :key="dict.dictValue"
@@ -154,10 +154,9 @@
                 >{{"{{"}}dict.label {{"}}"}}</el-radio>
               </el-radio-group>
                     {{- else if eq "datetime" .HtmlType }}
-              <el-date-picker v-model="form.{{.JsonField}}" type="datetime" placeholder="选择日期" {{- if ne .IsEdit "1" }}:disabled="isEdit" {{- end }} >
-              </el-date-picker>
+              <el-date-picker v-model="form.{{.JsonField}}" type="datetime" placeholder="选择日期" />
                     {{- else if eq "textarea" .HtmlType }}
-              <el-input v-model="form.{{.JsonField}}" type="textarea" :rows="2" placeholder="请输入内容" {{- if ne .IsEdit "1" }}:disabled="isEdit" {{- end }} />
+              <el-input v-model="form.{{.JsonField}}" type="textarea" :rows="2" placeholder="请输入内容" />
                     {{- end }}
             </el-form-item>
                 {{- end }}

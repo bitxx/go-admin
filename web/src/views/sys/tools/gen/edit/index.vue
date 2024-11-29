@@ -76,19 +76,9 @@
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="(1)增/改" width="70">
+          <el-table-column align="center" label="编辑" width="70">
             <template slot-scope="scope">
               <el-checkbox v-model="scope.row.isRequired" true-label="1" false-label="2" />
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="(2)必填" width="70">
-            <template slot-scope="scope">
-              <el-checkbox v-model="scope.row.isMust" true-label="1" false-label="2" />
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="(3)编辑" width="70">
-            <template slot-scope="scope">
-              <el-checkbox v-model="scope.row.isEdit" true-label="1" false-label="2" />
             </template>
           </el-table-column>
           <el-table-column align="center" label="列表" width="70" :render-header="renderHeadeList" :cell-style="{'text-align':'center'}">

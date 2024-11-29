@@ -1,0 +1,197 @@
+import { del{{.ClassName}}Api, {{.ClassName}}Model, export{{.ClassName}}Api, get{{.ClassName}}PageApi } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";
+import { pagination } from "@/config/proTable";
+import { ResultEnum } from "@/enums/httpEnum";
+import { modal } from "@/hooks/useMessage";
+import { formatDataForProTable, saveExcelBlob } from "@/utils";
+import {
+  CloudDownloadOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+  PlusCircleOutlined
+} from "@ant-design/icons";
+import type { ActionType, ProColumns, ProFormInstance } from "@ant-design/pro-components";
+import { ProTable } from "@ant-design/pro-components";
+import { Button, message, Space, Tooltip } from "antd";
+{{- $hasDict := false }}
+{{- range .SysGenColumns }}
+{{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}{{ $hasDict = true }}{{ end }}
+{{- end }}
+import React, { useRef{{ if eq $hasDict true }}, useState{{ end }} } from "react";
+import { useNavigate } from "react-router-dom";
+import FormModal, { FormModalRef } from "./components/FormModal";
+
+const {{.ClassName}}: React.FC = () => {
+  const navigate = useNavigate();
+  const actionRef = React.useRef<ActionType>();
+  const tableFormRef = React.useRef<ProFormInstance>();
+  const formModalRef = useRef<FormModalRef>(null);
+
+  {{- range .SysGenColumns }}
+  {{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}
+  const [sys{{$.ClassName}}Optoins, set{{$.ClassName}}Optoins] = useState<Map<string, string>>(new Map());
+  {{- end }}
+  {{- end }}
+
+  const handleShowAddFormModal = () => {
+    formModalRef.current?.showAddFormModal();
+  };
+  const handleShowEditFormModal = (id: number) => {
+    formModalRef.current?.showEditFormModal(id);
+  };
+  const handleFormModalConfirm = () => {
+    actionRef.current?.reload(true);
+  };
+
+  // 定义列
+  const columns: ProColumns<{{.ClassName}}Model>[] = [
+    {
+      title: "序号",
+      dataIndex: "index",
+      valueType: "index",
+      width: 50,
+      align: "center",
+      className: "gray-cell",
+      render: (_, __, index, action) => {
+        // 根据分页计算实际序号
+        const currentPage = action?.pageInfo?.current || 1;
+        const pageSize = action?.pageInfo?.pageSize || 10;
+        return (currentPage - 1) * pageSize + index + 1;
+      }
+    },
+    {{- range .SysGenColumns }}
+    {
+      title: "{{.ColumnComment}}",
+      dataIndex: "{{.JsonField}}",
+      {{- if or (ne .IsList "1") (and (eq .IsList "1") (eq .HtmlType "datetime" )) }}
+      hideInSearch: true
+      {{- end }}
+      {{- if eq .HtmlType "datetime"  }}
+      valueType: "dateTime",
+      {{- end }}
+      {{- if ne .DictType "" }}
+      valueType: "select",
+      valueEnum: sys{{$.ClassName}}Optoins
+      {{- end }}
+      {{- if eq .HtmlType "datetime"  }}
+      width: 180,
+      {{- else if ne .DictType "" }}
+      width: 120,
+      {{- else }}
+      width: 80,
+      {{- end }}
+      align: "left"
+    },
+    {{- if and (eq .IsList "1") (eq .HtmlType "datetime" ) }}
+    {
+      title: "{{.ColumnComment}}",
+      dataIndex: "{{.JsonField}}",
+      valueType: "dateTimeRange",
+      hideInTable: true,
+      search: { transform: value => ({ begin{{.GoField}}: value[0], end{{.GoField}}: value[1] }) }
+    },
+    {{- end }}
+    {{- end }}
+    {
+      title: "操作",
+      valueType: "option",
+      align: "center",
+      fixed: "right",
+      width: 150,
+      render: (_, data) => (
+        <Space>
+          <Button key="edit" type="link" size="small" icon={<EditOutlined />} onClick={() => handleShowEditFormModal(data.id!)}>
+            编辑
+          </Button>
+          <Button key="delete" type="link" size="small" danger icon={<DeleteOutlined />} onClick={() => handleDelete(data.id!)}>
+            删除
+          </Button>
+        </Space>
+      )
+    }
+  ];
+
+  const handleExport = () => {
+    modal.confirm({
+      title: "提示",
+      icon: <ExclamationCircleOutlined />,
+      content: "是否确认导出所选数据？",
+      okText: "确认",
+      cancelText: "取消",
+      maskClosable: true,
+      onOk: async () => {
+        try {
+          saveExcelBlob("{{ .TableComment }}", await export{{.ClassName}}Api(tableFormRef.current?.getFieldsValue()));
+        } catch (err) {
+          message.error("下载失败，请检查网络");
+        }
+      }
+    });
+  };
+
+  const handleDelete = (id: number) => {
+    modal.confirm({
+      title: "提示",
+      icon: <ExclamationCircleOutlined />,
+      content: "是否确认删除编号为 " + id + " 的数据项?",
+      okText: "确认",
+      cancelText: "取消",
+      maskClosable: true,
+      onOk: async () => {
+        const { code, msg } = await del{{.ClassName}}Api([id!]);
+        if (code !== ResultEnum.SUCCESS) {
+          message.error(msg);
+          return;
+        }
+        actionRef.current?.reload(true);
+        message.success(msg);
+      }
+    });
+  };
+
+  const toolBarRender = () => [
+    <Button type="primary" key="addTable" icon={<PlusCircleOutlined />} onClick={() => handleShowAddFormModal()}>
+      新增
+    </Button>,
+    <Button type="primary" key="importTable" icon={<CloudDownloadOutlined />} onClick={handleExport}>
+      Excel导出
+    </Button>
+  ];
+
+  return (
+    <>
+      <ProTable<{{.ClassName}}Model>
+        className="ant-pro-table-scroll"
+        columns={columns}
+        actionRef={actionRef}
+        formRef={tableFormRef}
+        bordered
+        cardBordered
+        defaultSize="small"
+        scroll={{ "{{" }} x: "2000", y: "100%" {{ "}}" }}
+        request={async params => {
+          const { data } = await get{{.ClassName}}PageApi(params);
+          return formatDataForProTable<{{.ClassName}}Model>(data);
+        }}
+        columnsState={{ "{{" }}
+          persistenceKey: "use-pro-table-key",
+          persistenceType: "localStorage"
+        {{ "}}" }}
+        options={{ "{{" }}
+          reload: true,
+          density: true,
+          fullScreen: true
+        {{ "}}" }}
+        rowKey="id"
+        search={{ "{{" }} labelWidth: "auto", showHiddenNum: true {{ "}}" }}
+        pagination={pagination}
+        dateFormatter="string"
+        headerTitle="{{ .TableComment }}"
+        toolBarRender={toolBarRender}
+      />
+      <FormModal ref={formModalRef} onConfirm={handleFormModalConfirm} />
+    </>
+  );
+};
+
+export default {{.ClassName}};

@@ -209,7 +209,7 @@ func (e *{{.ClassName}}) Update(c *dto.{{.ClassName}}UpdateReq, p *middleware.Da
 	//最小化变更改动过的数据
 	updates := map[string]interface{}{}
 	{{- range .SysGenColumns }}
-		{{- if and (eq .IsRequired "1") (eq .IsEdit "1") }}
+		{{- if and (eq .IsRequired "1") }}
 			{{- if eq .GoType "string" }}
 	if c.{{.GoField}} != "" && data.{{.GoField}} != c.{{.GoField}} {
 		updates["{{.ColumnName}}"] = c.{{.GoField}}

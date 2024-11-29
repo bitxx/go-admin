@@ -13,8 +13,6 @@ type SysGenColumn struct {
 	JsonField     string     `gorm:"column:json_field;size:128;" json:"jsonField"`
 	IsPk          string     `gorm:"column:is_pk;size:1;" json:"isPk"`
 	IsRequired    string     `gorm:"column:is_required;size:1;" json:"isRequired"`
-	IsEdit        string     `gorm:"column:is_edit;size:1;" json:"isEdit"`
-	IsMust        string     `gorm:"column:is_must;size:1;" json:"isMust"`
 	IsQuery       string     `gorm:"column:is_query;size:1;" json:"isQuery"`
 	IsList        string     `gorm:"column:is_list;size:1;" json:"isList"`
 	QueryType     string     `gorm:"column:query_type;size:128;" json:"queryType"`

@@ -38,9 +38,11 @@ const (
 	ServiceName        = "service.go"
 	LangName           = "lang.go"
 	ConstantName       = "constant.go"
-	VueApiJsName       = "vue.js"       //Vue
-	VueIndexName       = "vue.index"    //Vue
-	ReactTsName        = "react.api.ts" //React
+	VueApiJsName       = "vue.js"              //Vue
+	VueIndexName       = "vue.index"           //Vue
+	ReactApiName       = "react.api.ts"        //React
+	ReactFormModalName = "react.formmodal.tsx" //React
+	ReactViewName      = "react.view.tsx"      //React
 )
 
 // 模板相关
@@ -56,6 +58,8 @@ var (
 		ConstantName:       "static/template/constant.go.template",
 		VueApiJsName:       "static/template/vue.api.js.template",
 		VueIndexName:       "static/template/vue.index.template",
-		ReactTsName:        "static/template/react.api.ts.template",
+		ReactApiName:       "static/template/react.api.ts.template",
+		ReactFormModalName: "static/template/react.formmodal.tsx.template",
+		ReactViewName:      "static/template/react.view.tsx.template",
 	}
 )

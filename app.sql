@@ -1,17 +1,17 @@
 /*
- Navicat Premium Data Transfer
+ Navicat Premium Dump SQL
 
- Source Server         : Jason
+ Source Server         : my-server
  Source Server Type    : MySQL
- Source Server Version : 80033
- Source Host           : 127.0.0.1:3306
- Source Schema         : app
+ Source Server Version : 100703 (10.7.3-MariaDB-log)
+ Source Host           : 120.48.157.250:8990
+ Source Schema         : bitxxadmin
 
  Target Server Type    : MySQL
- Target Server Version : 80033
+ Target Server Version : 100703 (10.7.3-MariaDB-log)
  File Encoding         : 65001
 
- Date: 19/10/2023 14:15:16
+ Date: 30/11/2024 00:33:28
 */
 
 SET NAMES utf8mb4;
@@ -22,30 +22,30 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user`;
 CREATE TABLE `app_user` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '用户编码',
-  `level_id` int NOT NULL DEFAULT '1' COMMENT '用户等级编号',
-  `user_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户昵称',
-  `true_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '真实姓名',
-  `money` decimal(30,18) NOT NULL DEFAULT '0.000000000000000000' COMMENT '余额',
-  `email` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '电子邮箱',
-  `mobile_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '+86' COMMENT '用户手机号国家前缀',
-  `mobile` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号码',
-  `avatar` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像路径',
-  `pay_pwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '提现密码',
-  `pwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '登录密码',
-  `ref_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '推荐码',
-  `parent_id` int NOT NULL DEFAULT '0' COMMENT '父级编号',
-  `parent_ids` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '所有父级编号',
-  `tree_sort` int NOT NULL DEFAULT '0' COMMENT '本级排序号（升序）',
-  `tree_sorts` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '所有级别排序号',
-  `tree_leaf` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '是否最末级',
-  `tree_level` int NOT NULL DEFAULT '0' COMMENT '层次级别',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
-  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户编码',
+  `level_id` int(11) NOT NULL DEFAULT 1 COMMENT '用户等级编号',
+  `user_name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `true_name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '真实姓名',
+  `money` decimal(30,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '余额',
+  `email` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '电子邮箱',
+  `mobile_title` varchar(255) COLLATE utf8mb4_bin DEFAULT '+86' COMMENT '用户手机号国家前缀',
+  `mobile` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号码',
+  `avatar` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像路径',
+  `pay_pwd` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '提现密码',
+  `pwd` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '登录密码',
+  `ref_code` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '推荐码',
+  `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级编号',
+  `parent_ids` varchar(1000) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '所有父级编号',
+  `tree_sort` int(11) NOT NULL DEFAULT 0 COMMENT '本级排序号（升序）',
+  `tree_sorts` varchar(1000) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '所有级别排序号',
+  `tree_leaf` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '是否最末级',
+  `tree_level` int(11) NOT NULL DEFAULT 0 COMMENT '层次级别',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
+  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户管理';
 
@@ -63,19 +63,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_account_log`;
 CREATE TABLE `app_user_account_log` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '账变编号',
-  `user_id` int NOT NULL COMMENT '用户编号',
-  `change_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '账变金额',
-  `before_money` decimal(30,18) NOT NULL DEFAULT '0.000000000000000000' COMMENT '账变前金额',
-  `after_money` decimal(30,18) NOT NULL DEFAULT '0.000000000000000000' COMMENT '账变后金额',
-  `money_type` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '金额类型 1:余额 ',
-  `change_type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '帐变类型(1-类型1)',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1正常 2-异常）',
-  `create_by` int NOT NULL COMMENT '创建者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '账变编号',
+  `user_id` int(11) NOT NULL COMMENT '用户编号',
+  `change_money` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '账变金额',
+  `before_money` decimal(30,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '账变前金额',
+  `after_money` decimal(30,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '账变后金额',
+  `money_type` char(10) COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '金额类型 1:余额 ',
+  `change_type` varchar(30) COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '帐变类型(1-类型1)',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1正常 2-异常）',
+  `create_by` int(11) NOT NULL COMMENT '创建者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
-  `update_by` int NOT NULL COMMENT '更新者',
+  `update_by` int(11) NOT NULL COMMENT '更新者',
   `updated_date` datetime NOT NULL COMMENT '更新时间',
-  `remarks` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `remarks` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `idx_qyc_user_status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='账变记录';
@@ -100,13 +100,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_conf`;
 CREATE TABLE `app_user_conf` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL COMMENT '用户id',
-  `can_login` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '1-允许登陆；2-不允许登陆',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `can_login` char(1) NOT NULL DEFAULT '0' COMMENT '1-允许登陆；2-不允许登陆',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态（1-正常 2-异常）\n',
-  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
-  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
+  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
+  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -126,15 +126,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_country_code`;
 CREATE TABLE `app_user_country_code` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `country` varchar(64) NOT NULL DEFAULT '' COMMENT '国家或地区',
-  `code` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '区号',
+  `code` varchar(12) NOT NULL DEFAULT '' COMMENT '区号',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-可用 2-停用)',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
-  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
+  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='国家区号';
 
@@ -162,14 +162,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_level`;
 CREATE TABLE `app_user_level` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '等级名称',
-  `level_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '等级类型',
-  `level` int NOT NULL COMMENT '等级',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
-  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '等级名称',
+  `level_type` varchar(10) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '等级类型',
+  `level` int(11) NOT NULL COMMENT '等级',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
+  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -188,16 +188,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_oper_log`;
 CREATE TABLE `app_user_oper_log` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '日志编码',
-  `user_id` int NOT NULL DEFAULT '1' COMMENT '用户编号',
-  `action_type` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户行为类型',
-  `by_type` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '更新用户类型 1-app用户 2-后台用户',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
-  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
-  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '日志编码',
+  `user_id` int(11) NOT NULL DEFAULT 1 COMMENT '用户编号',
+  `action_type` char(2) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户行为类型',
+  `by_type` char(2) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '更新用户类型 1-app用户 2-后台用户',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
+  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
+  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '更新时间',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户关键行为日志表';
 
@@ -219,14 +219,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_content_announcement`;
 CREATE TABLE `plugins_content_announcement` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin COMMENT '内容',
-  `num` int DEFAULT NULL COMMENT '阅读次数',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（0正常 1删除 2停用 3冻结）',
-  `create_by` int NOT NULL COMMENT '创建者',
-  `update_by` int NOT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `title` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
+  `content` text COLLATE utf8mb4_bin DEFAULT NULL COMMENT '内容',
+  `num` int(11) DEFAULT NULL COMMENT '阅读次数',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（0正常 1删除 2停用 3冻结）',
+  `create_by` int(11) NOT NULL COMMENT '创建者',
+  `update_by` int(11) NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -245,14 +245,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_content_article`;
 CREATE TABLE `plugins_content_article` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `cate_id` int DEFAULT NULL COMMENT '分类编号',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin COMMENT '内容',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
-  `create_by` int NOT NULL COMMENT '创建者',
-  `update_by` int NOT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `cate_id` int(11) DEFAULT NULL COMMENT '分类编号',
+  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
+  `content` text COLLATE utf8mb4_bin DEFAULT NULL COMMENT '内容',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
+  `create_by` int(11) NOT NULL COMMENT '创建者',
+  `update_by` int(11) NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -262,7 +262,7 @@ CREATE TABLE `plugins_content_article` (
 -- Records of plugins_content_article
 -- ----------------------------
 BEGIN;
-INSERT INTO `plugins_content_article` (`id`, `cate_id`, `name`, `content`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (1,1, 'test', '<p>test</p>', '111', '1', 1, 1, '2023-03-13 00:04:40', '2023-03-13 00:04:40');
+INSERT INTO `plugins_content_article` (`id`, `cate_id`, `name`, `content`, `remark`, `status`, `create_by`, `update_by`, `updated_at`, `created_at`) VALUES (1, 1, 'test', '<p>test</p>', '111', '1', 1, 1, '2023-03-13 00:04:40', '2023-03-13 00:04:40');
 COMMIT;
 
 -- ----------------------------
@@ -270,12 +270,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_content_category`;
 CREATE TABLE `plugins_content_category` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int NOT NULL COMMENT '创建者',
-  `update_by` int NOT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `create_by` int(11) NOT NULL COMMENT '创建者',
+  `update_by` int(11) NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -295,19 +295,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_filemgr_app`;
 CREATE TABLE `plugins_filemgr_app` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `version` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本号',
-  `platform` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '平台 (1-安卓 2-苹果)',
-  `app_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本(1-默认)',
-  `local_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '本地地址',
-  `download_num` int DEFAULT '0' COMMENT '下载数量',
-  `download_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载类型(1-本地 2-外链 3-oss )',
-  `download_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载地址(download_type=1使用)',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1-已发布 2-待发布）\n',
-  `create_by` int NOT NULL COMMENT '创建者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `version` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本号',
+  `platform` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '平台 (1-安卓 2-苹果)',
+  `app_type` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本(1-默认)',
+  `local_address` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '本地地址',
+  `download_num` int(11) DEFAULT 0 COMMENT '下载数量',
+  `download_type` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载类型(1-本地 2-外链 3-oss )',
+  `download_url` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载地址(download_type=1使用)',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1-已发布 2-待发布）\n',
+  `create_by` int(11) NOT NULL COMMENT '创建者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
-  `update_by` int NOT NULL COMMENT '更新者',
+  `update_by` int(11) NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='app升级管理';
@@ -328,18 +328,18 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_msg_code`;
 CREATE TABLE `plugins_msg_code` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '验证码编号',
-  `user_id` int NOT NULL COMMENT '用户编号',
-  `code` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '验证码',
-  `code_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '验证码类型 1-邮箱；2-短信',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '验证码编号',
+  `user_id` int(11) NOT NULL COMMENT '用户编号',
+  `code` varchar(12) NOT NULL DEFAULT '0' COMMENT '验证码',
+  `code_type` char(1) NOT NULL DEFAULT '0' COMMENT '验证码类型 1-邮箱；2-短信',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注异常',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '验证码状态 1-发送成功 2-发送失败',
-  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
-  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
+  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
+  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='验证码记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='验证码记录';
 
 -- ----------------------------
 -- Records of plugins_msg_code
@@ -352,16 +352,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_api`;
 CREATE TABLE `sys_api` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `handle` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'handle',
-  `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
-  `path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '地址',
-  `api_type` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口类型',
-  `action` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求类型',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `handle` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'handle',
+  `title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
+  `path` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '地址',
+  `api_type` varchar(16) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口类型',
+  `action` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求类型',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -525,15 +525,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_casbin_rule`;
 CREATE TABLE `sys_casbin_rule` (
-  `p_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `v0` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `v1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `v2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `v3` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `v4` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `v5` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `p_type` varchar(100) DEFAULT NULL,
+  `v0` varchar(100) DEFAULT NULL,
+  `v1` varchar(100) DEFAULT NULL,
+  `v2` varchar(100) DEFAULT NULL,
+  `v3` varchar(100) DEFAULT NULL,
+  `v4` varchar(100) DEFAULT NULL,
+  `v5` varchar(100) DEFAULT NULL,
   UNIQUE KEY `idx_sys_casbin_rule` (`p_type`,`v0`,`v1`,`v2`,`v3`,`v4`,`v5`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_casbin_rule
@@ -546,15 +546,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `config_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigName',
-  `config_key` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigKey',
-  `config_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigValue',
-  `config_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigType',
-  `is_frontend` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否前台',
-  `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Remark',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `config_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigName',
+  `config_key` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigKey',
+  `config_value` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigValue',
+  `config_type` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigType',
+  `is_frontend` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否前台',
+  `remark` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Remark',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`)
@@ -598,17 +598,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `parent_id` int DEFAULT NULL,
-  `dept_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `dept_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` int DEFAULT NULL,
-  `leader` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `email` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` tinyint DEFAULT NULL,
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `dept_path` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `dept_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `leader` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
+  `email` varchar(80) COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -631,19 +631,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `dict_sort` int DEFAULT NULL,
-  `dict_label` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `css_class` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `list_class` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_default` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `default` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dict_sort` int(11) DEFAULT NULL,
+  `dict_label` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_value` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_type` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
+  `css_class` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `list_class` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_default` varchar(8) COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `default` varchar(8) COLLATE utf8mb4_bin DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -751,13 +751,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `dict_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dict_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -804,29 +804,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_gen_column`;
 CREATE TABLE `sys_gen_column` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `table_id` int DEFAULT NULL,
-  `column_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `column_comment` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `column_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `go_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `go_field` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `json_field` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_pk` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_required` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '该值是否参与新增或者编辑',
-  `is_edit` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '该值可否二次编辑',
-  `is_must` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否必须填写值 1-是 2-否',
-  `is_list` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '列表',
-  `is_query` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `query_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `html_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` bigint DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `table_id` int(11) DEFAULT NULL,
+  `column_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `column_comment` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `column_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `go_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `go_field` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `json_field` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_pk` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_required` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '该值是否参与新增或者编辑',
+  `is_list` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '列表',
+  `is_query` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `query_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `html_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` bigint(20) DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -834,133 +832,133 @@ CREATE TABLE `sys_gen_column` (
 -- Records of sys_gen_column
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (1, 1, 'id', '账变编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', NULL, '1', '2', 'EQ', 'input', '', 1, '', '2023-03-09 17:59:56', '2023-03-09 21:40:08', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (2, 1, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '2', '2', NULL, '1', '1', 'EQ', 'input', '', 2, '', '2023-03-09 17:59:56', '2023-03-09 21:38:22', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (3, 1, 'change_money', '账变金额', 'decimal(10,2)', 'decimal.Decimal', 'ChangeMoney', 'changeMoney', '2', '2', '2', NULL, '1', '2', 'EQ', 'input', '', 3, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (4, 1, 'before_money', '账变前金额', 'decimal(30,18)', 'decimal.Decimal', 'BeforeMoney', 'beforeMoney', '2', '2', '2', NULL, '1', '2', 'EQ', 'input', '', 4, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (5, 1, 'after_money', '账变后金额', 'decimal(30,18)', 'decimal.Decimal', 'AfterMoney', 'afterMoney', '2', '2', '2', NULL, '1', '2', 'EQ', 'input', '', 5, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (6, 1, 'money_type', '金额类型 1:余额 ', 'char(10)', 'string', 'MoneyType', 'moneyType', '2', '2', '2', NULL, '1', '1', 'EQ', 'select', 'app_money_type', 6, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (7, 1, 'change_type', '帐变类型(1-类型1)', 'varchar(30)', 'string', 'ChangeType', 'changeType', '2', '2', '2', NULL, '1', '1', 'EQ', 'select', 'app_account_change_type', 7, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (8, 1, 'status', '状态（1正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', NULL, NULL, '2', 'EQ', 'select', 'sys_status', 8, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (9, 1, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', NULL, NULL, '2', 'EQ', 'input', '', 9, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (10, 1, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', NULL, '1', '2', 'EQ', 'datetime', '', 10, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11, 1, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', NULL, NULL, '2', 'EQ', 'input', '', 11, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (12, 1, 'updated_date', '更新时间', 'datetime', '*time.Time', 'UpdatedDate', 'updatedDate', '2', '2', '2', NULL, NULL, '2', 'EQ', 'datetime', '', 12, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (13, 1, 'remarks', '备注信息', 'varchar(500)', 'string', 'Remarks', 'remarks', '2', '2', '2', NULL, NULL, '2', 'EQ', 'input', '', 13, '', '2023-03-09 17:59:56', '2023-03-09 17:59:56', 0, 0);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (14, 2, 'id', '等级编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', NULL, '1', '2', 'EQ', 'input', '', 1, '', '2023-03-09 20:05:43', '2023-03-09 20:17:04', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (15, 2, 'name', '等级名称', 'varchar(255)', 'string', 'Name', 'name', '2', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, '', '2023-03-09 20:05:43', '2023-03-09 22:47:41', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (16, 2, 'level_type', '等级类型', 'varchar(10)', 'string', 'LevelType', 'levelType', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'app_user_level_type', 3, '', '2023-03-09 20:05:43', '2023-03-09 22:47:41', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (17, 2, 'level', '等级', 'int', 'int64', 'Level', 'level', '2', '1', '1', '1', '1', '1', 'EQ', 'numInput', '', 4, '', '2023-03-09 20:05:43', '2023-03-09 22:47:41', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (18, 2, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', NULL, '2', '2', 'EQ', 'select', 'sys_status', 5, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (19, 2, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', NULL, '2', '2', 'LIKE', 'input', '', 6, '', '2023-03-09 20:05:43', '2023-03-09 20:08:51', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (20, 2, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', NULL, '2', '2', 'EQ', 'input', '', 7, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (21, 2, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', NULL, '2', '2', 'EQ', 'input', '', 8, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (22, 2, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', NULL, '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (23, 2, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', NULL, '2', '2', 'EQ', 'datetime', '', 10, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (24, 3, 'id', '配置编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (25, 3, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '1', '2', '1', '1', '1', 'EQ', 'numInput', '', 2, '', '2023-03-09 22:59:52', '2023-03-09 23:09:54', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (26, 3, 'can_login', '1-允许登陆；2-不允许登陆', 'char(1)', 'string', 'CanLogin', 'canLogin', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'sys_yes_no', 3, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (27, 3, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2023-03-09 22:59:52', '2023-03-09 22:59:52', 0, 0);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (28, 3, 'status', '状态（1-正常 2-异常）\n', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 5, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (29, 3, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (30, 3, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (31, 3, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 8, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (32, 3, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (33, 4, 'id', '用户编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (34, 4, 'level_id', '用户等级编号', 'int', 'int64', 'LevelId', 'levelId', '2', '1', '1', '1', '1', '1', 'EQ', 'numInput', '', 2, '', '2023-03-09 23:12:17', '2023-03-09 23:25:14', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (35, 4, 'user_name', '用户昵称', 'varchar(100)', 'string', 'UserName', 'userName', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (36, 4, 'true_name', '真实姓名', 'varchar(100)', 'string', 'TrueName', 'trueName', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (37, 4, 'money', '余额', 'decimal(30,18)', 'decimal.Decimal', 'Money', 'money', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (38, 4, 'email', '电子邮箱', 'varchar(300)', 'string', 'Email', 'email', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (39, 4, 'mobile_title', '用户手机号国家前缀', 'varchar(255)', 'string', 'MobileTitle', 'mobileTitle', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 7, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (40, 4, 'mobile', '手机号码', 'varchar(100)', 'string', 'Mobile', 'mobile', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 8, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (41, 4, 'avatar', '头像路径', 'varchar(1000)', 'string', 'Avatar', 'avatar', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2023-03-09 23:12:17', '2023-03-09 23:22:58', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (42, 4, 'pay_pwd', '提现密码', 'varchar(100)', 'string', 'PayPwd', 'payPwd', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2023-03-09 23:12:17', '2023-03-09 23:22:58', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (43, 4, 'pwd', '登录密码', 'varchar(100)', 'string', 'Pwd', 'pwd', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2023-03-09 23:12:17', '2023-03-09 23:22:59', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (44, 4, 'ref_code', '推荐码', 'varchar(255)', 'string', 'RefCode', 'refCode', '2', '2', '2', '2', '1', '1', 'EQ', 'input', '', 12, '', '2023-03-09 23:12:17', '2023-03-09 23:22:59', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (45, 4, 'parent_id', '父级编号', 'int', 'int64', 'ParentId', 'parentId', '2', '2', '2', '2', '1', '1', 'EQ', 'input', '', 13, '', '2023-03-09 23:12:17', '2023-03-09 23:22:59', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (46, 4, 'parent_ids', '所有父级编号', 'varchar(1000)', 'string', 'ParentIds', 'parentIds', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 14, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (47, 4, 'tree_sort', '本级排序号（升序）', 'decimal(10,0)', 'decimal.Decimal', 'TreeSort', 'treeSort', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 15, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (48, 4, 'tree_sorts', '所有级别排序号', 'varchar(1000)', 'string', 'TreeSorts', 'treeSorts', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 16, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (49, 4, 'tree_leaf', '是否最末级', 'char(1)', 'string', 'TreeLeaf', 'treeLeaf', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 17, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (50, 4, 'tree_level', '层次级别', 'int', 'int64', 'TreeLevel', 'treeLevel', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 18, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (51, 4, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 19, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (52, 4, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 20, '', '2023-03-09 23:12:17', '2023-03-09 23:12:17', 0, 0);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (53, 4, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '0', '2', 'EQ', 'input', '', 21, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (54, 4, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '0', '2', 'EQ', 'input', '', 22, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (55, 4, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 23, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (56, 4, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '0', '2', 'EQ', 'datetime', '', 24, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (57, 5, 'action_type', '用户行为类型', 'char(2)', 'string', 'ActionType', 'actionType', '2', '2', '2', '2', '1', '1', 'EQ', 'select', 'app_user_action_type', 1, '', '2023-03-11 14:00:15', '2023-03-11 14:08:37', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (58, 5, 'by_type', '更新用户类型 1-app用户 2-后台用户', 'char(2)', 'string', 'ByType', 'byType', '2', '2', '2', '2', '1', '1', 'EQ', 'select', 'app_user_by_type', 2, '', '2023-03-11 14:00:15', '2023-03-11 14:15:30', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (59, 5, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '1', '2', 'EQ', 'input', '', 3, '', '2023-03-11 14:00:15', '2023-03-11 14:05:04', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (60, 5, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 4, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (61, 5, 'id', '日志编码', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (62, 5, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-11 14:00:15', '2023-03-11 14:00:15', 0, 0);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (63, 5, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 7, '', '2023-03-11 14:00:15', '2023-03-11 14:18:50', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (64, 5, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '1', '2', 'EQ', 'input', '', 8, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (65, 5, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (66, 5, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '2', '2', '2', '1', '1', 'EQ', 'numInput', '', 10, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (67, 6, 'id', '验证码编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-12 12:11:09', '2023-03-12 12:14:11', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (68, 6, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '2', '2', '2', '1', '1', 'EQ', 'input', '', 2, '', '2023-03-12 12:11:09', '2023-03-12 12:14:11', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (69, 6, 'code', '验证码', 'varchar(12)', 'string', 'Code', 'code', '2', '2', '2', '2', '1', '2', 'EQ', 'input', '', 3, '', '2023-03-12 12:11:09', '2023-03-12 12:14:11', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (70, 6, 'code_type', '验证码类型 1-邮箱；2-短信', 'char(1)', 'string', 'CodeType', 'codeType', '2', '2', '2', '2', '1', '1', 'EQ', 'select', 'plugin_msg_code_type', 4, '', '2023-03-12 12:11:09', '2023-03-12 12:16:18', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (71, 6, 'remark', '备注异常', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (72, 6, 'status', '验证码状态 1-发送成功 2-发送失败', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', '1', '1', 'EQ', 'select', 'plugin_msg_sendstatus', 6, '', '2023-03-12 12:11:09', '2023-03-12 13:44:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (73, 6, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (74, 6, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (75, 6, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (76, 6, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 10, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (77, 7, 'id', '公告编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (78, 7, 'title', '标题', 'varchar(255)', 'string', 'Title', 'title', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (79, 7, 'content', '内容', 'text', 'string', 'Content', 'content', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 3, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (80, 7, 'num', '阅读次数', 'int', 'int64', 'Num', 'num', '2', '1', '1', '1', '1', '2', 'EQ', 'numInput', '', 4, '', '2023-03-12 22:01:07', '2023-03-12 22:51:59', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (81, 7, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (82, 7, 'status', '状态（0正常 1删除 2停用 3冻结）', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'sys_status', 6, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (83, 7, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (84, 7, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (85, 7, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-12 22:01:07', '2023-03-12 22:15:06', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (86, 7, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 10, '', '2023-03-12 22:01:07', '2023-03-12 22:15:06', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (87, 8, 'id', '分类编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (88, 8, 'name', '分类名称', 'varchar(255)', 'string', 'Name', 'name', '2', '1', '2', '1', '1', '1', 'LIKE', 'input', '', 2, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (89, 8, 'status', '状态（1-正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 3, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (90, 8, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2023-03-12 22:54:51', '2023-03-12 22:54:51', 0, 0);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (91, 8, 'create_by', '更新人编号', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (92, 8, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (93, 8, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 7, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (94, 8, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 8, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (95, 9, 'id', '文章编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-12 23:22:39', '2023-03-12 23:27:47', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (96, 9, 'cate_id', '分类编号', 'int', 'int64', 'CateId', 'cateId', '2', '1', '1', '1', '1', '1', 'EQ', 'numInput', '', 2, '', '2023-03-12 23:22:39', '2023-03-12 23:27:47', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (97, 9, 'name', '标题', 'varchar(255)', 'string', 'Name', 'name', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, '', '2023-03-12 23:22:39', '2023-03-12 23:27:47', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (98, 9, 'content', '内容', 'text', 'string', 'Content', 'content', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 4, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (99, 9, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (100, 9, 'status', '状态（1-正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '1', '1', '2', 'EQ', 'select', 'sys_status', 6, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (101, 9, 'create_by', '更新人编号', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '1', '2', 'EQ', 'input', '', 7, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (102, 9, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (103, 9, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (104, 9, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 10, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (105, 10, 'id', 'App编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (106, 10, 'version', '版本号', 'varchar(100)', 'string', 'Version', 'version', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (107, 10, 'platform', '平台 (1-安卓 2-苹果)', 'char(1)', 'string', 'Platform', 'platform', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_app_platform', 3, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (108, 10, 'app_type', '版本(1-默认)', 'char(1)', 'string', 'AppType', 'appType', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_app_type', 4, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (109, 10, 'local_address', '本地地址', 'varchar(255)', 'string', 'LocalAddress', 'localAddress', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (110, 10, 'download_num', '下载数量', 'int', 'int64', 'DownloadNum', 'downloadNum', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 6, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (111, 10, 'download_type', '下载类型(1-本地 2-外链 3-oss )', 'char(1)', 'string', 'DownloadType', 'downloadType', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_app_download_type', 7, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (112, 10, 'download_url', '下载地址(download_type=1使用)', 'varchar(255)', 'string', 'DownloadUrl', 'downloadUrl', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 8, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (113, 10, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '1', '1', '1', '1', '2', 'EQ', 'input', '', 9, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (114, 10, 'status', '状态（1-已发布 2-待发布）\n', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_publish_status', 10, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (115, 10, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (116, 10, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 12, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (117, 10, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (118, 10, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 14, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (119, 11, 'id', '编号', 'int', 'int64', 'Id', 'id', '1', '2', '2', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-14 17:40:50', '2023-03-14 17:42:59', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (120, 11, 'country', '国家地区', 'varchar(64)', 'string', 'Country', 'country', '2', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (121, 11, 'code', '区号', 'varchar(12)', 'string', 'Code', 'code', '2', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (122, 11, 'status', '状态(1-可用 2-停用)', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '1', '1', '1', 'EQ', 'select', 'sys_status', 4, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (123, 11, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2023-03-14 17:40:50', '2023-03-14 17:40:50', 0, 0);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (124, 11, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (125, 11, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (126, 11, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', '1', '2', 'EQ', 'datetime', '', 8, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
-INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_edit`, `is_must`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (127, 11, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (1, 1, 'id', '账变编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-09 17:59:56', '2023-03-09 21:40:08', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (2, 1, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '2', '1', '1', 'EQ', 'input', '', 2, '', '2023-03-09 17:59:56', '2023-03-09 21:38:22', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (3, 1, 'change_money', '账变金额', 'decimal(10,2)', 'decimal.Decimal', 'ChangeMoney', 'changeMoney', '2', '2', '1', '2', 'EQ', 'input', '', 3, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (4, 1, 'before_money', '账变前金额', 'decimal(30,18)', 'decimal.Decimal', 'BeforeMoney', 'beforeMoney', '2', '2', '1', '2', 'EQ', 'input', '', 4, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (5, 1, 'after_money', '账变后金额', 'decimal(30,18)', 'decimal.Decimal', 'AfterMoney', 'afterMoney', '2', '2', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (6, 1, 'money_type', '金额类型 1:余额 ', 'char(10)', 'string', 'MoneyType', 'moneyType', '2', '2', '1', '1', 'EQ', 'select', 'app_money_type', 6, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (7, 1, 'change_type', '帐变类型(1-类型1)', 'varchar(30)', 'string', 'ChangeType', 'changeType', '2', '2', '1', '1', 'EQ', 'select', 'app_account_change_type', 7, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (8, 1, 'status', '状态（1正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '2', NULL, '2', 'EQ', 'select', 'sys_status', 8, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (9, 1, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', NULL, '2', 'EQ', 'input', '', 9, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (10, 1, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 10, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11, 1, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', NULL, '2', 'EQ', 'input', '', 11, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (12, 1, 'updated_date', '更新时间', 'datetime', '*time.Time', 'UpdatedDate', 'updatedDate', '2', '2', NULL, '2', 'EQ', 'datetime', '', 12, '', '2023-03-09 17:59:56', '2023-03-09 21:38:23', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (13, 1, 'remarks', '备注信息', 'varchar(500)', 'string', 'Remarks', 'remarks', '2', '2', NULL, '2', 'EQ', 'input', '', 13, '', '2023-03-09 17:59:56', '2023-03-09 17:59:56', 0, 0);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (14, 2, 'id', '等级编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-09 20:05:43', '2023-03-09 20:17:04', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (15, 2, 'name', '等级名称', 'varchar(255)', 'string', 'Name', 'name', '2', '1', '1', '1', 'LIKE', 'input', '', 2, '', '2023-03-09 20:05:43', '2023-03-09 22:47:41', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (16, 2, 'level_type', '等级类型', 'varchar(10)', 'string', 'LevelType', 'levelType', '2', '1', '1', '1', 'EQ', 'select', 'app_user_level_type', 3, '', '2023-03-09 20:05:43', '2023-03-09 22:47:41', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (17, 2, 'level', '等级', 'int', 'int64', 'Level', 'level', '2', '1', '1', '1', 'EQ', 'numInput', '', 4, '', '2023-03-09 20:05:43', '2023-03-09 22:47:41', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (18, 2, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 5, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (19, 2, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'LIKE', 'input', '', 6, '', '2023-03-09 20:05:43', '2023-03-09 20:08:51', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (20, 2, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (21, 2, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (22, 2, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (23, 2, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 10, '', '2023-03-09 20:05:43', '2023-03-09 20:17:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (24, 3, 'id', '配置编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (25, 3, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '1', '1', '1', 'EQ', 'numInput', '', 2, '', '2023-03-09 22:59:52', '2023-03-09 23:09:54', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (26, 3, 'can_login', '1-允许登陆；2-不允许登陆', 'char(1)', 'string', 'CanLogin', 'canLogin', '2', '1', '1', '1', 'EQ', 'select', 'sys_yes_no', 3, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (27, 3, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2023-03-09 22:59:52', '2023-03-09 22:59:52', 0, 0);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (28, 3, 'status', '状态（1-正常 2-异常）\n', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 5, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (29, 3, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (30, 3, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (31, 3, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 8, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (32, 3, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2023-03-09 22:59:52', '2023-03-09 23:02:29', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (33, 4, 'id', '用户编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (34, 4, 'level_id', '用户等级编号', 'int', 'int64', 'LevelId', 'levelId', '2', '1', '1', '1', 'EQ', 'numInput', '', 2, '', '2023-03-09 23:12:17', '2023-03-09 23:25:14', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (35, 4, 'user_name', '用户昵称', 'varchar(100)', 'string', 'UserName', 'userName', '2', '1', '1', '1', 'EQ', 'input', '', 3, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (36, 4, 'true_name', '真实姓名', 'varchar(100)', 'string', 'TrueName', 'trueName', '2', '1', '1', '1', 'EQ', 'input', '', 4, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (37, 4, 'money', '余额', 'decimal(30,18)', 'decimal.Decimal', 'Money', 'money', '2', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (38, 4, 'email', '电子邮箱', 'varchar(300)', 'string', 'Email', 'email', '2', '1', '1', '1', 'EQ', 'input', '', 6, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (39, 4, 'mobile_title', '用户手机号国家前缀', 'varchar(255)', 'string', 'MobileTitle', 'mobileTitle', '2', '1', '1', '2', 'EQ', 'input', '', 7, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (40, 4, 'mobile', '手机号码', 'varchar(100)', 'string', 'Mobile', 'mobile', '2', '1', '1', '1', 'EQ', 'input', '', 8, '', '2023-03-09 23:12:17', '2023-03-09 23:18:35', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (41, 4, 'avatar', '头像路径', 'varchar(1000)', 'string', 'Avatar', 'avatar', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2023-03-09 23:12:17', '2023-03-09 23:22:58', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (42, 4, 'pay_pwd', '提现密码', 'varchar(100)', 'string', 'PayPwd', 'payPwd', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2023-03-09 23:12:17', '2023-03-09 23:22:58', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (43, 4, 'pwd', '登录密码', 'varchar(100)', 'string', 'Pwd', 'pwd', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2023-03-09 23:12:17', '2023-03-09 23:22:59', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (44, 4, 'ref_code', '推荐码', 'varchar(255)', 'string', 'RefCode', 'refCode', '2', '2', '1', '1', 'EQ', 'input', '', 12, '', '2023-03-09 23:12:17', '2023-03-09 23:22:59', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (45, 4, 'parent_id', '父级编号', 'int', 'int64', 'ParentId', 'parentId', '2', '2', '1', '1', 'EQ', 'input', '', 13, '', '2023-03-09 23:12:17', '2023-03-09 23:22:59', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (46, 4, 'parent_ids', '所有父级编号', 'varchar(1000)', 'string', 'ParentIds', 'parentIds', '2', '2', '2', '2', 'EQ', 'input', '', 14, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (47, 4, 'tree_sort', '本级排序号（升序）', 'decimal(10,0)', 'decimal.Decimal', 'TreeSort', 'treeSort', '2', '2', '2', '2', 'EQ', 'input', '', 15, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (48, 4, 'tree_sorts', '所有级别排序号', 'varchar(1000)', 'string', 'TreeSorts', 'treeSorts', '2', '2', '2', '2', 'EQ', 'input', '', 16, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (49, 4, 'tree_leaf', '是否最末级', 'char(1)', 'string', 'TreeLeaf', 'treeLeaf', '2', '2', '2', '2', 'EQ', 'input', '', 17, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (50, 4, 'tree_level', '层次级别', 'int', 'int64', 'TreeLevel', 'treeLevel', '2', '2', '2', '2', 'EQ', 'input', '', 18, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (51, 4, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 19, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (52, 4, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 20, '', '2023-03-09 23:12:17', '2023-03-09 23:12:17', 0, 0);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (53, 4, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '0', '2', 'EQ', 'input', '', 21, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (54, 4, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '0', '2', 'EQ', 'input', '', 22, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (55, 4, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 23, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (56, 4, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '0', '2', 'EQ', 'datetime', '', 24, '', '2023-03-09 23:12:17', '2023-03-09 23:18:36', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (57, 5, 'action_type', '用户行为类型', 'char(2)', 'string', 'ActionType', 'actionType', '2', '2', '1', '1', 'EQ', 'select', 'app_user_action_type', 1, '', '2023-03-11 14:00:15', '2023-03-11 14:08:37', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (58, 5, 'by_type', '更新用户类型 1-app用户 2-后台用户', 'char(2)', 'string', 'ByType', 'byType', '2', '2', '1', '1', 'EQ', 'select', 'app_user_by_type', 2, '', '2023-03-11 14:00:15', '2023-03-11 14:15:30', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (59, 5, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '1', '2', 'EQ', 'input', '', 3, '', '2023-03-11 14:00:15', '2023-03-11 14:05:04', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (60, 5, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 4, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (61, 5, 'id', '日志编码', 'int', 'int64', 'Id', 'id', '1', '2', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (62, 5, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-11 14:00:15', '2023-03-11 14:00:15', 0, 0);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (63, 5, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 7, '', '2023-03-11 14:00:15', '2023-03-11 14:18:50', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (64, 5, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '1', '2', 'EQ', 'input', '', 8, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (65, 5, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (66, 5, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '2', '1', '1', 'EQ', 'numInput', '', 10, '', '2023-03-11 14:00:15', '2023-03-11 14:05:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (67, 6, 'id', '验证码编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-12 12:11:09', '2023-03-12 12:14:11', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (68, 6, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '2', '1', '1', 'EQ', 'input', '', 2, '', '2023-03-12 12:11:09', '2023-03-12 12:14:11', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (69, 6, 'code', '验证码', 'varchar(12)', 'string', 'Code', 'code', '2', '2', '1', '2', 'EQ', 'input', '', 3, '', '2023-03-12 12:11:09', '2023-03-12 12:14:11', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (70, 6, 'code_type', '验证码类型 1-邮箱；2-短信', 'char(1)', 'string', 'CodeType', 'codeType', '2', '2', '1', '1', 'EQ', 'select', 'plugin_msg_code_type', 4, '', '2023-03-12 12:11:09', '2023-03-12 12:16:18', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (71, 6, 'remark', '备注异常', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (72, 6, 'status', '验证码状态 1-发送成功 2-发送失败', 'char(1)', 'string', 'Status', 'status', '2', '2', '1', '1', 'EQ', 'select', 'plugin_msg_sendstatus', 6, '', '2023-03-12 12:11:09', '2023-03-12 13:44:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (73, 6, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (74, 6, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (75, 6, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (76, 6, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 10, '', '2023-03-12 12:11:09', '2023-03-12 12:14:12', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (77, 7, 'id', '公告编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (78, 7, 'title', '标题', 'varchar(255)', 'string', 'Title', 'title', '2', '1', '1', '1', 'EQ', 'input', '', 2, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (79, 7, 'content', '内容', 'text', 'string', 'Content', 'content', '2', '1', '1', '2', 'EQ', 'input', '', 3, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (80, 7, 'num', '阅读次数', 'int', 'int64', 'Num', 'num', '2', '1', '1', '2', 'EQ', 'numInput', '', 4, '', '2023-03-12 22:01:07', '2023-03-12 22:51:59', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (81, 7, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (82, 7, 'status', '状态（0正常 1删除 2停用 3冻结）', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '1', 'EQ', 'select', 'sys_status', 6, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (83, 7, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (84, 7, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2023-03-12 22:01:07', '2023-03-12 22:15:05', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (85, 7, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-12 22:01:07', '2023-03-12 22:15:06', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (86, 7, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 10, '', '2023-03-12 22:01:07', '2023-03-12 22:15:06', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (87, 8, 'id', '分类编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (88, 8, 'name', '分类名称', 'varchar(255)', 'string', 'Name', 'name', '2', '1', '1', '1', 'LIKE', 'input', '', 2, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (89, 8, 'status', '状态（1-正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'select', 'sys_status', 3, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (90, 8, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2023-03-12 22:54:51', '2023-03-12 22:54:51', 0, 0);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (91, 8, 'create_by', '更新人编号', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (92, 8, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (93, 8, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 7, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (94, 8, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 8, '', '2023-03-12 22:54:51', '2023-03-12 22:57:39', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (95, 9, 'id', '文章编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-12 23:22:39', '2023-03-12 23:27:47', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (96, 9, 'cate_id', '分类编号', 'int', 'int64', 'CateId', 'cateId', '2', '1', '1', '1', 'EQ', 'numInput', '', 2, '', '2023-03-12 23:22:39', '2023-03-12 23:27:47', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (97, 9, 'name', '标题', 'varchar(255)', 'string', 'Name', 'name', '2', '1', '1', '1', 'EQ', 'input', '', 3, '', '2023-03-12 23:22:39', '2023-03-12 23:27:47', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (98, 9, 'content', '内容', 'text', 'string', 'Content', 'content', '2', '1', '1', '2', 'EQ', 'input', '', 4, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (99, 9, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (100, 9, 'status', '状态（1-正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '2', 'EQ', 'select', 'sys_status', 6, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (101, 9, 'create_by', '更新人编号', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '1', '2', 'EQ', 'input', '', 7, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (102, 9, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (103, 9, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 9, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (104, 9, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 10, '', '2023-03-12 23:22:39', '2023-03-12 23:27:48', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (105, 10, 'id', 'App编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '1', 'EQ', 'input', '', 1, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (106, 10, 'version', '版本号', 'varchar(100)', 'string', 'Version', 'version', '2', '1', '1', '1', 'EQ', 'input', '', 2, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (107, 10, 'platform', '平台 (1-安卓 2-苹果)', 'char(1)', 'string', 'Platform', 'platform', '2', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_app_platform', 3, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (108, 10, 'app_type', '版本(1-默认)', 'char(1)', 'string', 'AppType', 'appType', '2', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_app_type', 4, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (109, 10, 'local_address', '本地地址', 'varchar(255)', 'string', 'LocalAddress', 'localAddress', '2', '1', '1', '2', 'EQ', 'input', '', 5, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (110, 10, 'download_num', '下载数量', 'int', 'int64', 'DownloadNum', 'downloadNum', '2', '1', '1', '2', 'EQ', 'input', '', 6, '', '2023-03-13 00:07:25', '2023-03-13 00:12:43', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (111, 10, 'download_type', '下载类型(1-本地 2-外链 3-oss )', 'char(1)', 'string', 'DownloadType', 'downloadType', '2', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_app_download_type', 7, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (112, 10, 'download_url', '下载地址(download_type=1使用)', 'varchar(255)', 'string', 'DownloadUrl', 'downloadUrl', '2', '1', '1', '2', 'EQ', 'input', '', 8, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (113, 10, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '1', '1', '2', 'EQ', 'input', '', 9, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (114, 10, 'status', '状态（1-已发布 2-待发布）\n', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '1', 'EQ', 'select', 'plugin_filemgr_publish_status', 10, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (115, 10, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (116, 10, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 12, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (117, 10, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (118, 10, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 14, '', '2023-03-13 00:07:25', '2023-03-13 00:12:44', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (119, 11, 'id', '编号', 'int', 'int64', 'Id', 'id', '1', '2', '1', '2', 'EQ', 'input', '', 1, '', '2023-03-14 17:40:50', '2023-03-14 17:42:59', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (120, 11, 'country', '国家地区', 'varchar(64)', 'string', 'Country', 'country', '2', '1', '1', '1', 'LIKE', 'input', '', 2, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (121, 11, 'code', '区号', 'varchar(12)', 'string', 'Code', 'code', '2', '1', '1', '1', 'EQ', 'input', '', 3, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (122, 11, 'status', '状态(1-可用 2-停用)', 'char(1)', 'string', 'Status', 'status', '2', '1', '1', '1', 'EQ', 'select', 'sys_status', 4, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (123, 11, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2023-03-14 17:40:50', '2023-03-14 17:40:50', 0, 0);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (124, 11, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (125, 11, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (126, 11, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '1', '2', 'EQ', 'datetime', '', 8, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
+INSERT INTO `sys_gen_column` (`id`, `table_id`, `column_name`, `column_comment`, `column_type`, `go_type`, `go_field`, `json_field`, `is_pk`, `is_required`, `is_list`, `is_query`, `query_type`, `html_type`, `dict_type`, `sort`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (127, 11, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2023-03-14 17:40:50', '2023-03-14 17:43:00', 0, 1);
 COMMIT;
 
 -- ----------------------------
@@ -968,21 +966,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_gen_table`;
 CREATE TABLE `sys_gen_table` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `table_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表名',
-  `table_comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表描述',
-  `class_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '类名',
-  `package_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '应用名',
-  `module_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口名',
-  `function_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '功能描述',
-  `function_author` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '作者',
-  `business_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '业务名',
-  `is_plugin` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '1' COMMENT '是否插件 1-是 2-否',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `table_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表名',
+  `table_comment` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表描述',
+  `class_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '类名',
+  `package_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '应用名',
+  `module_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口名',
+  `function_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '功能描述',
+  `function_author` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '作者',
+  `business_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '业务名',
+  `is_plugin` char(1) COLLATE utf8mb4_bin DEFAULT '1' COMMENT '是否插件 1-是 2-否',
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` bigint DEFAULT NULL COMMENT '创建者',
-  `update_by` bigint DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1008,21 +1006,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_log`;
 CREATE TABLE `sys_login_log` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `user_id` int DEFAULT NULL COMMENT '用户编号',
-  `ipaddr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ip地址',
-  `login_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '归属地',
-  `browser` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '浏览器',
-  `os` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '系统',
-  `agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '代理',
-  `platform` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '固件',
-  `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '登录时间',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-登录 2-退出',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户编号',
+  `ipaddr` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ip地址',
+  `login_location` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '归属地',
+  `browser` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '浏览器',
+  `os` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '系统',
+  `agent` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '代理',
+  `platform` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '固件',
+  `login_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '登录时间',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-登录 2-退出',
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1030,7 +1028,7 @@ CREATE TABLE `sys_login_log` (
 -- Records of sys_login_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_login_log` (`id`, `user_id`, `ipaddr`, `login_location`, `browser`, `os`, `agent`, `platform`, `login_time`, `status`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (1,1, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', 'Macintosh', '2023-03-01 14:50:52', '2', '退出成功', '2023-03-01 14:50:52', '2023-03-01 14:50:52', 0, 0);
+INSERT INTO `sys_login_log` (`id`, `user_id`, `ipaddr`, `login_location`, `browser`, `os`, `agent`, `platform`, `login_time`, `status`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (1, 1, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50', 'Macintosh', '2023-03-01 14:50:52', '2', '退出成功', '2023-03-01 14:50:52', '2023-03-01 14:50:52', 0, 0);
 INSERT INTO `sys_login_log` (`id`, `user_id`, `ipaddr`, `login_location`, `browser`, `os`, `agent`, `platform`, `login_time`, `status`, `remark`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (2, 2, '127.0.0.1', '内部IP', 'Chrome 110.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57', 'Macintosh', '2023-03-02 12:35:06', '1', '登录操作', '2023-03-02 12:35:06', '2023-03-02 12:35:06', 0, 0);
 COMMIT;
 
@@ -1039,24 +1037,24 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `icon` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `element` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `redirect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `permission` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` int DEFAULT NULL,
-  `parent_id` int DEFAULT NULL COMMENT '上级菜单id',
-  `parent_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '上级菜单id集合',
-  `menu_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_keep_alive` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否缓存 1-是 2-否',
-  `is_affix` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否固定 1-是 2-否',
-  `is_hidden` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否隐藏 1-是 2-否',
-  `is_frame` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否内嵌 1-是 2-否',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `icon` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `element` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `redirect` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `permission` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL COMMENT '上级菜单id',
+  `parent_ids` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '上级菜单id集合',
+  `menu_type` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_keep_alive` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否缓存 1-是 2-否',
+  `is_affix` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否固定 1-是 2-否',
+  `is_hidden` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否隐藏 1-是 2-否',
+  `is_frame` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否内嵌 1-是 2-否',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -1193,11 +1191,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu_api_rule`;
 CREATE TABLE `sys_menu_api_rule` (
-  `sys_menu_menu_id` int NOT NULL,
-  `sys_api_id` int NOT NULL COMMENT '主键编码',
+  `sys_menu_menu_id` int(11) NOT NULL,
+  `sys_api_id` int(11) NOT NULL COMMENT '主键编码',
   PRIMARY KEY (`sys_menu_menu_id`,`sys_api_id`),
   KEY `fk_sys_menu_api_rule_sys_api` (`sys_api_id`),
-  CONSTRAINT `fk_sys_menu_api_rule_sys_api` FOREIGN KEY (`sys_api_id`) REFERENCES `sys_api` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_sys_menu_api_rule_sys_api` FOREIGN KEY (`sys_api_id`) REFERENCES `sys_api` (`id`),
   CONSTRAINT `fk_sys_menu_api_rule_sys_menu` FOREIGN KEY (`sys_menu_menu_id`) REFERENCES `sys_menu` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1205,89 +1203,89 @@ CREATE TABLE `sys_menu_api_rule` (
 -- Records of sys_menu_api_rule
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (32, 62);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (33, 103);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 65);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 131);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (35, 148);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (36, 66);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (37, 102);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 68);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 130);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (39, 147);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (40, 70);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (41, 105);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 72);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 132);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (43, 149);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (44, 19);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (45, 135);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (46, 22);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (47, 136);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 2);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 4);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 5);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 6);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (44, 19);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (46, 22);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (74, 30);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (109, 31);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (113, 32);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 33);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (71, 34);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (72, 35);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 89);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 117);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 139);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 69);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 117);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (50, 78);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (62, 39);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (63, 101);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 41);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 121);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (65, 146);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (66, 40);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (68, 36);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (69, 37);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (62, 39);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (66, 40);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 41);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (71, 34);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (72, 35);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (72, 119);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (74, 30);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (75, 99);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 46);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 122);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (77, 45);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (79, 42);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (80, 43);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (77, 45);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 46);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (85, 48);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (89, 49);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (107, 49);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 50);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 50);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (97, 51);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (101, 52);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 53);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (91, 54);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (95, 55);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 56);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (103, 57);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (83, 60);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (32, 62);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (85, 48);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (86, 94);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 50);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 123);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (88, 141);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (89, 49);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (91, 54);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (92, 96);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 56);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 125);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (94, 143);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (95, 55);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (97, 51);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (98, 95);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 53);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 124);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (100, 142);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (101, 52);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (103, 57);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (104, 94);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 50);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 123);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (106, 141);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (107, 49);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (109, 31);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (110, 100);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 33);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 120);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (112, 145);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (113, 32);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (114, 63);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (117, 63);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 65);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (36, 66);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (114, 67);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (116, 67);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 68);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 69);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (40, 70);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (117, 63);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (118, 71);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 72);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (50, 78);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 89);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (86, 94);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (104, 94);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (98, 95);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (92, 96);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (75, 99);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (110, 100);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (63, 101);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (37, 102);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (33, 103);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (41, 105);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 117);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 117);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (72, 119);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 120);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 121);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 122);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 123);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 123);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 124);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 125);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 130);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 131);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 132);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (45, 135);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (47, 136);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 139);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (88, 141);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (106, 141);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (100, 142);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (94, 143);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (112, 145);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (65, 146);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (39, 147);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (35, 148);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (43, 149);
 COMMIT;
 
 -- ----------------------------
@@ -1295,22 +1293,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `request_method` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求方式',
-  `user_id` int DEFAULT NULL COMMENT '操作者',
-  `oper_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问地址',
-  `oper_ip` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '客户端ip',
-  `oper_location` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问位置',
-  `status` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '操作状态',
-  `oper_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '操作时间',
-  `json_result` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '返回数据',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
-  `latency_time` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '耗时',
-  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ua',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `request_method` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求方式',
+  `user_id` int(11) DEFAULT NULL COMMENT '操作者',
+  `oper_url` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问地址',
+  `oper_ip` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '客户端ip',
+  `oper_location` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问位置',
+  `status` varchar(4) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '操作状态',
+  `oper_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '操作时间',
+  `json_result` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '返回数据',
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
+  `latency_time` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '耗时',
+  `user_agent` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ua',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='操作日志';
 
@@ -1328,14 +1326,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `post_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `post_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` tinyint DEFAULT NULL,
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `post_code` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` tinyint(4) DEFAULT NULL,
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -1355,15 +1353,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `role_key` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `role_sort` bigint DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `data_scope` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-正常 2-停用',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `role_key` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `role_sort` bigint(20) DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `data_scope` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-正常 2-停用',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime(3) DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime(3) DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -1382,8 +1380,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept` (
-  `role_id` smallint NOT NULL,
-  `dept_id` smallint NOT NULL,
+  `role_id` smallint(6) NOT NULL,
+  `dept_id` smallint(6) NOT NULL,
   PRIMARY KEY (`role_id`,`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1398,11 +1396,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` int NOT NULL,
-  `menu_id` int NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
   PRIMARY KEY (`role_id`,`menu_id`),
   KEY `fk_sys_role_menu_sys_menu` (`menu_id`),
-  CONSTRAINT `fk_sys_role_menu_sys_menu` FOREIGN KEY (`menu_id`) REFERENCES `sys_menu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_sys_role_menu_sys_menu` FOREIGN KEY (`menu_id`) REFERENCES `sys_menu` (`id`),
   CONSTRAINT `fk_sys_role_menu_sys_role` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1418,22 +1416,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '编码',
-  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '用户名',
-  `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '密码',
-  `nick_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '昵称',
-  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号',
-  `role_id` int DEFAULT NULL COMMENT '角色ID',
-  `salt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '加盐',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像',
-  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '性别',
-  `email` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '邮箱',
-  `dept_id` int DEFAULT NULL COMMENT '部门',
-  `post_id` int DEFAULT NULL COMMENT '岗位',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
-  `status` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态',
-  `create_by` int DEFAULT NULL COMMENT '创建者',
-  `update_by` int DEFAULT NULL COMMENT '更新者',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编码',
+  `username` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '用户名',
+  `password` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '密码',
+  `nick_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '昵称',
+  `phone` varchar(11) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号',
+  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
+  `salt` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '加盐',
+  `avatar` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像',
+  `sex` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '性别',
+  `email` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '邮箱',
+  `dept_id` int(11) DEFAULT NULL COMMENT '部门',
+  `post_id` int(11) DEFAULT NULL COMMENT '岗位',
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
+  `status` varchar(4) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
+  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
