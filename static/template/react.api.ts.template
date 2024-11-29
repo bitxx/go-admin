@@ -1,0 +1,32 @@
+import request from "@/utils/request";
+import { ReqPage, ResPage } from "@/utils/request/interface";
+
+export interface {{.ClassName}}Model {
+{{- range .SysGenColumns }}
+  {{.JsonField}}? {{- if contains .GoType "int" }}number{{- else if contains .GoType "time" }}Date{{- else }}string{{- end }}
+{{- end }}
+}
+
+export const get{{.ClassName}}PageApi = (params: ReqPage) => {
+  return request.get<ResPage<{{.ClassName}}Model>>(`/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}`, { ...params, pageIndex: params?.current });
+};
+
+export const get{{.ClassName}}Api = (id: number) => {
+  return request.get<{{.ClassName}}Model>(`/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}/` + id);
+};
+
+export const add{{.ClassName}}Api = (data: object) => {
+  return request.post<object>(`/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}`, data);
+};
+
+export const update{{.ClassName}}Api = (id: number, data: object) => {
+  return request.put<object>("/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}/" + id, data);
+};
+
+export const del{{.ClassName}}Api = (params: number[]) => {
+  return request.delete<object>(`/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}`, { ids: params });
+};
+
+export const export{{.ClassName}}Api = (query: object) => {
+  return request.download(`/admin-api/v1/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}/export`, query);
+};

@@ -17,16 +17,13 @@ const (
 	SysStatusNotOk = "2"
 )
 
-type (
-	Mode string
+const (
+	GenTypeVue   string = "vue"   //开发模式
+	GenTypeReact string = "react" //测试模式
 )
 
 const (
-	ModeDev  Mode = "dev"  //开发模式
-	ModeTest Mode = "test" //测试模式
-	ModeProd Mode = "prod" //生产模式
+	ModeDev  string = "dev"  //开发模式
+	ModeTest string = "test" //测试模式
+	ModeProd string = "prod" //生产模式
 )
-
-func (e Mode) String() string {
-	return string(e)
-}

@@ -105,6 +105,7 @@ const (
 	SysGenCreatePathErrCode             = 10719
 	SysGenTemplateModelDecodeErrCode    = 10720
 	SysGenTemplateModelDecodeLogErrCode = 10721
+	SysGenFrontTypeErrCode              = 10722
 )
 
 var (
@@ -209,6 +210,7 @@ var (
 		SysGenCreatePathErrCode:             "创建目录失败",
 		SysGenTemplateModelDecodeErrCode:    "模板解析异常",
 		SysGenTemplateModelDecodeLogErrCode: "模板解析异常：%s",
+		SysGenFrontTypeErrCode:              "前端类型配置异常",
 	}
 )
 

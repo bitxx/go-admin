@@ -82,7 +82,7 @@ func setup() {
 }
 
 func run() error {
-	if config.ApplicationConfig.Mode == global.ModeProd.String() {
+	if config.ApplicationConfig.Mode == global.ModeProd {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	initRouter()

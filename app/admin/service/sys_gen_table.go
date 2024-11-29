@@ -405,17 +405,26 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 	if c.Id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
+	if config.GenConfig.Type != global.GenTypeVue && config.GenConfig.Type != global.GenTypeReact {
+		return nil, sysLang.SysGenFrontTypeErrCode, lang.MsgErr(sysLang.SysGenFrontTypeErrCode, e.Lang)
+	}
 	table, respCode, err := e.Get(c.Id, p)
 	if err != nil {
 		return nil, respCode, err
 	}
-
 	var resp []dto.TemplateResp
 	for k, v := range constant.TemplatInfo {
-		tpl, _ := template.ParseFiles(v)
+		tpl, err := template.ParseFiles(v)
 		if err != nil {
 			return nil, sysLang.SysGenTemplateModelReadLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysGenTemplateModelReadErrCode, sysLang.SysGenTemplateModelReadLogErrCode, err)
 		}
+
+		//template.FuncMap{
+		//			"contains": func(s, substr string) bool {
+		//				return strings.Contains(s, substr)
+		//			},
+		//		}
+
 		var content bytes.Buffer
 		err = tpl.Execute(&content, table)
 		if err != nil {
@@ -449,11 +458,19 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		if k == constant.ConstantName {
 			path = path + table.PackageName + "/" + table.BusinessName + "/constant/constant.go.bk"
 		}
-		if k == constant.JsName {
-			path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + ".js"
+		if config.GenConfig.Type == global.GenTypeVue {
+			if k == constant.VueApiJsName {
+				path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + ".js"
+			}
+			if k == constant.VueIndexName {
+				path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.vue"
+			}
 		}
-		if k == constant.VueName {
-			path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.vue"
+
+		if config.GenConfig.Type == global.GenTypeReact {
+			if k == constant.ReactTsName {
+				path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.ts"
+			}
 		}
 
 		tplResp := dto.TemplateResp{
