@@ -18,12 +18,16 @@ type {{.ClassName}}QueryReq struct {
 	dto.Pagination     `search:"-"`
     {{- $tablename := .TBName }}
     {{- range .SysGenColumns -}}
-    {{if eq .IsQuery "1"}}
+    {{- if eq .IsQuery "1"}}
+    {{- if ne .HtmlType "datetime"  }}
     {{.GoField}} {{.GoType}} `form:"{{.JsonField}}"  search:"type:{{if eq .QueryType "EQ"}}exact{{ else if eq .QueryType "NE"}}iexact{{ else if eq .QueryType "LIKE"}}contains{{ else if eq .QueryType "GT"}}gt{{ else if eq .QueryType "GTE"}}gte{{ else if eq .QueryType "LT"}}lt{{ else if eq .QueryType "LTE"}}lte{{- end }};column:{{.ColumnName}};table:{{$tablename}}" comment:"{{.ColumnComment}}"`
     {{- end }}
+    {{- if eq .HtmlType "datetime"  }}
+    Begin{{.GoField}} string `form:"begin{{.GoField}}" search:"type:gte;column:{{.ColumnName}};table:{{$tablename}}" comment:"{{.ColumnComment}}"`
+    End{{.GoField}} string `form:"end{{.GoField}}" search:"type:lte;column:{{.ColumnName}};table:{{$tablename}}" comment:"{{.ColumnComment}}"`
     {{- end }}
-    BeginTime           string `form:"beginTime" search:"type:gte;column:created_at;table:{{$tablename}}" comment:"创建时间"`
-    EndTime             string `form:"endTime" search:"type:lte;column:created_at;table:{{$tablename}}" comment:"创建时间"`
+    {{- end }}
+    {{- end }}
     {{.ClassName}}Order
 }
 

@@ -22,7 +22,7 @@
                       {{- end }}
           </el-form-item>
                 {{- end }}
-            {{- end }}
+          {{- if and (eq .IsQuery "1") (eq .HtmlType "datetime" ) (eq .JsonField "createdAt" ) }}
           <el-form-item label="创建时间">
             <el-date-picker
               v-model="dateRange"
@@ -35,6 +35,8 @@
               value-format="yyyy-MM-dd HH:mm:ss"
             />
           </el-form-item>
+          {{- end }}
+          {{- end }}
           <el-form-item>
             <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
             <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
