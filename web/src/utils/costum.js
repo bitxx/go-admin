@@ -53,10 +53,10 @@ export function resetForm(refName) {
 export function addDateRange(params, dateRange) {
   var search = params
   search.beginCreatedAt = ''
-  search.endUpdatedAt = ''
+  search.endCreatedAt = ''
   if (dateRange != null && dateRange !== '') {
     search.beginCreatedAt = this.dateRange[0]
-    search.endUpdatedAt = this.dateRange[1]
+    search.endCreatedAt = this.dateRange[1]
   }
   return search
 }
