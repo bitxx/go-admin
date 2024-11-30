@@ -5,8 +5,7 @@
       <el-card class="box-card">
         <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
             {{- range .SysGenColumns }}
-                {{- $x := .IsQuery }}
-                {{- if (eq $x "1") }}
+                {{- if and (eq .IsQuery "1") (ne .HtmlType "datetime" ) }}
           <el-form-item label="{{.ColumnComment}}" prop="{{.JsonField}}">
                       {{- if eq .DictType "" }}
             <el-input v-model="queryParams.{{.JsonField}}" placeholder="请输入{{.ColumnComment}}" clearable size="small" @keyup.enter.native="handleQuery" />
