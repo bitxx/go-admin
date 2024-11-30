@@ -1,8 +1,27 @@
+{{- $hasDict := false }}
+{{- $hasInput := false }}
+{{- $hasNumInput := false }}
+{{- $hasDatetime := false }}
+{{- $hasSelect := false }}
+{{- $hasRadio := false }}
+{{- range .SysGenColumns }}
+{{- if eq .IsRequired "1" }}
+{{- if ne .DictType ""  }}{{ $hasDict = true }}{{- end }}
+{{- if eq "input" .HtmlType }}{{ $hasInput = true }}{{- end }}
+{{- if eq "numInput" .HtmlType }}{{ $hasNumInput = true }}{{- end }}
+{{- if eq "datetime" .HtmlType }}{{ $hasDatetime = true }}{{- end }}
+{{- if eq "select" .HtmlType }}{{ $hasSelect = true }}{{- end }}
+{{- if eq "radio" .HtmlType }}{{ $hasRadio = true }}{{- end }}
+{{- end }}
+{{- end }}
+{{- if eq $hasDict true }}
+import { getDictOptions, getDictsApi } from "@/api/sys/dictdata";
+{{- end }}
 import { add{{.ClassName}}Api, {{.ClassName}}Model, get{{.ClassName}}Api, update{{.ClassName}}Api } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";
 import { ResultEnum } from "@/enums/httpEnum";
 import { message } from "@/hooks/useMessage";
-import { Button, Form, Input, Modal } from "antd";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { Button, Form, Modal{{ if eq $hasInput true }}, Input{{ end }}{{ if eq $hasNumInput true }}, InputNumber{{ end }}{{ if eq $hasDatetime true }}, DatePicker{{ end }}{{ if eq $hasSelect true }}, Select{{ end }}{{ if eq $hasRadio true }}, Radio{{ end }} } from "antd";
+import { forwardRef, useImperativeHandle, useState{{ if eq $hasDict true }}, useEffect{{ end }} } from "react";
 
 export interface FormModalRef {
   showAddFormModal: () => void;
@@ -19,7 +38,7 @@ const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
   const [model, setModel] = useState<{{.ClassName}}Model>({});
   {{- range .SysGenColumns }}
   {{- if and (eq .IsRequired "1") (ne .DictType "" ) }}
-  const [sys{{$.ClassName}}Optoins, set{{$.ClassName}}Optoins] = useState<Map<string, string>>(new Map());
+  const [{{.JsonField}}Options, set{{.GoField}}Options] = useState<Map<string, string>>(new Map());
   {{- end }}
   {{- end }}
 
@@ -39,6 +58,28 @@ const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
       setIsModalOpen(true);
     }
   }));
+{{- if eq $hasDict true }}
+  useEffect(() => {
+    const getDict = async () => {
+      {{- range .SysGenColumns}}
+      {{- if and (ne .DictType "") (eq .IsRequired "1") }}
+      const {
+        data: {{.JsonField}}Data,
+        msg: {{.JsonField}}Msg,
+        code: {{.JsonField}}Code
+      } = await getDictsApi("{{.DictType}}");
+      if ({{.JsonField}}Code !== ResultEnum.SUCCESS) {
+        message.error({{.JsonField}}Msg);
+        return;
+      }
+      set{{.GoField}}Options(getDictOptions({{.JsonField}}Data));
+      {{- end }}
+      {{- end }}
+    }
+    getDict();
+  }, []);
+  {{- end }}
+
 
   const reset = () => {
     if (model.id! > 0) {
@@ -59,14 +100,14 @@ const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
             message.error(msg);
             return;
           }
-          message.info(msg);
+          message.success(msg);
         } else {
           const { msg, code } = await update{{.ClassName}}Api(model.id!, values);
           if (code !== ResultEnum.SUCCESS) {
             message.error(msg);
             return;
           }
-          message.info(msg);
+          message.success(msg);
         }
         reset();
         setIsModalOpen(false);
@@ -117,19 +158,19 @@ const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
           <InputNumber style={{ "{{" }} width: "100%" {{ "}}" }} min={0} />
           {{- else if eq "datetime" .HtmlType }}
           <DatePicker showTime />
-          {{- else if eq "select" .HtmlType }}
+          {{- else if and (ne .DictType "") (eq "select" .HtmlType) }}
           <Select placeholder="请选择">
-            {{ "{" }}{{.JsonField}}.map((option) => (
-              <Select.Option key={option.dictValue} value={option.dictValue}>
-                {option.dictLabel}
+            {{ "{" }}Array.from({{.JsonField}}Options).map(([dictValue, dictLabel]) => (
+              <Select.Option key={dictValue} value={dictValue}>
+                {dictLabel}
               </Select.Option>
             )){{ "}" }}
           </Select>
-          {{- else if eq "radio" .HtmlType }}
+          {{- else if and (ne .DictType "") (eq "radio" .HtmlType) }}
           <Radio.Group>
-            {{ "{" }}{{.JsonField}}.map((option) => (
-              <Radio key={option.dictValue} value={option.dictValue}>
-                {option.label}
+            {{ "{" }}Array.from({{.JsonField}}Options).map(([dictValue, dictLabel]) => (
+              <Radio key={dictValue} value={dictValue}>
+                {dictLabel}
               </Radio>
             )){{ "}" }}
           </Radio.Group>

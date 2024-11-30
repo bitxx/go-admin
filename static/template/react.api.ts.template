@@ -3,7 +3,7 @@ import { ReqPage, ResPage } from "@/utils/request/interface";
 
 export interface {{.ClassName}}Model {
 {{- range .SysGenColumns }}
-  {{.JsonField}}? {{ if contains .GoType "int" }}number;{{ else if contains .GoType "time" }}Date;{{ else }}string;{{ end }}
+  {{.JsonField}}?: {{ if contains .GoType "int" }}number;{{ else if contains .GoType "time" }}Date;{{ else }}string;{{ end }}
 {{- end }}
 }
 

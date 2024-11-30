@@ -1,6 +1,6 @@
 {{- $hasDict := false }}
 {{- range .SysGenColumns }}
-{{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}{{ $hasDict = true }}{{ end }}
+{{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}{{ $hasDict = true }}{{- end }}
 {{- end }}
 {{- if eq $hasDict true }}
 import { getDictOptions, getDictsApi } from "@/api/sys/dictdata";
@@ -30,7 +30,7 @@ const {{.ClassName}}: React.FC = () => {
 
   {{- range .SysGenColumns }}
   {{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}
-  const [sys{{$.ClassName}}Optoins, set{{$.ClassName}}Optoins] = useState<Map<string, string>>(new Map());
+  const [{{.JsonField}}Options, set{{.GoField}}Options] = useState<Map<string, string>>(new Map());
   {{- end }}
   {{- end }}
 
@@ -51,10 +51,11 @@ const {{.ClassName}}: React.FC = () => {
       }
     },
     {{- range .SysGenColumns }}
+    {{- if eq .IsList "1"  }}
     {
       title: "{{.ColumnComment}}",
       dataIndex: "{{.JsonField}}",
-      {{- if or (ne .IsList "1") (and (eq .IsList "1") (eq .HtmlType "datetime" )) }}
+      {{- if or (ne .IsQuery "1") (and (eq .IsQuery "1") (eq .HtmlType "datetime" )) }}
       hideInSearch: true,
       {{- end }}
       {{- if eq .HtmlType "datetime"  }}
@@ -62,7 +63,7 @@ const {{.ClassName}}: React.FC = () => {
       {{- end }}
       {{- if ne .DictType "" }}
       valueType: "select",
-      valueEnum: sys{{$.ClassName}}Optoins,
+      valueEnum: {{.JsonField}}Options,
       {{- end }}
       {{- if eq .HtmlType "datetime"  }}
       width: 180,
@@ -73,7 +74,8 @@ const {{.ClassName}}: React.FC = () => {
       {{- end }}
       align: "left"
     },
-    {{- if and (eq .IsList "1") (eq .HtmlType "datetime" ) }}
+    {{- end }}
+    {{- if and (eq .IsQuery "1") (eq .HtmlType "datetime" ) }}
     {
       title: "{{.ColumnComment}}",
       dataIndex: "{{.JsonField}}",
@@ -105,18 +107,18 @@ const {{.ClassName}}: React.FC = () => {
   {{- if eq $hasDict true }}
   useEffect(() => {
     const getDict = async () => {
-      {{- range .SysGenColumns}}
-      {{- if and (ne .DictType "") (or (eq .IsList "1") (eq .IsQuery "1") (eq .IsRequired "1") ) }}
+      {{- range .SysGenColumns }}
+      {{- if and (ne .DictType "") (or (eq .IsList "1") (eq .IsQuery "1") ) }}
       const {
-        data: sys{{$.ClassName}}Data,
-        msg: sys{{$.ClassName}}Msg,
-        code: sys{{$.ClassName}}Code
+        data: {{.JsonField}}Data,
+        msg: {{.JsonField}}Msg,
+        code: {{.JsonField}}Code
       } = await getDictsApi("{{.DictType}}");
-      if (sys{{$.ClassName}}Code !== ResultEnum.SUCCESS) {
-        message.error(sys{{$.ClassName}}Msg);
+      if ({{.JsonField}}Code !== ResultEnum.SUCCESS) {
+        message.error({{.JsonField}}Msg);
         return;
       }
-      set{{$.ClassName}}Optoins(getDictOptions(sys{{$.ClassName}}Data));
+      set{{.GoField}}Options(getDictOptions({{.JsonField}}Data));
       {{- end }}
       {{- end }}
     }
