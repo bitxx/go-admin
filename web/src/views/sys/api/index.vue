@@ -227,7 +227,7 @@ export default {
     /** 查询参数列表 */
     getList() {
       this.loading = true
-      listSysApi(this.queryParams).then(response => {
+      listSysApi(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
         this.sysapiList = response.data.list
         this.total = response.data.count
         this.loading = false

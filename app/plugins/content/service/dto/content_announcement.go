@@ -9,8 +9,8 @@ type ContentAnnouncementQueryReq struct {
 	dto.Pagination `search:"-"`
 	Title          string `form:"title"  search:"type:in;column:title;table:plugins_content_announcement" comment:"标题"`
 	Status         string `form:"status"  search:"type:exact;column:status;table:plugins_content_announcement" comment:"状态（0正常 1删除 2停用 3冻结）"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:plugins_content_announcement" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:plugins_content_announcement" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:plugins_content_announcement" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:plugins_content_announcement" comment:"创建时间"`
 	ContentAnnouncementOrder
 }
 

@@ -11,8 +11,8 @@ type UserOperLogQueryReq struct {
 	ActionType       string `form:"actionType"  search:"type:exact;column:action_type;table:app_user_oper_log" comment:"用户行为类型"`
 	ByType           string `form:"byType"  search:"type:exact;column:by_type;table:app_user_oper_log" comment:"更新用户类型 1-app用户 2-后台用户"`
 	UserId           int64  `form:"userId"  search:"type:exact;column:user_id;table:app_user_oper_log" comment:"用户编号"`
-	BeginTime        string `form:"beginTime" search:"type:gte;column:created_at;table:app_user_oper_log" comment:"创建时间"`
-	EndTime          string `form:"endTime" search:"type:lte;column:created_at;table:app_user_oper_log" comment:"创建时间"`
+	BeginCreatedAt   string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:app_user_oper_log" comment:"创建时间"`
+	EndCreatedAt     string `form:"endCreatedAt" search:"type:lte;column:created_at;table:app_user_oper_log" comment:"创建时间"`
 	ShowInfo         bool   `form:"-"  search:"-" comment:"是否明文显示加密信息"`
 	commDto.UserJoin `search:"type:inner;on:id:user_id;table:app_user_oper_log;join:app_user"`
 	UserOperLogOrder

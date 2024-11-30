@@ -14,8 +14,8 @@ type SysOperLogQueryReq struct {
 	OperUrl        string `form:"operUrl" search:"type:contains;column:oper_url;table:sys_oper_log" comment:"访问地址"`
 	OperIp         string `form:"operIp" search:"type:exact;column:oper_ip;table:sys_oper_log" comment:"客户端ip"`
 	Status         string `form:"status" search:"type:exact;column:status;table:sys_oper_log" comment:"状态"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:ctime;table:sys_oper_log" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:ctime;table:sys_oper_log" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_oper_log" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_oper_log" comment:"创建时间"`
 	SysOperLogOrder
 }
 

@@ -10,8 +10,8 @@ type MsgCodeQueryReq struct {
 	UserId         int64  `form:"userId"  search:"type:exact;column:user_id;table:plugins_msg_code" comment:"用户编号"`
 	CodeType       string `form:"codeType"  search:"type:exact;column:code_type;table:plugins_msg_code" comment:"验证码类型 1-邮箱；2-短信"`
 	Status         string `form:"status"  search:"type:exact;column:status;table:plugins_msg_code" comment:"验证码状态 1-发送成功 2-发送失败"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:plugins_msg_code" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:plugins_msg_code" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:plugins_msg_code" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:plugins_msg_code" comment:"创建时间"`
 	MsgCodeOrder
 }
 

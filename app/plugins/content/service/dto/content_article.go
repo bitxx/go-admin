@@ -12,8 +12,8 @@ type ContentArticleQueryReq struct {
 	CateIds        []int64 `form:"-"  search:"type:in;column:cate_id;table:plugins_content_article" comment:"分类编号集合"`
 	Name           string  `form:"name"  search:"type:contains;column:name;table:plugins_content_article" comment:"标题"`
 	NameInner      string  `form:"-"  search:"type:exact;column:name;table:plugins_content_article" comment:"标题，跟Name区分，数据库精确查询"`
-	BeginTime      string  `form:"beginTime" search:"type:gte;column:created_at;table:plugins_content_article" comment:"创建时间"`
-	EndTime        string  `form:"endTime" search:"type:lte;column:created_at;table:plugins_content_article" comment:"创建时间"`
+	BeginCreatedAt string  `form:"beginCreatedAt" search:"type:gte;column:created_at;table:plugins_content_article" comment:"创建时间"`
+	EndCreatedAt   string  `form:"endCreatedAt" search:"type:lte;column:created_at;table:plugins_content_article" comment:"创建时间"`
 	Status         string  `form:"status"  search:"type:exact;column:status;table:plugins_content_article" comment:"状态（1-正常 2-异常）"`
 	ContentArticleOrder
 }

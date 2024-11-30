@@ -10,8 +10,8 @@ type UserConfQueryReq struct {
 	dto.Pagination   `search:"-"`
 	UserId           int64  `form:"userId"  search:"type:exact;column:user_id;table:app_user_conf" comment:"用户编号"`
 	CanLogin         string `form:"canLogin"  search:"type:exact;column:can_login;table:app_user_conf" comment:"1-允许登陆；2-不允许登陆"`
-	BeginTime        string `form:"beginTime" search:"type:gte;column:created_at;table:app_user_conf" comment:"创建时间"`
-	EndTime          string `form:"endTime" search:"type:lte;column:created_at;table:app_user_conf" comment:"创建时间"`
+	BeginCreatedAt   string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:app_user_conf" comment:"创建时间"`
+	EndCreatedAt     string `form:"endCreatedAt" search:"type:lte;column:created_at;table:app_user_conf" comment:"创建时间"`
 	ShowInfo         bool   `form:"-"  search:"-" comment:"是否明文显示加密信息"`
 	commDto.UserJoin `search:"type:inner;on:id:user_id;table:app_user_conf;join:app_user"`
 	UserConfOrder

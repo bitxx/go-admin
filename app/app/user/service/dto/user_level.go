@@ -7,8 +7,8 @@ import (
 
 type UserLevelQueryReq struct {
 	dto.Pagination `search:"-"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:app_user_level" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:app_user_level" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:app_user_level" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:app_user_level" comment:"创建时间"`
 	Name           string `form:"name"  search:"type:contains;column:name;table:app_user_level" comment:"等级名称"`
 	LevelType      string `form:"levelType"  search:"type:exact;column:level_type;table:app_user_level" comment:"等级类型"`
 	Level          int64  `form:"level"  search:"type:exact;column:level;table:app_user_level" comment:"等级"`

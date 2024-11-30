@@ -12,8 +12,8 @@ type FilemgrAppQueryReq struct {
 	AppType        string `form:"appType"  search:"type:exact;column:app_type;table:plugins_filemgr_app" comment:"版本(1-默认)"`
 	DownloadType   string `form:"downloadType"  search:"type:exact;column:download_type;table:plugins_filemgr_app" comment:"下载类型(1-本地 2-外链 3-oss )"`
 	Status         string `form:"status"  search:"type:exact;column:status;table:plugins_filemgr_app" comment:"状态（1-已发布 2-待发布）"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:plugins_filemgr_app" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:plugins_filemgr_app" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:plugins_filemgr_app" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:plugins_filemgr_app" comment:"创建时间"`
 	FilemgrAppOrder
 }
 

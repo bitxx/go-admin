@@ -12,6 +12,8 @@ type SysApiQueryReq struct {
 	Action         string   `form:"action"  search:"type:exact;column:action;table:sys_api" comment:"请求方法"`
 	ApiType        string   `form:"apiType"  search:"type:exact;column:api_type;table:sys_api" comment:"接口类型"`
 	ApiTypes       []string `form:"apiTypes"  search:"type:in;column:api_type;table:sys_api" comment:"接口类型"`
+	BeginCreatedAt string   `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_api" comment:"创建时间"`
+	EndCreatedAt   string   `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_api" comment:"创建时间"`
 	SysApiOrder
 }
 

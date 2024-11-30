@@ -11,6 +11,8 @@ type SysConfigQueryReq struct {
 	ConfigKey      string `form:"configKey" search:"type:contains;column:config_key;table:sys_config"`
 	ConfigType     string `form:"configType" search:"type:exact;column:config_type;table:sys_config"`
 	IsFrontend     string `form:"isFrontend" search:"type:exact;column:is_frontend;table:sys_config"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_config" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_config" comment:"创建时间"`
 	SysConfigOrder
 }
 

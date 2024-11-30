@@ -13,8 +13,8 @@ type SysPostQueryReq struct {
 	Sort           int    `form:"sort" search:"type:exact;column:sort;table:sys_post" comment:"排序"`             // 排序
 	Status         string `form:"status" search:"type:exact;column:status;table:sys_post" comment:"状态"`         // 状态
 	Remark         string `form:"remark" search:"type:exact;column:remark;table:sys_post" comment:"备注"`         // 备注
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:sys_post" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:sys_post" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_post" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_post" comment:"创建时间"`
 }
 
 func (m *SysPostQueryReq) GetNeedSearch() interface{} {

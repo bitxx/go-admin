@@ -10,8 +10,8 @@ type ContentCategoryQueryReq struct {
 	Id             int64  `form:"id"  search:"type:exact;column:id;table:plugins_content_category" comment:"编号"`
 	Name           string `form:"name"  search:"type:contains;column:name;table:plugins_content_category" comment:"分类名称"`
 	NameInner      string `form:"-"  search:"type:exact;column:name;table:plugins_content_category" comment:"分类名称，跟Name区分，数据库精确查询"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:plugins_content_category" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:plugins_content_category" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:plugins_content_category" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:plugins_content_category" comment:"创建时间"`
 	ContentCategoryOrder
 }
 

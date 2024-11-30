@@ -11,8 +11,8 @@ type UserCountryCodeQueryReq struct {
 	CountryInner   string `form:"-"  search:"type:exact;column:country;table:app_user_country_code" comment:"国家地区-内部精确查询"`
 	Code           string `form:"code"  search:"type:exact;column:code;table:app_user_country_code" comment:"区号"`
 	Status         string `form:"status"  search:"type:exact;column:status;table:app_user_country_code" comment:"状态(1-可用 2-停用)"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:created_at;table:app_user_country_code" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:created_at;table:app_user_country_code" comment:"创建时间"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:app_user_country_code" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:app_user_country_code" comment:"创建时间"`
 	UserCountryCodeOrder
 }
 
