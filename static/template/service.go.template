@@ -9,11 +9,7 @@ import (
 	"go-admin/core/middleware"
 	"go-admin/core/dto/service"
 	cDto "go-admin/core/dto"
-	{{- range .SysGenColumns }}
-    {{- if and (eq .ColumnName "status") ( ne .IsRequired "1" ) }}
 	"go-admin/core/global"
-    {{- end }}
-	{{- end }}
 	{{- $hasDecimal := false }}
 	{{- range .SysGenColumns }}
     {{- if eq .GoType "decimal.Decimal"}}{{- $hasDecimal = true }}{{- end }}
