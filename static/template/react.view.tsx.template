@@ -1,3 +1,10 @@
+{{- $hasDict := false }}
+{{- range .SysGenColumns }}
+{{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}{{ $hasDict = true }}{{ end }}
+{{- end }}
+{{- if eq $hasDict true }}
+import { getDictOptions, getDictsApi } from "@/api/sys/dictdata";
+{{- end }}
 import { del{{.ClassName}}Api, {{.ClassName}}Model, export{{.ClassName}}Api, get{{.ClassName}}PageApi } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";
 import { pagination } from "@/config/proTable";
 import { ResultEnum } from "@/enums/httpEnum";
@@ -12,17 +19,11 @@ import {
 } from "@ant-design/icons";
 import type { ActionType, ProColumns, ProFormInstance } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import { Button, message, Space, Tooltip } from "antd";
-{{- $hasDict := false }}
-{{- range .SysGenColumns }}
-{{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}{{ $hasDict = true }}{{ end }}
-{{- end }}
-import React, { useRef{{ if eq $hasDict true }}, useState{{ end }} } from "react";
-import { useNavigate } from "react-router-dom";
+import { Button, message, Space } from "antd";
+import React, { useRef{{ if eq $hasDict true }}, useEffect, useState{{ end }} } from "react";
 import FormModal, { FormModalRef } from "./components/FormModal";
 
 const {{.ClassName}}: React.FC = () => {
-  const navigate = useNavigate();
   const actionRef = React.useRef<ActionType>();
   const tableFormRef = React.useRef<ProFormInstance>();
   const formModalRef = useRef<FormModalRef>(null);
@@ -32,16 +33,6 @@ const {{.ClassName}}: React.FC = () => {
   const [sys{{$.ClassName}}Optoins, set{{$.ClassName}}Optoins] = useState<Map<string, string>>(new Map());
   {{- end }}
   {{- end }}
-
-  const handleShowAddFormModal = () => {
-    formModalRef.current?.showAddFormModal();
-  };
-  const handleShowEditFormModal = (id: number) => {
-    formModalRef.current?.showEditFormModal(id);
-  };
-  const handleFormModalConfirm = () => {
-    actionRef.current?.reload(true);
-  };
 
   // 定义列
   const columns: ProColumns<{{.ClassName}}Model>[] = [
@@ -64,14 +55,14 @@ const {{.ClassName}}: React.FC = () => {
       title: "{{.ColumnComment}}",
       dataIndex: "{{.JsonField}}",
       {{- if or (ne .IsList "1") (and (eq .IsList "1") (eq .HtmlType "datetime" )) }}
-      hideInSearch: true
+      hideInSearch: true,
       {{- end }}
       {{- if eq .HtmlType "datetime"  }}
       valueType: "dateTime",
       {{- end }}
       {{- if ne .DictType "" }}
       valueType: "select",
-      valueEnum: sys{{$.ClassName}}Optoins
+      valueEnum: sys{{$.ClassName}}Optoins,
       {{- end }}
       {{- if eq .HtmlType "datetime"  }}
       width: 180,
@@ -110,6 +101,40 @@ const {{.ClassName}}: React.FC = () => {
       )
     }
   ];
+
+  {{- if eq $hasDict true }}
+  useEffect(() => {
+    const getDict = async () => {
+      {{- range .SysGenColumns}}
+      {{- if and (ne .DictType "") (or (eq .IsList "1") (eq .IsQuery "1") (eq .IsRequired "1") ) }}
+      const {
+        data: sys{{$.ClassName}}Data,
+        msg: sys{{$.ClassName}}Msg,
+        code: sys{{$.ClassName}}Code
+      } = await getDictsApi("{{.DictType}}");
+      if (sys{{$.ClassName}}Code !== ResultEnum.SUCCESS) {
+        message.error(sys{{$.ClassName}}Msg);
+        return;
+      }
+      set{{$.ClassName}}Optoins(getDictOptions(sys{{$.ClassName}}Data));
+      {{- end }}
+      {{- end }}
+    }
+    getDict();
+  }, []);
+  {{- end }}
+
+  const handleShowAddFormModal = () => {
+    formModalRef.current?.showAddFormModal();
+  };
+
+  const handleShowEditFormModal = (id: number) => {
+    formModalRef.current?.showEditFormModal(id);
+  };
+
+  const handleFormModalConfirm = () => {
+    actionRef.current?.reload(true);
+  };
 
   const handleExport = () => {
     modal.confirm({
