@@ -23,7 +23,6 @@ type FilemgrAppOrder struct {
 	PlatformOrder     string     `form:"platformOrder"  search:"type:order;column:platform;table:plugins_filemgr_app"`
 	AppTypeOrder      string     `form:"appTypeOrder"  search:"type:order;column:app_type;table:plugins_filemgr_app"`
 	LocalAddressOrder string     `form:"localAddressOrder"  search:"type:order;column:local_address;table:plugins_filemgr_app"`
-	DownloadNumOrder  int64      `form:"downloadNumOrder"  search:"type:order;column:download_num;table:plugins_filemgr_app"`
 	DownloadTypeOrder string     `form:"downloadTypeOrder"  search:"type:order;column:download_type;table:plugins_filemgr_app"`
 	DownloadUrlOrder  string     `form:"downloadUrlOrder"  search:"type:order;column:download_url;table:plugins_filemgr_app"`
 	RemarkOrder       string     `form:"remarkOrder"  search:"type:order;column:remark;table:plugins_filemgr_app"`
@@ -44,7 +43,6 @@ type FilemgrAppInsertReq struct {
 	AppType      string `json:"appType" comment:"版本(1-默认)"`
 	LocalAddress string `json:"localAddress" comment:"本地地址"`
 	LocalRootUrl string `json:"localRootUrl" comment:"本地Url根地址"`
-	DownloadNum  int64  `json:"downloadNum" comment:"下载数量"`
 	DownloadType string `json:"downloadType" comment:"下载类型(1-本地 2-外链 3-oss )"`
 	DownloadUrl  string `json:"downloadUrl" comment:"下载地址"`
 	Remark       string `json:"remark" comment:"备注信息"`

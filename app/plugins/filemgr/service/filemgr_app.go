@@ -211,7 +211,6 @@ func (e *FilemgrApp) Insert(c *dto.FilemgrAppInsertReq) (int64, int, error) {
 	data.Platform = c.Platform
 	data.AppType = c.AppType
 	data.LocalAddress = c.LocalAddress
-	data.DownloadNum = 0
 	data.DownloadType = c.DownloadType
 	data.DownloadUrl = c.DownloadUrl
 	data.Remark = c.Remark
