@@ -38,7 +38,7 @@ var (
 		PluginsAppOssGenLogCode:           "oss url生成失败：%s",
 		PluginsAppUploadLogCode:           "app上传失败：%s",
 		PluginsAppUploadCode:              "app上传失败",
-		PluginsAppLocalUrlEmptyCode:       "本地Url根地址",
+		PluginsAppLocalUrlEmptyCode:       "本地Url根地址为空",
 		PluginsAppOssUploadLogCode:        "oss app上传失败：%s",
 		PluginsAppUploadSuccessCode:       "app上传成功",
 	}
