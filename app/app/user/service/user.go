@@ -503,13 +503,13 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 	if c.TrueName != "" && data.TrueName != c.TrueName {
 		updates["true_name"] = c.TrueName
 	}
-	if email != "" && data.Email != email {
+	if c.Email != "" && data.Email != c.Email {
 		updates["email"] = email
 	}
 	if c.MobileTitle != "" && data.MobileTitle != c.MobileTitle {
 		updates["mobile_title"] = c.MobileTitle
 	}
-	if mobile != "" && data.Mobile != mobile {
+	if c.Mobile != "" && data.Mobile != c.Mobile {
 		updates["mobile"] = mobile
 	}
 	if len(updates) > 0 {
