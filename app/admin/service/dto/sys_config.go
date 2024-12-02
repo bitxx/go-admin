@@ -40,7 +40,7 @@ type SysConfigInsertReq struct {
 }
 
 type SysConfigUpdateReq struct {
-	Id          int64  `uri:"Id" comment:"编码"` // 编码
+	Id          int64  `uri:"id" comment:"编码"` // 编码
 	ConfigName  string `json:"configName" comment:""`
 	ConfigKey   string `uri:"configKey" json:"configKey" comment:""`
 	ConfigValue string `json:"configValue" comment:""`

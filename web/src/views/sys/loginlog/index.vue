@@ -3,7 +3,7 @@
     <template #wrapper>
       <el-card class="box-card">
         <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
-          <el-form-item label="用户编号" prop="id">
+          <el-form-item label="用户编号" prop="userId">
             <el-input v-model="queryParams.id" placeholder="请输入用户编号" clearable size="small" @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="登录状态" prop="status">

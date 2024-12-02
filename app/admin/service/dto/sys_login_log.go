@@ -8,6 +8,7 @@ import (
 
 type SysLoginLogQueryReq struct {
 	dto.Pagination `search:"-"`
+	UserId         string `form:"userId" search:"type:exact;column:user_id;table:sys_login_log" comment:"用户编号"`
 	Username       string `form:"username" search:"type:exact;column:username;table:sys_login_log" comment:"用户名"`
 	Status         string `form:"status" search:"type:exact;column:status;table:sys_login_log" comment:"状态"`
 	Ipaddr         string `form:"ipaddr" search:"type:exact;column:ipaddr;table:sys_login_log" comment:"ip地址"`
