@@ -433,7 +433,7 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		//生成文件的路径
 		defaultPath := "./app/"
 		path := defaultPath
-		/*tableName := strings.Replace(table.ModuleName, "-", "_", -1) //golang 文件名使用下划线
+		tableName := strings.Replace(table.ModuleName, "-", "_", -1) //golang 文件名使用下划线
 		if k == constant.ModelName {
 			path = path + table.PackageName + "/" + table.BusinessName + "/models/" + tableName + ".go"
 		}
@@ -457,7 +457,7 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		}
 		if k == constant.ConstantName {
 			path = path + table.PackageName + "/" + table.BusinessName + "/constant/constant.go.bk"
-		}*/
+		}
 		if config.GenConfig.Type == global.GenTypeVue {
 			if k == constant.VueApiJsName {
 				path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + ".js"
