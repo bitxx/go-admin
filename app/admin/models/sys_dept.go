@@ -19,6 +19,7 @@ type SysDept struct {
 	DataScope string     `json:"dataScope" gorm:"-"`
 	Params    string     `json:"params" gorm:"-"`
 	Children  []SysDept  `json:"children" gorm:"-"`
+	IsFlag    bool       `json:"-" gorm:"-"`
 }
 
 func (SysDept) TableName() string {

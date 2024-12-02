@@ -182,7 +182,7 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) 
 		if respCode == lang.SuccessCode && resp.Id != data.Id {
 			return false, sysLang.SysDeptNameExistCode, lang.MsgErr(sysLang.SysDeptNameExistCode, e.Lang)
 		}
-		updates["deptName"] = c.DeptName
+		updates["dept_name"] = c.DeptName
 	}
 	if c.Sort > 0 && data.Sort != c.Sort {
 		updates["sort"] = c.Sort
@@ -268,7 +268,10 @@ func (e *SysDept) SetDeptPage(c *dto.SysDeptQueryReq) ([]models.SysDept, int, er
 	}
 	m := make([]models.SysDept, 0)
 	for i := 0; i < len(list); i++ {
-		if list[i].ParentId != 0 {
+		/*		if list[i].ParentId != 0 {
+				continue
+			}*/
+		if list[i].IsFlag == true {
 			continue
 		}
 		info := e.deptPageCall(&list, list[i])
@@ -356,6 +359,7 @@ func (e *SysDept) deptPageCall(deptlist *[]models.SysDept, menu models.SysDept) 
 		if menu.Id != list[j].ParentId {
 			continue
 		}
+		list[j].IsFlag = true
 		mi := models.SysDept{}
 		mi.Id = list[j].Id
 		mi.ParentId = list[j].ParentId

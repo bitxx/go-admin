@@ -2,7 +2,6 @@
   <BasicLayout>
     <template #wrapper>
       <el-card class="box-card">
-        <label style="color:red"> ** 目前仅支持一级部门查询 </label>
         <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
           <el-form-item label="部门名称">
             <el-input v-model="queryParams.deptName" placeholder="请输入部门名称" clearable size="small" @keyup.enter.native="handleQuery" />
