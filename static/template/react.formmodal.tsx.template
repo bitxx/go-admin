@@ -18,9 +18,10 @@
 import { getDictOptions, getDictsApi } from "@/api/sys/dictdata";
 {{- end }}
 import { add{{.ClassName}}Api, {{.ClassName}}Model, get{{.ClassName}}Api, update{{.ClassName}}Api } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";
+import LoadingButton from "@/components/LoadingButton";
 import { ResultEnum } from "@/enums/httpEnum";
 import { message } from "@/hooks/useMessage";
-import { Button, Form, Modal{{ if eq $hasInput true }}, Input{{ end }}{{ if eq $hasNumInput true }}, InputNumber{{ end }}{{ if eq $hasDatetime true }}, DatePicker{{ end }}{{ if eq $hasSelect true }}, Select{{ end }}{{ if eq $hasRadio true }}, Radio{{ end }} } from "antd";
+import { Form, Modal{{ if eq $hasInput true }}, Input{{ end }}{{ if eq $hasNumInput true }}, InputNumber{{ end }}{{ if eq $hasDatetime true }}, DatePicker{{ end }}{{ if eq $hasSelect true }}, Select{{ end }}{{ if eq $hasRadio true }}, Radio{{ end }} } from "antd";
 import { forwardRef, useImperativeHandle, useState{{ if eq $hasDict true }}, useEffect{{ end }} } from "react";
 
 export interface FormModalRef {
@@ -90,31 +91,37 @@ const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
     setTimeout(() => form.resetFields(), 100);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (done: () => void) => {
     form
       .validateFields()
       .then(async values => {
-        if (model.id! <= 0) {
-          const { msg, code } = await add{{.ClassName}}Api(values);
-          if (code !== ResultEnum.SUCCESS) {
-            message.error(msg);
-            return;
+        try {
+          if (model.id! <= 0) {
+            const { msg, code } = await add{{.ClassName}}Api(values);
+            if (code !== ResultEnum.SUCCESS) {
+              message.error(msg);
+              return;
+            }
+            message.success(msg);
+          } else {
+            const { msg, code } = await update{{.ClassName}}Api(model.id!, values);
+            if (code !== ResultEnum.SUCCESS) {
+              message.error(msg);
+              return;
+            }
+            message.success(msg);
           }
-          message.success(msg);
-        } else {
-          const { msg, code } = await update{{.ClassName}}Api(model.id!, values);
-          if (code !== ResultEnum.SUCCESS) {
-            message.error(msg);
-            return;
-          }
-          message.success(msg);
+        } finally {
+          done();
         }
         reset();
         setIsModalOpen(false);
         onConfirm();
       })
       .catch(error => {
-        message.error("表单校验失败：" + error);
+        console.error("validate error：", error);
+        message.error("表单校验失败");
+        done();
       });
   };
 
@@ -132,18 +139,19 @@ const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
       }}
       destroyOnClose
       footer={[
-        <Button
+        <LoadingButton
           key="cancel"
-          onClick={() => {
+          onClick={(done) => {
             reset();
             setIsModalOpen(false);
+            done();
           }}
         >
           取消
-        </Button>,
-        <Button key="confirm" type="primary" onClick={handleConfirm}>
+        </LoadingButton>,
+        <LoadingButton key="confirm" type="primary" onClick={done => handleConfirm(done)}>
           确定
-        </Button>
+        </LoadingButton>
       ]}
     >
       <Form form={form} layout="vertical" initialValues={model}>

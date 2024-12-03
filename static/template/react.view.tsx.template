@@ -6,6 +6,7 @@
 import { getDictOptions, getDictsApi } from "@/api/sys/dictdata";
 {{- end }}
 import { del{{.ClassName}}Api, {{.ClassName}}Model, export{{.ClassName}}Api, get{{.ClassName}}PageApi } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";
+import LoadingButton from "@/components/LoadingButton";
 import { pagination } from "@/config/proTable";
 import { ResultEnum } from "@/enums/httpEnum";
 import { modal } from "@/hooks/useMessage";
@@ -19,7 +20,7 @@ import {
 } from "@ant-design/icons";
 import type { ActionType, ProColumns, ProFormInstance } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import { Button, message, Space } from "antd";
+import { message, Space } from "antd";
 import React, { useRef{{ if eq $hasDict true }}, useEffect, useState{{ end }} } from "react";
 import FormModal, { FormModalRef } from "./components/FormModal";
 
@@ -93,12 +94,12 @@ const {{.ClassName}}: React.FC = () => {
       width: 150,
       render: (_, data) => (
         <Space>
-          <Button key="edit" type="link" size="small" icon={<EditOutlined />} onClick={() => handleShowEditFormModal(data.id!)}>
+          <LoadingButton key="edit" type="link" size="small" icon={<EditOutlined />} onClick={(done) => handleShowEditFormModal(data.id!,done)}>
             编辑
-          </Button>
-          <Button key="delete" type="link" size="small" danger icon={<DeleteOutlined />} onClick={() => handleDelete(data.id!)}>
+          </LoadingButton>
+          <LoadingButton key="delete" type="link" size="small" danger icon={<DeleteOutlined />} onClick={(done) => handleDelete(data.id!,done)}>
             删除
-          </Button>
+          </LoadingButton>
         </Space>
       )
     }
@@ -126,19 +127,21 @@ const {{.ClassName}}: React.FC = () => {
   }, []);
   {{- end }}
 
-  const handleShowAddFormModal = () => {
+  const handleShowAddFormModal = (done: () => void) => {
     formModalRef.current?.showAddFormModal();
+    setTimeout(() => done(), 1500);
   };
 
-  const handleShowEditFormModal = (id: number) => {
+  const handleShowEditFormModal = (id: number, done: () => void) => {
     formModalRef.current?.showEditFormModal(id);
+    setTimeout(() => done(), 1500);
   };
 
   const handleFormModalConfirm = () => {
     actionRef.current?.reload(true);
   };
 
-  const handleExport = () => {
+  const handleExport = (done: () => void) => {
     modal.confirm({
       title: "提示",
       icon: <ExclamationCircleOutlined />,
@@ -146,17 +149,22 @@ const {{.ClassName}}: React.FC = () => {
       okText: "确认",
       cancelText: "取消",
       maskClosable: true,
+      onCancel: () => {
+        done();
+      },
       onOk: async () => {
         try {
           saveExcelBlob("{{ .TableComment }}", await export{{.ClassName}}Api(tableFormRef.current?.getFieldsValue()));
         } catch (err) {
           message.error("下载失败，请检查网络");
-        }
+        } finally {
+           done();
+         }
       }
     });
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number, done: () => void) => {
     modal.confirm({
       title: "提示",
       icon: <ExclamationCircleOutlined />,
@@ -164,25 +172,32 @@ const {{.ClassName}}: React.FC = () => {
       okText: "确认",
       cancelText: "取消",
       maskClosable: true,
+      onCancel: () => {
+        done();
+      },
       onOk: async () => {
-        const { code, msg } = await del{{.ClassName}}Api([id!]);
-        if (code !== ResultEnum.SUCCESS) {
-          message.error(msg);
-          return;
+        try {
+          const { code, msg } = await del{{.ClassName}}Api([id!]);
+          if (code !== ResultEnum.SUCCESS) {
+            message.error(msg);
+            return;
+          }
+          actionRef.current?.reload(true);
+          message.success(msg);
+        } finally {
+          done();
         }
-        actionRef.current?.reload(true);
-        message.success(msg);
       }
     });
   };
 
   const toolBarRender = () => [
-    <Button type="primary" key="addTable" icon={<PlusCircleOutlined />} onClick={() => handleShowAddFormModal()}>
+    <LoadingButton type="primary" key="addTable" icon={<PlusCircleOutlined />} onClick={(done) => handleShowAddFormModal(done)}>
       新增
-    </Button>,
-    <Button type="primary" key="importTable" icon={<CloudDownloadOutlined />} onClick={handleExport}>
+    </LoadingButton>,
+    <LoadingButton type="primary" key="importTable" icon={<CloudDownloadOutlined />} onClick={done => handleExport(done)}>
       Excel导出
-    </Button>
+    </LoadingButton>
   ];
 
   return (
