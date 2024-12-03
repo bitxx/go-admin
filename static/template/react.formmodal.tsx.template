@@ -87,7 +87,7 @@ const FormModal = forwardRef<FormModalRef, ModalProps>(({ onConfirm }, ref) => {
     } else {
       setModel({ id: 0 });
     }
-    setTimeout(() => form.resetFields(), 10);
+    setTimeout(() => form.resetFields(), 100);
   };
 
   const handleConfirm = () => {
