@@ -65,17 +65,3 @@ export function delRole(roleId) {
     data: roleId
   })
 }
-
-export function getListrole(id) {
-  return request({
-    url: '/admin-api/v1/menu/role/' + id,
-    method: 'get'
-  })
-}
-
-// export function getMenuNames() {
-//   return request({
-//     url: '/admin-api/v1/menuids',
-//     method: 'get'
-//   })
-// }

@@ -9,7 +9,7 @@ import (
 type SysRoleQueryReq struct {
 	dto.Pagination `search:"-"`
 	Id             int    `form:"id" search:"type:exact;column:id;table:sys_role" comment:"角色编码"`                 // 角色编码
-	RoleName       string `form:"roleName" search:"type:exact;column:role_name;table:sys_role" comment:"角色名称"`    // 角色名称
+	RoleName       string `form:"roleName" search:"type:contains;column:role_name;table:sys_role" comment:"角色名称"` // 角色名称
 	Status         string `form:"status" search:"type:exact;column:status;table:sys_role" comment:"状态 1-正常 2-停用"` // 状态
 	RoleKey        string `form:"roleKey" search:"type:exact;column:role_key;table:sys_role" comment:"角色代码"`      // 角色代码
 }
