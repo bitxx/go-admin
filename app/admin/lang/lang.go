@@ -49,31 +49,32 @@ const (
 	SysPostNameExistCode   = 10404
 
 	//用户管理
-	SysUserNameEmptyCode         = 10500
-	SysNickNameEmptyCode         = 10501
-	SysUserPhoneEmptyCode        = 10502
-	SysUserEmailEmptyCode        = 10503
-	SysUserDeptEmptyCode         = 10504
-	SysUserPwdEmptyCode          = 10505
-	SysUserNameExistCode         = 10506
-	SysUserNickNameExistCode     = 10507
-	SysUserPhoneExistCode        = 10508
-	SysUserEmailExistCode        = 10509
-	SysUserEmailFormatErrCode    = 10510
-	SysUserStatusEmptyCode       = 10511
-	SysUserNewPwdEmptyCode       = 10512
-	SysUserPwdErrCode            = 10513
-	SysUserNoExistCode           = 10514
-	SysUserAvatarErrCode         = 10515
-	SysUserAvatarErrLogCode      = 10516
-	SysUseCapErrLogCode          = 10517
-	SysUseLogoutSuccessCode      = 10518
-	SysUseLoginOpCode            = 10519
-	SysUseLogoutOpCode           = 10520
-	SysUseGenCaptchaErrCode      = 10521
-	SysUseGenCaptchaErrLogCode   = 10522
-	SysUseAvatarUploadErrCode    = 10523
-	SysUseAvatarUploadErrLogCode = 10524
+	SysUserNameEmptyCode              = 10500
+	SysNickNameEmptyCode              = 10501
+	SysUserPhoneEmptyCode             = 10502
+	SysUserEmailEmptyCode             = 10503
+	SysUserDeptEmptyCode              = 10504
+	SysUserPwdEmptyCode               = 10505
+	SysUserNameExistCode              = 10506
+	SysUserNickNameExistCode          = 10507
+	SysUserPhoneExistCode             = 10508
+	SysUserEmailExistCode             = 10509
+	SysUserEmailFormatErrCode         = 10510
+	SysUserStatusEmptyCode            = 10511
+	SysUserNewPwdEmptyCode            = 10512
+	SysUserPwdErrCode                 = 10513
+	SysUserNoExistCode                = 10514
+	SysUserAvatarErrCode              = 10515
+	SysUserAvatarErrLogCode           = 10516
+	SysUseCapErrLogCode               = 10517
+	SysUseLogoutSuccessCode           = 10518
+	SysUseLoginOpCode                 = 10519
+	SysUseLogoutOpCode                = 10520
+	SysUseGenCaptchaErrCode           = 10521
+	SysUseGenCaptchaErrLogCode        = 10522
+	SysUseAvatarUploadErrCode         = 10523
+	SysUseAvatarUploadErrLogCode      = 10524
+	SysAdminUserNotAllowDeleteErrCode = 10525
 
 	//菜单
 	SysMenuParentIdEmptyCode = 10600
@@ -154,31 +155,32 @@ var (
 		SysPostNameExistCode:   "岗位名称已存在",
 
 		//用户管理
-		SysUserNameEmptyCode:         "用户名不得为空",
-		SysNickNameEmptyCode:         "用户昵称不得为空",
-		SysUserPhoneEmptyCode:        "用户联系电话不得为空",
-		SysUserEmailEmptyCode:        "用户邮箱不得为空",
-		SysUserDeptEmptyCode:         "用户部门不得为空",
-		SysUserPwdEmptyCode:          "用户密码不得为空",
-		SysUserNameExistCode:         "用户名已存在",
-		SysUserNickNameExistCode:     "用户昵称已存在",
-		SysUserPhoneExistCode:        "用户联系电话已存在",
-		SysUserEmailExistCode:        "用户邮箱已存在",
-		SysUserEmailFormatErrCode:    "用户邮箱格式错误",
-		SysUserStatusEmptyCode:       "用户状态不得为空",
-		SysUserNewPwdEmptyCode:       "新密码不得为空",
-		SysUserPwdErrCode:            "密码错误",
-		SysUserNoExistCode:           "账户不存在",
-		SysUserAvatarErrCode:         "头像上传失败",
-		SysUserAvatarErrLogCode:      "头像上传失败：%s",
-		SysUseCapErrLogCode:          "验证码错误",
-		SysUseLogoutSuccessCode:      "退出成功",
-		SysUseLoginOpCode:            "登录操作",
-		SysUseLogoutOpCode:           "退出操作",
-		SysUseGenCaptchaErrCode:      "验证码获取失败",
-		SysUseGenCaptchaErrLogCode:   "验证码获取失败：%s",
-		SysUseAvatarUploadErrCode:    "头像上传失败",
-		SysUseAvatarUploadErrLogCode: "头像上传失败：%s",
+		SysUserNameEmptyCode:              "用户名不得为空",
+		SysNickNameEmptyCode:              "用户昵称不得为空",
+		SysUserPhoneEmptyCode:             "用户联系电话不得为空",
+		SysUserEmailEmptyCode:             "用户邮箱不得为空",
+		SysUserDeptEmptyCode:              "用户部门不得为空",
+		SysUserPwdEmptyCode:               "用户密码不得为空",
+		SysUserNameExistCode:              "用户名已存在",
+		SysUserNickNameExistCode:          "用户昵称已存在",
+		SysUserPhoneExistCode:             "用户联系电话已存在",
+		SysUserEmailExistCode:             "用户邮箱已存在",
+		SysUserEmailFormatErrCode:         "用户邮箱格式错误",
+		SysUserStatusEmptyCode:            "用户状态不得为空",
+		SysUserNewPwdEmptyCode:            "新密码不得为空",
+		SysUserPwdErrCode:                 "密码错误",
+		SysUserNoExistCode:                "账户不存在",
+		SysUserAvatarErrCode:              "头像上传失败",
+		SysUserAvatarErrLogCode:           "头像上传失败：%s",
+		SysUseCapErrLogCode:               "验证码错误",
+		SysUseLogoutSuccessCode:           "退出成功",
+		SysUseLoginOpCode:                 "登录操作",
+		SysUseLogoutOpCode:                "退出操作",
+		SysUseGenCaptchaErrCode:           "验证码获取失败",
+		SysUseGenCaptchaErrLogCode:        "验证码获取失败：%s",
+		SysUseAvatarUploadErrCode:         "头像上传失败",
+		SysUseAvatarUploadErrLogCode:      "头像上传失败：%s",
+		SysAdminUserNotAllowDeleteErrCode: "该账户禁止删除",
 
 		//菜单
 		SysMenuParentIdEmptyCode: "上级菜单不得为空",

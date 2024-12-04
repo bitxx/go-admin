@@ -469,7 +469,7 @@ func (e SysUser) Login(c *gin.Context) {
 		}
 	}
 
-	userResp, respCode, err := s.GetUser(&req)
+	userResp, respCode, err := s.GetLoginUser(&req)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return

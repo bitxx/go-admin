@@ -382,6 +382,17 @@ func (e *SysUser) Remove(ids []int64, p *middleware.DataPermission) (int, error)
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
+
+	//find if have admin account,not allow delete
+	for _, id := range ids {
+		u, respCode, err := e.Get(id, p)
+		if err != nil {
+			return respCode, err
+		}
+		if u.Username == constant.RoleKeyAdmin {
+			return sysLang.SysAdminUserNotAllowDeleteErrCode, lang.MsgErr(sysLang.SysAdminUserNotAllowDeleteErrCode, e.Lang)
+		}
+	}
 	var err error
 	var data models.SysUser
 	err = e.Orm.Scopes(
@@ -430,9 +441,13 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	return respUser, lang.SuccessCode, nil
 }
 
-func (e *SysUser) GetUser(login *dto.LoginReq) (*models.SysUser, int, error) {
+func (e *SysUser) GetLoginUser(login *dto.LoginReq) (*models.SysUser, int, error) {
 	user := &models.SysUser{}
-	err := e.Orm.Preload("Dept").Preload("Post").Preload("Role").Where("username = ?  and status = ?", login.Username, global.SysStatusOk).First(user).Error
+	status := []string{global.SysStatusOk}
+	if login.Username == constant.RoleKeyAdmin {
+		status = []string{global.SysStatusOk, global.SysStatusNotOk}
+	}
+	err := e.Orm.Preload("Dept").Preload("Post").Preload("Role").Where("username = ? and status in (?)", login.Username, status).First(user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
 	}

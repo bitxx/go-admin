@@ -338,7 +338,7 @@ export default {
     },
     // 节点单击事件
     handleNodeClick(data) {
-      this.queryParams.deptId = '/' + data.id + '/'
+      this.queryParams.deptId = data.id
       this.getList()
     },
     /** 转换菜单数据结构 */
