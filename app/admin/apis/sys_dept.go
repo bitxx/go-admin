@@ -182,9 +182,10 @@ func (e SysDept) GetDeptTreeRoleSelect(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	menuIds := make([]int64, 0)
+	deptIds := make([]int64, 0)
 	if req.RoleId != 0 {
-		menuIds, respCode, err = s.GetWithRoleId(req.RoleId)
+		sysRoleService := service.NewSysRoleService(&s.Service)
+		deptIds, respCode, err = sysRoleService.GetRoleDeptId(req.RoleId)
 		if err != nil {
 			e.Error(respCode, err.Error())
 			return
@@ -192,7 +193,7 @@ func (e SysDept) GetDeptTreeRoleSelect(c *gin.Context) {
 	}
 	resp := dto.DeptTreeRoleResp{
 		Depts:       result,
-		CheckedKeys: menuIds,
+		CheckedKeys: deptIds,
 	}
 	e.OK(resp, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }

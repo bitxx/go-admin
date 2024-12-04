@@ -280,24 +280,6 @@ func (e *SysDept) SetDeptPage(c *dto.SysDeptQueryReq) ([]models.SysDept, int, er
 	return m, lang.SuccessCode, nil
 }
 
-// GetWithRoleId 获取角色的部门ID集合
-func (e *SysDept) GetWithRoleId(roleId int64) ([]int64, int, error) {
-	deptIds := make([]int64, 0)
-	deptList := make([]dto.SysRoleDeptResp, 0)
-	if err := e.Orm.Table("sys_role_dept").
-		Select("sys_role_dept.dept_id").
-		Joins("LEFT JOIN sys_dept on sys_dept.id=sys_role_dept.dept_id").
-		Where("role_id = ? ", roleId).
-		Where(" sys_role_dept.dept_id not in(select sys_dept.parent_id from sys_role_dept LEFT JOIN sys_dept on sys_dept.id=sys_role_dept.dept_id where role_id =? )", roleId).
-		Find(&deptList).Error; err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
-	}
-	for i := 0; i < len(deptList); i++ {
-		deptIds = append(deptIds, deptList[i].DeptId)
-	}
-	return deptIds, lang.SuccessCode, nil
-}
-
 func (e *SysDept) SetDeptLabel() ([]dto.DeptLabel, int, error) {
 	list := make([]models.SysDept, 0)
 	err := e.Orm.Find(&list).Error

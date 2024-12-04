@@ -67,7 +67,12 @@ func (e *SysRole) Get(id int64, p *middleware.DataPermission) (*models.SysRole, 
 	if err != nil {
 		return nil, respCode, err
 	}
+	deptIds, respCode, err := e.GetRoleDeptId(data.Id)
+	if err != nil {
+		return nil, respCode, err
+	}
 	data.MenuIds = menuIds
+	data.DeptIds = deptIds
 	return data, lang.SuccessCode, nil
 }
 
@@ -318,6 +323,24 @@ func (e *SysRole) GetRoleMenuId(roleId int64) ([]int64, int, error) {
 	return menuIds, lang.SuccessCode, nil
 }
 
+// GetRoleDeptId 获取角色的部门ID集合
+func (e *SysRole) GetRoleDeptId(roleId int64) ([]int64, int, error) {
+	deptIds := make([]int64, 0)
+	deptList := make([]dto.SysRoleDeptResp, 0)
+	if err := e.Orm.Table("sys_role_dept").
+		Select("sys_role_dept.dept_id").
+		Joins("LEFT JOIN sys_dept on sys_dept.id=sys_role_dept.dept_id").
+		Where("role_id = ? ", roleId).
+		Where(" sys_role_dept.dept_id not in(select sys_dept.parent_id from sys_role_dept LEFT JOIN sys_dept on sys_dept.id=sys_role_dept.dept_id where role_id =? )", roleId).
+		Find(&deptList).Error; err != nil {
+		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	for i := 0; i < len(deptList); i++ {
+		deptIds = append(deptIds, deptList[i].DeptId)
+	}
+	return deptIds, lang.SuccessCode, nil
+}
+
 func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (int, error) {
 	var err error
 	e.Orm = e.Orm.Begin()
@@ -330,9 +353,9 @@ func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (int, error) {
 	}()
 	var dlist = make([]models.SysDept, 0)
 	var model = models.SysRole{}
-	e.Orm.Preload("SysDept").First(&model, c.Id)
-	e.Orm.Where("id in ?", c.DeptIds).Find(&dlist)
-	err = e.Orm.Model(&model).Association("SysDept").Delete(model.SysDept)
+	e.Orm.Preload("SysDept").First(&model, c.Id)                           //查找角色id所属部门
+	e.Orm.Where("id in ?", c.DeptIds).Find(&dlist)                         //查找所选部门id对应的部门信息
+	err = e.Orm.Model(&model).Association("SysDept").Delete(model.SysDept) //删除角色原有的部门信息
 	if err != nil {
 		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
 	}
@@ -380,12 +403,18 @@ func (e *SysRole) GetWithName(d *dto.SysRoleQueryReq) (*models.SysRole, int, err
 	if err != nil {
 		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
 	}
-	ids, respCode, err := e.GetRoleMenuId(model.Id)
-
+	menuIds, respCode, err := e.GetRoleMenuId(model.Id)
 	if err != nil {
 		return nil, respCode, err
 	}
-	model.MenuIds = ids
+
+	deptIds, respCode, err := e.GetRoleDeptId(model.Id)
+	if err != nil {
+		return nil, respCode, err
+	}
+
+	model.MenuIds = menuIds
+	model.DeptIds = deptIds
 	return model, lang.SuccessCode, nil
 }
 
