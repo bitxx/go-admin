@@ -18,6 +18,28 @@ type SysPost struct {
 	api.Api
 }
 
+// GetTotalList 岗位列表数据
+func (e SysPost) GetTotalList(c *gin.Context) {
+	s := service.SysPost{}
+	req := dto.SysPostQueryReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		return
+	}
+	p := middleware.GetPermissionFromContext(c)
+	list, _, respCode, err := s.GetTotalList(&req, p)
+	if err != nil {
+		e.Error(respCode, err.Error())
+		return
+	}
+	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
+}
+
 // GetPage 岗位列表数据
 func (e SysPost) GetPage(c *gin.Context) {
 	s := service.SysPost{}

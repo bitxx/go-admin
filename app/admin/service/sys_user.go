@@ -39,7 +39,7 @@ func (e *SysUser) GetPage(c *dto.SysUserQueryReq, p *middleware.DataPermission) 
 	var data models.SysUser
 	var count int64
 
-	err := e.Orm.Model(&data).Preload("Dept").Preload("Role").Order("created_at desc").
+	err := e.Orm.Model(&data).Preload("Dept").Preload("Role").Preload("Post").Order("created_at desc").
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),

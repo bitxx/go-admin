@@ -19,6 +19,27 @@ type SysRole struct {
 	api.Api
 }
 
+func (e SysRole) GetTotalList(c *gin.Context) {
+	s := service.SysRole{}
+	req := dto.SysRoleQueryReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		return
+	}
+	p := middleware.GetPermissionFromContext(c)
+	list, _, respCode, err := s.GetTotalList(&req, p)
+	if err != nil {
+		e.Error(respCode, err.Error())
+		return
+	}
+	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
+}
+
 // GetPage 角色列表数据
 func (e SysRole) GetPage(c *gin.Context) {
 	s := service.SysRole{}

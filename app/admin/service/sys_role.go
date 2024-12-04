@@ -29,6 +29,23 @@ func NewSysRoleService(s *service.Service) *SysRole {
 	return srv
 }
 
+// GetTotalList 获取SysPost列表
+func (e *SysRole) GetTotalList(c *dto.SysRoleQueryReq, p *middleware.DataPermission) ([]models.SysRole, int64, int, error) {
+	var list []models.SysRole
+	var data models.SysRole
+	var count int64
+
+	err := e.Orm.Model(&data).
+		Scopes(
+			cDto.MakeCondition(c.GetNeedSearch()),
+			middleware.Permission(data.TableName(), p),
+		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+	if err != nil {
+		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	return list, count, lang.SuccessCode, nil
+}
+
 // GetPage 获取SysRole列表
 func (e *SysRole) GetPage(c *dto.SysRoleQueryReq, p *middleware.DataPermission) ([]models.SysRole, int64, int, error) {
 	var list []models.SysRole
