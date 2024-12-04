@@ -19,7 +19,7 @@ func registerSysUserRouter(v1 *gin.RouterGroup) {
 		r.GET("", api.GetPage)
 		r.GET("/:id", api.Get)
 		r.POST("", api.Insert)
-		r.PUT("", api.Update)
+		r.PUT("/:id", api.Update)
 		r.PUT("/updateSelfEmail", api.UpdateSelfEmail)
 		r.PUT("/updateSelfPhone", api.UpdateSelfPhone)
 		r.PUT("/updateSelfNickName", api.UpdateSelfNickName)

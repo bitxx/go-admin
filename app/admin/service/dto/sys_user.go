@@ -70,7 +70,7 @@ type SysUserInsertReq struct {
 }
 
 type SysUserUpdateReq struct {
-	Id         int64  `json:"id" comment:"用户ID"` // 用户ID
+	Id         int64  `uri:"id" json:"-" comment:"用户编号"`
 	Username   string `json:"username" comment:"用户名"`
 	NickName   string `json:"nickName" comment:"昵称"`
 	Phone      string `json:"phone" comment:"手机号"`
@@ -83,7 +83,7 @@ type SysUserUpdateReq struct {
 	Remark     string `json:"remark" comment:"备注"`
 	Status     string `json:"status" comment:"状态"sss`
 	CurrUserId int64  `json:"-" comment:""`
-	Password   string `json:"password" comment:""`
+	//Password   string `json:"password" comment:""`
 }
 
 type SysUserPhoneUpdateReq struct {

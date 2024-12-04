@@ -36,7 +36,7 @@ export function addUser(data) {
 // 修改用户
 export function updateUser(data) {
   return request({
-    url: '/admin-api/v1/sys-user',
+    url: '/admin-api/v1/sys-user/' + data.id,
     method: 'put',
     data: data
   })
