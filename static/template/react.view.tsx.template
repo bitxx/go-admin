@@ -9,7 +9,7 @@ import { del{{.ClassName}}Api, {{.ClassName}}Model, export{{.ClassName}}Api, get
 import LoadingButton from "@/components/LoadingButton";
 import { pagination } from "@/config/proTable";
 import { ResultEnum } from "@/enums/httpEnum";
-import { modal } from "@/hooks/useMessage";
+import { message, modal } from "@/hooks/useMessage";
 import { formatDataForProTable, saveExcelBlob } from "@/utils";
 import {
   CloudDownloadOutlined,
@@ -20,7 +20,7 @@ import {
 } from "@ant-design/icons";
 import type { ActionType, ProColumns, ProFormInstance } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import { message, Space } from "antd";
+import { Space } from "antd";
 import React, { useRef{{ if eq $hasDict true }}, useEffect, useState{{ end }} } from "react";
 import FormModal, { FormModalRef } from "./components/FormModal";
 
@@ -105,9 +105,9 @@ const {{.ClassName}}: React.FC = () => {
     }
   ];
 
-  {{- if eq $hasDict true }}
   useEffect(() => {
-    const getDict = async () => {
+    {{- if eq $hasDict true }}
+    const initData = async () => {
       {{- range .SysGenColumns }}
       {{- if and (ne .DictType "") (or (eq .IsList "1") (eq .IsQuery "1") ) }}
       const {
@@ -123,18 +123,18 @@ const {{.ClassName}}: React.FC = () => {
       {{- end }}
       {{- end }}
     }
-    getDict();
+    initData();
+    {{- end }}
   }, []);
-  {{- end }}
 
   const handleShowAddFormModal = (done: () => void) => {
     formModalRef.current?.showAddFormModal();
-    setTimeout(() => done(), 1500);
+    setTimeout(() => done(), 1000);
   };
 
   const handleShowEditFormModal = (id: number, done: () => void) => {
     formModalRef.current?.showEditFormModal(id);
-    setTimeout(() => done(), 1500);
+    setTimeout(() => done(), 1000);
   };
 
   const handleFormModalConfirm = () => {
