@@ -170,6 +170,9 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) 
 	if err != nil {
 		return false, respCode, err
 	}
+	if c.Id == c.ParentId {
+		return false, sysLang.SysDeptParentSelfCode, lang.MsgErr(sysLang.SysDeptParentSelfCode, e.Lang)
+	}
 
 	//最小化变更改动过的数据
 	updates := map[string]interface{}{}

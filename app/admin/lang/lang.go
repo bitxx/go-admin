@@ -31,6 +31,7 @@ const (
 	SysDeptLeaderEmptyCode     = 10202
 	SysDeptNameExistCode       = 10203
 	SysDeptChildExistNoDelCode = 10204
+	SysDeptParentSelfCode      = 10205
 
 	//角色管理
 	SysRoleNameEmptyCode         = 10301
@@ -137,6 +138,7 @@ var (
 		SysDeptLeaderEmptyCode:     "负责人不得为空",
 		SysDeptNameExistCode:       "该部门名称已存在",
 		SysDeptChildExistNoDelCode: "该部门有下级部门，不可删除",
+		SysDeptParentSelfCode:      "不可将自己设置为上级部门",
 
 		//角色
 		SysRoleNameEmptyCode:         "角色名称不得为空",
