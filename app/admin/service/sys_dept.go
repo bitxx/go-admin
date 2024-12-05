@@ -268,9 +268,6 @@ func (e *SysDept) SetDeptPage(c *dto.SysDeptQueryReq) ([]models.SysDept, int, er
 	}
 	m := make([]models.SysDept, 0)
 	for i := 0; i < len(list); i++ {
-		/*		if list[i].ParentId != 0 {
-				continue
-			}*/
 		if list[i].IsFlag == true {
 			continue
 		}
@@ -334,11 +331,11 @@ func deptLabelCall(deptList *[]models.SysDept, dept dto.DeptLabel) dto.DeptLabel
 	return dept
 }
 
-func (e *SysDept) deptPageCall(deptlist *[]models.SysDept, menu models.SysDept) models.SysDept {
+func (e *SysDept) deptPageCall(deptlist *[]models.SysDept, dept models.SysDept) models.SysDept {
 	list := *deptlist
 	min := make([]models.SysDept, 0)
 	for j := 0; j < len(list); j++ {
-		if menu.Id != list[j].ParentId {
+		if dept.Id != list[j].ParentId {
 			continue
 		}
 		list[j].IsFlag = true
@@ -357,8 +354,8 @@ func (e *SysDept) deptPageCall(deptlist *[]models.SysDept, menu models.SysDept) 
 		ms := e.deptPageCall(deptlist, mi)
 		min = append(min, ms)
 	}
-	menu.Children = min
-	return menu
+	dept.Children = min
+	return dept
 }
 
 // GetSysDeptList 获取组织数据

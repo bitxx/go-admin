@@ -7,6 +7,7 @@ import (
 	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -29,30 +30,51 @@ func NewSysMenuService(s *service.Service) *SysMenu {
 	return srv
 }
 
-// GetPage 获取SysMenu列表 一次性获取所有数据
-func (e *SysMenu) GetPage(c *dto.SysMenuQueryReq, p *middleware.DataPermission) ([]models.SysMenu, int, error) {
-	var list []models.SysMenu
-	var data models.SysMenu
-	var count int64
-
-	err := e.Orm.Model(&data).Order("sort asc").
-		Scopes(
-			cDto.MakeCondition(c.GetNeedSearch()),
-			middleware.Permission(data.TableName(), p),
-		).Preload("SysApi").Find(&list).Limit(-1).Offset(-1).Count(&count).Error
-
+// GetTreeList 获取SysMenu列表 一次性获取所有数据
+func (e *SysMenu) GetTreeList(c *dto.SysMenuQueryReq) ([]models.SysMenu, int, error) {
+	list, respCode, err := e.GetList(c, false)
 	if err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, respCode, err
 	}
+
+	count := len(list)
 	var menus []models.SysMenu
-	for i := 0; i < int(count); i++ {
-		if list[i].ParentId != 0 {
-			continue
-		}
+	sort.Slice(list, func(i, j int) bool {
+		return list[i].Sort < list[j].Sort
+	})
+	for i := 0; i < count; i++ {
 		menusInfo := menuCall(&list, list[i])
 		menus = append(menus, menusInfo)
 	}
+	//menus := menuCall2(list)
 	return menus, lang.SuccessCode, nil
+}
+
+func menuCall2(menuList []models.SysMenu) []models.SysMenu {
+	// 创建一个 map 来存储每个 parentId 对应的子菜单
+	menuMap := make(map[int64][]models.SysMenu)
+	var rootItems []models.SysMenu
+
+	// 遍历菜单项，根据 parentId 分组
+	for _, item := range menuList {
+		menuMap[item.ParentId] = append(menuMap[item.ParentId], item)
+	}
+
+	// 遍历菜单项，递归构建子菜单
+	for index, _ := range menuList {
+		item := menuList[index]
+		if item.ParentId <= 0 {
+			// 如果 parentId == 0，则是根菜单项
+			rootItems = append(rootItems, item)
+		} else {
+			// 为当前菜单项添加子菜单
+			if children, exists := menuMap[item.Id]; exists {
+				item.Children = children
+			}
+		}
+	}
+
+	return rootItems
 }
 
 // Get 获取SysMenu对象
@@ -330,9 +352,9 @@ func (e *SysMenu) GetList(c *dto.SysMenuQueryReq, withApi bool) ([]models.SysMen
 	return list, lang.SuccessCode, nil
 }
 
-// SetLabel 获取菜单的完整树结构(用来显示简单的菜单信息：编号 名称)
+// GetMenuLabelTree 获取菜单的完整树结构(用来显示简单的菜单信息：编号 名称)
 // 角色添加或者更新时，选择菜单列表会用到，菜单权限
-func (e *SysMenu) SetLabel() ([]dto.MenuLabel, int, error) {
+func (e *SysMenu) GetMenuLabelTree() ([]dto.MenuLabel, int, error) {
 	var list []models.SysMenu
 	list, respCode, err := e.GetList(&dto.SysMenuQueryReq{}, false)
 	if err != nil {
@@ -410,13 +432,8 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi.CreatedAt = list[j].CreatedAt
 		mi.SysApi = list[j].SysApi
 		mi.Children = []models.SysMenu{}
-
-		if mi.MenuType != constant.MenuF {
-			ms := menuCall(menuList, mi)
-			min = append(min, ms)
-		} else {
-			min = append(min, mi)
-		}
+		ms := menuCall(menuList, mi)
+		min = append(min, ms)
 	}
 	menu.Children = min
 	return menu

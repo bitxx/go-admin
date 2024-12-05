@@ -14,8 +14,8 @@ type SysMenu struct {
 	api.Api
 }
 
-// GetPage Menu列表数据
-func (e SysMenu) GetPage(c *gin.Context) {
+// GetTreeList Menu列表数据
+func (e SysMenu) GetTreeList(c *gin.Context) {
 	s := service.SysMenu{}
 	req := dto.SysMenuQueryReq{}
 	err := e.MakeContext(c).
@@ -27,13 +27,12 @@ func (e SysMenu) GetPage(c *gin.Context) {
 		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
 		return
 	}
-	p := middleware.GetPermissionFromContext(c)
-	list, respCode, err := s.GetPage(&req, p)
+	list, respCode, err := s.GetTreeList(&req)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.PageOK(list, nil, 0, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
 // Get 获取菜单详情
@@ -177,7 +176,7 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 		return
 	}
 
-	result, respCode, err := m.SetLabel()
+	result, respCode, err := m.GetMenuLabelTree()
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
