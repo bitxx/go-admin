@@ -43,6 +43,7 @@ type SysDeptUpdateReq struct {
 	Phone      string `json:"phone" comment:"手机"`      //手机
 	Email      string `json:"email" comment:"邮箱"`      //邮箱
 	CurrUserId int64  `json:"-" comment:""`
+	ParentId   int64  `json:"parentId" comment:""`
 }
 
 // SysDeptGetReq 获取单个

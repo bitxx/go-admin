@@ -185,8 +185,12 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) 
 		}
 		updates["dept_name"] = c.DeptName
 	}
+	//
 	if c.Sort > 0 && data.Sort != c.Sort {
 		updates["sort"] = c.Sort
+	}
+	if c.ParentId > 0 && data.ParentId != c.ParentId {
+		updates["parent_id"] = c.ParentId
 	}
 	if c.Leader != "" && data.Leader != c.Leader {
 		updates["leader"] = c.Leader
