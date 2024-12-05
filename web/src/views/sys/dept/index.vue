@@ -214,7 +214,7 @@ export default {
       getDeptList().then(response => {
         this.deptOptions = []
         if (e === 'update') {
-          const dept = { id: 0, deptName: '主类目', children: [], isDisabled: true }
+          const dept = { id: 0, deptName: '主类目', children: [] }
           dept.children = response.data
           this.deptOptions.push(dept)
         } else {
