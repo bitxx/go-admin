@@ -38,7 +38,7 @@
           <el-table-column width="60" align="center" prop="sort" label="排序" />
           <el-table-column width="260" align="center" prop="permission" label="权限标识" :show-overflow-tooltip="true">
             <template slot-scope="scope">
-              <el-popover v-if="scope.row.sysApi.length>0" trigger="hover" placement="top">
+              <el-popover v-if="scope.row.sysApi && scope.row.sysApi.length>0" trigger="hover" placement="top">
                 <el-table :data="scope.row.sysApi" border style="width: 100%">
                   <el-table-column prop="title" label="名称" width="260px">
                     <template slot-scope="scope">
@@ -429,7 +429,7 @@ export default {
     getApiList() {
       this.loading = true
       // 取出所有接口
-      listSysApi({ 'pageSize': 10000, 'apiTypes': ['2', '3'] }).then(response => {
+      listSysApi({ 'apiTypes': ['2', '3'] }).then(response => {
         this.sysapiList = response.data.list
         this.loading = false
       }
@@ -443,7 +443,7 @@ export default {
     getList() {
       this.loading = true
       listMenu(this.queryParams).then(response => {
-        this.menuList = response.data.list
+        this.menuList = response.data
         this.loading = false
       })
     },
