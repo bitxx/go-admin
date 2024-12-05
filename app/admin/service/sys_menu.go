@@ -7,7 +7,7 @@ import (
 	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
-	"sort"
+	"go-admin/core/utils/tree"
 	"strconv"
 	"strings"
 	"time"
@@ -31,46 +31,39 @@ func NewSysMenuService(s *service.Service) *SysMenu {
 }
 
 // GetTreeList 获取SysMenu列表 一次性获取所有数据
-func (e *SysMenu) GetTreeList(c *dto.SysMenuQueryReq) ([]models.SysMenu, int, error) {
+func (e *SysMenu) GetTreeList(c *dto.SysMenuQueryReq) ([]*models.SysMenu, int, error) {
 	list, respCode, err := e.GetList(c, false)
 	if err != nil {
 		return nil, respCode, err
 	}
-
-	count := len(list)
-	var menus []models.SysMenu
-	sort.Slice(list, func(i, j int) bool {
-		return list[i].Sort < list[j].Sort
-	})
-	for i := 0; i < count; i++ {
-		menusInfo := menuCall(&list, list[i])
-		menus = append(menus, menusInfo)
-	}
-	//menus := menuCall2(list)
-	return menus, lang.SuccessCode, nil
+	return tree.GenTree(&list,
+		func(item models.SysMenu) int64 { return item.Id },
+		func(item models.SysMenu) int64 { return item.ParentId },
+		func(item *models.SysMenu, children []*models.SysMenu) { item.Children = children },
+	), lang.SuccessCode, nil
 }
 
-func menuCall2(menuList []models.SysMenu) []models.SysMenu {
-	// 创建一个 map 来存储每个 parentId 对应的子菜单
-	menuMap := make(map[int64][]models.SysMenu)
-	var rootItems []models.SysMenu
-
-	// 遍历菜单项，根据 parentId 分组
-	for _, item := range menuList {
+func (e *SysMenu) menuCall(menuList *[]models.SysMenu) []*models.SysMenu {
+	menuMap := make(map[int64][]*models.SysMenu)
+	for index := range *menuList {
+		item := &(*menuList)[index]
 		menuMap[item.ParentId] = append(menuMap[item.ParentId], item)
 	}
 
-	// 遍历菜单项，递归构建子菜单
-	for index, _ := range menuList {
-		item := menuList[index]
-		if item.ParentId <= 0 {
-			// 如果 parentId == 0，则是根菜单项
-			rootItems = append(rootItems, item)
-		} else {
-			// 为当前菜单项添加子菜单
-			if children, exists := menuMap[item.Id]; exists {
-				item.Children = children
-			}
+	var rootItems []*models.SysMenu
+	var stack []*models.SysMenu
+
+	for _, item := range menuMap[0] {
+		stack = append(stack, item)
+		rootItems = append(rootItems, item)
+	}
+
+	for len(stack) > 0 {
+		currentItem := stack[len(stack)-1]
+		stack = stack[:len(stack)-1] // 移除栈顶元素
+		if children, exists := menuMap[currentItem.Id]; exists {
+			currentItem.Children = children
+			stack = append(stack, children...)
 		}
 	}
 
@@ -336,12 +329,12 @@ func (e *SysMenu) GetList(c *dto.SysMenuQueryReq, withApi bool) ([]models.SysMen
 	var list []models.SysMenu
 	var err error
 	if withApi {
-		err = e.Orm.Model(&models.SysMenu{}).Preload("SysApi").
+		err = e.Orm.Model(&models.SysMenu{}).Order("sort").Preload("SysApi").
 			Scopes(
 				cDto.MakeCondition(c.GetNeedSearch()),
 			).Find(&list).Error
 	} else {
-		err = e.Orm.Model(&models.SysMenu{}).
+		err = e.Orm.Model(&models.SysMenu{}).Order("sort").
 			Scopes(
 				cDto.MakeCondition(c.GetNeedSearch()),
 			).Find(&list).Error
@@ -402,56 +395,14 @@ func menuLabelCall(eList *[]models.SysMenu, dept dto.MenuLabel) dto.MenuLabel {
 	return dept
 }
 
-// menuCall 菜单完整数据-构建菜单树
-func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
-	list := *menuList
-
-	min := make([]models.SysMenu, 0)
-	for j := 0; j < len(list); j++ {
-
-		if menu.Id != list[j].ParentId {
-			continue
-		}
-		mi := models.SysMenu{}
-		mi.Id = list[j].Id
-		mi.Name = list[j].Name
-		mi.Title = list[j].Title
-		mi.Icon = list[j].Icon
-		mi.Path = list[j].Path
-		mi.MenuType = list[j].MenuType
-		mi.Permission = list[j].Permission
-		mi.ParentId = list[j].ParentId
-		mi.ParentIds = list[j].ParentIds
-		mi.IsFrame = list[j].IsFrame
-		mi.IsKeepAlive = list[j].IsKeepAlive
-		mi.IsAffix = list[j].IsAffix
-		mi.Element = list[j].Element
-		mi.Redirect = list[j].Redirect
-		mi.Sort = list[j].Sort
-		mi.IsHidden = list[j].IsHidden
-		mi.CreatedAt = list[j].CreatedAt
-		mi.SysApi = list[j].SysApi
-		mi.Children = []models.SysMenu{}
-		ms := menuCall(menuList, mi)
-		min = append(min, ms)
-	}
-	menu.Children = min
-	return menu
-}
-
-// SetMenuRole 获取左侧菜单树使用，后台主页管理菜单
-func (e *SysMenu) SetMenuRole(roleKey string) ([]models.SysMenu, int, error) {
+// GetMenuRole 获取左侧菜单树使用，后台主页管理菜单
+func (e *SysMenu) GetMenuRole(roleKey string) ([]*models.SysMenu, int, error) {
 	menus, respCode, err := e.getByRoleKey(roleKey)
-	m := make([]models.SysMenu, 0)
-	for i := 0; i < len(menus); i++ {
-		//使用parentId=0的开始铸造
-		if menus[i].ParentId != 0 {
-			continue
-		}
-		menusInfo := menuCall(&menus, menus[i])
-		m = append(m, menusInfo)
-	}
-	return m, respCode, err
+	return tree.GenTree(&menus,
+		func(item models.SysMenu) int64 { return item.Id },
+		func(item models.SysMenu) int64 { return item.ParentId },
+		func(item *models.SysMenu, children []*models.SysMenu) { item.Children = children },
+	), respCode, err
 }
 
 func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {

@@ -151,7 +151,7 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 		return
 	}
 
-	result, respCode, err := s.SetMenuRole(auth.Auth.GetRoleKey(c))
+	result, respCode, err := s.GetMenuRole(auth.Auth.GetRoleKey(c))
 
 	if err != nil {
 		e.Error(respCode, err.Error())

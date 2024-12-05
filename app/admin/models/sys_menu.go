@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type SysMenu struct {
 	Id          int64      `json:"id" gorm:"primaryKey;autoIncrement"`
@@ -25,7 +27,7 @@ type SysMenu struct {
 	CreatedAt   *time.Time `json:"createdAt" gorm:"comment:创建时间"`
 	UpdatedAt   *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
 	Apis        []int      `json:"apis" gorm:"-"`
-	Children    []SysMenu  `json:"children,omitempty" gorm:"-"`
+	Children    []*SysMenu `json:"children,omitempty" gorm:"-"`
 }
 
 func (SysMenu) TableName() string {

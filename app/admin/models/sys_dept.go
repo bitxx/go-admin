@@ -18,7 +18,7 @@ type SysDept struct {
 	UpdatedAt *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
 	DataScope string     `json:"dataScope" gorm:"-"`
 	Params    string     `json:"params" gorm:"-"`
-	Children  []SysDept  `json:"children" gorm:"-"`
+	Children  []*SysDept `json:"children" gorm:"-"`
 	IsFlag    bool       `json:"-" gorm:"-"`
 }
 

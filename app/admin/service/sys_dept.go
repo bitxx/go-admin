@@ -7,6 +7,7 @@ import (
 	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
+	"go-admin/core/utils/tree"
 	"gorm.io/gorm"
 	"strconv"
 	"time"
@@ -260,29 +261,26 @@ func (e *SysDept) SetDeptTree(c *dto.SysDeptQueryReq) ([]dto.DeptLabel, int, err
 	return m, lang.SuccessCode, nil
 }
 
-// SetDeptPage 设置dept页面数据
-func (e *SysDept) SetDeptPage(c *dto.SysDeptQueryReq) ([]models.SysDept, int, error) {
+// GetTreeList 设置dept页面数据
+func (e *SysDept) GetTreeList(c *dto.SysDeptQueryReq) ([]*models.SysDept, int, error) {
 	list, respCode, err := e.getList(c)
 	if err != nil {
 		return nil, respCode, err
 	}
-	m := make([]models.SysDept, 0)
-	for i := 0; i < len(list); i++ {
-		if list[i].IsFlag == true {
-			continue
-		}
-		info := e.deptPageCall(&list, list[i])
-		m = append(m, info)
-	}
-	return m, lang.SuccessCode, nil
+	return tree.GenTree(&list,
+		func(item models.SysDept) int64 { return item.Id },
+		func(item models.SysDept) int64 { return item.ParentId },
+		func(item *models.SysDept, children []*models.SysDept) { item.Children = children },
+	), lang.SuccessCode, nil
 }
 
-func (e *SysDept) SetDeptLabel() ([]dto.DeptLabel, int, error) {
+func (e *SysDept) GetDeptLabel() ([]dto.DeptLabel, int, error) {
 	list := make([]models.SysDept, 0)
 	err := e.Orm.Find(&list).Error
 	if err != nil {
 		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
 	}
+
 	m := make([]dto.DeptLabel, 0)
 	var item dto.DeptLabel
 	for i := range list {
@@ -331,37 +329,10 @@ func deptLabelCall(deptList *[]models.SysDept, dept dto.DeptLabel) dto.DeptLabel
 	return dept
 }
 
-func (e *SysDept) deptPageCall(deptlist *[]models.SysDept, dept models.SysDept) models.SysDept {
-	list := *deptlist
-	min := make([]models.SysDept, 0)
-	for j := 0; j < len(list); j++ {
-		if dept.Id != list[j].ParentId {
-			continue
-		}
-		list[j].IsFlag = true
-		mi := models.SysDept{}
-		mi.Id = list[j].Id
-		mi.ParentId = list[j].ParentId
-		mi.DeptPath = list[j].DeptPath
-		mi.DeptName = list[j].DeptName
-		mi.Sort = list[j].Sort
-		mi.Leader = list[j].Leader
-		mi.Phone = list[j].Phone
-		mi.Email = list[j].Email
-		mi.Status = list[j].Status
-		mi.CreatedAt = list[j].CreatedAt
-		mi.Children = []models.SysDept{}
-		ms := e.deptPageCall(deptlist, mi)
-		min = append(min, ms)
-	}
-	dept.Children = min
-	return dept
-}
-
 // GetSysDeptList 获取组织数据
 func (e *SysDept) getList(c *dto.SysDeptQueryReq) ([]models.SysDept, int, error) {
 	var list []models.SysDept
-	err := e.Orm.Model(&models.SysDept{}).
+	err := e.Orm.Model(&models.SysDept{}).Order("sort").
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
 		).Find(&list).Error

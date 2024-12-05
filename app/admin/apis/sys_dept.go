@@ -29,7 +29,7 @@ func (e SysDept) GetList(c *gin.Context) {
 		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
 		return
 	}
-	list, respCode, err := s.SetDeptPage(&req)
+	list, respCode, err := s.GetTreeList(&req)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -177,7 +177,7 @@ func (e SysDept) GetDeptTreeRoleSelect(c *gin.Context) {
 		return
 	}
 
-	result, respCode, err := s.SetDeptLabel()
+	result, respCode, err := s.GetDeptLabel()
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
