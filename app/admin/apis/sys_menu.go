@@ -2,6 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
+	sysLang "go-admin/app/admin/lang"
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
 	"go-admin/core/dto/api"
@@ -155,6 +156,10 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 
 	if err != nil {
 		e.Error(respCode, err.Error())
+		return
+	}
+	if result == nil || len(result) <= 0 {
+		e.Error(sysLang.SysNoRoleMenuCode, lang.MsgErr(sysLang.SysNoRoleMenuCode, e.Lang).Error())
 		return
 	}
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))

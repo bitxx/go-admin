@@ -45,7 +45,7 @@ var (
 		SuccessCode:       "操作成功",
 		RequestErr:        "请求失败",
 		AuthErr:           "状态失效，请重新登录",
-		ForbitErr:         "对不起，您没有该接口访问权限，请联系管理员",
+		ForbitErr:         "对不起，您权限不足，操作异常，请联系管理员",
 		ServerErr:         "内部错误",
 		ParamErrCode:      "参数错误",
 		OpErrCode:         "操作异常，请检查",

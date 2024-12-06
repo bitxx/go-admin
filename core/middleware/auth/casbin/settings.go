@@ -9,27 +9,25 @@ type UrlInfo struct {
 
 // CasbinExclude casbin 排除的路由列表
 var CasbinExclude = []UrlInfo{
+	//主菜单
+	{Url: global.RouteRootPath + "/v1/menu/menurole", Method: "GET"},
+
+	//字典
 	{Url: global.RouteRootPath + "/v1/dict/type-option-select", Method: "GET"},
 	{Url: global.RouteRootPath + "/v1/dict-data/option-select", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/deptTree", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/db/tables/page", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/db/columns/page", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/gen/toproject/:tableId", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/gen/todb/:tableId", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/gen/tabletree", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/gen/preview/:tableId", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/getCaptcha", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/menuTreeselect", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/menurole", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/menuids", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/roleMenuTreeselect/:roleId", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/roleDeptTreeselect/:roleId", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/refresh_token", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/configKey/:configKey", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/app-config", Method: "GET"},
+
+	//{Url: global.RouteRootPath + "/v1/sys/dept", Method: "GET"},
+	//{Url: global.RouteRootPath + "/admin-api/v1/sys/deptTree", Method: "GET"},
+	//{Url: global.RouteRootPath + "/admin-api/v1/config/:configKey", Method: "GET"},
+	//登录和退出
 	{Url: global.RouteRootPath + "/v1/login", Method: "POST"},
-	{Url: global.RouteRootPath + "/v1/metrics", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/health", Method: "GET"},
+	{Url: global.RouteRootPath + "/v1/sys-user/logout", Method: "GET"},
+	{Url: global.RouteRootPath + "/v1/getCaptcha", Method: "GET"},
+
+	//登录用户个人信息
+	{Url: global.RouteRootPath + "/v1/sys-user/profile", Method: "GET"},
+	{Url: global.RouteRootPath + "/v1/sys-user/profile/pwd", Method: "PUT"},
+	{Url: global.RouteRootPath + "/v1/sys-user/profile/avatar", Method: "POST"},
+	{Url: global.RouteRootPath + "/v1/sys-user/profile", Method: "PUT"},
 	{Url: "/", Method: "GET"},
-	{Url: global.RouteRootPath + "/v1/server-monitor", Method: "GET"},
 }

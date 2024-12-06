@@ -441,7 +441,82 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	return respUser, lang.SuccessCode, nil
 }
 
-func (e *SysUser) GetLoginUser(login *dto.LoginReq) (*models.SysUser, int, error) {
+// UpdateProfile 修改登录用户信息
+func (e *SysUser) UpdateProfile(c *dto.SysUserUpdateReq) (bool, int, error) {
+	if c.Id <= 0 || c.CurrUserId <= 0 {
+		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+	}
+	if c.Username == "" {
+		return false, sysLang.SysUserNameEmptyCode, lang.MsgErr(sysLang.SysUserNameEmptyCode, e.Lang)
+	}
+	if c.Phone == "" {
+		return false, sysLang.SysUserPhoneEmptyCode, lang.MsgErr(sysLang.SysUserPhoneEmptyCode, e.Lang)
+	}
+	if c.Email == "" {
+		return false, sysLang.SysUserEmailEmptyCode, lang.MsgErr(sysLang.SysUserEmailEmptyCode, e.Lang)
+	}
+
+	data, respCode, err := e.Get(c.Id, nil)
+	if err != nil {
+		return false, respCode, err
+	}
+
+	updates := map[string]interface{}{}
+	if c.Sex != "" && data.Sex != c.Sex {
+		updates["sex"] = c.Sex
+	}
+	if c.Username != "" && data.Username != c.Username {
+		req := dto.SysUserQueryReq{}
+		req.Username = c.Username
+		resp, respCode, err := e.QueryOne(&req, nil)
+		if err != nil && respCode != lang.DataNotFoundCode {
+			return false, respCode, err
+		}
+		if respCode == lang.SuccessCode && resp.Id != data.Id {
+			return false, sysLang.SysUserNameExistCode, lang.MsgErr(sysLang.SysUserNameExistCode, e.Lang)
+		}
+		updates["username"] = c.Username
+	}
+	if c.Phone != "" && data.Phone != c.Phone {
+		req := dto.SysUserQueryReq{}
+		req.Phone = c.Phone
+		resp, respCode, err := e.QueryOne(&req, nil)
+		if err != nil && respCode != lang.DataNotFoundCode {
+			return false, respCode, err
+		}
+		if respCode == lang.SuccessCode && resp.Id != data.Id {
+			return false, sysLang.SysUserPhoneExistCode, lang.MsgErr(sysLang.SysUserPhoneExistCode, e.Lang)
+		}
+		updates["phone"] = c.Phone
+	}
+	if c.Email != "" && data.Email != c.Email {
+		if !strutils.VerifyEmailFormat(c.Email) {
+			return false, sysLang.SysUserEmailFormatErrCode, lang.MsgErr(sysLang.SysUserEmailFormatErrCode, e.Lang)
+		}
+		req := dto.SysUserQueryReq{}
+		req.Email = c.Email
+		resp, respCode, err := e.QueryOne(&req, nil)
+		if err != nil && respCode != lang.DataNotFoundCode {
+			return false, respCode, err
+		}
+		if respCode == lang.SuccessCode && resp.Id != data.Id {
+			return false, sysLang.SysUserEmailExistCode, lang.MsgErr(sysLang.SysUserEmailExistCode, e.Lang)
+		}
+		updates["email"] = c.Email
+	}
+	if len(updates) > 0 {
+		updates["update_by"] = c.CurrUserId
+		updates["updated_at"] = time.Now()
+		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
+		if err != nil {
+			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+		}
+		return true, lang.SuccessCode, nil
+	}
+	return false, lang.SuccessCode, nil
+}
+
+func (e *SysUser) LoginVerify(login *dto.LoginReq) (*models.SysUser, int, error) {
 	user := &models.SysUser{}
 	status := []string{global.SysStatusOk}
 	if login.Username == constant.RoleKeyAdmin {
@@ -460,124 +535,8 @@ func (e *SysUser) GetLoginUser(login *dto.LoginReq) (*models.SysUser, int, error
 	return user, lang.SuccessCode, nil
 }
 
-// UpdateSelfPhone 修改手机号
-func (e *SysUser) UpdateSelfPhone(c *dto.SysUserPhoneUpdateReq) (bool, int, error) {
-	if c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
-	}
-	var err error
-	u, respCode, err := e.Get(c.CurrUserId, nil)
-	if err != nil {
-		return false, respCode, err
-	}
-	updates := map[string]interface{}{}
-	if c.Phone != "" && u.Phone != c.Phone {
-		req := dto.SysUserQueryReq{}
-		req.Phone = c.Phone
-		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
-			return false, respCode, err
-		}
-		if respCode == lang.SuccessCode && resp.Id != c.CurrUserId {
-			return false, sysLang.SysUserPhoneExistCode, lang.MsgErr(sysLang.SysUserPhoneExistCode, e.Lang)
-		}
-		updates["phone"] = c.Phone
-	}
-
-	if len(updates) > 0 {
-		updates["update_by"] = c.CurrUserId
-		updates["updated_at"] = time.Now()
-		err = e.Orm.Model(&models.SysUser{}).Where("id=?", c.CurrUserId).Updates(updates).Error
-		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
-		}
-		return true, lang.SuccessCode, nil
-	}
-	return false, lang.SuccessCode, nil
-}
-
-// UpdateSelfNickName 更新昵称
-func (e *SysUser) UpdateSelfNickName(c *dto.SysUserNickNameUpdateReq) (bool, int, error) {
-	if c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
-	}
-	if c.NickName == "" {
-		return false, sysLang.SysNickNameEmptyCode, lang.MsgErr(sysLang.SysNickNameEmptyCode, e.Lang)
-	}
-	var err error
-	u, respCode, err := e.Get(c.CurrUserId, nil)
-	if err != nil {
-		return false, respCode, err
-	}
-
-	updates := map[string]interface{}{}
-	if c.NickName != "" && u.NickName != c.NickName {
-		req := dto.SysUserQueryReq{}
-		req.NickName = c.NickName
-		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
-			return false, respCode, err
-		}
-		if respCode == lang.SuccessCode && resp.Id != c.CurrUserId {
-			return false, sysLang.SysUserPhoneExistCode, lang.MsgErr(sysLang.SysUserPhoneExistCode, e.Lang)
-		}
-		updates["nick_name"] = c.NickName
-	}
-
-	if len(updates) > 0 {
-		updates["update_by"] = c.CurrUserId
-		updates["updated_at"] = time.Now()
-		err = e.Orm.Model(&models.SysUser{}).Where("id=?", c.CurrUserId).Updates(updates).Error
-		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
-		}
-		return true, lang.SuccessCode, nil
-	}
-	return false, lang.SuccessCode, nil
-}
-
-// UpdateSelfEmail 修改邮箱号
-func (e *SysUser) UpdateSelfEmail(c *dto.SysUserUpdateEmailReq) (bool, int, error) {
-	if c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
-	}
-	if !strutils.VerifyEmailFormat(c.Email) {
-		return false, sysLang.SysUserEmailFormatErrCode, lang.MsgErr(sysLang.SysUserEmailFormatErrCode, e.Lang)
-	}
-	var err error
-	u, respCode, err := e.Get(c.CurrUserId, nil)
-	if err != nil {
-		return false, respCode, err
-	}
-
-	updates := map[string]interface{}{}
-	if c.Email != "" && u.Email != c.Email {
-		req := dto.SysUserQueryReq{}
-		req.Email = c.Email
-		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
-			return false, respCode, err
-		}
-		if respCode == lang.SuccessCode && resp.Id != c.CurrUserId {
-			return false, sysLang.SysUserPhoneExistCode, lang.MsgErr(sysLang.SysUserPhoneExistCode, e.Lang)
-		}
-		updates["email"] = c.Email
-	}
-
-	if len(updates) > 0 {
-		updates["update_by"] = c.CurrUserId
-		updates["updated_at"] = time.Now()
-		err = e.Orm.Model(&models.SysUser{}).Where("id=?", c.CurrUserId).Updates(updates).Error
-		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
-		}
-		return true, lang.SuccessCode, nil
-	}
-	return false, lang.SuccessCode, nil
-}
-
-// UpdateAvatar 更新用户头像
-func (e *SysUser) UpdateAvatar(c *dto.SysUserAvatarUpdateReq, p *middleware.DataPermission) (bool, int, error) {
+// UpdateProfileAvatar 更新用户头像
+func (e *SysUser) UpdateProfileAvatar(c *dto.SysUserAvatarUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
@@ -604,8 +563,8 @@ func (e *SysUser) UpdateAvatar(c *dto.SysUserAvatarUpdateReq, p *middleware.Data
 	return false, lang.SuccessCode, nil
 }
 
-// UpdatePwd 修改SysUser对象密码
-func (e *SysUser) UpdatePwd(c dto.UpdateSysUserPwdReq, p *middleware.DataPermission) (bool, int, error) {
+// UpdateProfilePwd 修改SysUser对象密码
+func (e *SysUser) UpdateProfilePwd(c dto.UpdateSysUserPwdReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}

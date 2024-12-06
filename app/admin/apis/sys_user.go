@@ -150,168 +150,6 @@ func (e SysUser) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdateSelfPhone
-// @Description: 更新手机号
-// @receiver e
-// @param c
-func (e SysUser) UpdateSelfPhone(c *gin.Context) {
-	s := service.SysUser{}
-	req := dto.SysUserPhoneUpdateReq{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		Bind(&req).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-
-	uid, rCode, err := auth.Auth.GetUserId(c)
-	if err != nil {
-		e.Error(rCode, err.Error())
-		return
-	}
-	req.CurrUserId = uid
-
-	b, respCode, err := s.UpdateSelfPhone(&req)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
-		return
-	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
-func (e SysUser) UpdateSelfNickName(c *gin.Context) {
-	s := service.SysUser{}
-	req := dto.SysUserNickNameUpdateReq{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		Bind(&req).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-
-	uid, rCode, err := auth.Auth.GetUserId(c)
-	if err != nil {
-		e.Error(rCode, err.Error())
-		return
-	}
-	req.CurrUserId = uid
-
-	b, respCode, err := s.UpdateSelfNickName(&req)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
-		return
-	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
-// UpdateSelfEmail
-// @Description: 更新邮箱
-// @receiver e
-// @param c
-func (e SysUser) UpdateSelfEmail(c *gin.Context) {
-	s := service.SysUser{}
-	req := dto.SysUserUpdateEmailReq{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		Bind(&req).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-
-	uid, rCode, err := auth.Auth.GetUserId(c)
-	if err != nil {
-		e.Error(rCode, err.Error())
-		return
-	}
-	req.CurrUserId = uid
-
-	b, respCode, err := s.UpdateSelfEmail(&req)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
-		return
-	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
-// InsetAvatar
-func (e SysUser) InsetAvatar(c *gin.Context) {
-	s := service.SysUser{}
-	req := dto.SysUserAvatarUpdateReq{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-
-	form, _ := c.MultipartForm()
-	files := form.File["avatar"]
-	guid := idgen.UUID()
-	reqPath := config.ApplicationConfig.FileRootPath + "admin/avatar/"
-	err = fileutils.IsNotExistMkDir(reqPath)
-	if err != nil {
-		e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
-		/*err = fileutil.CreateDirAll(reqPath)
-		if err != nil {
-			e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
-			return
-		}*/
-	}
-	filPath := reqPath + guid + ".jpg"
-	for _, file := range files {
-		// 上传文件至指定目录
-		err = c.SaveUploadedFile(file, filPath)
-		if err != nil {
-			e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
-			return
-		}
-	}
-	// 数据权限检查
-	req.Avatar = global.RouteRootPath + "/" + filPath
-
-	uid, rCode, err := auth.Auth.GetUserId(c)
-	if err != nil {
-		e.Error(rCode, err.Error())
-		return
-	}
-	req.CurrUserId = uid
-
-	p := middleware.GetPermissionFromContext(c)
-	b, respCode, err := s.UpdateAvatar(&req, p)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
-		return
-	}
-	e.OK(req.Avatar, lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
 // UpdateStatus 修改用户状态
 func (e SysUser) UpdateStatus(c *gin.Context) {
 	s := service.SysUser{}
@@ -384,8 +222,66 @@ func (e SysUser) ResetPwd(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdatePwd
-func (e SysUser) UpdatePwd(c *gin.Context) {
+// InsetProfileAvatar
+func (e SysUser) InsetProfileAvatar(c *gin.Context) {
+	s := service.SysUser{}
+	req := dto.SysUserAvatarUpdateReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		return
+	}
+
+	form, _ := c.MultipartForm()
+	files := form.File["avatar"]
+	guid := idgen.UUID()
+	reqPath := config.ApplicationConfig.FileRootPath + "admin/avatar/"
+	err = fileutils.IsNotExistMkDir(reqPath)
+	if err != nil {
+		e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
+		/*err = fileutil.CreateDirAll(reqPath)
+		if err != nil {
+			e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
+			return
+		}*/
+	}
+	filPath := reqPath + guid + ".jpg"
+	for _, file := range files {
+		// 上传文件至指定目录
+		err = c.SaveUploadedFile(file, filPath)
+		if err != nil {
+			e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
+			return
+		}
+	}
+	// 数据权限检查
+	req.Avatar = global.RouteRootPath + "/" + filPath
+
+	uid, rCode, err := auth.Auth.GetUserId(c)
+	if err != nil {
+		e.Error(rCode, err.Error())
+		return
+	}
+	req.CurrUserId = uid
+
+	p := middleware.GetPermissionFromContext(c)
+	b, respCode, err := s.UpdateProfileAvatar(&req, p)
+	if err != nil {
+		e.Error(respCode, err.Error())
+		return
+	}
+	if !b {
+		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		return
+	}
+	e.OK(req.Avatar, lang.MsgByCode(lang.SuccessCode, e.Lang))
+}
+
+// UpdateProfilePwd
+func (e SysUser) UpdateProfilePwd(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.UpdateSysUserPwdReq{}
 	err := e.MakeContext(c).
@@ -406,7 +302,7 @@ func (e SysUser) UpdatePwd(c *gin.Context) {
 		return
 	}
 	req.CurrUserId = uid
-	b, respCode, err := s.UpdatePwd(req, p)
+	b, respCode, err := s.UpdateProfilePwd(req, p)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -444,6 +340,40 @@ func (e SysUser) GetProfile(c *gin.Context) {
 	e.OK(user, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
+// UpdateProfile
+// 当前登录用户才能更新自己的信息
+// 受限的子账户登录时，为了数据安全，不能让用户通过Update方法/接口来修改自己账户
+func (e SysUser) UpdateProfile(c *gin.Context) {
+	s := service.SysUser{}
+	req := dto.SysUserUpdateReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		return
+	}
+	uid, rCode, err := auth.Auth.GetUserId(c)
+	if err != nil {
+		e.Error(rCode, err.Error())
+		return
+	}
+	req.CurrUserId = uid
+	req.Id = uid
+	b, respCode, err := s.UpdateProfile(&req)
+	if err != nil {
+		e.Error(respCode, err.Error())
+		return
+	}
+	if !b {
+		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		return
+	}
+	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+}
+
 func (e SysUser) Login(c *gin.Context) {
 	req := dto.LoginReq{}
 	s := service.SysUser{}
@@ -469,7 +399,7 @@ func (e SysUser) Login(c *gin.Context) {
 		}
 	}
 
-	userResp, respCode, err := s.GetLoginUser(&req)
+	userResp, respCode, err := s.LoginVerify(&req)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return

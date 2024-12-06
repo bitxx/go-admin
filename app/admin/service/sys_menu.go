@@ -336,6 +336,10 @@ func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 		err = e.Orm.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC}).Order("sort").Find(&data).Error
 		menuList = data
 	} else {
+		//SELECT * FROM `sys_role_menu` WHERE `sys_role_menu`.`role_id` = 2
+		//SELECT * FROM `sys_menu` WHERE  menu_type in ('1','2','3') AND `sys_menu`.`id` = 119 ORDER BY sort
+		//SELECT * FROM `sys_role` WHERE role_key = 'test'
+
 		var role models.SysRole
 		role.RoleKey = roleKey
 		err = e.Orm.Debug().Model(&role).Where("role_key = ? ", roleKey).Preload("SysMenu", func(db *gorm.DB) *gorm.DB {
@@ -343,9 +347,14 @@ func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 		}).Find(&role).Error
 		if role.SysMenu != nil {
 			//menuList = *role.SysMenu
-
+			//menuList = append(menuList, *role.SysMenu...)
 			temp := map[int64]int{}
 			for _, v := range *role.SysMenu {
+				//将当前菜单加入列表
+				temp[v.Id] = temp[v.Id] + 1
+				menuList = append(menuList, v)
+
+				//将上级菜单加入列表
 				ids := strings.Split(v.ParentIds, ",")
 				for _, idStr := range ids {
 					id, _ := strconv.ParseInt(idStr, 10, 64)
@@ -356,7 +365,6 @@ func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 						if data.MenuType == constant.MenuM || data.MenuType == constant.MenuC {
 							menuList = append(menuList, data)
 						}
-
 					}
 				}
 			}

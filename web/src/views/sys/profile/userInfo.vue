@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { updateUser } from '@/api/sys/user'
+import { updateProfile } from '@/api/sys/user'
 
 export default {
   props: {
@@ -60,7 +60,7 @@ export default {
     submit() {
       this.$refs['form'].validate(valid => {
         if (valid) {
-          updateUser(this.user).then(response => {
+          updateProfile(this.user).then(response => {
             if (response.code === 200) {
               this.msgSuccess(response.msg)
             } else {

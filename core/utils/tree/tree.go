@@ -55,6 +55,8 @@ func GenTree[T any](menuList *[]T, getId func(T) int64, getParentId func(T) int6
 			stack = append(stack, children...)
 		}
 	}
-
+	//if rootItems == nil {
+	//	rootItems = []*T{}
+	//}
 	return rootItems
 }

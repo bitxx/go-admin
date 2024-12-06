@@ -83,6 +83,7 @@ const (
 	SysMenuTypeEmptyCode     = 10602
 	SysMenuSortEmptyCode     = 10603
 	SysMenuHasChildCode      = 10604
+	SysNoRoleMenuCode        = 10605
 
 	//gen表
 	SysGenTableSelectCode               = 10700
@@ -190,6 +191,7 @@ var (
 		SysMenuTypeEmptyCode:     "菜单类型不得为空",
 		SysMenuSortEmptyCode:     "菜单排序不得为空",
 		SysMenuHasChildCode:      "该菜单有下级，不可删除",
+		SysNoRoleMenuCode:        "该账户无授权功能可用，请联系管理员",
 
 		//表
 		SysGenTableSelectCode:               "请选择表",

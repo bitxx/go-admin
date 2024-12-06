@@ -20,16 +20,15 @@ func registerSysUserRouter(v1 *gin.RouterGroup) {
 		r.GET("/:id", api.Get)
 		r.POST("", api.Insert)
 		r.PUT("/:id", api.Update)
-		r.PUT("/updateSelfEmail", api.UpdateSelfEmail)
-		r.PUT("/updateSelfPhone", api.UpdateSelfPhone)
-		r.PUT("/updateSelfNickName", api.UpdateSelfNickName)
 		r.DELETE("", api.Delete)
-		r.GET("/profile", api.GetProfile)
-		r.POST("/avatar", api.InsetAvatar)
-		r.PUT("/pwd/set", api.UpdatePwd)
 		r.PUT("/pwd/reset", api.ResetPwd)
 		r.PUT("/status", api.UpdateStatus)
 		r.GET("/logout", api.LogOut)
+
+		r.POST("/profile/avatar", api.InsetProfileAvatar)
+		r.PUT("/profile", api.UpdateProfile)
+		r.PUT("/profile/pwd", api.UpdateProfilePwd)
+		r.GET("/profile", api.GetProfile)
 	}
 }
 

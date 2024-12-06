@@ -86,6 +86,14 @@ export function changeUserStatus(e) {
   })
 }
 
+export function updateProfile(data) {
+  return request({
+    url: '/admin-api/v1/sys-user/profile',
+    method: 'put',
+    data: data
+  })
+}
+
 // 修改用户个人信息
 export function updateUserProfile(data) {
   return request({
@@ -104,22 +112,22 @@ export function importTemplate() {
 }
 
 // 用户密码重置
-export function updateUserPwd(oldPassword, newPassword) {
+export function updateProfilePwd(oldPassword, newPassword) {
   const data = {
     oldPassword,
     newPassword
   }
   return request({
-    url: '/admin-api/v1/sys-user/pwd/set',
+    url: '/admin-api/v1/sys-user/profile/pwd',
     method: 'put',
     data: data
   })
 }
 
 // 用户头像上传
-export function uploadAvatar(data) {
+export function updateProfileAvatar(data) {
   return request({
-    url: '/admin-api/v1/sys-user/avatar',
+    url: '/admin-api/v1/sys-user/profile/avatar',
     method: 'post',
     data: data
   })
