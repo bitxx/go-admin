@@ -463,7 +463,8 @@ export default {
       listMenu().then(response => {
         this.menuOptions = []
         const menu = { id: 0, title: '主类目', children: [] }
-        menu.children = response.data.list
+        menu.children = response.data
+        // console.log(response.data)
         this.menuOptions.push(menu)
       })
     },

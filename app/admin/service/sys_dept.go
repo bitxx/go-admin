@@ -27,22 +27,17 @@ func NewSysDeptService(s *service.Service) *SysDept {
 	return srv
 }
 
-// GetPage 获取SysDept列表
-func (e *SysDept) GetPage(c *dto.SysDeptQueryReq, p *middleware.DataPermission) ([]models.SysDept, int64, int, error) {
-	var list []models.SysDept
-	var data models.SysDept
-	var count int64
-
-	err := e.Orm.Order("created_at desc").Model(&data).
-		Scopes(
-			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
-			middleware.Permission(data.TableName(), p),
-		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+// GetTreeList 设置dept页面数据
+func (e *SysDept) GetTreeList(c *dto.SysDeptQueryReq) ([]*models.SysDept, int, error) {
+	list, respCode, err := e.getList(c)
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, respCode, err
 	}
-	return list, count, lang.SuccessCode, nil
+	return tree.GenTree(&list,
+		func(item models.SysDept) int64 { return item.Id },
+		func(item models.SysDept) int64 { return item.ParentId },
+		func(item *models.SysDept, children []*models.SysDept) { item.Children = children },
+	), lang.SuccessCode, nil
 }
 
 // Get 获取SysDept对象
@@ -245,95 +240,6 @@ func (e *SysDept) Remove(ids []int64, p *middleware.DataPermission) (int, error)
 		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
 	}
 	return lang.SuccessCode, nil
-}
-
-// SetDeptTree 设置组织数据
-func (e *SysDept) SetDeptTree(c *dto.SysDeptQueryReq) ([]dto.DeptLabel, int, error) {
-	list, respCode, err := e.getList(c)
-	if err != nil {
-		return nil, respCode, err
-	}
-	m := make([]dto.DeptLabel, 0)
-	for i := 0; i < len(list); i++ {
-		if list[i].ParentId != 0 {
-			continue
-		}
-		e := dto.DeptLabel{}
-		e.Id = list[i].Id
-		e.Label = list[i].DeptName
-		deptsInfo := deptTreeCall(&list, e)
-
-		m = append(m, deptsInfo)
-	}
-	return m, lang.SuccessCode, nil
-}
-
-// GetTreeList 设置dept页面数据
-func (e *SysDept) GetTreeList(c *dto.SysDeptQueryReq) ([]*models.SysDept, int, error) {
-	list, respCode, err := e.getList(c)
-	if err != nil {
-		return nil, respCode, err
-	}
-	return tree.GenTree(&list,
-		func(item models.SysDept) int64 { return item.Id },
-		func(item models.SysDept) int64 { return item.ParentId },
-		func(item *models.SysDept, children []*models.SysDept) { item.Children = children },
-	), lang.SuccessCode, nil
-}
-
-func (e *SysDept) GetDeptLabel() ([]dto.DeptLabel, int, error) {
-	list := make([]models.SysDept, 0)
-	err := e.Orm.Find(&list).Error
-	if err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
-	}
-
-	m := make([]dto.DeptLabel, 0)
-	var item dto.DeptLabel
-	for i := range list {
-		if list[i].ParentId != 0 {
-			continue
-		}
-		item = dto.DeptLabel{}
-		item.Id = list[i].Id
-		item.Label = list[i].DeptName
-		deptInfo := deptLabelCall(&list, item)
-		m = append(m, deptInfo)
-	}
-	return m, lang.SuccessCode, nil
-}
-
-// Call 递归构造组织数据
-func deptTreeCall(deptList *[]models.SysDept, dept dto.DeptLabel) dto.DeptLabel {
-	list := *deptList
-	min := make([]dto.DeptLabel, 0)
-	for j := 0; j < len(list); j++ {
-		if dept.Id != list[j].ParentId {
-			continue
-		}
-		mi := dto.DeptLabel{Id: list[j].Id, Label: list[j].DeptName, Children: []dto.DeptLabel{}}
-		ms := deptTreeCall(deptList, mi)
-		min = append(min, ms)
-	}
-	dept.Children = min
-	return dept
-}
-
-// deptLabelCall
-func deptLabelCall(deptList *[]models.SysDept, dept dto.DeptLabel) dto.DeptLabel {
-	list := *deptList
-	var mi dto.DeptLabel
-	min := make([]dto.DeptLabel, 0)
-	for j := 0; j < len(list); j++ {
-		if dept.Id != list[j].ParentId {
-			continue
-		}
-		mi = dto.DeptLabel{Id: list[j].Id, Label: list[j].DeptName, Children: []dto.DeptLabel{}}
-		ms := deptLabelCall(deptList, mi)
-		min = append(min, ms)
-	}
-	dept.Children = min
-	return dept
 }
 
 // GetSysDeptList 获取组织数据

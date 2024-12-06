@@ -2,6 +2,7 @@ package dto
 
 import (
 	"github.com/shopspring/decimal"
+	"go-admin/app/admin/models"
 	"go-admin/core/dto"
 )
 
@@ -59,17 +60,11 @@ type SysDeptDeleteReq struct {
 	Ids []int64 `json:"ids"`
 }
 
-type DeptLabel struct {
-	Id       int64       `gorm:"-" json:"id"`
-	Label    string      `gorm:"-" json:"label"`
-	Children []DeptLabel `gorm:"-" json:"children"`
-}
-
 type SelectDeptRole struct {
 	RoleId int64 `uri:"roleId"`
 }
 
 type DeptTreeRoleResp struct {
-	Depts       []DeptLabel `json:"depts"`
-	CheckedKeys []int64     `json:"checkedKeys"`
+	Depts       []*models.SysDept `json:"depts"`
+	CheckedKeys []int64           `json:"checkedKeys"`
 }

@@ -6,7 +6,7 @@
           <!--部门数据-->
           <el-col :span="4" :xs="24">
             <div class="head-container">
-              <el-input v-model="deptName" placeholder="请输入部门名称（仅支持一级）" clearable size="small" prefix-icon="el-icon-search" style="margin-bottom: 20px" />
+              <el-input v-model="deptName" placeholder="请输入部门名称" clearable size="small" prefix-icon="el-icon-search" style="margin-bottom: 20px" />
             </div>
             <div class="head-container">
               <el-tree
@@ -132,6 +132,8 @@
                 <treeselect
                   v-model="form.deptId"
                   :options="deptOptions"
+                  :normalizer="normalizer"
+                  :show-count="true"
                   placeholder="请选择归属部门"
                 />
               </el-form-item>
@@ -267,7 +269,7 @@ export default {
       form: {},
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'deptName'
       },
       // 查询参数
       queryParams: {
@@ -348,7 +350,7 @@ export default {
       }
       return {
         id: node.id,
-        label: node.label,
+        label: node.deptName,
         children: node.children
       }
     },

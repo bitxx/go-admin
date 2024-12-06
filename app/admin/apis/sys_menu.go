@@ -176,7 +176,7 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 		return
 	}
 
-	result, respCode, err := m.GetMenuLabelTree()
+	result, respCode, err := m.GetTreeList(&dto.SysMenuQueryReq{})
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return

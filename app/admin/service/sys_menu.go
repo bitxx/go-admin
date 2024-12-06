@@ -43,33 +43,6 @@ func (e *SysMenu) GetTreeList(c *dto.SysMenuQueryReq) ([]*models.SysMenu, int, e
 	), lang.SuccessCode, nil
 }
 
-func (e *SysMenu) menuCall(menuList *[]models.SysMenu) []*models.SysMenu {
-	menuMap := make(map[int64][]*models.SysMenu)
-	for index := range *menuList {
-		item := &(*menuList)[index]
-		menuMap[item.ParentId] = append(menuMap[item.ParentId], item)
-	}
-
-	var rootItems []*models.SysMenu
-	var stack []*models.SysMenu
-
-	for _, item := range menuMap[0] {
-		stack = append(stack, item)
-		rootItems = append(rootItems, item)
-	}
-
-	for len(stack) > 0 {
-		currentItem := stack[len(stack)-1]
-		stack = stack[:len(stack)-1] // 移除栈顶元素
-		if children, exists := menuMap[currentItem.Id]; exists {
-			currentItem.Children = children
-			stack = append(stack, children...)
-		}
-	}
-
-	return rootItems
-}
-
 // Get 获取SysMenu对象
 func (e *SysMenu) Get(id int64, p *middleware.DataPermission) (*models.SysMenu, int, error) {
 	if id <= 0 {
@@ -343,56 +316,6 @@ func (e *SysMenu) GetList(c *dto.SysMenuQueryReq, withApi bool) ([]models.SysMen
 		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
 	}
 	return list, lang.SuccessCode, nil
-}
-
-// GetMenuLabelTree 获取菜单的完整树结构(用来显示简单的菜单信息：编号 名称)
-// 角色添加或者更新时，选择菜单列表会用到，菜单权限
-func (e *SysMenu) GetMenuLabelTree() ([]dto.MenuLabel, int, error) {
-	var list []models.SysMenu
-	list, respCode, err := e.GetList(&dto.SysMenuQueryReq{}, false)
-	if err != nil {
-		return nil, respCode, err
-	}
-
-	m := make([]dto.MenuLabel, 0)
-	for i := 0; i < len(list); i++ {
-		if list[i].ParentId != 0 {
-			continue
-		}
-		e := dto.MenuLabel{}
-		e.Id = list[i].Id
-		e.Label = list[i].Title
-		deptsInfo := menuLabelCall(&list, e)
-		m = append(m, deptsInfo)
-	}
-	return m, lang.SuccessCode, nil
-}
-
-// menuLabelCall 递归构造组织数据
-func menuLabelCall(eList *[]models.SysMenu, dept dto.MenuLabel) dto.MenuLabel {
-	list := *eList
-	min := make([]dto.MenuLabel, 0)
-	for j := 0; j < len(list); j++ {
-		if dept.Id != list[j].ParentId {
-			continue
-		}
-		mi := dto.MenuLabel{}
-		mi.Id = list[j].Id
-		mi.Label = list[j].Title
-		mi.Children = []dto.MenuLabel{}
-		if list[j].MenuType != constant.MenuF {
-			ms := menuLabelCall(eList, mi)
-			min = append(min, ms)
-		} else {
-			min = append(min, mi)
-		}
-	}
-	if len(min) > 0 {
-		dept.Children = min
-	} else {
-		dept.Children = nil
-	}
-	return dept
 }
 
 // GetMenuRole 获取左侧菜单树使用，后台主页管理菜单

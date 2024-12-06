@@ -154,8 +154,7 @@ func (e SysDept) Get2Tree(c *gin.Context) {
 		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
 		return
 	}
-	list := make([]dto.DeptLabel, 0)
-	list, respCode, err := s.SetDeptTree(&req)
+	list, respCode, err := s.GetTreeList(&req)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -177,7 +176,7 @@ func (e SysDept) GetDeptTreeRoleSelect(c *gin.Context) {
 		return
 	}
 
-	result, respCode, err := s.GetDeptLabel()
+	result, respCode, err := s.GetTreeList(&dto.SysDeptQueryReq{})
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return

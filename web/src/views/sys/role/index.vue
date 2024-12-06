@@ -127,6 +127,7 @@
                 :data="menuOptions"
                 show-checkbox
                 node-key="id"
+                :props="defaultMenuProps"
                 :empty-text="menuOptionsAlert"
               />
             </el-form-item>
@@ -184,7 +185,7 @@
 <script>
 import { listRole, getRole, delRole, addRole, updateRole, dataScope, changeRoleStatus } from '@/api/sys/role'
 import { roleMenuTreeselect } from '@/api/sys/menu'
-import { treeselect as deptTreeselect, roleDeptTreeselect } from '@/api/sys/dept'
+import {  roleDeptTreeselect } from '@/api/sys/dept'
 
 export default {
   name: 'SysRole',
@@ -232,7 +233,11 @@ export default {
       },
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'deptName'
+      },
+      defaultMenuProps: {
+        children: 'children',
+        label: 'title'
       },
       // 表单校验
       rules: {
@@ -275,12 +280,6 @@ export default {
       roleMenuTreeselect(0).then(response => {
         this.menuOptions = response.data.menus
         this.menuList = this.menuOptions
-      })
-    },
-    /** 查询部门树结构 */
-    getDeptTreeselect() {
-      deptTreeselect().then(response => {
-        this.deptOptions = response.data.list
       })
     },
     // 所有菜单节点数据

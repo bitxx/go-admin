@@ -68,17 +68,11 @@ type SysMenuGetReq struct {
 	Id int64 `uri:"id" json:"-"`
 }
 
-type MenuLabel struct {
-	Id       int64       `json:"id,omitempty" gorm:"-"`
-	Label    string      `json:"label,omitempty" gorm:"-"`
-	Children []MenuLabel `json:"children,omitempty" gorm:"-"`
-}
-
 type SelectMenuRole struct {
 	RoleId int64 `uri:"roleId"`
 }
 
 type MenuTreeRoleResp struct {
-	Menus       []MenuLabel `json:"menus"`
-	CheckedKeys []int64     `json:"checkedKeys"`
+	Menus       []*models.SysMenu `json:"menus"`
+	CheckedKeys []int64           `json:"checkedKeys"`
 }
