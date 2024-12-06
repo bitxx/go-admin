@@ -1,9 +1,17 @@
 import request from '@/utils/request'
 
 // 查询SysApi列表
-export function listSysApi(query) {
+export function getPageSysApi(query) {
   return request({
     url: '/admin-api/v1/sys-api',
+    method: 'get',
+    params: query
+  })
+}
+
+export function getListSysApi(query) {
+  return request({
+    url: '/admin-api/v1/sys-api/list',
     method: 'get',
     params: query
   })

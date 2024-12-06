@@ -17,6 +17,7 @@ func registerSysApiRouter(v1 *gin.RouterGroup) {
 	r := v1.Group("/sys-api").Use(middleware.Auth()).Use(middleware.AuthCheckRole())
 	{
 		r.GET("", api.GetPage)
+		r.GET("/list", api.GetList)
 		r.GET("/:id", api.Get)
 		r.PUT("/:id", api.Update)
 		r.GET("/export", api.Export)

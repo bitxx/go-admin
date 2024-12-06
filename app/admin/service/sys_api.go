@@ -44,6 +44,22 @@ func (e *SysApi) GetPage(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([
 	return list, count, lang.SuccessCode, nil
 }
 
+func (e *SysApi) GetList(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([]models.SysApi, int64, int, error) {
+	var list []models.SysApi
+	var data models.SysApi
+	var count int64
+
+	err := e.Orm.Order("created_at desc").Model(&data).
+		Scopes(
+			cDto.MakeCondition(c.GetNeedSearch()),
+			middleware.Permission(data.TableName(), p),
+		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+	if err != nil {
+		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+	}
+	return list, count, lang.SuccessCode, nil
+}
+
 // Get 获取SysApi对象with id
 func (e *SysApi) Get(id int64, p *middleware.DataPermission) (*models.SysApi, int, error) {
 	if id <= 0 {

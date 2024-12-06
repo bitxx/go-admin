@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import { delSysApi, getSysApi, listSysApi, updateSysApi, exportSysApi } from '@/api/sys/api'
+import { delSysApi, getSysApi, getPageSysApi, updateSysApi, exportSysApi } from '@/api/sys/api'
 import { resolveBlob } from '@/utils/download'
 
 export default {
@@ -227,7 +227,7 @@ export default {
     /** 查询参数列表 */
     getList() {
       this.loading = true
-      listSysApi(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+      getPageSysApi(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
         this.sysapiList = response.data.list
         this.total = response.data.count
         this.loading = false

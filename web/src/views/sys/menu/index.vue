@@ -335,7 +335,7 @@
 
 <script>
 import { listMenu, getMenu, delMenu, addMenu, updateMenu } from '@/api/sys/menu'
-import { listSysApi } from '@/api/sys/api'
+import {getListSysApi} from '@/api/sys/api'
 
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
@@ -428,9 +428,11 @@ export default {
     },
     getApiList() {
       this.loading = true
-      // 取出所有接口
-      listSysApi({ 'apiTypes': ['2', '3'] }).then(response => {
-        this.sysapiList = response.data.list
+      const params = new URLSearchParams();
+      params.append('apiTypes', '2')
+      params.append('apiTypes', '3')
+      getListSysApi(params).then(response => {
+        this.sysapiList = response.data
         this.loading = false
       }
       )

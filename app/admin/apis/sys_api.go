@@ -40,6 +40,27 @@ func (e SysApi) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
+func (e SysApi) GetList(c *gin.Context) {
+	s := service.SysApi{}
+	req := dto.SysApiQueryReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		return
+	}
+	p := middleware.GetPermissionFromContext(c)
+	list, _, respCode, err := s.GetList(&req, p)
+	if err != nil {
+		e.Error(respCode, err.Error())
+		return
+	}
+	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
+}
+
 // Get 获取接口管理
 func (e SysApi) Get(c *gin.Context) {
 	req := dto.SysApiGetReq{}
