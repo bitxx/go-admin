@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import md5 from 'md5'
 
 // 查询用户列表
 export function listUser(query) {
@@ -64,7 +65,7 @@ export function exportUser(query) {
 export function resetUserPwd(userId, password) {
   const data = {
     userId,
-    password
+    password: md5(password)
   }
   return request({
     url: '/admin-api/v1/sys-user/pwd/reset',
@@ -114,8 +115,8 @@ export function importTemplate() {
 // 用户密码重置
 export function updateProfilePwd(oldPassword, newPassword) {
   const data = {
-    oldPassword,
-    newPassword
+    oldPassword: md5(oldPassword),
+    newPassword: md5(newPassword)
   }
   return request({
     url: '/admin-api/v1/sys-user/profile/pwd',
@@ -159,6 +160,7 @@ export function getSetting() {
 
 // login 登陆
 export function login(data) {
+  data.password = md5(data.password)
   return request({
     url: '/admin-api/v1/login',
     method: 'post',
