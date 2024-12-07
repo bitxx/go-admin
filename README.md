@@ -118,8 +118,7 @@ npm-check
 这里只是大概讲了下基本情况，具体更多内容，还是需要在使用中一点点去发现。 
 
 ## 6.待处理
-1. 去掉菜单name字段
-2. 多账户登录
+1. 子账户登录后，权限按钮问题
 
 ## 感谢
 [go-admin-team](https://github.com/go-admin-team)  
