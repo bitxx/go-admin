@@ -73,7 +73,7 @@
           <el-table-column label="字典名称" width="300" align="left" prop="dictName" :show-overflow-tooltip="true" />
           <el-table-column label="字典类型" width="280" align="left" :show-overflow-tooltip="true">
             <template slot-scope="scope">
-              <router-link :to="{name:'SysDictdata', params: {dictType:scope.row.dictType}}" class="link-type">
+              <router-link :to="{name:'/sys/sys-dictdata', params: {dictType:scope.row.dictType}}" class="link-type">
                 <span>{{ scope.row.dictType }}</span>
               </router-link>
             </template>

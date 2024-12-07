@@ -48,7 +48,7 @@ export function generaMenu(routes, data) {
       component: item.element === 'Layout' ? Layout : loadView(item.element),
       hidden: hidden,
       children: [],
-      name: item.name,
+      name: item.path,
       meta: {
         title: item.title,
         icon: item.icon,

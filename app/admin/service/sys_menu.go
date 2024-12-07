@@ -139,7 +139,6 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 			c.IsAffix = global.SysStatusNotOk
 			data.IsKeepAlive = c.IsKeepAlive
 			data.IsAffix = c.IsAffix
-			data.Name = c.Name
 			data.IsFrame = c.IsFrame
 		}
 	}
@@ -221,7 +220,6 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 			c.IsAffix = global.SysStatusNotOk
 			data.IsKeepAlive = c.IsKeepAlive
 			data.IsAffix = c.IsAffix
-			data.Name = c.Name
 			data.IsFrame = c.IsFrame
 		}
 	}

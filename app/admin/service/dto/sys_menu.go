@@ -20,7 +20,6 @@ func (m *SysMenuQueryReq) GetNeedSearch() interface{} {
 }
 
 type SysMenuInsertReq struct {
-	Name        string          `form:"name" comment:"菜单name"` //菜单name
 	Title       string          `form:"title" comment:"显示名称"`  //显示名称
 	Icon        string          `form:"icon" comment:"图标"`     //图标
 	Path        string          `form:"path" comment:"路径"`     //路径
@@ -41,7 +40,6 @@ type SysMenuInsertReq struct {
 
 type SysMenuUpdateReq struct {
 	Id          int64           `uri:"id" json:"-" comment:"编码"` // 编码
-	Name        string          `form:"name" comment:"菜单name"`   //菜单name
 	Title       string          `form:"title" comment:"显示名称"`    //显示名称
 	Icon        string          `form:"icon" comment:"图标"`       //图标
 	Path        string          `form:"path" comment:"路径"`       //路径

@@ -80,12 +80,6 @@
               <span v-else>{{ scope.row.path }}</span>
             </template>
           </el-table-column>
-          <el-table-column width="200" label="路由名称" align="center" prop="name" :show-overflow-tooltip="true">
-            <template slot-scope="scope">
-              <span v-if="scope.row.name===''">-</span>
-              <span v-else>{{ scope.row.name }}</span>
-            </template>
-          </el-table-column>
           <el-table-column width="100" label="可见" align="center" prop="isHidden" :formatter="hiddenFormat">
             <template slot-scope="scope">
               {{ hiddenFormat(scope.row) }}
@@ -195,17 +189,6 @@
                         <i v-else slot="prefix" class="el-icon-search el-input__icon" />
                       </el-input>
                     </el-popover>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item v-if="form.menuType === '2'" prop="name">
-                    <span slot="label">
-                      路由名称
-                      <el-tooltip content="需要和页面name保持一致，对应页面即可选择缓存" placement="top">
-                        <i class="el-icon-question" />
-                      </el-tooltip>
-                    </span>
-                    <el-input v-model="form.name" placeholder="请输入路由名称" />
                   </el-form-item>
                 </el-col>
 
@@ -484,7 +467,6 @@ export default {
       this.form = {
         id: undefined,
         parentId: 0,
-        name: undefined,
         icon: undefined,
         menuType: undefined,
         apis: [],

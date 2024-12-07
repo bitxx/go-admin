@@ -557,7 +557,6 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	path := "/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName
 	cMenuInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
-		Name:        table.ClassName,
 		Title:       table.TableComment,
 		Icon:        "pass",
 		Path:        path,

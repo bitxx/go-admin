@@ -6,7 +6,6 @@ import (
 
 type SysMenu struct {
 	Id          int64      `json:"id" gorm:"primaryKey;autoIncrement"`
-	Name        string     `json:"name" gorm:"size:128;"`
 	Title       string     `json:"title" gorm:"size:128;"`
 	Icon        string     `json:"icon" gorm:"size:128;"`
 	Path        string     `json:"path" gorm:"size:255;"`
