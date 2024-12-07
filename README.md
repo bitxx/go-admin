@@ -119,8 +119,7 @@ npm-check
 
 ## 6.待处理
 1. 去掉菜单name字段
-2. 密码md5处理
-3. 多账户登录
+2. 多账户登录
 
 ## 感谢
 [go-admin-team](https://github.com/go-admin-team)  
