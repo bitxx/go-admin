@@ -94,12 +94,16 @@ const {{.ClassName}}: React.FC = () => {
       width: 150,
       render: (_, data) => (
         <Space>
-          <LoadingButton key="edit" type="link" size="small" icon={<EditOutlined />} onClick={(done) => handleShowEditFormModal(data.id!,done)}>
-            编辑
-          </LoadingButton>
-          <LoadingButton key="delete" type="link" size="small" danger icon={<DeleteOutlined />} onClick={(done) => handleDelete(data.id!,done)}>
-            删除
-          </LoadingButton>
+          <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:edit"]}>
+            <LoadingButton key="edit" type="link" size="small" icon={<EditOutlined />} onClick={(done) => handleShowEditFormModal(data.id!,done)}>
+              编辑
+            </LoadingButton>
+          </HocAuth>
+          <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:del"]}>
+            <LoadingButton key="delete" type="link" size="small" danger icon={<DeleteOutlined />} onClick={(done) => handleDelete(data.id!,done)}>
+              删除
+            </LoadingButton>
+          </HocAuth>
         </Space>
       )
     }
@@ -192,12 +196,16 @@ const {{.ClassName}}: React.FC = () => {
   };
 
   const toolBarRender = () => [
-    <LoadingButton type="primary" key="addTable" icon={<PlusCircleOutlined />} onClick={(done) => handleShowAddFormModal(done)}>
-      新增
-    </LoadingButton>,
-    <LoadingButton type="primary" key="importTable" icon={<CloudDownloadOutlined />} onClick={done => handleExport(done)}>
-      Excel导出
-    </LoadingButton>
+    <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:add"]}>
+      <LoadingButton type="primary" key="addTable" icon={<PlusCircleOutlined />} onClick={(done) => handleShowAddFormModal(done)}>
+        新增
+      </LoadingButton>
+    </HocAuth>,
+    <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:export"]}>
+      <LoadingButton type="primary" key="importTable" icon={<CloudDownloadOutlined />} onClick={done => handleExport(done)}>
+        Excel导出
+      </LoadingButton>
+    </HocAuth>
   ];
 
   return (
