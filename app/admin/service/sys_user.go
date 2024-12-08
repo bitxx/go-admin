@@ -417,6 +417,10 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 		return nil, sysLang.SysUserNoExistCode, lang.MsgErr(sysLang.SysUserNoExistCode, e.Lang)
 	}
 
+	if user.Role.RoleKey == "" {
+		return nil, sysLang.SysUserNoRoleErrCode, lang.MsgErr(sysLang.SysUserNoRoleErrCode, e.Lang)
+	}
+
 	respUser := &dto.SysUserResp{}
 	respUser.Id = user.Id
 	respUser.Email = user.Email
@@ -430,12 +434,10 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 
 	if user.Role.RoleKey == constant.RoleKeyAdmin {
 		respUser.Permissions = []string{"*:*:*"}
-		respUser.Buttons = []string{"*:*:*"}
 	} else {
 		roleService := NewSysRoleService(&e.Service)
 		list, _, _ := roleService.GetPermissionsById(int64(user.RoleId))
 		respUser.Permissions = list
-		respUser.Buttons = list
 	}
 	respUser.RoleKyes = []string{user.Role.RoleKey}
 	return respUser, lang.SuccessCode, nil

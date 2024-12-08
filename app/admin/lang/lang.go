@@ -76,6 +76,7 @@ const (
 	SysUseAvatarUploadErrCode         = 10523
 	SysUseAvatarUploadErrLogCode      = 10524
 	SysAdminUserNotAllowDeleteErrCode = 10525
+	SysUserNoRoleErrCode              = 10526
 
 	//菜单
 	SysMenuParentIdEmptyCode = 10600
@@ -184,6 +185,7 @@ var (
 		SysUseAvatarUploadErrCode:         "头像上传失败",
 		SysUseAvatarUploadErrLogCode:      "头像上传失败：%s",
 		SysAdminUserNotAllowDeleteErrCode: "该账户禁止删除",
+		SysUserNoRoleErrCode:              "该账户尚未分配角色",
 
 		//菜单
 		SysMenuParentIdEmptyCode: "上级菜单不得为空",
