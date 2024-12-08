@@ -119,21 +119,21 @@ func (e *SysDept) Insert(c *dto.SysDeptInsertReq) (int64, int, error) {
 		return 0, sysLang.SysDeptNameExistCode, lang.MsgErr(sysLang.SysDeptNameExistCode, e.Lang)
 	}
 	//path组装
-	deptPath := "0,"
+	parentIds := "0,"
 	if c.ParentId.IntPart() > 0 {
 		dept := &models.SysDept{}
 		dept, respCode, err = e.Get(c.ParentId.IntPart(), nil)
 		if err != nil {
 			return 0, respCode, err
 		}
-		deptPath = dept.DeptPath + "," + strconv.FormatInt(dept.Id, 10) + ","
+		parentIds = dept.ParentIds + "," + strconv.FormatInt(dept.Id, 10) + ","
 	}
 
 	now := time.Now()
 	data := models.SysDept{}
 	data.DeptName = c.DeptName
 	data.ParentId = c.ParentId.IntPart()
-	data.DeptPath = deptPath
+	data.ParentIds = parentIds
 	data.Sort = c.Sort
 	data.Leader = c.Leader
 	data.Phone = c.Phone
@@ -221,7 +221,7 @@ func (e *SysDept) Remove(ids []int64, p *middleware.DataPermission) (int, error)
 	for _, id := range ids {
 		//若被使用，不得删除
 		dataReq := dto.SysDeptQueryReq{}
-		dataReq.DeptPath = "," + strconv.FormatInt(id, 10) + ","
+		dataReq.ParentIds = "," + strconv.FormatInt(id, 10) + ","
 		count, respCode, err := e.Count(&dataReq)
 		if err != nil && respCode != lang.DataNotFoundCode {
 			return respCode, err

@@ -5,7 +5,7 @@ import "time"
 type SysDept struct {
 	Id        int64      `json:"id" gorm:"primaryKey;autoIncrement;"` //部门编码
 	ParentId  int64      `json:"parentId" gorm:""`                    //上级部门
-	DeptPath  string     `json:"deptPath" gorm:"size:255;"`           //
+	ParentIds string     `json:"parentIds" gorm:"size:255;"`          //
 	DeptName  string     `json:"deptName"  gorm:"size:128;"`          //部门名称
 	Sort      int        `json:"sort" gorm:"size:4;"`                 //排序
 	Leader    string     `json:"leader" gorm:"size:128;"`             //负责人
