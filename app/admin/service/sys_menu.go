@@ -334,38 +334,50 @@ func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 		err = e.Orm.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC}).Order("sort").Find(&data).Error
 		menuList = data
 	} else {
-		//SELECT * FROM `sys_role_menu` WHERE `sys_role_menu`.`role_id` = 2
-		//SELECT * FROM `sys_menu` WHERE  menu_type in ('1','2','3') AND `sys_menu`.`id` = 119 ORDER BY sort
-		//SELECT * FROM `sys_role` WHERE role_key = 'test'
-
 		var role models.SysRole
 		role.RoleKey = roleKey
 		err = e.Orm.Debug().Model(&role).Where("role_key = ? ", roleKey).Preload("SysMenu", func(db *gorm.DB) *gorm.DB {
-			return db.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC, constant.MenuF}).Order("sort")
+			return db.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC}).Order("sort")
 		}).Find(&role).Error
 		if role.SysMenu != nil {
-			//menuList = *role.SysMenu
-			//menuList = append(menuList, *role.SysMenu...)
-			temp := map[int64]int{}
+			filterParentMenuIds := make(map[int64]bool) // 存储所有的父菜单 ID
+			menuSet := make(map[int64]struct{})         // 用于快速判断 menuList 中的 ID 是否存在
+
+			// 遍历角色的菜单
 			for _, v := range *role.SysMenu {
-				//将当前菜单加入列表
-				temp[v.Id] = temp[v.Id] + 1
+				// 添加到 menuSet 以快速查重
+				menuSet[v.Id] = struct{}{}
 				menuList = append(menuList, v)
 
-				//将上级菜单加入列表
-				ids := strings.Split(v.ParentIds, ",")
-				for _, idStr := range ids {
-					id, _ := strconv.ParseInt(idStr, 10, 64)
-					temp[id] = temp[id] + 1
-					if temp[id] == 1 && id > 0 {
-						data := models.SysMenu{}
-						err = e.Orm.Where("id=?", id).Find(&data).Error
-						if data.MenuType == constant.MenuM || data.MenuType == constant.MenuC {
-							menuList = append(menuList, data)
-						}
+				// 分割 ParentIds 并处理
+				for _, idStr := range strings.Split(v.ParentIds, ",") {
+					id, err := strconv.ParseInt(idStr, 10, 64)
+					if err != nil || id == 0 {
+						continue // 忽略解析失败或根节点
+					}
+					if _, exists := menuSet[id]; !exists {
+						filterParentMenuIds[id] = true
 					}
 				}
 			}
+
+			// 收集需要二次获取的 parent IDs
+			parentIds := make([]int64, 0, len(filterParentMenuIds))
+			for id := range filterParentMenuIds {
+				if _, exists := menuSet[id]; !exists {
+					parentIds = append(parentIds, id)
+				}
+			}
+
+			if len(parentIds) > 0 {
+				var parentMenus []models.SysMenu
+				menuTypes := []string{constant.MenuM, constant.MenuC}
+				err = e.Orm.Where("id in (?)", parentIds, menuTypes).Find(&parentMenus).Error
+				if err == nil {
+					menuList = append(menuList, parentMenus...)
+				}
+			}
+
 		}
 	}
 
