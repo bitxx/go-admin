@@ -117,7 +117,6 @@ type SysUserResp struct {
 	DeptName    string   `json:"deptName"`
 	RoleName    string   `json:"roleName"`
 	Permissions []string `json:"permissions"`
-	Buttons     []string `json:"buttons"`
 	RoleKyes    []string `json:"roleKeys"`
 	CreatedAt   string   `json:"createdAt"`
 }
