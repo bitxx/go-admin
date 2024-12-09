@@ -119,6 +119,8 @@ npm-check
 
 ## 6.待处理
 1. 变更：api接口自动加载注释以及匹配到对应菜单，取消启动程序时导入导入接口的逻辑
+2. keep_alive菜单存活
+3. 角色菜单分配效率低问题
 
 ## 感谢
 [go-admin-team](https://github.com/go-admin-team)  
