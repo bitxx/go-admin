@@ -120,7 +120,6 @@ npm-check
 ## 6.待处理
 1. HOC权限按钮和数据库不匹配问题，主要是数据库添加权限
 2. 变更：api接口自动加载注释以及匹配到对应菜单，取消启动程序时导入导入接口的逻辑
-3. 使用parentIds提升构造菜单和部门树形结构性能
 
 ## 感谢
 [go-admin-team](https://github.com/go-admin-team)  
