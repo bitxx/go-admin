@@ -11,7 +11,7 @@
  Target Server Version : 100703 (10.7.3-MariaDB-log)
  File Encoding         : 65001
 
- Date: 30/11/2024 00:33:28
+ Date: 09/12/2024 16:34:15
 */
 
 SET NAMES utf8mb4;
@@ -22,30 +22,30 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user`;
 CREATE TABLE `app_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户编码',
-  `level_id` int(11) NOT NULL DEFAULT 1 COMMENT '用户等级编号',
-  `user_name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户昵称',
-  `true_name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '真实姓名',
-  `money` decimal(30,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '余额',
-  `email` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '电子邮箱',
-  `mobile_title` varchar(255) COLLATE utf8mb4_bin DEFAULT '+86' COMMENT '用户手机号国家前缀',
-  `mobile` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号码',
-  `avatar` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像路径',
-  `pay_pwd` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '提现密码',
-  `pwd` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '登录密码',
-  `ref_code` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '推荐码',
-  `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级编号',
-  `parent_ids` varchar(1000) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '所有父级编号',
-  `tree_sort` int(11) NOT NULL DEFAULT 0 COMMENT '本级排序号（升序）',
-  `tree_sorts` varchar(1000) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '所有级别排序号',
-  `tree_leaf` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '是否最末级',
-  `tree_level` int(11) NOT NULL DEFAULT 0 COMMENT '层次级别',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
-  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
-  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '更新时间',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '用户编码',
+  `level_id` int NOT NULL DEFAULT '1' COMMENT '用户等级编号',
+  `user_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `true_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '真实姓名',
+  `money` decimal(30,18) NOT NULL DEFAULT '0.000000000000000000' COMMENT '余额',
+  `email` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '电子邮箱',
+  `mobile_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '+86' COMMENT '用户手机号国家前缀',
+  `mobile` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号码',
+  `avatar` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像路径',
+  `pay_pwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '提现密码',
+  `pwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '登录密码',
+  `ref_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '推荐码',
+  `parent_id` int NOT NULL DEFAULT '0' COMMENT '父级编号',
+  `parent_ids` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '所有父级编号',
+  `tree_sort` int NOT NULL DEFAULT '0' COMMENT '本级排序号（升序）',
+  `tree_sorts` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '所有级别排序号',
+  `tree_leaf` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '是否最末级',
+  `tree_level` int NOT NULL DEFAULT '0' COMMENT '层次级别',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
+  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户管理';
 
@@ -63,19 +63,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_account_log`;
 CREATE TABLE `app_user_account_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '账变编号',
-  `user_id` int(11) NOT NULL COMMENT '用户编号',
-  `change_money` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '账变金额',
-  `before_money` decimal(30,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '账变前金额',
-  `after_money` decimal(30,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '账变后金额',
-  `money_type` char(10) COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '金额类型 1:余额 ',
-  `change_type` varchar(30) COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '帐变类型(1-类型1)',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1正常 2-异常）',
-  `create_by` int(11) NOT NULL COMMENT '创建者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '账变编号',
+  `user_id` int NOT NULL COMMENT '用户编号',
+  `change_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '账变金额',
+  `before_money` decimal(30,18) NOT NULL DEFAULT '0.000000000000000000' COMMENT '账变前金额',
+  `after_money` decimal(30,18) NOT NULL DEFAULT '0.000000000000000000' COMMENT '账变后金额',
+  `money_type` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '金额类型 1:余额 ',
+  `change_type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '1' COMMENT '帐变类型(1-类型1)',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1正常 2-异常）',
+  `create_by` int NOT NULL COMMENT '创建者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
-  `update_by` int(11) NOT NULL COMMENT '更新者',
+  `update_by` int NOT NULL COMMENT '更新者',
   `updated_date` datetime NOT NULL COMMENT '更新时间',
-  `remarks` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `remarks` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `idx_qyc_user_status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='账变记录';
@@ -100,13 +100,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_conf`;
 CREATE TABLE `app_user_conf` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL COMMENT '用户id',
   `can_login` char(1) NOT NULL DEFAULT '0' COMMENT '1-允许登陆；2-不允许登陆',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态（1-正常 2-异常）\n',
-  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
-  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
+  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
+  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -126,15 +126,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_country_code`;
 CREATE TABLE `app_user_country_code` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `country` varchar(64) NOT NULL DEFAULT '' COMMENT '国家或地区',
   `code` varchar(12) NOT NULL DEFAULT '' COMMENT '区号',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-可用 2-停用)',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
-  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
-  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '更新时间',
+  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
+  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='国家区号';
 
@@ -162,14 +162,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_level`;
 CREATE TABLE `app_user_level` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '等级名称',
-  `level_type` varchar(10) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '等级类型',
-  `level` int(11) NOT NULL COMMENT '等级',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
-  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '等级名称',
+  `level_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '等级类型',
+  `level` int NOT NULL COMMENT '等级',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
+  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -188,16 +188,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_user_oper_log`;
 CREATE TABLE `app_user_oper_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '日志编码',
-  `user_id` int(11) NOT NULL DEFAULT 1 COMMENT '用户编号',
-  `action_type` char(2) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户行为类型',
-  `by_type` char(2) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '更新用户类型 1-app用户 2-后台用户',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
-  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
-  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
-  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '日志编码',
+  `user_id` int NOT NULL DEFAULT '1' COMMENT '用户编号',
+  `action_type` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户行为类型',
+  `by_type` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '更新用户类型 1-app用户 2-后台用户',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '状态(1-正常 2-异常)',
+  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
+  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户关键行为日志表';
 
@@ -219,14 +219,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_content_announcement`;
 CREATE TABLE `plugins_content_announcement` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `title` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
-  `content` text COLLATE utf8mb4_bin DEFAULT NULL COMMENT '内容',
-  `num` int(11) DEFAULT NULL COMMENT '阅读次数',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（0正常 1删除 2停用 3冻结）',
-  `create_by` int(11) NOT NULL COMMENT '创建者',
-  `update_by` int(11) NOT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin COMMENT '内容',
+  `num` int DEFAULT NULL COMMENT '阅读次数',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（0正常 1删除 2停用 3冻结）',
+  `create_by` int NOT NULL COMMENT '创建者',
+  `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -245,14 +245,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_content_article`;
 CREATE TABLE `plugins_content_article` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `cate_id` int(11) DEFAULT NULL COMMENT '分类编号',
-  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
-  `content` text COLLATE utf8mb4_bin DEFAULT NULL COMMENT '内容',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
-  `create_by` int(11) NOT NULL COMMENT '创建者',
-  `update_by` int(11) NOT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `cate_id` int DEFAULT NULL COMMENT '分类编号',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin COMMENT '内容',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
+  `create_by` int NOT NULL COMMENT '创建者',
+  `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -270,12 +270,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_content_category`;
 CREATE TABLE `plugins_content_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `create_by` int(11) NOT NULL COMMENT '创建者',
-  `update_by` int(11) NOT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0' COMMENT '状态（1-正常 2-异常）',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `create_by` int NOT NULL COMMENT '创建者',
+  `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -295,18 +295,18 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_filemgr_app`;
 CREATE TABLE `plugins_filemgr_app` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `version` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本号',
-  `platform` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '平台 (1-安卓 2-苹果)',
-  `app_type` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本(1-默认)',
-  `local_address` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '本地地址',
-  `download_type` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载类型(1-本地 2-外链 3-oss )',
-  `download_url` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载地址(download_type=1使用)',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1-已发布 2-待发布）\n',
-  `create_by` int(11) NOT NULL COMMENT '创建者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `version` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本号',
+  `platform` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '平台 (1-安卓 2-苹果)',
+  `app_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '版本(1-默认)',
+  `local_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '本地地址',
+  `download_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载类型(1-本地 2-外链 3-oss )',
+  `download_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '下载地址(download_type=1使用)',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '状态（1-已发布 2-待发布）\n',
+  `create_by` int NOT NULL COMMENT '创建者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
-  `update_by` int(11) NOT NULL COMMENT '更新者',
+  `update_by` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='app升级管理';
@@ -326,14 +326,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `plugins_msg_code`;
 CREATE TABLE `plugins_msg_code` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '验证码编号',
-  `user_id` int(11) NOT NULL COMMENT '用户编号',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '验证码编号',
+  `user_id` int NOT NULL COMMENT '用户编号',
   `code` varchar(12) NOT NULL DEFAULT '0' COMMENT '验证码',
   `code_type` char(1) NOT NULL DEFAULT '0' COMMENT '验证码类型 1-邮箱；2-短信',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注异常',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '2' COMMENT '验证码状态 1-发送成功 2-发送失败',
-  `create_by` int(11) NOT NULL DEFAULT 0 COMMENT '创建者',
-  `update_by` int(11) NOT NULL DEFAULT 0 COMMENT '更新者',
+  `create_by` int NOT NULL DEFAULT '0' COMMENT '创建者',
+  `update_by` int NOT NULL DEFAULT '0' COMMENT '更新者',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -350,16 +350,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_api`;
 CREATE TABLE `sys_api` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `handle` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'handle',
-  `title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
-  `path` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '地址',
-  `api_type` varchar(16) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口类型',
-  `action` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求类型',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `handle` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'handle',
+  `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '标题',
+  `path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '地址',
+  `api_type` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口类型',
+  `action` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求类型',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -374,28 +374,28 @@ INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `c
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (5, 'go-admin/app/admin/apis.SysTables.GetDBTablePage-fm', '系统-获取数据库表', '/admin-api/v1/sys/table/dbtables', '1', 'GET', '2023-05-08 16:51:11', '2023-05-09 10:55:36', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (6, 'go-admin/app/admin/apis.SysTables.Preview-fm', '系统-代码预览', '/admin-api/v1/sys/table/preview/:id', '1', 'GET', '2023-05-08 16:51:11', '2023-05-09 10:55:36', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (7, 'go-admin/app/admin/apis.SysTables.Get-fm', '系统-表信息详情获取', '/admin-api/v1/sys/table/:id', '1', 'GET', '2023-05-08 16:51:12', '2023-05-09 09:52:44', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (8, 'go-admin/app/admin/apis.SysDept.GetList-fm', '系统-部门列表获取', '/admin-api/v1/sys/dept', '1', 'GET', '2023-05-08 16:51:12', '2023-05-09 09:52:50', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (9, 'go-admin/app/admin/apis.SysDept.Get-fm', '系统-部门详情获取', '/admin-api/v1/sys/dept/:id', '1', 'GET', '2023-05-08 16:51:12', '2023-05-09 09:52:55', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (8, 'go-admin/app/admin/apis.SysDept.GetList-fm', '系统-部门列表获取', '/admin-api/v1/sys/dept', '1', 'GET', '2023-05-08 16:51:12', '2024-12-09 15:27:01', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (9, 'go-admin/app/admin/apis.SysDept.Get-fm', '系统-部门详情获取', '/admin-api/v1/sys/dept/:id', '1', 'GET', '2023-05-08 16:51:12', '2024-12-09 15:27:15', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (10, 'go-admin/app/admin/apis.SysDept.Get2Tree-fm', '系统-树部门', '/admin-api/v1/sys/deptTree', '1', 'GET', '2023-05-08 16:51:13', '2023-05-09 09:52:27', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11, 'go-admin/app/admin/apis.SysPost.GetPage-fm', '系统-岗位列表获取', '/admin-api/v1/sys/post', '1', 'GET', '2023-05-08 16:51:13', '2023-05-09 09:52:31', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (11, 'go-admin/app/admin/apis.SysPost.GetPage-fm', '系统-岗位列表获取', '/admin-api/v1/sys/post', '1', 'GET', '2023-05-08 16:51:13', '2024-12-09 15:29:02', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (12, 'go-admin/app/admin/apis.SysPost.Export-fm', '系统-部门列表导出', '/admin-api/v1/sys/post/export', '1', 'GET', '2023-05-08 16:51:13', '2023-05-09 09:52:39', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (13, 'go-admin/app/admin/apis.SysPost.Get-fm', '系统-岗位详情获取', '/admin-api/v1/sys/post/:id', '1', 'GET', '2023-05-08 16:51:14', '2023-05-09 09:52:07', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (14, 'go-admin/app/admin/apis.SysMenu.GetMenuTreeSelect-fm', '系统-树菜单角色', '/admin-api/v1/sys/roleMenuTreeselect/:roleId', '1', 'GET', '2023-05-08 16:51:14', '2023-05-09 09:52:12', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (15, 'go-admin/app/admin/apis.SysDept.GetDeptTreeRoleSelect-fm', '系统-树部门角色', '/admin-api/v1/sys/roleDeptTreeselect/:roleId', '1', 'GET', '2023-05-08 16:51:14', '2023-05-09 09:52:17', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (16, 'go-admin/app/admin/apis.SysApi.GetPage-fm', '系统-接口列表获取', '/admin-api/v1/sys-api', '1', 'GET', '2023-05-08 16:51:15', '2023-05-09 09:51:46', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (13, 'go-admin/app/admin/apis.SysPost.Get-fm', '系统-岗位详情获取', '/admin-api/v1/sys/post/:id', '1', 'GET', '2023-05-08 16:51:14', '2024-12-09 15:29:27', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (14, 'go-admin/app/admin/apis.SysMenu.GetMenuTreeSelect-fm', '系统-树菜单角色', '/admin-api/v1/sys/roleMenuTreeselect/:roleId', '1', 'GET', '2023-05-08 16:51:14', '2024-12-09 16:24:08', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (15, 'go-admin/app/admin/apis.SysDept.GetDeptTreeRoleSelect-fm', '系统-树部门角色', '/admin-api/v1/sys/roleDeptTreeselect/:roleId', '1', 'GET', '2023-05-08 16:51:14', '2024-12-09 16:24:08', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (16, 'go-admin/app/admin/apis.SysApi.GetPage-fm', '系统-接口列表获取', '/admin-api/v1/sys-api', '1', 'GET', '2023-05-08 16:51:15', '2024-12-09 15:06:19', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (17, 'go-admin/app/admin/apis.SysApi.Export-fm', '系统-接口列表导出', '/admin-api/v1/sys-api/export', '1', 'GET', '2023-05-08 16:51:15', '2023-05-09 09:51:56', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (18, 'go-admin/app/admin/apis.SysApi.Get-fm', '系统-接口详情获取', '/admin-api/v1/sys-api/:id', '1', 'GET', '2023-05-08 16:51:15', '2023-05-09 09:52:02', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (18, 'go-admin/app/admin/apis.SysApi.Get-fm', '系统-接口详情获取', '/admin-api/v1/sys-api/:id', '1', 'GET', '2023-05-08 16:51:15', '2024-12-09 15:05:59', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (19, 'go-admin/app/admin/apis.SysLoginLog.GetPage-fm', '系统-登录日志列表获取', '/admin-api/v1/sys-login-log', '1', 'GET', '2023-05-08 16:51:16', '2023-05-09 11:03:23', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (20, 'go-admin/app/admin/apis.SysLoginLog.Export-fm', '系统-登录日志列表导出', '/admin-api/v1/sys-login-log/export', '1', 'GET', '2023-05-08 16:51:16', '2023-05-09 09:51:32', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (21, 'go-admin/app/admin/apis.SysLoginLog.Get-fm', '系统-登录日志详情获取', '/admin-api/v1/sys-login-log/:id', '1', 'GET', '2023-05-08 16:51:16', '2023-05-09 09:51:36', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (22, 'go-admin/app/admin/apis.SysOperLog.GetPage-fm', '系统-操作日志列表获取', '/admin-api/v1/sys-oper-log', '1', 'GET', '2023-05-08 16:51:17', '2023-05-09 11:00:44', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (23, 'go-admin/app/admin/apis.SysOperLog.Export-fm', '系统-操作日志列表导出', '/admin-api/v1/sys-oper-log/export', '1', 'GET', '2023-05-08 16:51:17', '2023-05-09 09:50:53', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (23, 'go-admin/app/admin/apis.SysOperLog.Export-fm', '系统-操作日志列表导出', '/admin-api/v1/sys-oper-log/export', '1', 'GET', '2023-05-08 16:51:17', '2024-12-09 15:32:19', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (24, 'go-admin/app/admin/apis.SysOperLog.Get-fm', '系统-操作日志详情获取', '/admin-api/v1/sys-oper-log/:id', '1', 'GET', '2023-05-08 16:51:17', '2023-05-09 09:51:23', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (25, 'go-admin/app/admin/apis.SysUser.GetPage-fm', '系统-用户列表获取', '/admin-api/v1/sys-user', '1', 'GET', '2023-05-08 16:51:18', '2023-05-09 09:50:22', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (25, 'go-admin/app/admin/apis.SysUser.GetPage-fm', '系统-用户列表获取', '/admin-api/v1/sys-user', '1', 'GET', '2023-05-08 16:51:18', '2024-12-09 15:16:36', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (26, 'go-admin/app/admin/apis.SysUser.GetProfile-fm', '系统-登录用户信息获取', '/admin-api/v1/sys-user/profile', '1', 'GET', '2023-05-08 16:51:18', '2023-05-09 09:50:29', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (27, 'go-admin/app/admin/apis.SysUser.Get-fm', '系统-用户详情获取', '/admin-api/v1/sys-user/:id', '1', 'GET', '2023-05-08 16:51:18', '2023-05-09 09:50:35', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (27, 'go-admin/app/admin/apis.SysUser.Get-fm', '系统-用户详情获取', '/admin-api/v1/sys-user/:id', '1', 'GET', '2023-05-08 16:51:18', '2024-12-09 16:24:08', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (28, 'go-admin/app/admin/apis.SysRuntimeConfig.GetConfig-fm', '系统-获取运行时配置', '/admin-api/v1/sysRuntimeConfig/getConfig', '1', 'GET', '2023-05-08 16:51:19', '2023-05-09 09:49:57', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (29, 'go-admin/app/admin/apis.ServerMonitor.ServerInfo-fm', '系统-获取运行环境状态', '/admin-api/v1/server-monitor', '1', 'GET', '2023-05-08 16:51:19', '2023-05-09 09:50:03', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (29, 'go-admin/app/admin/apis.ServerMonitor.ServerInfo-fm', '系统-获取运行环境状态', '/admin-api/v1/server-monitor', '1', 'GET', '2023-05-08 16:51:19', '2024-12-09 16:32:01', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (30, 'go-admin/app/app/user/apis.User.GetPage-fm', '应用-用户列表获取', '/admin-api/v1/app/user/user', '3', 'GET', '2023-05-08 16:51:19', '2023-05-09 09:50:11', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (31, 'go-admin/app/app/user/apis.UserCountryCode.GetPage-fm', '应用-国家区号列表获取', '/admin-api/v1/app/user/user-country-code', '3', 'GET', '2023-05-08 16:51:20', '2023-05-09 10:31:00', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (32, 'go-admin/app/app/user/apis.UserCountryCode.Export-fm', '应用-国家区号列表导出', '/admin-api/v1/app/user/user-country-code/export', '3', 'GET', '2023-05-08 16:51:20', '2023-05-09 10:31:46', 0, 1);
@@ -429,34 +429,33 @@ INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `c
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (60, 'go-admin/app/plugins/msg/apis.MsgCode.GetPage-fm', '插件-消息-验证码列表获取', '/admin-api/v1/plugins/msg/msg-code', '2', 'GET', '2023-05-08 16:51:29', '2023-05-09 10:34:35', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (61, 'go-admin/app/plugins/msg/apis.MsgCode.Get-fm', '插件-消息-验证码详情获取', '/admin-api/v1/plugins/msg/msg-code/:id', '2', 'GET', '2023-05-08 16:51:29', '2023-05-09 09:46:08', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (62, 'go-admin/app/admin/apis.SysDictType.GetPage-fm', '系统-字典类型列表获取', '/admin-api/v1/dict/type', '1', 'GET', '2023-05-08 16:51:30', '2023-05-09 11:13:23', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (63, 'go-admin/app/admin/apis.SysDictType.Export-fm', '系统-字典类型列表导出', '/admin-api/v1/dict/type/export', '1', 'GET', '2023-05-08 16:51:30', '2023-05-09 11:16:42', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (63, 'go-admin/app/admin/apis.SysDictType.Export-fm', '系统-字典类型列表导出', '/admin-api/v1/dict/type/export', '1', 'GET', '2023-05-08 16:51:30', '2024-12-09 15:31:53', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (64, 'go-admin/app/admin/apis.SysDictType.Get-fm', '系统-字典类型详情获取', '/admin-api/v1/dict/type/:id', '1', 'GET', '2023-05-08 16:51:30', '2023-05-09 09:44:58', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (65, 'go-admin/app/admin/apis.SysDictType.GetAll-fm', '系统-字典类型获取', '/admin-api/v1/dict/type-option-select', '1', 'GET', '2023-05-08 16:51:31', '2023-05-09 11:13:58', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (66, 'go-admin/app/admin/apis.SysDictData.GetPage-fm', '系统-字典数据列表获取', '/admin-api/v1/dict/data', '1', 'GET', '2023-05-08 16:51:31', '2023-05-09 11:09:55', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (67, 'go-admin/app/admin/apis.SysDictData.Export-fm', '系统-字典数据列表导出', '/admin-api/v1/dict/data/export', '1', 'GET', '2023-05-08 16:51:31', '2023-05-09 11:15:14', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (67, 'go-admin/app/admin/apis.SysDictData.Export-fm', '系统-字典数据列表导出', '/admin-api/v1/dict/data/export', '1', 'GET', '2023-05-08 16:51:31', '2024-12-09 15:31:53', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (68, 'go-admin/app/admin/apis.SysDictData.Get-fm', '系统-获取字典数据', '/admin-api/v1/dict/data/:id', '1', 'GET', '2023-05-08 16:51:32', '2023-05-09 11:11:11', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (69, 'go-admin/app/admin/apis.SysDictData.GetSysDictDataAll-fm', '系统-获取所有字典数据', '/admin-api/v1/dict-data/option-select', '1', 'GET', '2023-05-08 16:51:32', '2023-05-09 11:14:37', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (70, 'go-admin/app/admin/apis.SysConfig.GetPage-fm', '系统-配置列表获取', '/admin-api/v1/config', '1', 'GET', '2023-05-08 16:51:32', '2023-05-09 11:25:52', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (71, 'go-admin/app/admin/apis.SysConfig.Export-fm', '系统-业务配置导出', '/admin-api/v1/config/export', '1', 'GET', '2023-05-08 16:51:33', '2023-05-09 11:34:38', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (71, 'go-admin/app/admin/apis.SysConfig.Export-fm', '系统-业务配置导出', '/admin-api/v1/config/export', '1', 'GET', '2023-05-08 16:51:33', '2024-12-09 15:31:25', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (72, 'go-admin/app/admin/apis.SysConfig.Get-fm', '系统-配置详情', '/admin-api/v1/config/:id', '1', 'GET', '2023-05-08 16:51:33', '2023-05-09 11:26:27', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (73, 'go-admin/app/admin/apis.SysConfig.GetSysConfigByKey-fm', '系统-根据key获取系统配置详情', '/admin-api/v1/configKey/:configKey', '1', 'GET', '2023-05-08 16:51:33', '2023-05-09 09:44:11', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (74, 'go-admin/app/admin/apis.SysUser.GenCaptcha-fm', '系统-获取验证码', '/admin-api/v1/captcha', '1', 'GET', '2023-05-08 16:51:34', '2023-05-09 09:43:43', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (75, 'go-admin/app/admin/apis.SysMenu.GetPage-fm', '系统-菜单列表', '/admin-api/v1/menu', '1', 'GET', '2023-05-08 16:51:34', '2023-05-09 09:43:48', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (76, 'go-admin/app/admin/apis.SysMenu.Get-fm', '系统-菜单详情', '/admin-api/v1/menu/:id', '1', 'GET', '2023-05-08 16:51:34', '2023-05-09 09:43:53', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (75, 'go-admin/app/admin/apis.SysMenu.GetPage-fm', '系统-菜单列表', '/admin-api/v1/menu', '1', 'GET', '2023-05-08 16:51:34', '2024-12-09 15:25:40', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (76, 'go-admin/app/admin/apis.SysMenu.Get-fm', '系统-菜单详情', '/admin-api/v1/menu/:id', '1', 'GET', '2023-05-08 16:51:34', '2024-12-09 15:25:27', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (77, 'go-admin/app/admin/apis.SysMenu.GetMenuRole-fm', '系统-获取当前登录账户的菜单', '/admin-api/v1/menurole', '1', 'GET', '2023-05-08 16:51:35', '2023-05-09 09:43:26', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (78, 'go-admin/common/core/tools/transfer.Handler.func1', '系统-性能监控', '/admin-api/v1/metrics', '1', 'GET', '2023-05-08 16:51:35', '2023-05-09 10:52:46', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (79, 'go-admin/app/admin/apis.SysRole.GetPage-fm', '系统-角色列表', '/admin-api/v1/role', '1', 'GET', '2023-05-08 16:51:35', '2023-05-09 09:43:37', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (80, 'go-admin/app/admin/apis.SysRole.Get-fm', '', '/admin-api/v1/role/:id', '', 'GET', '2023-05-08 16:51:36', '2023-05-08 16:51:36', 0, 0);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (79, 'go-admin/app/admin/apis.SysRole.GetPage-fm', '系统-角色列表', '/admin-api/v1/role', '1', 'GET', '2023-05-08 16:51:35', '2024-12-09 15:20:42', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (80, 'go-admin/app/admin/apis.SysRole.Get-fm', '系统-获取角色详情', '/admin-api/v1/role/:id', '1', 'GET', '2023-05-08 16:51:36', '2024-12-09 15:34:37', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (81, 'go-admin/app/admin/router.registerMonitorRouter.func1', '系统-健康检测', '/admin-api/v1/health', '1', 'GET', '2023-05-08 16:51:36', '2023-05-09 09:42:43', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (85, 'go-admin/app/admin/router.Ping', '系统-ping', '/info', '1', 'GET', '2023-05-08 16:51:37', '2023-05-09 09:43:11', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (86, 'github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1', '系统-本地文件', '/files/*filepath', '1', 'GET', '2023-05-08 16:51:37', '2023-05-09 09:42:38', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (87, 'github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1', '系统-静态文件获取', '/static/*filepath', '1', 'GET', '2023-05-08 16:51:38', '2023-05-09 09:42:16', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (88, 'go-admin/app/admin/apis.SysDept.Insert-fm', '系统-部门新增', '/admin-api/v1/sys/dept', '1', 'POST', '2023-05-08 16:51:38', '2023-05-09 09:42:21', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (88, 'go-admin/app/admin/apis.SysDept.Insert-fm', '系统-部门新增', '/admin-api/v1/sys/dept', '1', 'POST', '2023-05-08 16:51:38', '2024-12-09 15:26:08', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (89, 'go-admin/app/admin/apis.SysTables.Insert-fm', '系统-表数据新增', '/admin-api/v1/sys/table', '1', 'POST', '2023-05-08 16:51:38', '2023-05-09 10:55:36', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (90, 'go-admin/app/admin/apis.SysPost.Insert-fm', '系统-岗位新增', '/admin-api/v1/sys/post', '1', 'POST', '2023-05-08 16:51:39', '2023-05-09 09:42:05', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (91, 'go-admin/app/admin/apis.SysUser.Insert-fm', '系统-用户新增', '/admin-api/v1/sys-user', '1', 'POST', '2023-05-08 16:51:39', '2023-05-09 09:39:49', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (90, 'go-admin/app/admin/apis.SysPost.Insert-fm', '系统-岗位新增', '/admin-api/v1/sys/post', '1', 'POST', '2023-05-08 16:51:39', '2024-12-09 15:29:16', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (91, 'go-admin/app/admin/apis.SysUser.Insert-fm', '系统-用户新增', '/admin-api/v1/sys-user', '1', 'POST', '2023-05-08 16:51:39', '2024-12-09 16:23:55', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (92, 'go-admin/app/admin/apis.SysUser.InsetAvatar-fm', '系统-用户头像新增', '/admin-api/v1/sys-user/avatar', '1', 'POST', '2023-05-08 16:51:39', '2023-05-09 09:41:55', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (93, 'go-admin/app/admin/apis.(*SysUser).LogOut-fm', '', '/admin-api/v1/sys-user/logout', '', 'POST', '2023-05-08 16:51:39', '2023-05-08 16:51:39', 0, 0);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (93, 'go-admin/app/admin/apis.(*SysUser).LogOut-fm', '系统-退出登录', '/admin-api/v1/sys-user/logout', '1', 'POST', '2023-05-08 16:51:39', '2024-12-09 15:38:52', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (94, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Insert-fm', '插件-内容管理-公告新增', '/admin-api/v1/plugins/content/content-announcement', '2', 'POST', '2023-05-08 16:51:40', '2023-05-09 10:51:41', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (95, 'go-admin/app/plugins/content/apis.ContentArticle.Insert-fm', '插件-内容管理-文章新增', '/admin-api/v1/plugins/content/content-article', '2', 'POST', '2023-05-08 16:51:40', '2023-05-09 10:48:03', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (96, 'go-admin/app/plugins/content/apis.ContentCategory.Insert-fm', '插件-内容管理-文章分类新增', '/admin-api/v1/plugins/content/content-category', '2', 'POST', '2023-05-08 16:51:40', '2023-05-09 10:44:14', 0, 1);
@@ -469,38 +468,38 @@ INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `c
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (103, 'go-admin/app/admin/apis.SysDictType.Insert-fm', '系统-字典类型新增', '/admin-api/v1/dict/type', '1', 'POST', '2023-05-08 16:51:43', '2023-05-09 11:13:37', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (104, 'go-admin/app/admin/apis.SysUser.Login-fm', '系统-用户登陆', '/admin-api/v1/login', '1', 'POST', '2023-05-08 16:51:43', '2023-05-09 09:38:16', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (105, 'go-admin/app/admin/apis.SysConfig.Insert-fm', '系统-业务配置新增', '/admin-api/v1/config', '1', 'POST', '2023-05-08 16:51:43', '2023-05-09 11:26:03', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (106, 'go-admin/app/admin/apis.SysMenu.Insert-fm', '系统-菜单新增', '/admin-api/v1/menu', '1', 'POST', '2023-05-08 16:51:44', '2023-05-09 09:37:50', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (107, 'go-admin/app/admin/apis.SysRole.Insert-fm', '系统-角色新增', '/admin-api/v1/role', '1', 'POST', '2023-05-08 16:51:44', '2023-05-09 09:38:01', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (108, 'go-admin/app/admin/apis.SysUser.Update-fm', '系统-用户更新', '/admin-api/v1/sys-user', '1', 'PUT', '2023-05-08 16:51:44', '2023-05-09 09:37:55', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (106, 'go-admin/app/admin/apis.SysMenu.Insert-fm', '系统-菜单新增', '/admin-api/v1/menu', '1', 'POST', '2023-05-08 16:51:44', '2024-12-09 15:25:11', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (107, 'go-admin/app/admin/apis.SysRole.Insert-fm', '系统-角色新增', '/admin-api/v1/role', '1', 'POST', '2023-05-08 16:51:44', '2024-12-09 15:21:11', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (108, 'go-admin/app/admin/apis.SysUser.Update-fm', '系统-用户更新', '/admin-api/v1/sys-user', '1', 'PUT', '2023-05-08 16:51:44', '2024-12-09 16:24:08', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (112, 'go-admin/app/admin/apis.SysUser.UpdatePwd-fm', '系统-更新密码', '/admin-api/v1/sys-user/pwd/set', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-09 09:37:15', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (113, 'go-admin/app/admin/apis.SysUser.ResetPwd-fm', '系统-重置密码', '/admin-api/v1/sys-user/pwd/reset', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-09 09:37:10', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (114, 'go-admin/app/admin/apis.SysUser.UpdateStatus-fm', '系统-用户状态更新', '/admin-api/v1/sys-user/status', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-09 09:37:21', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (115, 'go-admin/app/admin/apis.SysApi.Update-fm', '系统-接口信息更新', '/admin-api/v1/sys-api/:id', '1', 'PUT', '2023-05-08 16:51:46', '2023-05-09 09:37:30', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (116, 'go-admin/app/admin/apis.SysDept.Update-fm', '系统-部门更新', '/admin-api/v1/sys/dept/:id', '1', 'PUT', '2023-05-08 16:51:47', '2023-05-09 09:36:55', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (115, 'go-admin/app/admin/apis.SysApi.Update-fm', '系统-接口信息更新', '/admin-api/v1/sys-api/:id', '1', 'PUT', '2023-05-08 16:51:46', '2024-12-09 15:05:59', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (116, 'go-admin/app/admin/apis.SysDept.Update-fm', '系统-部门更新', '/admin-api/v1/sys/dept/:id', '1', 'PUT', '2023-05-08 16:51:47', '2024-12-09 15:27:15', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (117, 'go-admin/app/admin/apis.SysTables.Update-fm', '系统-表信息更新', '/admin-api/v1/sys/table/:id', '1', 'PUT', '2023-05-08 16:51:47', '2023-05-09 11:14:37', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (118, 'go-admin/app/admin/apis.SysPost.Update-fm', '系统-岗位更新', '/admin-api/v1/sys/post/:id', '1', 'PUT', '2023-05-08 16:51:47', '2023-05-09 09:37:05', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (118, 'go-admin/app/admin/apis.SysPost.Update-fm', '系统-岗位更新', '/admin-api/v1/sys/post/:id', '1', 'PUT', '2023-05-08 16:51:47', '2024-12-09 15:29:27', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (119, 'go-admin/app/app/user/apis.UserConf.Update-fm', '应用-用户配置更新', '/admin-api/v1/app/user/user-conf/:id', '3', 'PUT', '2023-05-08 16:51:48', '2023-05-09 10:25:16', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (120, 'go-admin/app/app/user/apis.UserCountryCode.Update-fm', '应用-国家区号更新', '/admin-api/v1/app/user/user-country-code/:id', '3', 'PUT', '2023-05-08 16:51:48', '2023-05-09 10:31:24', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (121, 'go-admin/app/app/user/apis.UserLevel.Update-fm', '应用-用户等级更新', '/admin-api/v1/app/user/user-level/:id', '3', 'PUT', '2023-05-08 16:51:48', '2023-05-09 10:23:27', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (122, 'go-admin/app/app/user/apis.User.Update-fm', '用户更新', '/admin-api/v1/app/user/user/:id', '3', 'PUT', '2023-05-08 16:51:49', '2023-05-08 22:36:28', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (122, 'go-admin/app/app/user/apis.User.Update-fm', '应用-更新用户', '/admin-api/v1/app/user/user/:id', '3', 'PUT', '2023-05-08 16:51:49', '2024-12-09 15:38:30', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (123, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Update-fm', '插件-内容管理-公告更新', '/admin-api/v1/plugins/content/content-announcement/:id', '2', 'PUT', '2023-05-08 16:51:49', '2023-05-09 10:51:56', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (124, 'go-admin/app/plugins/content/apis.ContentArticle.Update-fm', '插件-内容管理-文章更新', '/admin-api/v1/plugins/content/content-article/:id', '2', 'PUT', '2023-05-08 16:51:49', '2023-05-09 10:48:27', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (125, 'go-admin/app/plugins/content/apis.ContentCategory.Update-fm', '插件-内容管理-文章分类更新', '/admin-api/v1/plugins/content/content-category/:id', '2', 'PUT', '2023-05-08 16:51:50', '2023-05-09 10:45:07', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (126, 'go-admin/app/plugins/filemgr/apis.FilemgrApp.Update-fm', '插件-文件管理-app信息更新', '/admin-api/v1/plugins/filemgr/filemgr-app/:id', '2', 'PUT', '2023-05-08 16:51:50', '2023-05-09 09:40:50', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (127, 'go-admin/app/admin/apis.SysRole.Update-fm', '系统-角色更新', '/admin-api/v1/role/:id', '1', 'PUT', '2023-05-08 16:51:50', '2023-05-09 09:36:11', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (127, 'go-admin/app/admin/apis.SysRole.Update-fm', '系统-角色更新', '/admin-api/v1/role/:id', '1', 'PUT', '2023-05-08 16:51:50', '2024-12-09 15:34:37', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (128, 'go-admin/app/admin/apis.SysRole.Update2Status-fm', '系统-角色状态更新', '/admin-api/v1/role-status', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-09 09:35:38', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (129, 'go-admin/app/admin/apis.SysRole.Update2DataScope-fm', '系统-数据范围更新', '/admin-api/v1/roledatascope', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-09 09:35:46', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (129, 'go-admin/app/admin/apis.SysRole.Update2DataScope-fm', '系统-数据范围更新', '/admin-api/v1/roledatascope', '1', 'PUT', '2023-05-08 16:51:51', '2024-12-09 15:34:20', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (130, 'go-admin/app/admin/apis.SysDictData.Update-fm', '系统-字典数据更新', '/admin-api/v1/dict/data/:id', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-09 11:11:11', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (131, 'go-admin/app/admin/apis.SysDictType.Update-fm', '系统-字典类型更新', '/admin-api/v1/dict/type/:id', '1', 'PUT', '2023-05-08 16:51:51', '2023-05-09 11:13:58', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (132, 'go-admin/app/admin/apis.SysConfig.Update-fm', '系统-业务配置更新', '/admin-api/v1/config/:id', '1', 'PUT', '2023-05-08 16:51:52', '2023-05-09 11:26:27', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (133, 'go-admin/app/admin/apis.SysMenu.Update-fm', '系统-菜单更新', '/admin-api/v1/menu/:id', '1', 'PUT', '2023-05-08 16:51:52', '2023-05-09 09:35:23', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (134, 'go-admin/app/admin/apis.SysApi.Delete-fm', '', '/admin-api/v1/sys-api', '', 'DELETE', '2023-05-08 16:51:52', '2023-05-08 16:51:52', 0, 0);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (133, 'go-admin/app/admin/apis.SysMenu.Update-fm', '系统-菜单更新', '/admin-api/v1/menu/:id', '1', 'PUT', '2023-05-08 16:51:52', '2024-12-09 15:25:27', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (134, 'go-admin/app/admin/apis.SysApi.Delete-fm', '系统-接口删除', '/admin-api/v1/sys-api', '1', 'DELETE', '2023-05-08 16:51:52', '2024-12-09 15:36:04', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (135, 'go-admin/app/admin/apis.SysLoginLog.Delete-fm', '系统-登录日志删除', '/admin-api/v1/sys-login-log', '1', 'DELETE', '2023-05-08 16:51:53', '2023-05-09 11:03:46', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (136, 'go-admin/app/admin/apis.SysOperLog.Delete-fm', '系统-操作日志删除', '/admin-api/v1/sys-oper-log', '1', 'DELETE', '2023-05-08 16:51:53', '2023-05-09 11:00:58', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (137, 'go-admin/app/admin/apis.SysUser.Delete-fm', '系统-用户删除', '/admin-api/v1/sys-user', '1', 'DELETE', '2023-05-08 16:51:53', '2023-05-09 09:35:14', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (138, 'go-admin/app/admin/apis.SysDept.Delete-fm', '系统-部门删除', '/admin-api/v1/sys/dept', '1', 'DELETE', '2023-05-08 16:51:54', '2023-05-09 09:34:52', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (137, 'go-admin/app/admin/apis.SysUser.Delete-fm', '系统-用户删除', '/admin-api/v1/sys-user', '1', 'DELETE', '2023-05-08 16:51:53', '2024-12-09 15:15:56', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (138, 'go-admin/app/admin/apis.SysDept.Delete-fm', '系统-部门删除', '/admin-api/v1/sys/dept', '1', 'DELETE', '2023-05-08 16:51:54', '2024-12-09 15:26:19', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (139, 'go-admin/app/admin/apis.SysTables.Delete-fm', '系统-表信息删除', '/admin-api/v1/sys/table', '1', 'DELETE', '2023-05-08 16:51:54', '2023-05-09 10:55:36', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (140, 'go-admin/app/admin/apis.SysPost.Delete-fm', '系统-岗位删除', '/admin-api/v1/sys/post', '1', 'DELETE', '2023-05-08 16:51:54', '2023-05-09 09:34:57', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (140, 'go-admin/app/admin/apis.SysPost.Delete-fm', '系统-岗位删除', '/admin-api/v1/sys/post', '1', 'DELETE', '2023-05-08 16:51:54', '2024-12-09 15:29:41', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (141, 'go-admin/app/plugins/content/apis.ContentAnnouncement.Delete-fm', '插件-内容管理-公告删除', '/admin-api/v1/plugins/content/content-announcement', '2', 'DELETE', '2023-05-08 16:51:55', '2023-05-09 10:52:06', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (142, 'go-admin/app/plugins/content/apis.ContentArticle.Delete-fm', '插件-内容管理-文章删除', '/admin-api/v1/plugins/content/content-article', '2', 'DELETE', '2023-05-08 16:51:55', '2023-05-09 10:48:37', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (143, 'go-admin/app/plugins/content/apis.ContentCategory.Delete-fm', '插件-内容管理-文章分类删除', '/admin-api/v1/plugins/content/content-category', '2', 'DELETE', '2023-05-08 16:51:55', '2023-05-09 10:47:01', 0, 1);
@@ -510,8 +509,8 @@ INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `c
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (147, 'go-admin/app/admin/apis.SysDictData.Delete-fm', '系统-删除字典数据', '/admin-api/v1/dict/data', '1', 'DELETE', '2023-05-08 16:51:56', '2023-05-09 11:11:43', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (148, 'go-admin/app/admin/apis.SysDictType.Delete-fm', '系统-删除字典类型', '/admin-api/v1/dict/type', '1', 'DELETE', '2023-05-08 16:51:57', '2023-05-09 11:15:32', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (149, 'go-admin/app/admin/apis.SysConfig.Delete-fm', '系统-删除业务配置', '/admin-api/v1/config', '1', 'DELETE', '2023-05-08 16:51:57', '2023-05-09 11:26:39', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (150, 'go-admin/app/admin/apis.SysMenu.Delete-fm', '系统-删除菜单', '/admin-api/v1/menu', '1', 'DELETE', '2023-05-08 16:51:57', '2023-05-09 09:28:26', 0, 1);
-INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (151, 'go-admin/app/admin/apis.SysRole.Delete-fm', '系统-删除角色', '/admin-api/v1/role', '1', 'DELETE', '2023-05-08 16:51:58', '2023-05-09 09:28:16', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (150, 'go-admin/app/admin/apis.SysMenu.Delete-fm', '系统-删除菜单', '/admin-api/v1/menu', '1', 'DELETE', '2023-05-08 16:51:57', '2024-12-09 15:25:51', 0, 1);
+INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (151, 'go-admin/app/admin/apis.SysRole.Delete-fm', '系统-删除角色', '/admin-api/v1/role', '1', 'DELETE', '2023-05-08 16:51:58', '2024-12-09 15:24:50', 0, 1);
 INSERT INTO `sys_api` (`id`, `handle`, `title`, `path`, `api_type`, `action`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (152, 'github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1', '系统-静态资源', '/static/*filepath', '1', 'HEAD', '2023-05-08 16:51:58', '2023-05-09 09:28:11', 0, 1);
 COMMIT;
 
@@ -541,15 +540,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `config_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigName',
-  `config_key` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigKey',
-  `config_value` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigValue',
-  `config_type` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigType',
-  `is_frontend` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否前台',
-  `remark` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Remark',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `config_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigName',
+  `config_key` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigKey',
+  `config_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigValue',
+  `config_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ConfigType',
+  `is_frontend` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否前台',
+  `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Remark',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`)
@@ -593,17 +592,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
-  `parent_ids` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `dept_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` int(11) DEFAULT NULL,
-  `leader` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
-  `email` varchar(80) COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL,
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `parent_id` int DEFAULT NULL,
+  `parent_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `dept_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` int DEFAULT NULL,
+  `leader` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `email` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` tinyint DEFAULT NULL,
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -626,23 +625,23 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dict_sort` int(11) DEFAULT NULL,
-  `dict_label` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_value` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_type` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
-  `css_class` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `list_class` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_default` varchar(8) COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `default` varchar(8) COLLATE utf8mb4_bin DEFAULT NULL,
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dict_sort` int DEFAULT NULL,
+  `dict_label` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `css_class` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `list_class` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_default` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `default` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -749,13 +748,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dict_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dict_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -802,27 +801,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_gen_column`;
 CREATE TABLE `sys_gen_column` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `table_id` int(11) DEFAULT NULL,
-  `column_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `column_comment` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `column_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `go_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `go_field` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `json_field` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_pk` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_required` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '该值是否参与新增或者编辑',
-  `is_list` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '列表',
-  `is_query` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `query_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `html_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `dict_type` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` bigint(20) DEFAULT NULL,
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `table_id` int DEFAULT NULL,
+  `column_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `column_comment` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `column_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `go_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `go_field` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `json_field` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_pk` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_required` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '该值是否参与新增或者编辑',
+  `is_list` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '列表',
+  `is_query` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `query_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `html_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `dict_type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` bigint DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -963,21 +962,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_gen_table`;
 CREATE TABLE `sys_gen_table` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `table_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表名',
-  `table_comment` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表描述',
-  `class_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '类名',
-  `package_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '应用名',
-  `module_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口名',
-  `function_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '功能描述',
-  `function_author` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '作者',
-  `business_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '业务名',
-  `is_plugin` char(1) COLLATE utf8mb4_bin DEFAULT '1' COMMENT '是否插件 1-是 2-否',
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `table_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表名',
+  `table_comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '表描述',
+  `class_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '类名',
+  `package_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '应用名',
+  `module_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '接口名',
+  `function_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '功能描述',
+  `function_author` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '作者',
+  `business_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '业务名',
+  `is_plugin` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '1' COMMENT '是否插件 1-是 2-否',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
-  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1003,21 +1002,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_log`;
 CREATE TABLE `sys_login_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户编号',
-  `ipaddr` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ip地址',
-  `login_location` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '归属地',
-  `browser` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '浏览器',
-  `os` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '系统',
-  `agent` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '代理',
-  `platform` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '固件',
-  `login_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '登录时间',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-登录 2-退出',
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `user_id` int DEFAULT NULL COMMENT '用户编号',
+  `ipaddr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ip地址',
+  `login_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '归属地',
+  `browser` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '浏览器',
+  `os` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '系统',
+  `agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '代理',
+  `platform` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '固件',
+  `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '登录时间',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-登录 2-退出',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1034,27 +1033,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `icon` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `path` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `element` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `redirect` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `permission` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` int(11) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL COMMENT '上级菜单id',
-  `parent_ids` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '上级菜单id集合',
-  `menu_type` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `is_keep_alive` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否缓存 1-是 2-否',
-  `is_affix` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否固定 1-是 2-否',
-  `is_hidden` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否隐藏 1-是 2-否',
-  `is_frame` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否内嵌 1-是 2-否',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `icon` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `element` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `redirect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `permission` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` int DEFAULT NULL,
+  `parent_id` int DEFAULT NULL COMMENT '上级菜单id',
+  `parent_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '上级菜单id集合',
+  `menu_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `is_keep_alive` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否缓存 1-是 2-否',
+  `is_affix` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否固定 1-是 2-否',
+  `is_hidden` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否隐藏 1-是 2-否',
+  `is_frame` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '是否内嵌 1-是 2-否',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -1062,10 +1061,10 @@ CREATE TABLE `sys_menu` (
 BEGIN;
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (1, '系统管理', 'AlignLeftOutlined', '/sys', 'Layout', '/sys/sys-api', '', 300, 0, '0,', '1', '', '', '2', NULL, 1, 1, '2021-05-20 21:58:46', '2024-11-21 15:57:20');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (2, '用户管理', 'CheckSquareOutlined', '/sys/sys-user', '/sys/user/index', NULL, '', 10, 1, '0,2', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (3, '新增管理员', 'AlipayCircleFilled', '', '', NULL, 'admin:sysUser:add', 10, 2, '0,1,2,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:40:14');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (4, '查询管理员', 'AlipayCircleFilled', '', '', NULL, 'admin:sysUser:query', 40, 2, '0,1,2,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (5, '修改管理员', 'AlipayCircleFilled', '', '', NULL, 'admin:sysUser:edit', 30, 2, '0,1,2,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (6, '删除管理员', 'AlipayCircleFilled', '', '', NULL, 'admin:sysUser:remove', 20, 2, '0,1,2,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (3, '新增管理员', 'AlipayCircleFilled', '', '', '', 'admin:sysUser:add', 10, 2, '0,22,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 16:23:55');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (4, '查询管理员', 'AlipayCircleFilled', '', '', '', 'admin:sysUser:query', 40, 2, '0,22,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:16:36');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (5, '修改管理员', 'AlipayCircleFilled', '', '', '', 'admin:sysUser:edit', 30, 2, '0,22,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 16:24:08');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (6, '删除管理员', 'AlipayCircleFilled', '', '', '', 'admin:sysUser:remove', 20, 2, '0,22,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:15:56');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (7, '菜单管理', 'CheckOutlined', '/sys/sys-menu', '/sys/menu/index', NULL, '', 30, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (8, '角色管理', 'BoxPlotFilled', '/sys/sys-role', '/sys/role/index', NULL, '', 20, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (9, '部门管理', 'CheckCircleTwoTone', '/sys/sys-dept', '/sys/dept/index', NULL, '', 40, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
@@ -1075,22 +1074,22 @@ INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `p
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (13, '参数管理', 'CaretDownOutlined', '/sys/sys-config', '/sys/config/index', NULL, '', 70, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (14, '登录日志', 'BlockOutlined', '/sys/sys-loginlog', '/sys/loginlog/index', NULL, '', 90, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (15, '操作日志', 'CarFilled', '/sys/sys-operalog', '/sys/operlog/index', NULL, '', 120, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (16, '新增菜单', 'AlipayCircleFilled', '', '', NULL, 'admin:sysMenu:add', 1, 7, '0,1,7,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (17, '修改菜单', 'AlipayCircleFilled', '', '', NULL, 'admin:sysMenu:edit', 1, 7, '0,1,7,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (18, '查询菜单', 'AlipayCircleFilled', '', '', NULL, 'admin:sysMenu:query', 1, 7, '0,1,7,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (19, '删除菜单', 'AlipayCircleFilled', '', '', NULL, 'admin:sysMenu:remove', 1, 7, '0,1,7,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (20, '新增角色', 'AlipayCircleFilled', '', '', NULL, 'admin:sysRole:add', 1, 8, '0,1,8,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (21, '查询角色', 'AlipayCircleFilled', '', '', NULL, 'admin:sysRole:query', 1, 8, '0,1,8,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (22, '修改角色', 'AlipayCircleFilled', '', '', NULL, 'admin:sysRole:update', 1, 8, '0,1,8,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (23, '删除角色', 'AlipayCircleFilled', '', '', NULL, 'admin:sysRole:remove', 1, 8, '0,1,8,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (24, '查询部门', 'AlipayCircleFilled', '', '', NULL, 'admin:sysDept:query', 40, 9, '0,1,9,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (25, '新增部门', 'AlipayCircleFilled', '', '', NULL, 'admin:sysDept:add', 10, 9, '0,1,9,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (26, '修改部门', 'AlipayCircleFilled', '', '', NULL, 'admin:sysDept:edit', 30, 9, '0,1,9,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (27, '删除部门', 'AlipayCircleFilled', '', '', NULL, 'admin:sysDept:remove', 20, 9, '0,1,9,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (28, '查询岗位', 'AlipayCircleFilled', '', '', NULL, 'admin:sysPost:query', 0, 10, '0,1,10,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (29, '新增岗位', 'AlipayCircleFilled', '', '', NULL, 'admin:sysPost:add', 0, 10, '0,1,10,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (30, '修改岗位', 'AlipayCircleFilled', '', '', NULL, 'admin:sysPost:edit', 0, 10, '0,1,10,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (31, '删除岗位', 'AlipayCircleFilled', '', '', NULL, 'admin:sysPost:remove', 0, 10, '0,1,10,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (16, '新增菜单', 'AlipayCircleFilled', '', '', '', 'admin:sysMenu:add', 1, 7, '0,1,7,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:25:11');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (17, '修改菜单', 'AlipayCircleFilled', '', '', '', 'admin:sysMenu:edit', 1, 7, '0,1,7,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:25:27');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (18, '查询菜单', 'AlipayCircleFilled', '', '', '', 'admin:sysMenu:query', 1, 7, '0,1,7,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:25:40');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (19, '删除菜单', 'AlipayCircleFilled', '', '', '', 'admin:sysMenu:remove', 1, 7, '0,1,7,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:25:51');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (20, '新增角色', 'AlipayCircleFilled', '', '', '', 'admin:sysRole:add', 1, 8, '0,1,8,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:21:11');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (21, '查询角色', 'AlipayCircleFilled', '', '', '', 'admin:sysRole:query', 1, 8, '0,1,8,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:20:42');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (22, '修改角色', 'AlipayCircleFilled', '', '', '', 'admin:sysRole:update', 1, 8, '0,1,8,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:34:37');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (23, '删除角色', 'AlipayCircleFilled', '', '', '', 'admin:sysRole:remove', 1, 8, '0,1,8,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:24:50');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (24, '查询部门', 'AlipayCircleFilled', '', '', '', 'admin:sysDept:query', 40, 9, '0,1,9,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:27:01');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (25, '新增部门', 'AlipayCircleFilled', '', '', '', 'admin:sysDept:add', 10, 9, '0,1,9,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:26:07');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (26, '修改部门', 'AlipayCircleFilled', '', '', '', 'admin:sysDept:edit', 30, 9, '0,1,9,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:27:15');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (27, '删除部门', 'AlipayCircleFilled', '', '', '', 'admin:sysDept:remove', 20, 9, '0,1,9,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:26:19');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (28, '查询岗位', 'AlipayCircleFilled', '', '', '', 'admin:sysPost:query', 0, 10, '0,1,10,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:29:02');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (29, '新增岗位', 'AlipayCircleFilled', '', '', '', 'admin:sysPost:add', 0, 10, '0,1,10,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:29:15');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (30, '修改岗位', 'AlipayCircleFilled', '', '', '', 'admin:sysPost:edit', 0, 10, '0,1,10,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:29:27');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (31, '删除岗位', 'AlipayCircleFilled', '', '', '', 'admin:sysPost:remove', 0, 10, '0,1,10,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-09 15:29:41');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (32, '查询字典', 'AlipayCircleFilled', '', '', NULL, 'admin:sysDictType:query', 0, 11, '0,1,11,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-05-09 11:13:23');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (33, '新增类型', 'AlipayCircleFilled', '', '', NULL, 'admin:sysDictType:add', 0, 11, '0,1,11,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-05-09 11:13:37');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (34, '修改类型', 'AlipayCircleFilled', '', '', NULL, 'admin:sysDictType:edit', 0, 11, '0,1,11,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-05-09 11:13:58');
@@ -1109,10 +1108,10 @@ INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `p
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (47, '删除操作日志', 'AlipayCircleFilled', '', '', NULL, 'admin:sysOperLog:remove', 0, 15, '0,1,15,', '3', NULL, NULL, NULL, NULL, 1, 1, '2020-04-11 15:52:48', '2023-05-09 11:00:58');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (48, '代码生成', 'AndroidOutlined', '/sys-tools/sys-gen', '/sys/tools/gen/index', NULL, '', 20, 54, '0,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-11 15:52:48', '2023-05-09 10:55:36');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (49, '代码生成修改', 'AliwangwangOutlined', '/sys-tools/sys-edit-table', '/sys/tools/gen/edit/index', NULL, '', 100, 54, '0,54,', '2', '2', '2', '1', '1', 1, 1, '2020-04-11 15:52:48', '2023-05-09 11:14:37');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (50, '服务监控', 'ArrowLeftOutlined', '/sys-tools/sys-monitor', '/sys/tools/monitor/index', NULL, '', 0, 54, '0,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-14 00:28:19', '2023-05-09 10:52:46');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (50, '服务监控', 'ArrowLeftOutlined', '/sys-tools/sys-monitor', '/sys/tools/monitor/index', '', '', 0, 54, '0,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-14 00:28:19', '2024-12-09 16:32:01');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (51, '接口管理', 'AlertTwoTone', '/sys/sys-api', '/sys/api/index', NULL, '', 0, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (52, '查询接口', 'AlipayCircleFilled', '', '', NULL, 'admin:sysApi:query', 40, 51, '0,1,51,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (53, '修改接口', 'AlipayCircleFilled', '', '', NULL, 'admin:sysApi:edit', 30, 51, '0,1,51,', '3', NULL, NULL, NULL, NULL, 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (52, '查询接口', 'AlipayCircleFilled', '', '', '', 'admin:sysApi:query', 40, 51, '0,1,51,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:06:19');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (53, '修改接口', 'AlipayCircleFilled', '', '', '', 'admin:sysApi:edit', 30, 51, '0,1,51,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-09 15:05:59');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (54, '系统工具', 'CaretRightFilled', '/sys-tools', 'Layout', '/sys-tools/sys-monitor', '', 330, 0, '0,', '1', '', '', '2', NULL, 1, 1, '2021-05-21 11:13:32', '2024-11-21 15:57:40');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (55, '文件管理', 'AlipayOutlined', '/plugins/filemgr', '/index', '/plugins/filemgr/filemgr-app', '', 90, 57, '0,57,', '1', '', '', '2', NULL, 1, 1, '2021-08-13 14:19:11', '2024-11-21 15:56:20');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (56, '内容管理', 'AndroidFilled', '/plugins/content', '/index', '/plugins/content/content-category', '', 60, 57, '0,57,', '1', '', '', '2', NULL, 1, 1, '2021-08-16 18:01:20', '2024-11-21 15:55:48');
@@ -1173,13 +1172,17 @@ INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `p
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (111, '修改国家电话区号', '', '', '', NULL, 'app:user:user-country-code:edit', 0, 108, '0,58,59,108,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-03-14 17:47:44', '2023-05-09 10:31:23');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (112, '删除国家电话区号', '', '', '', NULL, 'app:user:user-country-code:del', 0, 108, '0,58,59,108,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-03-14 17:47:45', '2023-05-09 10:31:33');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (113, '导出国家电话区号', '', '', '', NULL, 'app:user:user-country-code:export', 0, 108, '0,58,59,108,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-03-14 17:47:45', '2023-05-09 10:31:45');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (114, '导出操作日志', '', '', '', NULL, 'admin:sysOperLog:export', 0, 15, '0,1,15,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-05-09 11:02:50', '2023-05-09 11:07:07');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (114, '导出操作日志', 'ApartmentOutlined', '', '', '', 'admin:sysOperLog:export', 0, 15, '0,1,15,', '3', '', '', '', '', 1, 1, '2023-05-09 11:02:50', '2024-12-09 15:32:19');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (115, '登录日志导出', '', '', '', NULL, 'admin:sysLoginLog:export', 0, 14, '0,1,14,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-05-09 11:04:20', '2023-05-09 11:04:20');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (116, '导出数据', '', '', '', NULL, 'admin:sysDictType:export', 0, 12, '0,1,12,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-05-09 11:12:30', '2023-05-09 11:15:14');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (117, '导出类型', '', '', '', NULL, 'admin:sysDictType:export', 0, 11, '0,1,11,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-05-09 11:16:13', '2023-05-09 11:16:42');
-INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (118, '导出参数', '', '', '', NULL, 'content:sysConfig:export', 0, 13, '0,1,13,', '3', NULL, NULL, NULL, NULL, 1, 1, '2023-05-09 11:34:20', '2023-05-09 11:34:38');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (117, '导出类型', 'AliyunOutlined', '', '', '', 'admin:sysDictType:export', 0, 11, '0,1,11,', '3', '', '', '', '', 1, 1, '2023-05-09 11:16:13', '2024-12-09 15:29:57');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (118, '导出参数', 'BorderBottomOutlined', '', '', '', 'content:sysConfig:export', 0, 13, '0,1,13,', '3', '', '', '', '', 1, 1, '2023-05-09 11:34:20', '2024-12-09 15:31:24');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (119, '首页', 'CarFilled', '/home', '/sys/home/index', NULL, NULL, 0, 0, '0,', '2', '2', '1', '2', '1', 1, 1, '2024-11-22 11:34:20', '2024-11-22 11:34:20');
 INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (120, '个人中心', 'CarFilled', '/profile', '/sys/profile/index', NULL, NULL, 0, 0, '0,', '2', '2', '2', '1', '1', 1, 1, '2024-11-23 08:20:24', '2024-11-23 08:20:24');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (121, '导出接口', 'AliwangwangOutlined', '', '', '', 'admin:sysApi:query', 0, 51, '0,1,51,', '3', '', '', '', '', 1, 1, '2024-12-09 14:59:51', '2024-12-09 14:59:51');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (122, '修改管理员密码', 'AndroidOutlined', '', '', '', 'admin:sysUser:editPwd', 0, 2, '0,22,', '3', '', '', '', '', 1, 1, '2024-12-09 15:15:05', '2024-12-09 15:15:05');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (123, '修改角色数据范围', 'AppstoreOutlined', '', '', '', 'admin:sysRole:datascope', 0, 8, '0,1,8,', '3', '', '', '', '', 1, 1, '2024-12-09 15:19:53', '2024-12-09 15:34:20');
+INSERT INTO `sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (124, '系统-删除接口', 'AmazonOutlined', '', '', '', 'admin:sysApi:del', 0, 51, '0,1,51,', '3', '', '', '', '', 1, 1, '2024-12-09 15:37:48', '2024-12-09 15:37:48');
 COMMIT;
 
 -- ----------------------------
@@ -1187,8 +1190,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu_api_rule`;
 CREATE TABLE `sys_menu_api_rule` (
-  `sys_menu_menu_id` int(11) NOT NULL,
-  `sys_api_id` int(11) NOT NULL COMMENT '主键编码',
+  `sys_menu_menu_id` int NOT NULL,
+  `sys_api_id` int NOT NULL COMMENT '主键编码',
   PRIMARY KEY (`sys_menu_menu_id`,`sys_api_id`),
   KEY `fk_sys_menu_api_rule_sys_api` (`sys_api_id`),
   CONSTRAINT `fk_sys_menu_api_rule_sys_api` FOREIGN KEY (`sys_api_id`) REFERENCES `sys_api` (`id`),
@@ -1199,89 +1202,127 @@ CREATE TABLE `sys_menu_api_rule` (
 -- Records of sys_menu_api_rule
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (32, 62);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (33, 103);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 65);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 131);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (35, 148);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (36, 66);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (37, 102);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 68);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 130);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (39, 147);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (40, 70);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (41, 105);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 72);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 132);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (43, 149);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (44, 19);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (45, 135);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (46, 22);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (47, 136);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 2);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 4);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 5);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 6);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 89);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 117);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 139);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 69);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 117);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (50, 78);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (62, 39);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (63, 101);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 41);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 121);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (65, 146);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (66, 40);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (68, 36);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (69, 37);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (24, 8);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (26, 9);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (28, 11);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (30, 13);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (3, 14);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (5, 14);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (22, 14);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (3, 15);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (5, 15);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (123, 15);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (52, 16);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (121, 17);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (53, 18);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (44, 19);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (46, 22);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (114, 23);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (4, 25);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (5, 27);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (50, 29);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (74, 30);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (109, 31);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (113, 32);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 33);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (71, 34);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (72, 35);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (72, 119);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (74, 30);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (75, 99);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 46);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 122);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (77, 45);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (68, 36);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (69, 37);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (62, 39);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (66, 40);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 41);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (79, 42);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (80, 43);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (83, 60);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (77, 45);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 46);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (85, 48);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (86, 94);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 50);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 123);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (88, 141);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (89, 49);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (91, 54);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (92, 96);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 56);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 125);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (94, 143);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (95, 55);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (97, 51);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (98, 95);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 53);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 124);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (100, 142);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (101, 52);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (103, 57);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (104, 94);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 50);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 123);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (106, 141);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (107, 49);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (109, 31);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (110, 100);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 33);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 120);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (112, 145);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (113, 32);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (114, 63);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (114, 67);
-INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (116, 67);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 50);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 50);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (97, 51);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (101, 52);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 53);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (91, 54);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (95, 55);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 56);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (103, 57);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (83, 60);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (32, 62);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (117, 63);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 65);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (36, 66);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (116, 67);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 68);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 69);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (40, 70);
 INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (118, 71);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 72);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (18, 75);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (17, 76);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (21, 79);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (22, 80);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (123, 80);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (25, 88);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 89);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (29, 90);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (3, 91);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (86, 94);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (104, 94);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (98, 95);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (92, 96);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (75, 99);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (110, 100);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (63, 101);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (37, 102);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (33, 103);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (41, 105);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (16, 106);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (20, 107);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (5, 108);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (122, 113);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (53, 115);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (26, 116);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 117);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (49, 117);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (30, 118);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (72, 119);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (111, 120);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (64, 121);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (76, 122);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (87, 123);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (105, 123);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (99, 124);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (93, 125);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (22, 127);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (123, 129);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (38, 130);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (34, 131);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (42, 132);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (17, 133);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (124, 134);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (45, 135);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (47, 136);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (6, 137);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (27, 138);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (48, 139);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (31, 140);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (88, 141);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (106, 141);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (100, 142);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (94, 143);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (112, 145);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (65, 146);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (39, 147);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (35, 148);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (43, 149);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (19, 150);
+INSERT INTO `sys_menu_api_rule` (`sys_menu_menu_id`, `sys_api_id`) VALUES (23, 151);
 COMMIT;
 
 -- ----------------------------
@@ -1289,22 +1330,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编码',
-  `request_method` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求方式',
-  `user_id` int(11) DEFAULT NULL COMMENT '操作者',
-  `oper_url` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问地址',
-  `oper_ip` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '客户端ip',
-  `oper_location` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问位置',
-  `status` varchar(4) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '操作状态',
-  `oper_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '操作时间',
-  `json_result` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '返回数据',
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
-  `latency_time` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '耗时',
-  `user_agent` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ua',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键编码',
+  `request_method` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '请求方式',
+  `user_id` int DEFAULT NULL COMMENT '操作者',
+  `oper_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问地址',
+  `oper_ip` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '客户端ip',
+  `oper_location` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '访问位置',
+  `status` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '操作状态',
+  `oper_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '操作时间',
+  `json_result` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '返回数据',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
+  `latency_time` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '耗时',
+  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ua',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='操作日志';
 
@@ -1322,14 +1363,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `post_code` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `sort` tinyint(4) DEFAULT NULL,
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `post_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `post_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `sort` tinyint DEFAULT NULL,
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -1349,15 +1390,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `role_key` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `role_sort` bigint(20) DEFAULT NULL,
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `data_scope` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-正常 2-停用',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `role_key` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `role_sort` bigint DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `data_scope` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态 1-正常 2-停用',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime(3) DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime(3) DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -1376,8 +1417,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept` (
-  `role_id` smallint(6) NOT NULL,
-  `dept_id` smallint(6) NOT NULL,
+  `role_id` smallint NOT NULL,
+  `dept_id` smallint NOT NULL,
   PRIMARY KEY (`role_id`,`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -1392,8 +1433,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` int(11) NOT NULL,
-  `menu_id` int(11) NOT NULL,
+  `role_id` int NOT NULL,
+  `menu_id` int NOT NULL,
   PRIMARY KEY (`role_id`,`menu_id`),
   KEY `fk_sys_role_menu_sys_menu` (`menu_id`),
   CONSTRAINT `fk_sys_role_menu_sys_menu` FOREIGN KEY (`menu_id`) REFERENCES `sys_menu` (`id`),
@@ -1412,22 +1453,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编码',
-  `username` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '用户名',
-  `password` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '密码',
-  `nick_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '昵称',
-  `phone` varchar(11) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号',
-  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
-  `salt` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '加盐',
-  `avatar` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像',
-  `sex` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '性别',
-  `email` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '邮箱',
-  `dept_id` int(11) DEFAULT NULL COMMENT '部门',
-  `post_id` int(11) DEFAULT NULL COMMENT '岗位',
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
-  `status` varchar(4) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态',
-  `create_by` int(11) DEFAULT NULL COMMENT '创建者',
-  `update_by` int(11) DEFAULT NULL COMMENT '更新者',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编码',
+  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '用户名',
+  `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '密码',
+  `nick_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '昵称',
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号',
+  `role_id` int DEFAULT NULL COMMENT '角色ID',
+  `salt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '加盐',
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像',
+  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '性别',
+  `email` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '邮箱',
+  `dept_id` int DEFAULT NULL COMMENT '部门',
+  `post_id` int DEFAULT NULL COMMENT '岗位',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
+  `status` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '状态',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
