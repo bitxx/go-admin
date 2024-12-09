@@ -372,7 +372,7 @@ func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 			if len(parentIds) > 0 {
 				var parentMenus []models.SysMenu
 				menuTypes := []string{constant.MenuM, constant.MenuC}
-				err = e.Orm.Where("id in (?)", parentIds, menuTypes).Find(&parentMenus).Error
+				err = e.Orm.Where("id in (?) and menu_type in (?)", parentIds, menuTypes).Find(&parentMenus).Error
 				if err == nil {
 					menuList = append(menuList, parentMenus...)
 				}
