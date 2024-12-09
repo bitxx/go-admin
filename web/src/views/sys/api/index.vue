@@ -55,7 +55,7 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['sys:api:export']"
+              v-permisaction="['admin:sysApi:export']"
               type="success"
               icon="el-icon-plus"
               size="mini"
@@ -99,7 +99,7 @@
           <el-table-column width="160" fixed="right" label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
-                v-permisaction="['content:announcement:edit']"
+                v-permisaction="['admin:sysApi:edit']"
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
@@ -107,7 +107,7 @@
               >修改
               </el-button>
               <el-button
-                v-permisaction="['content:announcement:remove']"
+                v-permisaction="['admin:sysApi:del']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"

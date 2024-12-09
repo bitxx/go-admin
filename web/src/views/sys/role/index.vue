@@ -74,7 +74,7 @@
               >修改</el-button>
               <el-button
                 v-if="scope.row.roleKey!=='admin'"
-                v-permisaction="['admin:sysRole:update']"
+                v-permisaction="['admin:sysRole:datascope']"
                 size="mini"
                 type="text"
                 icon="el-icon-circle-check"

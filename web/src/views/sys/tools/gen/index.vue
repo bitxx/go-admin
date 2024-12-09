@@ -55,19 +55,21 @@
           <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
+                v-permisaction="['admin:sysGen:edit']"
                 type="text"
                 size="small"
                 icon="el-icon-edit"
                 @click="handleEditTable(scope.row)"
               >编辑</el-button>
               <el-button
+                v-permisaction="['admin:sysGen:preview']"
                 type="text"
                 size="small"
                 icon="el-icon-view"
                 @click="handlePreview(scope.row)"
               >预览</el-button>
               <el-button
-                v-permisaction="['sys:table:gen']"
+                v-permisaction="['admin:sysGen:genCode']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
@@ -75,7 +77,7 @@
               >生成代码
               </el-button>
               <el-button
-                v-permisaction="['sys:table:gen']"
+                v-permisaction="['admin:sysGen:downloadCode']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
@@ -83,7 +85,7 @@
               >下载代码
               </el-button>
               <el-button
-                v-permisaction="['sys:table:gen']"
+                v-permisaction="['admin:sysGen:genMenu']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
@@ -91,7 +93,7 @@
               >配置生成
               </el-button>
               <el-button
-                v-permisaction="['sys:table:remove']"
+                v-permisaction="['admin:sysGen:del']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
