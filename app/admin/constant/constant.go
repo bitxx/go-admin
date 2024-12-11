@@ -26,6 +26,10 @@ const (
 	MenuC string = "2"
 	// MenuF 按钮
 	MenuF string = "3"
+
+	ApiTypeApp    = "3"
+	ApiTypeSys    = "1"
+	ApiTypePlugin = "2"
 )
 
 // 模板相关

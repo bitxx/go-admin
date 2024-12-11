@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
+	"go-admin/app/admin/constant"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/storage"
 	"strings"
@@ -43,17 +44,28 @@ func SaveSysApi(message storage.Messager) (err error) {
 	dbList := runtime.RuntimeConfig.GetDb()
 	for _, d := range dbList {
 		for _, v := range l.List {
-			if v.HttpMethod != "HEAD" ||
-				strings.Contains(v.RelativePath, "/static/") ||
-				strings.Contains(v.RelativePath, "/sys/tables") {
-				err := d.Debug().Where(SysApi{Path: v.RelativePath, Action: v.HttpMethod}).
-					FirstOrCreate(&SysApi{}).
-					//Update("handle", v.Handler).
-					Error
-				if err != nil {
-					err := fmt.Errorf("Models SaveSysApi error: %s \r\n ", err.Error())
-					return err
+			if v.HttpMethod == "HEAD" {
+				continue
+			}
+			paths := strings.Split(v.RelativePath, "/")
+			apiType := ""
+			if len(paths) >= 4 {
+				if strings.HasPrefix(paths[3], "sys") {
+					apiType = constant.ApiTypeSys
+				} else if strings.HasPrefix(paths[3], "plugin") {
+					apiType = constant.ApiTypePlugin
+				} else if strings.HasPrefix(paths[3], "app") {
+					apiType = constant.ApiTypeApp
 				}
+			}
+			dbApi := d.Debug().Where(SysApi{Path: v.RelativePath, Action: v.HttpMethod})
+			if apiType != "" {
+				dbApi = dbApi.Attrs(SysApi{ApiType: apiType})
+			}
+			err = dbApi.FirstOrCreate(&SysApi{}).Error
+			if err != nil {
+				err = fmt.Errorf("Models SaveSysApi error: %s \r\n ", err.Error())
+				return err
 			}
 		}
 	}
