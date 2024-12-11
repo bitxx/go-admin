@@ -13,7 +13,6 @@ var IsSync = false
 
 type SysApi struct {
 	Id        int        `json:"id" gorm:"primaryKey;autoIncrement;comment:主键编码"`
-	Handle    string     `json:"handle" gorm:"size:128;comment:handle"`
 	Title     string     `json:"title" gorm:"size:128;comment:标题"`
 	Path      string     `json:"path" gorm:"size:128;comment:地址"`
 	Action    string     `json:"action" gorm:"size:16;comment:请求类型"`
@@ -48,7 +47,6 @@ func SaveSysApi(message storage.Messager) (err error) {
 				strings.Contains(v.RelativePath, "/static/") ||
 				strings.Contains(v.RelativePath, "/sys/tables") {
 				err := d.Debug().Where(SysApi{Path: v.RelativePath, Action: v.HttpMethod}).
-					Attrs(SysApi{Handle: v.Handler}).
 					FirstOrCreate(&SysApi{}).
 					//Update("handle", v.Handler).
 					Error
