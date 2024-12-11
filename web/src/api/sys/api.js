@@ -52,3 +52,10 @@ export function exportSysApi(query) {
     params: query
   })
 }
+
+export function syncApi() {
+  return request({
+    url: '/admin-api/v1/sys-api/sync',
+    method: 'get'
+  })
+}

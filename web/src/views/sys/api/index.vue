@@ -63,6 +63,16 @@
             >Excel导出
             </el-button>
           </el-col>
+          <el-col :span="1.5">
+            <el-button
+              v-permisaction="['admin:sysApi:sync']"
+              type="success"
+              icon="el-icon-plus"
+              size="mini"
+              @click="handleSync"
+            >接口数据同步
+            </el-button>
+          </el-col>
         </el-row>
 
         <el-table v-loading="loading" stripe border :data="sysapiList">
@@ -73,13 +83,12 @@
           </el-table-column>
           <el-table-column width="120" label="接口编号" align="center" prop="id" :show-overflow-tooltip="true" />
           <el-table-column width="240" label="标题" align="center" prop="title" :show-overflow-tooltip="true" />
+          <el-table-column width="300" label="请求地址" align="center" prop="path" :show-overflow-tooltip="true" />
           <el-table-column width="100" label="接口类型" align="center" prop="type" :formatter="apiTypeFormat">
             <template slot-scope="scope">
               {{ apiTypeFormat(scope.row) }}
             </template>
           </el-table-column>
-          <el-table-column width="300" label="Handle" align="center" prop="handle" :show-overflow-tooltip="true" />
-          <el-table-column width="300" label="请求地址" align="center" prop="path" :show-overflow-tooltip="true" />
           <el-table-column width="100" label="请求方法" align="center" prop="action" :formatter="actionFormat">
             <template slot-scope="scope">
               {{ actionFormat(scope.row) }}
@@ -129,9 +138,6 @@
         <!-- 添加或修改对话框 -->
         <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="2200" append-to-body>
           <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-            <el-form-item label="Handle" prop="handle">
-              <el-input v-model="form.handle" placeholder="handle" :disabled="isEdit" />
-            </el-form-item>
             <el-form-item label="请求地址" prop="path">
               <el-input v-model="form.path" placeholder="path" :disabled="isEdit" />
             </el-form-item>
@@ -170,7 +176,7 @@
 </template>
 
 <script>
-import { delSysApi, getSysApi, getPageSysApi, updateSysApi, exportSysApi } from '@/api/sys/api'
+import { delSysApi, getSysApi, getPageSysApi, updateSysApi, exportSysApi, syncApi } from '@/api/sys/api'
 import { resolveBlob } from '@/utils/download'
 
 export default {
@@ -327,6 +333,21 @@ export default {
         })
       }).catch(() => {
       })
+    },
+    handleSync() {
+      this.$confirm('是否确认同步接口数据？', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        syncApi().then(response => {
+          if (response.code === 200) {
+            this.msgSuccess('开始同步，请稍后...')
+          } else {
+            this.msgError(response.msg)
+          }
+        }).catch(function() {})
+      }).catch(function() {})
     }
   }
 }
