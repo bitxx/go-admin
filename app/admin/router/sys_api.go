@@ -21,6 +21,7 @@ func registerSysApiRouter(v1 *gin.RouterGroup) {
 		r.GET("/:id", api.Get)
 		r.PUT("/:id", api.Update)
 		r.GET("/export", api.Export)
+		r.GET("/sync", api.Sync)
 		r.DELETE("", api.Delete)
 	}
 }

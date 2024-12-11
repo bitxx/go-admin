@@ -3,9 +3,12 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
+	sysLang "go-admin/app/admin/lang"
 	"go-admin/core/dto/service"
+	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
+	"go-admin/core/runtime"
 	"go-admin/core/utils/dateutils"
 	"gorm.io/gorm"
 	"time"
@@ -167,4 +170,24 @@ func (e *SysApi) GetExcel(list []models.SysApi) ([]byte, error) {
 	xlsx.SetActiveSheet(no)
 	data, _ := xlsx.WriteToBuffer()
 	return data.Bytes(), nil
+}
+
+// Sync 同步接口数据
+func (e *SysApi) Sync() (int, error) {
+	if models.IsSync {
+		return sysLang.SysIsSyncErrCode, lang.MsgErr(sysLang.SysIsSyncErrCode, e.Lang)
+	}
+	var routers = runtime.RuntimeConfig.GetRouter()
+	mp := make(map[string]interface{}, 0)
+	mp["List"] = routers
+	message, err := runtime.RuntimeConfig.GetStreamMessage("", global.ApiCheck, mp)
+	if err != nil {
+		return sysLang.SysGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysGetApiMqLogErrCode, err)
+	}
+	q := runtime.RuntimeConfig.GetMemoryQueue("")
+	err = q.Append(message)
+	if err != nil {
+		return sysLang.SysAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysAppendApiMqLogErrCode, err)
+	}
+	return lang.SuccessCode, nil
 }

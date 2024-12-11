@@ -174,3 +174,22 @@ func (e SysApi) Export(c *gin.Context) {
 	fileName := "api_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }
+
+// Sync 同步接口数据
+func (e SysApi) Sync(c *gin.Context) {
+	s := service.SysApi{}
+	err := e.MakeContext(c).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		return
+	}
+
+	respCode, err := s.Sync()
+	if err != nil {
+		e.Error(respCode, err.Error())
+		return
+	}
+	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+}

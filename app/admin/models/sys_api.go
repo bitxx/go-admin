@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+var IsSync = false
+
 type SysApi struct {
 	Id        int        `json:"id" gorm:"primaryKey;autoIncrement;comment:主键编码"`
 	Handle    string     `json:"handle" gorm:"size:128;comment:handle"`
@@ -27,6 +29,7 @@ func (SysApi) TableName() string {
 }
 
 func SaveSysApi(message storage.Messager) (err error) {
+	IsSync = true
 	var rb []byte
 	rb, err = json.Marshal(message.GetValues())
 	if err != nil {
@@ -56,5 +59,6 @@ func SaveSysApi(message storage.Messager) (err error) {
 			}
 		}
 	}
+	IsSync = false
 	return nil
 }

@@ -29,7 +29,6 @@ import (
 
 var (
 	configPath string
-	apiCheck   bool
 	StartCmd   *cobra.Command
 )
 
@@ -62,7 +61,6 @@ func init() {
 	}
 
 	StartCmd.PersistentFlags().StringVarP(&configPath, "config", "c", "config/settings.yml", "Start server with provided configuration file")
-	StartCmd.PersistentFlags().BoolVarP(&apiCheck, "api", "a", false, "Start server with check api data")
 }
 
 func setup() {
@@ -96,22 +94,6 @@ func run() error {
 		Handler: runtime.RuntimeConfig.GetEngine(),
 	}
 
-	if apiCheck {
-		var routers = runtime.RuntimeConfig.GetRouter()
-		q := runtime.RuntimeConfig.GetMemoryQueue("")
-		mp := make(map[string]interface{}, 0)
-		mp["List"] = routers
-		message, err := runtime.RuntimeConfig.GetStreamMessage("", global.ApiCheck, mp)
-		if err != nil {
-			log.Infof("GetStreamMessage error, %s \n", err.Error())
-			//日志报错错误，不中断请求
-		} else {
-			err = q.Append(message)
-			if err != nil {
-				log.Infof("Append message error, %s \n", err.Error())
-			}
-		}
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
