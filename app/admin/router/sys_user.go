@@ -25,7 +25,7 @@ func registerSysUserRouter(v1 *gin.RouterGroup) {
 		r.PUT("/status", api.UpdateStatus)
 		r.GET("/logout", api.LogOut)
 
-		r.POST("/profile/avatar", api.InsetProfileAvatar)
+		r.POST("/profile/avatar", api.UpdateProfileAvatar)
 		r.PUT("/profile", api.UpdateProfile)
 		r.PUT("/profile/pwd", api.UpdateProfilePwd)
 		r.GET("/profile", api.GetProfile)
