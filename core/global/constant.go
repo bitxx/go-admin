@@ -6,6 +6,7 @@ package global
 
 const (
 	RouteRootPath = "/admin-api"
+	ModelName     = "go-admin"
 	LoginLog      = "login_log_queue"
 	OperateLog    = "operate_log_queue"
 	ApiCheck      = "api_check_queue"
