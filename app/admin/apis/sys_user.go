@@ -222,8 +222,8 @@ func (e SysUser) ResetPwd(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// InsetProfileAvatar
-func (e SysUser) InsetProfileAvatar(c *gin.Context) {
+// UpdateProfileAvatar 更新头像
+func (e SysUser) UpdateProfileAvatar(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserAvatarUpdateReq{}
 	err := e.MakeContext(c).
@@ -374,6 +374,7 @@ func (e SysUser) UpdateProfile(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
+// Login 登录
 func (e SysUser) Login(c *gin.Context) {
 	req := dto.LoginReq{}
 	s := service.SysUser{}
@@ -416,8 +417,8 @@ func (e SysUser) Login(c *gin.Context) {
 	s.LoginLogToDB(c, constant.UserLoginStatus, lang.MsgByCode(sysLang.SysUseLoginOpCode, e.Lang), userResp.Id)
 }
 
-// LogOut
-func (e *SysUser) LogOut(c *gin.Context) {
+// LogOut 退出
+func (e SysUser) LogOut(c *gin.Context) {
 	s := new(service.SysUser)
 	err := e.MakeContext(c).
 		MakeOrm().
