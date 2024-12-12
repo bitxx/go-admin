@@ -108,15 +108,12 @@ func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *middleware.DataPermission) (b
 	}
 
 	updates := map[string]interface{}{}
-	if c.Title != "" && data.Title != c.Title {
-		updates["title"] = c.Title
+	if c.Description != "" && data.Description != c.Description {
+		updates["description"] = c.Description
 	}
 	if c.ApiType != "" && data.ApiType != c.ApiType {
 		updates["api_type"] = c.ApiType
 	}
-	/*	if data.Action != c.Action {
-		updates["action"] = c.Action
-	}*/
 	if len(updates) > 0 {
 		updates["update_by"] = c.CurrUserId
 		updates["updated_at"] = time.Now()
@@ -160,11 +157,11 @@ func (e *SysApi) GetExcel(list []models.SysApi) ([]byte, error) {
 	dictService := NewSysDictDataService(&e.Service)
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
-		action := dictService.GetLabel("sys_api_action", item.Action)
+		method := dictService.GetLabel("sys_api_method", item.Method)
 		apiType := dictService.GetLabel("sys_api_type", item.ApiType)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
-			item.Id, item.Title, item.Path, action, apiType, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
+			item.Id, item.Description, item.Path, method, apiType, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),
 		})
 	}
 	xlsx.SetActiveSheet(no)
@@ -174,20 +171,38 @@ func (e *SysApi) GetExcel(list []models.SysApi) ([]byte, error) {
 
 // Sync 同步接口数据
 func (e *SysApi) Sync() (int, error) {
+	/*start := time.Now().Second()
+	dirs, err := models.FindAllApiFileDirs("./")
+	if err != nil {
+		return sysLang.SysApiDirGetLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysApiDirGetErrCode, sysLang.SysApiDirGetLogErrCode, err)
+	}
+	for _, dir := range dirs {
+		apiParseInfos, err := models.ParseApiInfo(dir)
+		if err != nil {
+			return sysLang.SysApiParseLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysApiParseErrCode, sysLang.SysApiParseLogErrCode, err)
+		}
+		data, _ := json.Marshal(apiParseInfos)
+
+		fmt.Println(string(data))
+	}
+	end := time.Now().Second()
+	last := end - start
+	fmt.Println(dirs, " ", last)
+	return lang.SuccessCode, nil //todo test*/
 	if models.IsSync {
-		return sysLang.SysIsSyncErrCode, lang.MsgErr(sysLang.SysIsSyncErrCode, e.Lang)
+		return sysLang.SysApiIsSyncErrCode, lang.MsgErr(sysLang.SysApiIsSyncErrCode, e.Lang)
 	}
 	var routers = runtime.RuntimeConfig.GetRouter()
-	mp := make(map[string]interface{}, 0)
+	mp := make(map[string]interface{})
 	mp["List"] = routers
 	message, err := runtime.RuntimeConfig.GetStreamMessage("", global.ApiCheck, mp)
 	if err != nil {
-		return sysLang.SysGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysGetApiMqLogErrCode, err)
+		return sysLang.SysApiGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiGetApiMqLogErrCode, err)
 	}
 	q := runtime.RuntimeConfig.GetMemoryQueue("")
 	err = q.Append(message)
 	if err != nil {
-		return sysLang.SysAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysAppendApiMqLogErrCode, err)
+		return sysLang.SysApiAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiAppendApiMqLogErrCode, err)
 	}
 	return lang.SuccessCode, nil
 }

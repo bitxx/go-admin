@@ -59,7 +59,7 @@ func MsgErrf(errCode int, lang string, f ...interface{}) error {
 // MsgLogErrf
 // @Description: 带有参数，有些底层消息不应当被使用者感知，该类消息记录在日志中，并返回应用层可理解的消息
 // @param log  用于记录日志，
-// @param errCodeReplace 最终需要给应用层返回的消息，这里传入消息码。若errCodeReplace=errCode或errCodeReplace<=0，则返回真实消息
+// @param errCodeReplace 最终需要给应用层返回的消息内容，这里传入消息码。若errCodeReplace=errCode或errCodeReplace<=0，则返回真实消息
 // @param errCode  真实消息码
 // @param lang  语言
 // @param f

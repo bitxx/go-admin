@@ -112,9 +112,13 @@ const (
 	SysGenFrontTypeErrCode              = 10722
 
 	//API
-	SysGetApiMqLogErrCode    = 10800
-	SysAppendApiMqLogErrCode = 10801
-	SysIsSyncErrCode         = 10802
+	SysApiGetApiMqLogErrCode    = 10800
+	SysApiAppendApiMqLogErrCode = 10801
+	SysApiIsSyncErrCode         = 10802
+	SysApiDirGetLogErrCode      = 10803
+	SysApiDirGetErrCode         = 10804
+	SysApiParseLogErrCode       = 10805
+	SysApiParseErrCode          = 10806
 )
 
 var (
@@ -224,9 +228,13 @@ var (
 		SysGenTemplateModelDecodeErrCode:    "模板解析异常",
 		SysGenTemplateModelDecodeLogErrCode: "模板解析异常：%s",
 		SysGenFrontTypeErrCode:              "前端类型配置异常",
-		SysGetApiMqLogErrCode:               "获取接口数据队列异常：s%",
-		SysAppendApiMqLogErrCode:            "接口数据队列添加异常: s%",
-		SysIsSyncErrCode:                    "接口数据正在同步中，请稍后",
+		SysApiGetApiMqLogErrCode:            "获取接口数据队列异常：s%",
+		SysApiAppendApiMqLogErrCode:         "接口数据队列添加异常: s%",
+		SysApiIsSyncErrCode:                 "接口数据正在同步中，请稍后",
+		SysApiDirGetLogErrCode:              "接口文件路径获取异常：%s",
+		SysApiDirGetErrCode:                 "接口文件路径获取异常",
+		SysApiParseLogErrCode:               "api文件解析异常：%s",
+		SysApiParseErrCode:                  "api文件解析异常",
 	}
 )
 

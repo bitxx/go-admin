@@ -200,7 +200,7 @@ func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (in
 	//casbin
 	for _, menu := range sysMens {
 		for _, api := range menu.SysApi {
-			_, err = cb.AddNamedPolicy("p", data.RoleKey, api.Path, api.Action)
+			_, err = cb.AddNamedPolicy("p", data.RoleKey, api.Path, api.Method)
 		}
 	}
 	_ = cb.SavePolicy()
@@ -271,7 +271,7 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 	}
 	for _, menu := range mlist {
 		for _, api := range menu.SysApi {
-			_, err = cb.AddNamedPolicy("p", data.RoleKey, api.Path, api.Action)
+			_, err = cb.AddNamedPolicy("p", data.RoleKey, api.Path, api.Method)
 		}
 	}
 	_ = cb.SavePolicy()

@@ -4,16 +4,16 @@
       <el-card class="box-card">
         <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
 
-          <el-form-item label-width="100" label="标题" prop="title">
-            <el-input v-model="queryParams.title" placeholder="请输入标题" clearable size="small" @keyup.enter.native="handleQuery" />
+          <el-form-item label-width="100" label="功能描述" prop="description">
+            <el-input v-model="queryParams.description" placeholder="请输入功能描述" clearable size="small" @keyup.enter.native="handleQuery" />
           </el-form-item>
 
           <el-form-item label-width="100" label="地址" prop="path">
             <el-input v-model="queryParams.path" placeholder="请输入地址" clearable size="small" @keyup.enter.native="handleQuery" />
           </el-form-item>
 
-          <el-form-item label-width="100" label="请求方法" prop="action">
-            <el-select v-model="queryParams.action" placeholder="请求方法" clearable size="small">
+          <el-form-item label-width="100" label="请求方法" prop="method">
+            <el-select v-model="queryParams.method" placeholder="请求方法" clearable size="small">
               <el-option
                 v-for="dict in actionOptions"
                 :key="dict.dictValue"
@@ -82,14 +82,14 @@
             </template>
           </el-table-column>
           <el-table-column width="120" label="接口编号" align="center" prop="id" :show-overflow-tooltip="true" />
-          <el-table-column width="240" label="标题" align="center" prop="title" :show-overflow-tooltip="true" />
+          <el-table-column width="240" label="功能描述" align="center" prop="description" :show-overflow-tooltip="true" />
           <el-table-column width="300" label="请求地址" align="center" prop="path" :show-overflow-tooltip="true" />
           <el-table-column width="100" label="接口类型" align="center" prop="type" :formatter="apiTypeFormat">
             <template slot-scope="scope">
               {{ apiTypeFormat(scope.row) }}
             </template>
           </el-table-column>
-          <el-table-column width="100" label="请求方法" align="center" prop="action" :formatter="actionFormat">
+          <el-table-column width="100" label="请求方法" align="center" prop="method" :formatter="actionFormat">
             <template slot-scope="scope">
               {{ actionFormat(scope.row) }}
             </template>
@@ -141,8 +141,8 @@
             <el-form-item label="请求地址" prop="path">
               <el-input v-model="form.path" placeholder="path" :disabled="isEdit" />
             </el-form-item>
-            <el-form-item label="请求方法" prop="action">
-              <el-select v-model="form.action" placeholder="请选择" :disabled="isEdit">
+            <el-form-item label="请求方法" prop="method">
+              <el-select v-model="form.method" placeholder="请选择" :disabled="isEdit">
                 <el-option
                   v-for="dict in actionOptions"
                   :key="dict.dictValue"
@@ -151,8 +151,8 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="标题" prop="title">
-              <el-input v-model="form.title" placeholder="标题" />
+            <el-form-item label="功能描述" prop="description">
+              <el-input v-model="form.description" placeholder="标题" />
             </el-form-item>
             <el-form-item label="接口类型" prop="apiType">
               <el-select v-model="form.apiType" placeholder="请选择">
@@ -206,16 +206,16 @@ export default {
       queryParams: {
         pageIndex: 1,
         pageSize: 10,
-        title: undefined,
+        description: undefined,
         path: undefined,
-        action: undefined
+        method: undefined
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        title: [{ required: true, message: '标题不能为空', trigger: 'blur' }],
-        // action: [{ required: true, message: '类型不能为空', trigger: 'blur' }],
+        description: [{ required: true, message: '功能描述不能为空', trigger: 'blur' }],
+        // method: [{ required: true, message: '类型不能为空', trigger: 'blur' }],
         apiType: [{ required: true, message: '接口类型不得为空', trigger: 'blur' }]
       }
     }
@@ -225,7 +225,7 @@ export default {
     this.getDicts('sys_api_type').then(response => {
       this.apiTypeOptions = response.data
     })
-    this.getDicts('sys_api_action').then(response => {
+    this.getDicts('sys_api_method').then(response => {
       this.actionOptions = response.data
     })
   },
@@ -249,10 +249,10 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        title: undefined,
+        description: undefined,
         path: undefined,
         paths: undefined,
-        action: undefined
+        method: undefined
       }
       this.resetForm('form')
     },
@@ -260,7 +260,7 @@ export default {
       return this.selectDictLabel(this.apiTypeOptions, row.apiType)
     },
     actionFormat(row) {
-      return this.selectDictLabel(this.actionOptions, row.action)
+      return this.selectDictLabel(this.actionOptions, row.method)
     },
     /** 搜索按钮操作 */
     handleQuery() {
