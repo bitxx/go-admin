@@ -59,7 +59,7 @@ func (e *SysMenu) Get(id int64, p *middleware.DataPermission) (*models.SysMenu, 
 	if err == gorm.ErrRecordNotFound {
 		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
 	}
-	apis := make([]int, 0)
+	apis := make([]int64, 0)
 	for _, v := range data.SysApi {
 		apis = append(apis, v.Id)
 	}
