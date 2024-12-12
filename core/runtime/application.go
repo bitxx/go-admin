@@ -26,7 +26,7 @@ type Application struct {
 }
 
 type Router struct {
-	HttpMethod, RelativePath string
+	HttpMethod, RelativePath, Handler string
 }
 
 type Routers struct {
@@ -98,7 +98,7 @@ func (e *Application) setRouter() []Router {
 	case *gin.Engine:
 		routers := e.engine.(*gin.Engine).Routes()
 		for _, router := range routers {
-			e.routers = append(e.routers, Router{RelativePath: router.Path, HttpMethod: router.Method})
+			e.routers = append(e.routers, Router{RelativePath: router.Path, Handler: router.Handler, HttpMethod: router.Method})
 		}
 	}
 	return e.routers
