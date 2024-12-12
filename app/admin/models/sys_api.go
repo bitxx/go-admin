@@ -5,22 +5,29 @@ import (
 	"errors"
 	"fmt"
 	"go-admin/app/admin/constant"
+	"go-admin/core/global"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/log"
 	"go-admin/core/utils/storage"
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"gorm.io/gorm"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 )
 
-var IsSync = false
+const SyncStatusNoSync = "0"
+const SyncStatusSyncSuccess = "1"
+const SyncStatusSyncing = "2"
+const SyncStatusError = "3"
+
+var SyncStatus = SyncStatusNoSync //0-未同步（启动程序初始化值） 1-上次同步成功（每次同步正常完毕都是代表上次同步成功） 2-同步中 3-上次同步异常
 
 type SysApi struct {
-	Id          int        `json:"id" gorm:"primaryKey;autoIncrement;comment:主键编码"`
+	Id          int64      `json:"id" gorm:"primaryKey;autoIncrement;comment:主键编码"`
 	Description string     `json:"description" gorm:"size:256;comment:功能描述"`
 	Path        string     `json:"path" gorm:"size:128;comment:地址"`
 	Method      string     `json:"method" gorm:"size:16;comment:请求类型"`
@@ -37,66 +44,140 @@ func (SysApi) TableName() string {
 
 func SaveSysApi(message storage.Messager) (err error) {
 	var apiCacheMap = make(map[string]bool)
-	IsSync = true
+	var routerCacheMap = make(map[string]bool) //缓存路由中实际包含的地址，用于对比数据库，删除库中已经实效的路由地址
+	SyncStatus = SyncStatusSyncing
 	defer func() {
 		apiCacheMap = nil
-		IsSync = false
+		routerCacheMap = nil
+		if err != nil {
+			log.Error(err)
+			SyncStatus = SyncStatusError
+			return
+		}
+		SyncStatus = SyncStatusSyncSuccess
 	}()
 
 	var rb []byte
 	rb, err = json.Marshal(message.GetValues())
 	if err != nil {
-		return err
+		err = errors.New(fmt.Sprintf("api sync,json marshal err:%s", err))
+
+		return
 	}
 
 	var l runtime.Routers
 	err = json.Unmarshal(rb, &l)
 	if err != nil {
-		return err
+		err = errors.New(fmt.Sprintf("api sync,json unmarshal err:%s", err))
+		return
+	}
+	apiInfos, err := getApiDescriptions()
+	dbMap := runtime.RuntimeConfig.GetDb()
+	var db = &gorm.DB{}
+	for _, d := range dbMap {
+		db = d
+		break
+	}
+	if db == nil {
+		err = errors.New("no db,please check")
+		return
 	}
 
-	dbList := runtime.RuntimeConfig.GetDb()
-	for _, d := range dbList {
-		var list []SysApi
-		err = d.Model(&SysApi{}).Find(&list).Error
+	//读取库中所有接口并加入map缓存
+	var dbApilist []SysApi
+	err = db.Model(&SysApi{}).Find(&dbApilist).Error
+	if err != nil {
+		err = errors.New(fmt.Sprintf("get Api dbApilist error: %s \r\n ", err.Error()))
+		return
+	}
+	for _, item := range dbApilist {
+		apiCacheMap[item.Path+"-"+item.Method] = true
+	}
+
+	//根据实际路由对比库中路由，将新路由加入库中
+	for _, v := range l.List {
+		routerCacheMap[v.RelativePath+"-"+v.HttpMethod] = true
+		if v.HttpMethod == "HEAD" {
+			continue
+		}
+		//缓存
+		if apiCacheMap[v.RelativePath+"-"+v.HttpMethod] {
+			continue
+		}
+		paths := strings.Split(v.RelativePath, "/")
+		apiType := ""
+		if len(paths) >= 4 {
+			if strings.HasPrefix(paths[3], "sys") {
+				apiType = constant.ApiTypeSys
+			} else if strings.HasPrefix(paths[3], "plugin") {
+				apiType = constant.ApiTypePlugin
+			} else if strings.HasPrefix(paths[3], "app") {
+				apiType = constant.ApiTypeApp
+			}
+		}
+		newSysApi := SysApi{Path: v.RelativePath, Method: v.HttpMethod}
+		if apiType != "" {
+			newSysApi.ApiType = apiType
+		}
+		if apiInfos[v.Handler] != "" {
+			newSysApi.Description = apiInfos[v.Handler]
+		}
+		err = db.Debug().Model(&SysApi{}).Create(&newSysApi).Error
 		if err != nil {
-			return errors.New(fmt.Sprintf("get Api list error: %s \r\n ", err.Error()))
+			log.Errorf("Models SaveSysApi error: %s \r\n ", err.Error())
+			continue
 		}
-		for _, item := range list {
-			apiCacheMap[item.Path+"-"+item.Method] = true
+		apiCacheMap[v.RelativePath+"-"+v.HttpMethod] = true
+	}
+
+	// 删除库中无效接口
+	var delIds []int64
+	for _, item := range dbApilist {
+		if !routerCacheMap[item.Path+"-"+item.Method] {
+			delIds = append(delIds, item.Id)
 		}
-		for _, v := range l.List {
-			if v.HttpMethod == "HEAD" {
-				continue
+	}
+	if len(delIds) > 0 {
+		err = db.Transaction(func(tx *gorm.DB) error {
+			// 删除子表数据
+			if err := tx.Table("sys_menu_api_rule").Where("sys_api_id in (?)", delIds).Delete(nil).Error; err != nil {
+				return err
 			}
-			//缓存
-			if apiCacheMap[v.RelativePath+"-"+v.HttpMethod] {
-				continue
+			// 删除主表数据
+			if err := tx.Model(&SysApi{}).Delete(&SysApi{}, delIds).Error; err != nil {
+				return err
 			}
-			paths := strings.Split(v.RelativePath, "/")
-			apiType := ""
-			if len(paths) >= 4 {
-				if strings.HasPrefix(paths[3], "sys") {
-					apiType = constant.ApiTypeSys
-				} else if strings.HasPrefix(paths[3], "plugin") {
-					apiType = constant.ApiTypePlugin
-				} else if strings.HasPrefix(paths[3], "app") {
-					apiType = constant.ApiTypeApp
-				}
-			}
-			newSysApi := SysApi{Path: v.RelativePath, Method: v.HttpMethod}
-			if apiType != "" {
-				newSysApi.ApiType = apiType
-			}
-			err = d.Debug().Model(&SysApi{}).Create(&newSysApi).Error
-			if err != nil {
-				log.Errorf("Models SaveSysApi error: %s \r\n ", err.Error())
-				continue
-			}
-			apiCacheMap[v.RelativePath+"-"+v.HttpMethod] = true
+			return nil
+		})
+		if err != nil {
+			err = errors.New(fmt.Sprintf("sync delete api error: %s \r\n ", err.Error()))
+			return
 		}
 	}
 	return nil
+}
+
+// getApiDescriptions 获取所有api接口的说明
+// 使用文件解析获取注释，通过拼接生成handler关联gin获取的handler，进而得到注释
+func getApiDescriptions() (map[string]string, error) {
+	dirs, err := findAllApiFileDirs("./")
+	if err != nil {
+		return nil, err
+	}
+	apiInfos := map[string]string{}
+	for _, dir := range dirs {
+		apiParseInfos, err := parseApiInfo(dir)
+		if err != nil {
+			return nil, err
+		}
+
+		handlerBase := filepath.Dir(global.ModelName+string(filepath.Separator)+dir) + "."
+		for _, apiInfo := range apiParseInfos {
+			handler := handlerBase + apiInfo.ClassName + "." + apiInfo.MethodName + "-fm"
+			apiInfos[handler] = apiInfo.Description
+		}
+	}
+	return apiInfos, nil
 }
 
 type ApiParseInfo struct {
@@ -106,7 +187,7 @@ type ApiParseInfo struct {
 }
 
 // ParseApiInfo 解析每个接口文件中类名、方法和注释
-func ParseApiInfo(filePath string) (apiParseInfos []ApiParseInfo, err error) {
+func parseApiInfo(filePath string) (apiParseInfos []ApiParseInfo, err error) {
 	var infos []ApiParseInfo
 	fset := token.NewFileSet()
 
@@ -153,8 +234,9 @@ func ParseApiInfo(filePath string) (apiParseInfos []ApiParseInfo, err error) {
 		if funcDecl.Doc != nil {
 			for _, comment := range funcDecl.Doc.List {
 				if strings.HasPrefix(comment.Text, "//") {
-					// 提取普通方法描述注释
+					// 方法上面有多行注释，则只提取最上面一行的
 					description = strings.TrimSpace(strings.TrimPrefix(comment.Text, "// "+funcDecl.Name.Name))
+					break
 				}
 			}
 		}
@@ -173,7 +255,8 @@ func ParseApiInfo(filePath string) (apiParseInfos []ApiParseInfo, err error) {
 	return infos, nil
 }
 
-func FindAllApiFileDirs(rootDir string) ([]string, error) {
+// 获取所有api文件的go文件的路径
+func findAllApiFileDirs(rootDir string) ([]string, error) {
 	var goFiles []string
 
 	// 使用 Walk 遍历整个目录

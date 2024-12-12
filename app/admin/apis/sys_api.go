@@ -186,10 +186,29 @@ func (e SysApi) Sync(c *gin.Context) {
 		return
 	}
 
-	respCode, err := s.Sync()
+	syncStatus, respCode, err := s.Sync()
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(syncStatus, lang.MsgByCode(lang.SuccessCode, e.Lang))
+}
+
+// SyncStatus 接口同步状态
+func (e SysApi) SyncStatus(c *gin.Context) {
+	s := service.SysApi{}
+	err := e.MakeContext(c).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		return
+	}
+
+	syncStatus, respCode, err := s.SyncStatus()
+	if err != nil {
+		e.Error(respCode, err.Error())
+		return
+	}
+	e.OK(syncStatus, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }

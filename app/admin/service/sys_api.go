@@ -169,40 +169,29 @@ func (e *SysApi) GetExcel(list []models.SysApi) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-// Sync 同步接口数据
-func (e *SysApi) Sync() (int, error) {
-	/*start := time.Now().Second()
-	dirs, err := models.FindAllApiFileDirs("./")
-	if err != nil {
-		return sysLang.SysApiDirGetLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysApiDirGetErrCode, sysLang.SysApiDirGetLogErrCode, err)
-	}
-	for _, dir := range dirs {
-		apiParseInfos, err := models.ParseApiInfo(dir)
-		if err != nil {
-			return sysLang.SysApiParseLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysApiParseErrCode, sysLang.SysApiParseLogErrCode, err)
-		}
-		data, _ := json.Marshal(apiParseInfos)
+// SyncStatus 接口同步状态
+func (e *SysApi) SyncStatus() (string, int, error) {
+	return models.SyncStatus, lang.SuccessCode, nil
+}
 
-		fmt.Println(string(data))
-	}
-	end := time.Now().Second()
-	last := end - start
-	fmt.Println(dirs, " ", last)
-	return lang.SuccessCode, nil //todo test*/
-	if models.IsSync {
-		return sysLang.SysApiIsSyncErrCode, lang.MsgErr(sysLang.SysApiIsSyncErrCode, e.Lang)
+// Sync 接口同步数据
+func (e *SysApi) Sync() (string, int, error) {
+	if models.SyncStatus == models.SyncStatusSyncing {
+		return models.SyncStatus, lang.SuccessCode, nil
 	}
 	var routers = runtime.RuntimeConfig.GetRouter()
 	mp := make(map[string]interface{})
 	mp["List"] = routers
 	message, err := runtime.RuntimeConfig.GetStreamMessage("", global.ApiCheck, mp)
 	if err != nil {
-		return sysLang.SysApiGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiGetApiMqLogErrCode, err)
+		models.SyncStatus = models.SyncStatusError
+		return models.SyncStatus, sysLang.SysApiGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiGetApiMqLogErrCode, err)
 	}
 	q := runtime.RuntimeConfig.GetMemoryQueue("")
 	err = q.Append(message)
 	if err != nil {
-		return sysLang.SysApiAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiAppendApiMqLogErrCode, err)
+		models.SyncStatus = models.SyncStatusError
+		return models.SyncStatus, sysLang.SysApiAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiAppendApiMqLogErrCode, err)
 	}
-	return lang.SuccessCode, nil
+	return models.SyncStatus, lang.SuccessCode, nil
 }
