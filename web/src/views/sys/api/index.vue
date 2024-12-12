@@ -335,7 +335,7 @@ export default {
       })
     },
     handleSync() {
-      this.$confirm('是否确认同步接口数据？', '提示', {
+      this.$confirm('开始同步一段时间后，再次回到该页面，即可看到新的数据。本次同步会删除库中的无效路由，同时会新增检测到的新路由。是否确认同步接口数据？', '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
