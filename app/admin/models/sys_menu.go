@@ -20,12 +20,12 @@ type SysMenu struct {
 	IsAffix     string     `json:"isAffix" gorm:"size:1;comment:1-是 2-否"`
 	IsHidden    string     `json:"isHidden" gorm:"size:1;comment:1-是 2-否"`
 	IsFrame     string     `json:"isFrame" gorm:"size:1;comment:1-是 2-否"`
-	SysApi      []SysApi   `json:"sysApi" gorm:"many2many:sys_menu_api_rule;foreignKey:id;joinForeignKey:sys_menu_menu_id;references:Id;joinReferences:sys_api_id;comment:外链 1-是 2-否"`
+	SysApi      []SysApi   `json:"sysApi" gorm:"many2many:sys_menu_api_rule;foreignKey:id;joinForeignKey:sys_menu_menu_id;references:Id;joinReferences:sys_api_id;"`
 	CreateBy    int64      `json:"createBy" gorm:"index;comment:创建者"`
 	UpdateBy    int64      `json:"updateBy" gorm:"index;comment:更新者"`
 	CreatedAt   *time.Time `json:"createdAt" gorm:"comment:创建时间"`
 	UpdatedAt   *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
-	Apis        []int      `json:"apis" gorm:"-"`
+	Apis        []int64    `json:"apis" gorm:"-"`
 	Children    []*SysMenu `json:"children,omitempty" gorm:"-"`
 }
 
