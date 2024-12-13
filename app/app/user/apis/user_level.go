@@ -62,7 +62,7 @@ func (e UserLevel) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert app-新增用户等级管理详情
+// Insert app-新增用户等级管理
 func (e UserLevel) Insert(c *gin.Context) {
 	req := dto.UserLevelInsertReq{}
 	s := service.UserLevel{}
@@ -89,7 +89,7 @@ func (e UserLevel) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update app-更新用户等级管理详情
+// Update app-更新用户等级管理
 func (e UserLevel) Update(c *gin.Context) {
 	req := dto.UserLevelUpdateReq{}
 	s := service.UserLevel{}
@@ -121,7 +121,7 @@ func (e UserLevel) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete app-删除用户等级管理详情
+// Delete app-删除用户等级管理
 func (e UserLevel) Delete(c *gin.Context) {
 	s := service.UserLevel{}
 	req := dto.UserLevelDeleteReq{}
@@ -144,7 +144,7 @@ func (e UserLevel) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export app-导出用户等级管理详情
+// Export app-导出用户等级管理
 func (e UserLevel) Export(c *gin.Context) {
 	req := dto.UserLevelQueryReq{}
 	s := service.UserLevel{}

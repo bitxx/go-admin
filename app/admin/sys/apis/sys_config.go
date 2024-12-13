@@ -94,7 +94,7 @@ func (e SysConfig) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert admin-创建配置管理
+// Insert admin-新增配置管理
 func (e SysConfig) Insert(c *gin.Context) {
 	s := service.SysConfig{}
 	req := dto.SysConfigInsertReq{}

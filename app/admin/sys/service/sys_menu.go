@@ -103,7 +103,7 @@ func (e *SysMenu) Count(c *dto.SysMenuQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert admin-创建菜单管理
+// Insert admin-新增菜单管理
 func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	if c.ParentId < 0 {
 		return 0, sysLang.SysMenuParentIdEmptyCode, lang.MsgErr(sysLang.SysMenuParentIdEmptyCode, e.Lang)

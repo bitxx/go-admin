@@ -129,7 +129,7 @@ func (e *SysRole) Count(c *dto.SysRoleQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert admin-创建角色管理
+// Insert admin-新增角色管理
 func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)

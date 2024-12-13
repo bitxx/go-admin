@@ -59,7 +59,7 @@ func (e SysDept) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert admin-添加部门管理
+// Insert admin-新增部门管理
 func (e SysDept) Insert(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptInsertReq{}

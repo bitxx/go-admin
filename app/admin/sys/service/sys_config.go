@@ -114,7 +114,7 @@ func (e *SysConfig) Count(c *dto.SysConfigQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert admin-创建配置管理
+// Insert admin-新增配置管理
 func (e *SysConfig) Insert(c *dto.SysConfigInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)

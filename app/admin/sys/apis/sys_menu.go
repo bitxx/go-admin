@@ -58,7 +58,7 @@ func (e SysMenu) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert admin-创建菜单管理
+// Insert admin-新增菜单管理
 func (e SysMenu) Insert(c *gin.Context) {
 	req := dto.SysMenuInsertReq{}
 	s := new(service.SysMenu)

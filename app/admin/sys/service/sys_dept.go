@@ -94,7 +94,7 @@ func (e *SysDept) Count(c *dto.SysDeptQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert admin-添加部门管理
+// Insert admin-新增部门管理
 func (e *SysDept) Insert(c *dto.SysDeptInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
