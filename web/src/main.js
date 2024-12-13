@@ -19,8 +19,8 @@ import store from './store'
 import router from './router'
 import permission from './directive/permission'
 
-import { getDicts } from '@/api/sys/dictdata'
-import { getConfigKey } from '@/api/sys/config'
+import { getDicts } from '@/api/admin/sys/dictdata'
+import { getConfigKey } from '@/api/admin/sys/config'
 import { parseTime, resetForm, addDateRange, selectDictLabel, /* download,*/ selectItemsLabel } from '@/utils/costum'
 
 import './icons' // icon

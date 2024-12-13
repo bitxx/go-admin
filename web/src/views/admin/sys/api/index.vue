@@ -3,22 +3,37 @@
     <template #wrapper>
       <el-card class="box-card">
         <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
-          <el-form-item label="等级名称" prop="name">
-            <el-input v-model="queryParams.name" placeholder="请输入等级名称" clearable size="small" @keyup.enter.native="handleQuery" />
+
+          <el-form-item label-width="100" label="功能描述" prop="description">
+            <el-input v-model="queryParams.description" placeholder="请输入功能描述" clearable size="small" @keyup.enter.native="handleQuery" />
           </el-form-item>
-          <el-form-item label="等级类型" prop="levelType">
-            <el-select v-model="queryParams.levelType" placeholder="用户等级等级类型" clearable size="small">
+
+          <el-form-item label-width="100" label="地址" prop="path">
+            <el-input v-model="queryParams.path" placeholder="请输入地址" clearable size="small" @keyup.enter.native="handleQuery" />
+          </el-form-item>
+
+          <el-form-item label-width="100" label="请求方法" prop="method">
+            <el-select v-model="queryParams.method" placeholder="请求方法" clearable size="small">
               <el-option
-                v-for="dict in levelTypeOptions"
+                v-for="dict in actionOptions"
                 :key="dict.dictValue"
                 :label="dict.dictLabel"
                 :value="dict.dictValue"
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="等级" prop="level">
-            <el-input v-model="queryParams.level" placeholder="请输入等级" clearable size="small" @keyup.enter.native="handleQuery" />
+
+          <el-form-item label-width="100" label="接口类型" prop="apiType">
+            <el-select v-model="queryParams.apiType" placeholder="接口类型" clearable size="small">
+              <el-option
+                v-for="dict in apiTypeOptions"
+                :key="dict.dictValue"
+                :label="dict.dictLabel"
+                :value="dict.dictValue"
+              />
+            </el-select>
           </el-form-item>
+
           <el-form-item label="创建时间">
             <el-date-picker
               v-model="dateRange"
@@ -40,66 +55,73 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['app:user-level:add']"
-              type="primary"
+              v-permisaction="['admin:sys-api:export']"
+              type="success"
               icon="el-icon-plus"
               size="mini"
-              @click="handleAdd"
-            >
-              新增
+              @click="handleExport"
+            >Excel导出
             </el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['app:user-level:export']"
+              v-permisaction="['admin:sys-api:sync']"
               type="success"
-              icon="el-icon-download"
+              icon="el-icon-plus"
               size="mini"
-              @click="handleExport"
-            >
-              Excel导出
+              @click="handleSync"
+            >接口数据同步
             </el-button>
           </el-col>
         </el-row>
 
-        <el-table v-loading="loading" stripe border :data="userLevelList">
+        <el-table v-loading="loading" stripe border :data="sysapiList">
           <el-table-column label="序号" type="index" align="center" width="80">
             <template slot-scope="scope">
               <span>{{ (queryParams.pageIndex - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="等级编号" align="center" prop="id" :show-overflow-tooltip="true" />
-          <el-table-column label="等级名称" align="center" prop="name" :show-overflow-tooltip="true" />
-          <el-table-column label="等级类型" align="center" prop="levelType" :formatter="levelTypeFormat" width="100">
+          <el-table-column width="120" label="接口编号" align="center" prop="id" :show-overflow-tooltip="true" />
+          <el-table-column width="240" label="功能描述" align="center" prop="description" :show-overflow-tooltip="true" />
+          <el-table-column width="300" label="请求地址" align="center" prop="path" :show-overflow-tooltip="true" />
+          <el-table-column width="100" label="接口类型" align="center" prop="type" :formatter="apiTypeFormat">
             <template slot-scope="scope">
-              {{ levelTypeFormat(scope.row) }}
+              {{ apiTypeFormat(scope.row) }}
             </template>
           </el-table-column>
-          <el-table-column label="等级" align="center" prop="level" :show-overflow-tooltip="true" />
+          <el-table-column width="100" label="请求方法" align="center" prop="method" :formatter="actionFormat">
+            <template slot-scope="scope">
+              {{ actionFormat(scope.row) }}
+            </template>
+          </el-table-column>
+          <el-table-column width="200" label="更新时间" align="center" prop="updatedAt" :show-overflow-tooltip="true">
+            <template slot-scope="scope">
+              <span>{{ parseTime(scope.row.updatedAt) }}</span>
+            </template>
+          </el-table-column>
           <el-table-column width="200" label="创建时间" align="center" prop="createdAt" :show-overflow-tooltip="true">
             <template slot-scope="scope">
               <span>{{ parseTime(scope.row.createdAt) }}</span>
             </template>
           </el-table-column>
+
           <el-table-column width="160" fixed="right" label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
-                v-permisaction="['app:user-level:edit']"
+                v-permisaction="['admin:sys-api:edit']"
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
                 @click="handleUpdate(scope.row)"
-              >
-                修改
+              >修改
               </el-button>
               <el-button
-                v-permisaction="['app:user-level:del']"
+                v-permisaction="['admin:sys-api:del']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
                 @click="handleDelete(scope.row)"
-              >
-                删除
+              >删除
               </el-button>
             </template>
           </el-table-column>
@@ -114,23 +136,33 @@
         />
 
         <!-- 添加或修改对话框 -->
-        <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="500" append-to-body>
+        <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="2200" append-to-body>
           <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-            <el-form-item label="等级名称" prop="name">
-              <el-input v-model="form.name" placeholder="等级名称" />
+            <el-form-item label="请求地址" prop="path">
+              <el-input v-model="form.path" placeholder="path" :disabled="isEdit" />
             </el-form-item>
-            <el-form-item label="等级类型" prop="levelType">
-              <el-select v-model="form.levelType" placeholder="请选择">
+            <el-form-item label="请求方法" prop="method">
+              <el-select v-model="form.method" placeholder="请选择" :disabled="isEdit">
                 <el-option
-                  v-for="dict in levelTypeOptions"
+                  v-for="dict in actionOptions"
                   :key="dict.dictValue"
                   :label="dict.dictLabel"
                   :value="dict.dictValue"
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="等级" prop="level">
-              <el-input v-model.number="form.level" placeholder="等级" />
+            <el-form-item label="功能描述" prop="description">
+              <el-input v-model="form.description" placeholder="标题" />
+            </el-form-item>
+            <el-form-item label="接口类型" prop="apiType">
+              <el-select v-model="form.apiType" placeholder="请选择">
+                <el-option
+                  v-for="dict in apiTypeOptions"
+                  :key="dict.dictValue"
+                  :label="dict.dictLabel"
+                  :value="dict.dictValue"
+                />
+              </el-select>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -144,11 +176,13 @@
 </template>
 
 <script>
-import { addUserLevel, delUserLevel, getUserLevel, listUserLevel, updateUserLevel, exportUserLevel } from '@/api/app/user/user-level'
+import { delSysApi, getSysApi, getPageSysApi, updateSysApi, exportSysApi, syncApi } from '@/api/admin/sys/api'
 import { resolveBlob } from '@/utils/download'
+
 export default {
-  name: 'UserLevel',
-  components: {},
+  name: 'SysApi',
+  components: {
+  },
   data() {
     return {
       // 遮罩层
@@ -159,46 +193,52 @@ export default {
       title: '',
       // 是否显示弹出层
       open: false,
+      // 是否编辑
       isEdit: false,
       // 日期范围
       dateRange: [],
       // 类型数据字典
-      userLevelList: [],
-      levelTypeOptions: [],
+      apiTypeOptions: [],
+      actionOptions: [],
+      sysapiList: [],
+
       // 查询参数
       queryParams: {
         pageIndex: 1,
         pageSize: 10,
-        id: undefined,
-        name: undefined,
-        levelType: undefined,
-        level: undefined
+        description: undefined,
+        path: undefined,
+        method: undefined
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        name: [{ required: true, message: '等级名称不能为空', trigger: 'blur' }],
-        levelType: [{ required: true, message: '等级类型不能为空', trigger: 'blur' }],
-        level: [{ required: true, message: '等级不能为空', trigger: 'blur' }]
+        description: [{ required: true, message: '功能描述不能为空', trigger: 'blur' }],
+        // method: [{ required: true, message: '类型不能为空', trigger: 'blur' }],
+        apiType: [{ required: true, message: '接口类型不得为空', trigger: 'blur' }]
       }
     }
   },
   created() {
     this.getList()
-    this.getDicts('app_user_level_type').then(response => {
-      this.levelTypeOptions = response.data
+    this.getDicts('admin_sys_api_type').then(response => {
+      this.apiTypeOptions = response.data
+    })
+    this.getDicts('admin_sys_api_method').then(response => {
+      this.actionOptions = response.data
     })
   },
   methods: {
     /** 查询参数列表 */
     getList() {
       this.loading = true
-      listUserLevel(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-        this.userLevelList = response.data.list
+      getPageSysApi(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+        this.sysapiList = response.data.list
         this.total = response.data.count
         this.loading = false
-      })
+      }
+      )
     },
     // 取消按钮
     cancel() {
@@ -209,41 +249,38 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        name: undefined,
-        levelType: undefined,
-        level: undefined
+        description: undefined,
+        path: undefined,
+        paths: undefined,
+        method: undefined
       }
       this.resetForm('form')
     },
-
-    levelTypeFormat(row) {
-      return this.selectDictLabel(this.levelTypeOptions, row.levelType)
+    apiTypeFormat(row) {
+      return this.selectDictLabel(this.apiTypeOptions, row.apiType)
     },
-    // 搜索按钮操作
+    actionFormat(row) {
+      return this.selectDictLabel(this.actionOptions, row.method)
+    },
+    /** 搜索按钮操作 */
     handleQuery() {
       this.queryParams.pageIndex = 1
       this.getList()
     },
-    // 重置按钮操作
+    /** 重置按钮操作 */
     resetQuery() {
       this.dateRange = []
       this.resetForm('queryForm')
       this.handleQuery()
     },
-    // 新增按钮操作
-    handleAdd() {
-      this.reset()
-      this.open = true
-      this.title = '添加用户等级'
-      this.isEdit = false
-    },
-    // 修改按钮操作
+    /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset()
-      getUserLevel(row.id).then(response => {
+      const id = row.id
+      getSysApi(id).then(response => {
         this.form = response.data
         this.open = true
-        this.title = '修改用户等级'
+        this.title = '修改接口管理'
         this.isEdit = true
       })
     },
@@ -252,17 +289,7 @@ export default {
       this.$refs['form'].validate(valid => {
         if (valid) {
           if (this.form.id !== undefined) {
-            updateUserLevel(this.form).then(response => {
-              if (response.code === 200) {
-                this.msgSuccess(response.msg)
-                this.open = false
-                this.getList()
-              } else {
-                this.msgError(response.msg)
-              }
-            })
-          } else {
-            addUserLevel(this.form).then(response => {
+            updateSysApi(this.form).then(response => {
               if (response.code === 200) {
                 this.msgSuccess(response.msg)
                 this.open = false
@@ -275,7 +302,7 @@ export default {
         }
       })
     },
-    // 删除按钮操作
+    /** 删除按钮操作 */
     handleDelete(row) {
       const ids = [row.id]
       this.$confirm('是否确认删除编号为"' + ids + '"的数据项?', '警告', {
@@ -283,7 +310,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function() {
-        return delUserLevel({ 'ids': ids })
+        return delSysApi({ 'ids': ids })
       }).then((response) => {
         if (response.code === 200) {
           this.msgSuccess(response.msg)
@@ -294,17 +321,33 @@ export default {
         }
       }).catch(function() {})
     },
-    /** 下载excel */
+    /** 下载 */
     handleExport() {
       this.$confirm('是否确认导出所选数据？', '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        exportUserLevel(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          resolveBlob(response, '用户等级')
+        exportSysApi(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+          resolveBlob(response, 'api列表')
         })
-      }).catch(() => {})
+      }).catch(() => {
+      })
+    },
+    handleSync() {
+      this.$confirm('开始同步一段时间后，再次回到该页面，即可看到新的数据。本次同步会删除库中的无效路由，同时会新增检测到的新路由。是否确认同步接口数据？', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        syncApi().then(response => {
+          if (response.code === 200) {
+            this.msgSuccess('开始同步，请稍后...')
+          } else {
+            this.msgError(response.msg)
+          }
+        }).catch(function() {})
+      }).catch(function() {})
     }
   }
 }

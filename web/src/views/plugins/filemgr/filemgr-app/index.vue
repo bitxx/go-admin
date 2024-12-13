@@ -67,7 +67,7 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['plugins:filemgr:filemgr-app:add']"
+              v-permisaction="['plugins:filemgr-app:add']"
               type="primary"
               icon="el-icon-plus"
               size="mini"
@@ -78,7 +78,7 @@
           </el-col>
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['plugins:filemgr:filemgr-app:export']"
+              v-permisaction="['plugins:filemgr-app:export']"
               type="success"
               icon="el-icon-download"
               size="mini"
@@ -128,7 +128,7 @@
           <el-table-column width="120" fixed="right" label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
-                v-permisaction="['plugins:filemgr:filemgr-app:edit']"
+                v-permisaction="['plugins:filemgr-app:edit']"
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
@@ -137,7 +137,7 @@
                 修改
               </el-button>
               <el-button
-                v-permisaction="['plugins:filemgr:filemgr-app:del']"
+                v-permisaction="['plugins:filemgr-app:del']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"

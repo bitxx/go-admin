@@ -3,8 +3,21 @@
     <template #wrapper>
       <el-card class="box-card">
         <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
-          <el-form-item label-width="100" label="分类名称" prop="name">
-            <el-input v-model="queryParams.name" placeholder="请输入分类名称" clearable size="small" @keyup.enter.native="handleQuery" />
+          <el-form-item label-width="100" label="岗位编码" prop="postCode">
+            <el-input v-model="queryParams.postCode" placeholder="请输入岗位编码" clearable size="small" @keyup.enter.native="handleQuery" />
+          </el-form-item>
+          <el-form-item label-width="100" label="岗位名称" prop="postName">
+            <el-input v-model="queryParams.postName" placeholder="请输入岗位名称" clearable size="small" @keyup.enter.native="handleQuery" />
+          </el-form-item>
+          <el-form-item label="状态" prop="status">
+            <el-select v-model="queryParams.status" placeholder="岗位状态" clearable size="small">
+              <el-option
+                v-for="dict in statusOptions"
+                :key="dict.dictValue"
+                :label="dict.dictLabel"
+                :value="dict.dictValue"
+              />
+            </el-select>
           </el-form-item>
           <el-form-item label="创建时间">
             <el-date-picker
@@ -27,67 +40,55 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['plugins:content-category:add']"
+              v-permisaction="['admin:sys-post:add']"
               type="primary"
               icon="el-icon-plus"
               size="mini"
               @click="handleAdd"
-            >
-              新增
-            </el-button>
+            >新增</el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['plugins:content-category:export']"
+              v-permisaction="['admin:sys-post:export']"
               type="success"
-              icon="el-icon-download"
+              icon="el-icon-plus"
               size="mini"
               @click="handleExport"
-            >
-              Excel导出
+            >Excel导出
             </el-button>
           </el-col>
         </el-row>
-
-        <el-table v-loading="loading" stripe border :data="tableList">
-          <el-table-column label="序号" type="index" align="center" width="80">
+        <el-table v-loading="loading" stripe border :data="postList">
+          <el-table-column label="岗位编号" width="80" align="center" prop="id" />
+          <el-table-column label="岗位编码" align="center" prop="postCode" />
+          <el-table-column label="岗位名称" align="center" prop="postName" />
+          <el-table-column label="岗位排序" align="center" prop="sort" />
+          <el-table-column width="100" label="状态" align="center" prop="status" :formatter="statusFormat">
             <template slot-scope="scope">
-              <span>{{ (queryParams.pageIndex - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
+              {{ statusFormat(scope.row) }}
             </template>
           </el-table-column>
-          <el-table-column width="100" label="分类编号" align="center" prop="id" :show-overflow-tooltip="true" />
-          <el-table-column width="200" label="分类名称" align="center" prop="name" :show-overflow-tooltip="true" />
-          <el-table-column width="100" label="更新人编号" align="center" prop="updateBy" :show-overflow-tooltip="true" />
-          <el-table-column width="200" label="更新时间" align="center" prop="updatedAt" :show-overflow-tooltip="true">
-            <template slot-scope="scope">
-              <span>{{ parseTime(scope.row.updatedAt) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column width="200" label="创建时间" align="center" prop="createdAt" :show-overflow-tooltip="true">
+          <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
             <template slot-scope="scope">
               <span>{{ parseTime(scope.row.createdAt) }}</span>
             </template>
           </el-table-column>
-          <el-table-column width="140" fixed="right" label="操作" align="center" class-name="small-padding fixed-width">
+          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
-                v-permisaction="['plugins:content-category:edit']"
+                v-permisaction="['admin:sys-post:edit']"
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
                 @click="handleUpdate(scope.row)"
-              >
-                修改
-              </el-button>
+              >修改</el-button>
               <el-button
-                v-permisaction="['plugins:content-category:del']"
+                v-permisaction="['admin:sys-post:del']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
                 @click="handleDelete(scope.row)"
-              >
-                删除
-              </el-button>
+              >删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -99,12 +100,29 @@
           :limit.sync="queryParams.pageSize"
           @pagination="getList"
         />
-
-        <!-- 添加或修改对话框 -->
-        <el-dialog :close-on-click-modal="false" :title="title" :visible.sync="open" width="500" append-to-body>
+        <!-- 添加或修改岗位对话框 -->
+        <el-dialog :title="title" :visible.sync="open" width="500px">
           <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-            <el-form-item label="分类名称" prop="name">
-              <el-input v-model="form.name" placeholder="分类名称" />
+            <el-form-item label="岗位名称" prop="postName">
+              <el-input v-model="form.postName" placeholder="请输入岗位名称" />
+            </el-form-item>
+            <el-form-item label="岗位编码" prop="postCode">
+              <el-input v-model="form.postCode" placeholder="请输入编码名称" />
+            </el-form-item>
+            <el-form-item label="岗位顺序" prop="sort">
+              <el-input-number v-model="form.sort" controls-position="right" :min="0" />
+            </el-form-item>
+            <el-form-item label="岗位状态" prop="status">
+              <el-radio-group v-model="form.status">
+                <el-radio
+                  v-for="dict in statusOptions"
+                  :key="dict.dictValue"
+                  :label="dict.dictValue"
+                >{{ dict.dictLabel }}</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="备注" prop="remark">
+              <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -118,52 +136,70 @@
 </template>
 
 <script>
-import { addContentCategory, delContentCategory, getContentCategory, listContentCategory, updateContentCategory, exportContentCategory } from '@/api/plugins/content/content-category'
+import { getPostPage, getPost, delPost, addPost, updatePost, exportPost } from '@/api/admin/sys/post'
 import { resolveBlob } from '@/utils/download'
+
 export default {
-  name: 'ContentCategory',
-  components: {},
+  name: 'SysPost',
   data() {
     return {
       // 遮罩层
       loading: true,
       // 总条数
       total: 0,
+      // 日期范围
+      dateRange: [],
+      // 岗位表格数据
+      postList: [],
       // 弹出层标题
       title: '',
       // 是否显示弹出层
       open: false,
-      isEdit: false,
-      // 日期范围
-      dateRange: [],
-      // 类型数据字典
-      tableList: [],
+      // 状态数据字典
+      statusOptions: [],
       // 查询参数
       queryParams: {
         pageIndex: 1,
         pageSize: 10,
-        name: undefined
+        postCode: undefined,
+        postName: undefined,
+        status: undefined
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        ame: [{ required: true, message: '分类名称不能为空', trigger: 'blur' }]
+        postName: [
+          { required: true, message: '岗位名称不能为空', trigger: 'blur' }
+        ],
+        postCode: [
+          { required: true, message: '岗位编码不能为空', trigger: 'blur' }
+        ],
+        sort: [
+          { required: true, message: '岗位顺序不能为空', trigger: 'blur' }
+        ]
       }
     }
   },
   created() {
     this.getList()
+    this.getDicts('admin_sys_status').then(response => {
+      this.statusOptions = response.data
+    })
   },
   methods: {
-    /** 查询参数列表 */
+    /** 查询岗位列表 */
     getList() {
       this.loading = true
-      listContentCategory(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-        this.tableList = response.data.list
+      getPostPage(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+        this.postList = response.data.list
         this.total = response.data.count
         this.loading = false
       })
+    },
+    // 岗位状态字典翻译
+    statusFormat(row) {
+      return this.selectDictLabel(this.statusOptions, row.status)
     },
     // 取消按钮
     cancel() {
@@ -173,37 +209,40 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        name: undefined
+        id: undefined,
+        postCode: undefined,
+        postName: undefined,
+        sort: 0,
+        status: undefined,
+        remark: undefined
       }
       this.resetForm('form')
     },
-
-    // 搜索按钮操作
+    /** 搜索按钮操作 */
     handleQuery() {
       this.queryParams.pageIndex = 1
       this.getList()
     },
-    // 重置按钮操作
+    /** 重置按钮操作 */
     resetQuery() {
-      this.dateRange = []
       this.resetForm('queryForm')
       this.handleQuery()
     },
-    // 新增按钮操作
+    /** 新增按钮操作 */
     handleAdd() {
       this.reset()
       this.open = true
-      this.title = '添加内容分类'
-      this.isEdit = false
+      this.title = '添加岗位'
     },
-    // 修改按钮操作
+    /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset()
-      getContentCategory(row.id).then(response => {
+      const id = row.id
+      getPost(id).then(response => {
         this.form = response.data
+        this.form.status = String(this.form.status)
         this.open = true
-        this.title = '修改内容分类'
-        this.isEdit = true
+        this.title = '修改岗位'
       })
     },
     /** 提交按钮 */
@@ -211,7 +250,7 @@ export default {
       this.$refs['form'].validate(valid => {
         if (valid) {
           if (this.form.id !== undefined) {
-            updateContentCategory(this.form).then(response => {
+            updatePost(this.form, this.form.id).then(response => {
               if (response.code === 200) {
                 this.msgSuccess(response.msg)
                 this.open = false
@@ -221,7 +260,7 @@ export default {
               }
             })
           } else {
-            addContentCategory(this.form).then(response => {
+            addPost(this.form).then(response => {
               if (response.code === 200) {
                 this.msgSuccess(response.msg)
                 this.open = false
@@ -234,15 +273,15 @@ export default {
         }
       })
     },
-    // 删除按钮操作
+    /** 删除按钮操作 */
     handleDelete(row) {
       const ids = [row.id]
-      this.$confirm('是否确认删除编号为"' + ids + '"的数据项?', '警告', {
+      this.$confirm('是否确认删除岗位编号为"' + ids + '"的数据项?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function() {
-        return delContentCategory({ 'ids': ids })
+        return delPost({ 'ids': ids })
       }).then((response) => {
         if (response.code === 200) {
           this.msgSuccess(response.msg)
@@ -253,17 +292,18 @@ export default {
         }
       }).catch(function() {})
     },
-    /** 下载excel */
+    /** 下载 */
     handleExport() {
       this.$confirm('是否确认导出所选数据？', '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        exportContentCategory(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          resolveBlob(response, '内容分类')
+        exportPost(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+          resolveBlob(response, '岗位列表')
         })
-      }).catch(() => {})
+      }).catch(() => {
+      })
     }
   }
 }

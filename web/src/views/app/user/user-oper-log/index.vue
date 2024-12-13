@@ -56,7 +56,7 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['app:user:user-oper-log:export']"
+              v-permisaction="['app:user-oper-log:export']"
               type="success"
               icon="el-icon-download"
               size="mini"

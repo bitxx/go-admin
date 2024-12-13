@@ -1,4 +1,3 @@
-import { getSetting } from '@/api/sys/user'
 import storage from '@/utils/storage'
 const state = {
   info: storage.get('app_info')
@@ -14,13 +13,9 @@ const mutations = {
 const actions = {
   settingDetail({ commit }) {
     return new Promise((resolve, reject) => {
-      getSetting().then(response => {
-        const { data } = response
-        commit('SET_INFO', data)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
+      var data = { admin_sys_app_name: 'go-admin后台管理系统', admin_sys_app_logo: 'http://www.bitxx.top/images/my_head-touch-icon-next.png' }
+      commit('SET_INFO', data)
+      resolve(data)
     })
   }
 }

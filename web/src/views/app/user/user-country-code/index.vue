@@ -40,7 +40,7 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['app:user:user-country-code:add']"
+              v-permisaction="['app:user-country-code:add']"
               type="primary"
               icon="el-icon-plus"
               size="mini"
@@ -51,7 +51,7 @@
           </el-col>
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['app:user:user-country-code:export']"
+              v-permisaction="['app:user-country-code:export']"
               type="success"
               icon="el-icon-download"
               size="mini"
@@ -84,7 +84,7 @@
           <el-table-column width="160" fixed="right" label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
-                v-permisaction="['app:user:user-country-code:edit']"
+                v-permisaction="['app:user-country-code:edit']"
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
@@ -93,7 +93,7 @@
                 修改
               </el-button>
               <el-button
-                v-permisaction="['app:user:user-country-code:del']"
+                v-permisaction="['app:user-country-code:del']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
@@ -185,7 +185,7 @@ export default {
   },
   created() {
     this.getList()
-    this.getDicts('sys_status').then(response => {
+    this.getDicts('admin_sys_status').then(response => {
       this.statusOptions = response.data
     })
   },

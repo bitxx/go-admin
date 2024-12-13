@@ -45,28 +45,28 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path*',
-        component: () => import('@/views/sys/redirect/index')
+        component: () => import('@/views/admin/sys/redirect/index')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('@/views/sys/login/index'),
+    component: () => import('@/views/admin/sys/login/index'),
     hidden: true
   },
   {
     path: '/auth-redirect',
-    component: () => import('@/views/sys/login/auth-redirect'),
+    component: () => import('@/views/admin/sys/login/auth-redirect'),
     hidden: true
   },
   {
     path: '/404',
-    component: () => import('@/views/sys/error-page/404'),
+    component: () => import('@/views/admin/sys/error-page/404'),
     hidden: true
   },
   {
     path: '/401',
-    component: () => import('@/views/sys/error-page/401'),
+    component: () => import('@/views/admin/sys/error-page/401'),
     hidden: true
   },
   {
@@ -76,7 +76,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/sys/dashboard/index'),
+        component: () => import('@/views/admin/sys/dashboard/index'),
         name: 'Dashboard',
         meta: { title: '首页', icon: 'dashboard', affix: true }
       }
@@ -90,7 +90,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/sys/profile/index'),
+        component: () => import('@/views/admin/sys/profile/index'),
         name: 'Profile',
         meta: { title: '个人中心', icon: 'user', keepAlive: true }
       }

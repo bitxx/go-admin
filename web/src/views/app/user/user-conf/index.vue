@@ -67,7 +67,7 @@
           <el-table-column width="160" fixed="right" label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-button
-                v-permisaction="['app:user:user-conf:edit']"
+                v-permisaction="['app:user-conf:edit']"
                 size="mini"
                 type="text"
                 icon="el-icon-edit"
@@ -153,7 +153,7 @@ export default {
   },
   created() {
     this.getList()
-    this.getDicts('sys_yes_no').then(response => {
+    this.getDicts('admin_sys_yes_no').then(response => {
       this.canLoginOptions = response.data
     })
   },
