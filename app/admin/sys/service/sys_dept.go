@@ -20,7 +20,7 @@ type SysDept struct {
 	service.Service
 }
 
-// NewSysDeptService sys-实例化部门管理
+// NewSysDeptService admin-实例化部门管理
 func NewSysDeptService(s *service.Service) *SysDept {
 	var srv = new(SysDept)
 	srv.Orm = s.Orm
@@ -28,7 +28,7 @@ func NewSysDeptService(s *service.Service) *SysDept {
 	return srv
 }
 
-// GetTreeList sys-获取部门树列表
+// GetTreeList admin-获取部门树列表
 func (e *SysDept) GetTreeList(c *dto.SysDeptQueryReq) ([]*models.SysDept, int, error) {
 	list, respCode, err := e.getList(c)
 	if err != nil {
@@ -41,7 +41,7 @@ func (e *SysDept) GetTreeList(c *dto.SysDeptQueryReq) ([]*models.SysDept, int, e
 	), lang.SuccessCode, nil
 }
 
-// Get sys-获取部门管理详情
+// Get admin-获取部门管理详情
 func (e *SysDept) Get(id int64, p *middleware.DataPermission) (*models.SysDept, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -59,7 +59,7 @@ func (e *SysDept) Get(id int64, p *middleware.DataPermission) (*models.SysDept, 
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取部门管理一条记录
+// QueryOne admin-获取部门管理一条记录
 func (e *SysDept) QueryOne(queryCondition *dto.SysDeptQueryReq, p *middleware.DataPermission) (*models.SysDept, int, error) {
 	data := &models.SysDept{}
 	err := e.Orm.Model(&models.SysDept{}).
@@ -76,7 +76,7 @@ func (e *SysDept) QueryOne(queryCondition *dto.SysDeptQueryReq, p *middleware.Da
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取部门管理数据总数
+// Count admin-获取部门管理数据总数
 func (e *SysDept) Count(c *dto.SysDeptQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -94,7 +94,7 @@ func (e *SysDept) Count(c *dto.SysDeptQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-添加部门管理
+// Insert admin-添加部门管理
 func (e *SysDept) Insert(c *dto.SysDeptInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -151,7 +151,7 @@ func (e *SysDept) Insert(c *dto.SysDeptInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新部门管理
+// Update admin-更新部门管理
 func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -212,7 +212,7 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) 
 	return false, lang.SuccessCode, nil
 }
 
-// Delete sys-删除部门管理
+// Delete admin-删除部门管理
 func (e *SysDept) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -242,7 +242,7 @@ func (e *SysDept) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 	return lang.SuccessCode, nil
 }
 
-// getList sys-获取部门管理全部列表
+// getList admin-获取部门管理全部列表
 func (e *SysDept) getList(c *dto.SysDeptQueryReq) ([]models.SysDept, int, error) {
 	var list []models.SysDept
 	err := e.Orm.Model(&models.SysDept{}).Order("sort").

@@ -81,7 +81,7 @@ func (e *UserLevel) QueryOne(queryCondition *dto.UserLevelQueryReq, p *middlewar
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取用户等级管理数据总数
+// Count admin-获取用户等级管理数据总数
 func (e *UserLevel) Count(queryCondition *dto.UserLevelQueryReq) (int64, int, error) {
 	var err error
 	var count int64

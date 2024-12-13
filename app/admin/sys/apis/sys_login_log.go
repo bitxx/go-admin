@@ -17,7 +17,7 @@ type SysLoginLog struct {
 	api.Api
 }
 
-// GetPage sys-获取登录日志分页列表
+// GetPage admin-获取登录日志分页列表
 func (e SysLoginLog) GetPage(c *gin.Context) {
 	s := service.SysLoginLog{}
 	req := dto.SysLoginLogQueryReq{}
@@ -39,7 +39,7 @@ func (e SysLoginLog) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取登录日志详情
+// Get admin-获取登录日志详情
 func (e SysLoginLog) Get(c *gin.Context) {
 	s := service.SysLoginLog{}
 	req := dto.SysLoginLogGetReq{}
@@ -61,7 +61,7 @@ func (e SysLoginLog) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除登录日志
+// Delete admin-删除登录日志
 func (e SysLoginLog) Delete(c *gin.Context) {
 	s := service.SysLoginLog{}
 	req := dto.SysLoginLogDeleteReq{}
@@ -84,7 +84,7 @@ func (e SysLoginLog) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export sys-导出登录日志
+// Export admin-导出登录日志
 func (e SysLoginLog) Export(c *gin.Context) {
 	req := dto.SysLoginLogQueryReq{}
 	s := service.SysLoginLog{}

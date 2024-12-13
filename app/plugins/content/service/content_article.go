@@ -81,7 +81,7 @@ func (e *ContentArticle) QueryOne(queryCondition *dto.ContentArticleQueryReq, p 
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取文章管理数据总数
+// Count admin-获取文章管理数据总数
 func (e *ContentArticle) Count(queryCondition *dto.ContentArticleQueryReq) (int64, int, error) {
 	var err error
 	var count int64

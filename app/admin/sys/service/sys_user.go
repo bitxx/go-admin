@@ -26,7 +26,7 @@ type SysUser struct {
 	service.Service
 }
 
-// NewSysUserService sys-实例化用户管理
+// NewSysUserService admin-实例化用户管理
 func NewSysUserService(s *service.Service) *SysUser {
 	var srv = new(SysUser)
 	srv.Orm = s.Orm
@@ -34,7 +34,7 @@ func NewSysUserService(s *service.Service) *SysUser {
 	return srv
 }
 
-// GetPage sys-获取系统用户管理分页列表
+// GetPage admin-获取系统用户管理分页列表
 func (e *SysUser) GetPage(c *dto.SysUserQueryReq, p *middleware.DataPermission) ([]models.SysUser, int64, int, error) {
 	var list []models.SysUser
 	var data models.SysUser
@@ -52,7 +52,7 @@ func (e *SysUser) GetPage(c *dto.SysUserQueryReq, p *middleware.DataPermission) 
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get sys-获取系统用户管理详情
+// Get admin-获取系统用户管理详情
 func (e *SysUser) Get(id int64, p *middleware.DataPermission) (*models.SysUser, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -70,7 +70,7 @@ func (e *SysUser) Get(id int64, p *middleware.DataPermission) (*models.SysUser, 
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取系统用户管理一条记录
+// QueryOne admin-获取系统用户管理一条记录
 func (e *SysUser) QueryOne(queryCondition *dto.SysUserQueryReq, p *middleware.DataPermission) (*models.SysUser, int, error) {
 	data := &models.SysUser{}
 	err := e.Orm.Model(&models.SysUser{}).
@@ -87,7 +87,7 @@ func (e *SysUser) QueryOne(queryCondition *dto.SysUserQueryReq, p *middleware.Da
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取系统用户管理数据总数
+// Count admin-获取系统用户管理数据总数
 func (e *SysUser) Count(c *dto.SysUserQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -105,7 +105,7 @@ func (e *SysUser) Count(c *dto.SysUserQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-新增系统用户管理
+// Insert admin-新增系统用户管理
 func (e *SysUser) Insert(c *dto.SysUserInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -209,7 +209,7 @@ func (e *SysUser) Insert(c *dto.SysUserInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新系统用户管理
+// Update admin-更新系统用户管理
 func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -320,7 +320,7 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 	return false, lang.SuccessCode, nil
 }
 
-// UpdateStatus sys-更新系统用户状态
+// UpdateStatus admin-更新系统用户状态
 func (e *SysUser) UpdateStatus(c *dto.SysUserStatusUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 || c.UserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -351,7 +351,7 @@ func (e *SysUser) UpdateStatus(c *dto.SysUserStatusUpdateReq, p *middleware.Data
 	return false, lang.SuccessCode, nil
 }
 
-// ResetPwd sys-重置系统用户密码
+// ResetPwd admin-重置系统用户密码
 func (e *SysUser) ResetPwd(c *dto.ResetSysUserPwdReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 || c.UserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -378,7 +378,7 @@ func (e *SysUser) ResetPwd(c *dto.ResetSysUserPwdReq, p *middleware.DataPermissi
 	return false, lang.SuccessCode, nil
 }
 
-// Delete sys-删除系统用户管理
+// Delete admin-删除系统用户管理
 func (e *SysUser) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -405,7 +405,7 @@ func (e *SysUser) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 	return lang.SuccessCode, nil
 }
 
-// GetProfile sys-获取系统登录用户信息
+// GetProfile admin-获取系统登录用户信息
 func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	if userId <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -445,7 +445,7 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	return respUser, lang.SuccessCode, nil
 }
 
-// UpdateProfile sys-更新系统登录用户信息
+// UpdateProfile admin-更新系统登录用户信息
 func (e *SysUser) UpdateProfile(c *dto.SysUserUpdateReq) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -520,7 +520,7 @@ func (e *SysUser) UpdateProfile(c *dto.SysUserUpdateReq) (bool, int, error) {
 	return false, lang.SuccessCode, nil
 }
 
-// LoginVerify sys-登录验证
+// LoginVerify admin-登录验证
 func (e *SysUser) LoginVerify(login *dto.LoginReq) (*models.SysUser, int, error) {
 	user := &models.SysUser{}
 	status := []string{global.SysStatusOk}
@@ -540,7 +540,7 @@ func (e *SysUser) LoginVerify(login *dto.LoginReq) (*models.SysUser, int, error)
 	return user, lang.SuccessCode, nil
 }
 
-// UpdateProfileAvatar sys-更新系统登录用户头像
+// UpdateProfileAvatar admin-更新系统登录用户头像
 func (e *SysUser) UpdateProfileAvatar(c *dto.SysUserAvatarUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -568,7 +568,7 @@ func (e *SysUser) UpdateProfileAvatar(c *dto.SysUserAvatarUpdateReq, p *middlewa
 	return false, lang.SuccessCode, nil
 }
 
-// UpdateProfilePwd sys-更新系统登录用户密码
+// UpdateProfilePwd admin-更新系统登录用户密码
 func (e *SysUser) UpdateProfilePwd(c dto.UpdateSysUserPwdReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -604,7 +604,7 @@ func (e *SysUser) UpdateProfilePwd(c dto.UpdateSysUserPwdReq, p *middleware.Data
 	return false, lang.SuccessCode, nil
 }
 
-// LoginLogToDB sys-登录日志记录到数据库
+// LoginLogToDB admin-登录日志记录到数据库
 func (e *SysUser) LoginLogToDB(c *gin.Context, status string, msg string, userId int64) {
 	if !config.LoggerConfig.EnabledDB {
 		return

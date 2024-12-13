@@ -18,7 +18,7 @@ type SysPost struct {
 	api.Api
 }
 
-// GetTotalList sys-获取岗位管理全部列表
+// GetTotalList admin-获取岗位管理全部列表
 func (e SysPost) GetTotalList(c *gin.Context) {
 	s := service.SysPost{}
 	req := dto.SysPostQueryReq{}
@@ -40,7 +40,7 @@ func (e SysPost) GetTotalList(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetPage sys-获取岗位管理分页列表
+// GetPage admin-获取岗位管理分页列表
 func (e SysPost) GetPage(c *gin.Context) {
 	s := service.SysPost{}
 	req := dto.SysPostQueryReq{}
@@ -62,7 +62,7 @@ func (e SysPost) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取岗位管理详情
+// Get admin-获取岗位管理详情
 func (e SysPost) Get(c *gin.Context) {
 	s := service.SysPost{}
 	req := dto.SysPostGetReq{}
@@ -84,7 +84,7 @@ func (e SysPost) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-新增岗位管理
+// Insert admin-新增岗位管理
 func (e SysPost) Insert(c *gin.Context) {
 	s := service.SysPost{}
 	req := dto.SysPostInsertReq{}
@@ -111,7 +111,7 @@ func (e SysPost) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新岗位管理
+// Update admin-更新岗位管理
 func (e SysPost) Update(c *gin.Context) {
 	s := service.SysPost{}
 	req := dto.SysPostUpdateReq{}
@@ -143,7 +143,7 @@ func (e SysPost) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除岗位管理
+// Delete admin-删除岗位管理
 func (e SysPost) Delete(c *gin.Context) {
 	s := service.SysPost{}
 	req := dto.SysPostDeleteReq{}
@@ -166,7 +166,7 @@ func (e SysPost) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export sys-导出岗位管理
+// Export admin-导出岗位管理
 func (e SysPost) Export(c *gin.Context) {
 	req := dto.SysPostQueryReq{}
 	s := service.SysPost{}

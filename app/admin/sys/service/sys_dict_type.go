@@ -20,7 +20,7 @@ type SysDictType struct {
 	service.Service
 }
 
-// NewSysDictTypeService sys-实例化字典类型
+// NewSysDictTypeService admin-实例化字典类型
 func NewSysDictTypeService(s *service.Service) *SysDictType {
 	var srv = new(SysDictType)
 	srv.Orm = s.Orm
@@ -28,7 +28,7 @@ func NewSysDictTypeService(s *service.Service) *SysDictType {
 	return srv
 }
 
-// GetPage sys-获取字典类型分页列表
+// GetPage admin-获取字典类型分页列表
 func (e *SysDictType) GetPage(c *dto.SysDictTypeQueryReq, p *middleware.DataPermission) ([]models.SysDictType, int64, int, error) {
 	var list []models.SysDictType
 	var data models.SysDictType
@@ -46,7 +46,7 @@ func (e *SysDictType) GetPage(c *dto.SysDictTypeQueryReq, p *middleware.DataPerm
 	return list, count, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取字典类型一条记录
+// QueryOne admin-获取字典类型一条记录
 func (e *SysDictType) QueryOne(queryCondition *dto.SysDictTypeQueryReq, p *middleware.DataPermission) (*models.SysDictType, int, error) {
 	data := &models.SysDictType{}
 	err := e.Orm.Model(&models.SysDictType{}).
@@ -63,7 +63,7 @@ func (e *SysDictType) QueryOne(queryCondition *dto.SysDictTypeQueryReq, p *middl
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取字典类型数据总数
+// Count admin-获取字典类型数据总数
 func (e *SysDictType) Count(c *dto.SysDictTypeQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -81,7 +81,7 @@ func (e *SysDictType) Count(c *dto.SysDictTypeQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Get sys-获取字典类型详情
+// Get admin-获取字典类型详情
 func (e *SysDictType) Get(id int64, p *middleware.DataPermission) (*models.SysDictType, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -99,7 +99,7 @@ func (e *SysDictType) Get(id int64, p *middleware.DataPermission) (*models.SysDi
 	return data, lang.SuccessCode, nil
 }
 
-// Insert sys-新增字典类型
+// Insert admin-新增字典类型
 func (e *SysDictType) Insert(c *dto.SysDictTypeInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -139,7 +139,7 @@ func (e *SysDictType) Insert(c *dto.SysDictTypeInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新字典类型
+// Update admin-更新字典类型
 func (e *SysDictType) Update(c *dto.SysDictTypeUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -205,7 +205,7 @@ func (e *SysDictType) Update(c *dto.SysDictTypeUpdateReq, p *middleware.DataPerm
 	return false, lang.SuccessCode, nil
 }
 
-// Delete sys-删除字典类型
+// Delete admin-删除字典类型
 func (e *SysDictType) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -240,7 +240,7 @@ func (e *SysDictType) Delete(ids []int64, p *middleware.DataPermission) (int, er
 	return lang.SuccessCode, nil
 }
 
-// GetList sys-获取字典类型全部列表
+// GetList admin-获取字典类型全部列表
 func (e *SysDictType) GetList(c *dto.SysDictTypeQueryReq) ([]models.SysDictType, int, error) {
 	var err error
 	var data models.SysDictType
@@ -256,7 +256,7 @@ func (e *SysDictType) GetList(c *dto.SysDictTypeQueryReq) ([]models.SysDictType,
 	return list, lang.SuccessCode, nil
 }
 
-// Export sys-导出字典类型
+// Export admin-导出字典类型
 func (e *SysDictType) Export(list []models.SysDictType) ([]byte, error) {
 	//sheet名称
 	sheetName := "DictType"

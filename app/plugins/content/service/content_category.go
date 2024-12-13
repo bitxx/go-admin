@@ -82,7 +82,7 @@ func (e *ContentCategory) QueryOne(queryCondition *dto.ContentCategoryQueryReq, 
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取内容分类管理数据总数
+// Count admin-获取内容分类管理数据总数
 func (e *ContentCategory) Count(queryCondition *dto.ContentCategoryQueryReq) (int64, int, error) {
 	var err error
 	var count int64

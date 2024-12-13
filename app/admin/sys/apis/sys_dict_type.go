@@ -19,7 +19,7 @@ type SysDictType struct {
 	api.Api
 }
 
-// GetPage sys-获取字典类型分页列表
+// GetPage admin-获取字典类型分页列表
 func (e SysDictType) GetPage(c *gin.Context) {
 	s := service.SysDictType{}
 	req := dto.SysDictTypeQueryReq{}
@@ -41,7 +41,7 @@ func (e SysDictType) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取字典类型详情
+// Get admin-获取字典类型详情
 func (e SysDictType) Get(c *gin.Context) {
 	s := service.SysDictType{}
 	req := dto.SysDictTypeGetReq{}
@@ -63,7 +63,7 @@ func (e SysDictType) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-新增字典类型
+// Insert admin-新增字典类型
 func (e SysDictType) Insert(c *gin.Context) {
 	s := service.SysDictType{}
 	req := dto.SysDictTypeInsertReq{}
@@ -90,7 +90,7 @@ func (e SysDictType) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新字典类型
+// Update admin-更新字典类型
 func (e SysDictType) Update(c *gin.Context) {
 	s := service.SysDictType{}
 	req := dto.SysDictTypeUpdateReq{}
@@ -122,7 +122,7 @@ func (e SysDictType) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除字典类型
+// Delete admin-删除字典类型
 func (e SysDictType) Delete(c *gin.Context) {
 	s := service.SysDictType{}
 	req := dto.SysDictrDeleteReq{}
@@ -144,7 +144,7 @@ func (e SysDictType) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetList sys-获取字典类型全部列表
+// GetList admin-获取字典类型全部列表
 func (e SysDictType) GetList(c *gin.Context) {
 	s := service.SysDictType{}
 	req := dto.SysDictTypeQueryReq{}
@@ -166,7 +166,7 @@ func (e SysDictType) GetList(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export sys-导出字典类型
+// Export admin-导出字典类型
 func (e SysDictType) Export(c *gin.Context) {
 	req := dto.SysDictTypeQueryReq{}
 	s := service.SysDictType{}

@@ -24,7 +24,7 @@ type SysUser struct {
 	api.Api
 }
 
-// GetPage sys-获取系统用户管理分页列表
+// GetPage admin-获取系统用户管理分页列表
 func (e SysUser) GetPage(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserQueryReq{}
@@ -46,7 +46,7 @@ func (e SysUser) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取系统用户管理详情
+// Get admin-获取系统用户管理详情
 func (e SysUser) Get(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserGetReq{}
@@ -68,7 +68,7 @@ func (e SysUser) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-新增系统用户管理
+// Insert admin-新增系统用户管理
 func (e SysUser) Insert(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserInsertReq{}
@@ -95,7 +95,7 @@ func (e SysUser) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新系统用户管理
+// Update admin-更新系统用户管理
 func (e SysUser) Update(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserUpdateReq{}
@@ -127,7 +127,7 @@ func (e SysUser) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除系统用户管理
+// Delete admin-删除系统用户管理
 func (e SysUser) Delete(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserDeleteReq{}
@@ -150,7 +150,7 @@ func (e SysUser) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdateStatus sys-更新系统用户状态
+// UpdateStatus admin-更新系统用户状态
 func (e SysUser) UpdateStatus(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserStatusUpdateReq{}
@@ -186,7 +186,7 @@ func (e SysUser) UpdateStatus(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// ResetPwd sys-重置系统用户密码
+// ResetPwd admin-重置系统用户密码
 func (e SysUser) ResetPwd(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.ResetSysUserPwdReq{}
@@ -222,7 +222,7 @@ func (e SysUser) ResetPwd(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdateProfileAvatar sys-更新系统登录用户头像
+// UpdateProfileAvatar admin-更新系统登录用户头像
 func (e SysUser) UpdateProfileAvatar(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserAvatarUpdateReq{}
@@ -280,7 +280,7 @@ func (e SysUser) UpdateProfileAvatar(c *gin.Context) {
 	e.OK(req.Avatar, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdateProfilePwd sys-更新系统登录用户密码
+// UpdateProfilePwd admin-更新系统登录用户密码
 func (e SysUser) UpdateProfilePwd(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.UpdateSysUserPwdReq{}
@@ -314,7 +314,7 @@ func (e SysUser) UpdateProfilePwd(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetProfile sys-获取系统登录用户信息
+// GetProfile admin-获取系统登录用户信息
 func (e SysUser) GetProfile(c *gin.Context) {
 	s := service.SysUser{}
 	err := e.MakeContext(c).
@@ -340,7 +340,7 @@ func (e SysUser) GetProfile(c *gin.Context) {
 	e.OK(user, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdateProfile sys-更新系统登录用户信息
+// UpdateProfile admin-更新系统登录用户信息
 // 当前登录用户才能更新自己的信息
 // 受限的子账户登录时，为了数据安全，不能让用户通过Update方法/接口来修改自己账户
 func (e SysUser) UpdateProfile(c *gin.Context) {
@@ -374,7 +374,7 @@ func (e SysUser) UpdateProfile(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Login sys-登录系统
+// Login admin-登录系统
 func (e SysUser) Login(c *gin.Context) {
 	req := dto.LoginReq{}
 	s := service.SysUser{}
@@ -417,7 +417,7 @@ func (e SysUser) Login(c *gin.Context) {
 	s.LoginLogToDB(c, constant.UserLoginStatus, lang.MsgByCode(sysLang.SysUseLoginOpCode, e.Lang), userResp.Id)
 }
 
-// LogOut sys-退出系统
+// LogOut admin-退出系统
 func (e SysUser) LogOut(c *gin.Context) {
 	s := new(service.SysUser)
 	err := e.MakeContext(c).
@@ -438,7 +438,7 @@ func (e SysUser) LogOut(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(sysLang.SysUseLogoutSuccessCode, e.Lang))
 }
 
-// GenCaptcha sys-获取图形验证码
+// GenCaptcha admin-获取图形验证码
 func (e SysUser) GenCaptcha(c *gin.Context) {
 	err := e.MakeContext(c).Errors
 	if err != nil {

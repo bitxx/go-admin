@@ -30,7 +30,7 @@ type Monitor struct {
 	api.Api
 }
 
-// GetMonitor sys-获取服务器信息
+// GetMonitor admin-获取服务器信息
 func (e Monitor) GetMonitor(c *gin.Context) {
 	e.Context = c
 

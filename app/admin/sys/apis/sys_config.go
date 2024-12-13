@@ -20,7 +20,7 @@ type SysConfig struct {
 	api.Api
 }
 
-// GetPage sys-获取配置管理分页列表
+// GetPage admin-获取配置管理分页列表
 func (e SysConfig) GetPage(c *gin.Context) {
 	s := service.SysConfig{}
 	req := dto.SysConfigQueryReq{}
@@ -42,7 +42,7 @@ func (e SysConfig) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetList sys-获取系统配置全部列表
+// GetList admin-获取系统配置全部列表
 func (e SysConfig) GetList(c *gin.Context) {
 	req := dto.SysConfigQueryReq{}
 	s := service.SysConfig{}
@@ -72,7 +72,7 @@ func (e SysConfig) GetList(c *gin.Context) {
 	e.OK(mp, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取配置管理详情
+// Get admin-获取配置管理详情
 func (e SysConfig) Get(c *gin.Context) {
 	req := dto.SysConfigGetReq{}
 	s := service.SysConfig{}
@@ -94,7 +94,7 @@ func (e SysConfig) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-创建配置管理
+// Insert admin-创建配置管理
 func (e SysConfig) Insert(c *gin.Context) {
 	s := service.SysConfig{}
 	req := dto.SysConfigInsertReq{}
@@ -121,7 +121,7 @@ func (e SysConfig) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新配置管理
+// Update admin-更新配置管理
 func (e SysConfig) Update(c *gin.Context) {
 	s := service.SysConfig{}
 	req := dto.SysConfigUpdateReq{}
@@ -153,7 +153,7 @@ func (e SysConfig) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除配置管理
+// Delete admin-删除配置管理
 func (e SysConfig) Delete(c *gin.Context) {
 	s := service.SysConfig{}
 	req := dto.SysConfigDeleteReq{}
@@ -176,7 +176,7 @@ func (e SysConfig) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export sys-导出配置管理
+// Export admin-导出配置管理
 func (e SysConfig) Export(c *gin.Context) {
 	req := dto.SysConfigQueryReq{}
 	s := service.SysConfig{}
@@ -209,7 +209,7 @@ func (e SysConfig) Export(c *gin.Context) {
 	e.DownloadExcel(fileName, data)
 }
 
-// GetByKey sys-根据Key获取配置值
+// GetByKey admin-根据Key获取配置值
 func (e SysConfig) GetByKey(c *gin.Context) {
 	var s = new(service.SysConfig)
 	var req = new(dto.SysConfigByKeyReq)

@@ -17,7 +17,7 @@ type SysLoginLog struct {
 	service.Service
 }
 
-// NewSysLoginLogService sys-实例化登录日志
+// NewSysLoginLogService admin-实例化登录日志
 func NewSysLoginLogService(s *service.Service) *SysLoginLog {
 	var srv = new(SysLoginLog)
 	srv.Orm = s.Orm
@@ -25,7 +25,7 @@ func NewSysLoginLogService(s *service.Service) *SysLoginLog {
 	return srv
 }
 
-// GetPage sys-获取登录日志分页列表
+// GetPage admin-获取登录日志分页列表
 func (e *SysLoginLog) GetPage(c *dto.SysLoginLogQueryReq, p *middleware.DataPermission) ([]models.SysLoginLog, int64, int, error) {
 	var list []models.SysLoginLog
 	var data models.SysLoginLog
@@ -43,7 +43,7 @@ func (e *SysLoginLog) GetPage(c *dto.SysLoginLogQueryReq, p *middleware.DataPerm
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get sys-获取登录日志详情
+// Get admin-获取登录日志详情
 func (e *SysLoginLog) Get(id int64, p *middleware.DataPermission) (*models.SysLoginLog, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -61,7 +61,7 @@ func (e *SysLoginLog) Get(id int64, p *middleware.DataPermission) (*models.SysLo
 	return data, lang.SuccessCode, nil
 }
 
-// Delete sys-删除登录日志
+// Delete admin-删除登录日志
 func (e *SysLoginLog) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -77,7 +77,7 @@ func (e *SysLoginLog) Delete(ids []int64, p *middleware.DataPermission) (int, er
 	return lang.SuccessCode, nil
 }
 
-// Export sys-导出登录日志
+// Export admin-导出登录日志
 func (e *SysLoginLog) Export(list []models.SysLoginLog) ([]byte, error) {
 	//sheet名称
 	sheetName := "LoginLog"

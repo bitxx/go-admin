@@ -40,7 +40,7 @@ func (e *MsgCode) GetPage(c *dto.MsgCodeQueryReq, p *middleware.DataPermission) 
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get 获取验证码管理详情
+// Get plugins-获取验证码管理详情
 func (e *MsgCode) Get(id int64, p *middleware.DataPermission) (*models.MsgCode, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -74,7 +74,7 @@ func (e *MsgCode) QueryOne(queryCondition *dto.MsgCodeQueryReq, p *middleware.Da
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取验证码管理数据总数
+// Count admin-获取验证码管理数据总数
 func (e *MsgCode) Count(queryCondition *dto.MsgCodeQueryReq) (int64, int, error) {
 	var err error
 	var count int64

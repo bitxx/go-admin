@@ -78,7 +78,7 @@ func (e *ContentAnnouncement) QueryOne(queryCondition *dto.ContentAnnouncementQu
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取公告管理数据总数
+// Count admin-获取公告管理数据总数
 func (e *ContentAnnouncement) Count(queryCondition *dto.ContentAnnouncementQueryReq) (int64, int, error) {
 	var err error
 	var count int64

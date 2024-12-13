@@ -20,7 +20,7 @@ type SysPost struct {
 	service.Service
 }
 
-// NewSysPostService sys-实例化岗位管理
+// NewSysPostService admin-实例化岗位管理
 func NewSysPostService(s *service.Service) *SysPost {
 	var srv = new(SysPost)
 	srv.Orm = s.Orm
@@ -28,7 +28,7 @@ func NewSysPostService(s *service.Service) *SysPost {
 	return srv
 }
 
-// GetTotalList sys-获取岗位管理全部列表
+// GetTotalList admin-获取岗位管理全部列表
 func (e *SysPost) GetTotalList(c *dto.SysPostQueryReq, p *middleware.DataPermission) ([]models.SysPost, int64, int, error) {
 	var list []models.SysPost
 	var data models.SysPost
@@ -45,7 +45,7 @@ func (e *SysPost) GetTotalList(c *dto.SysPostQueryReq, p *middleware.DataPermiss
 	return list, count, lang.SuccessCode, nil
 }
 
-// GetPage sys-获取岗位管理分页列表
+// GetPage admin-获取岗位管理分页列表
 func (e *SysPost) GetPage(c *dto.SysPostQueryReq, p *middleware.DataPermission) ([]models.SysPost, int64, int, error) {
 	var list []models.SysPost
 	var data models.SysPost
@@ -63,7 +63,7 @@ func (e *SysPost) GetPage(c *dto.SysPostQueryReq, p *middleware.DataPermission) 
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get sys-获取岗位管理详情
+// Get admin-获取岗位管理详情
 func (e *SysPost) Get(id int64, p *middleware.DataPermission) (*models.SysPost, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -81,7 +81,7 @@ func (e *SysPost) Get(id int64, p *middleware.DataPermission) (*models.SysPost, 
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取岗位管理一条记录
+// QueryOne admin-获取岗位管理一条记录
 func (e *SysPost) QueryOne(queryCondition *dto.SysPostQueryReq, p *middleware.DataPermission) (*models.SysPost, int, error) {
 	data := &models.SysPost{}
 	err := e.Orm.Model(&models.SysPost{}).
@@ -98,7 +98,7 @@ func (e *SysPost) QueryOne(queryCondition *dto.SysPostQueryReq, p *middleware.Da
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取岗位管理数据总数
+// Count admin-获取岗位管理数据总数
 func (e *SysPost) Count(c *dto.SysPostQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -116,7 +116,7 @@ func (e *SysPost) Count(c *dto.SysPostQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-新增岗位管理
+// Insert admin-新增岗位管理
 func (e *SysPost) Insert(c *dto.SysPostInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -163,7 +163,7 @@ func (e *SysPost) Insert(c *dto.SysPostInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新岗位管理
+// Update admin-更新岗位管理
 func (e *SysPost) Update(c *dto.SysPostUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -226,7 +226,7 @@ func (e *SysPost) Update(c *dto.SysPostUpdateReq, p *middleware.DataPermission) 
 	return false, lang.SuccessCode, nil
 }
 
-// Delete sys-删除岗位管理
+// Delete admin-删除岗位管理
 func (e *SysPost) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -255,7 +255,7 @@ func (e *SysPost) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 	return lang.SuccessCode, nil
 }
 
-// Export sys-导出岗位管理
+// Export admin-导出岗位管理
 func (e *SysPost) Export(list []models.SysPost) ([]byte, error) {
 	//sheet名称
 	sheetName := "Post"

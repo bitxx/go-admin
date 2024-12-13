@@ -16,7 +16,7 @@ type SysOperLog struct {
 	service.Service
 }
 
-// NewSysOperLogService sys-实例化操作日志
+// NewSysOperLogService admin-实例化操作日志
 func NewSysOperLogService(s *service.Service) *SysOperLog {
 	var srv = new(SysOperLog)
 	srv.Orm = s.Orm
@@ -24,7 +24,7 @@ func NewSysOperLogService(s *service.Service) *SysOperLog {
 	return srv
 }
 
-// GetPage sys-获取操作日志分页列表
+// GetPage admin-获取操作日志分页列表
 func (e *SysOperLog) GetPage(c *dto.SysOperLogQueryReq, p *middleware.DataPermission) ([]models.SysOperLog, int64, int, error) {
 	var list []models.SysOperLog
 	var data models.SysOperLog
@@ -42,7 +42,7 @@ func (e *SysOperLog) GetPage(c *dto.SysOperLogQueryReq, p *middleware.DataPermis
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get sys-获取操作日志详情
+// Get admin-获取操作日志详情
 func (e *SysOperLog) Get(id int64, p *middleware.DataPermission) (*models.SysOperLog, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -60,7 +60,7 @@ func (e *SysOperLog) Get(id int64, p *middleware.DataPermission) (*models.SysOpe
 	return data, lang.SuccessCode, nil
 }
 
-// Delete sys-删除操作日志
+// Delete admin-删除操作日志
 func (e *SysOperLog) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -76,7 +76,7 @@ func (e *SysOperLog) Delete(ids []int64, p *middleware.DataPermission) (int, err
 	return lang.SuccessCode, nil
 }
 
-// Export sys-导出操作日志
+// Export admin-导出操作日志
 func (e *SysOperLog) Export(list []models.SysOperLog) ([]byte, error) {
 	//sheet名称
 	sheetName := "OperLog"

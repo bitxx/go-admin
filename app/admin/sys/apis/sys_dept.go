@@ -16,7 +16,7 @@ type SysDept struct {
 	api.Api
 }
 
-// GetTreeList sys-获取部门树列表
+// GetTreeList admin-获取部门树列表
 func (e SysDept) GetTreeList(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptQueryReq{}
@@ -37,7 +37,7 @@ func (e SysDept) GetTreeList(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取部门管理详情
+// Get admin-获取部门管理详情
 func (e SysDept) Get(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptGetReq{}
@@ -59,7 +59,7 @@ func (e SysDept) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-添加部门管理
+// Insert admin-添加部门管理
 func (e SysDept) Insert(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptInsertReq{}
@@ -86,7 +86,7 @@ func (e SysDept) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新部门管理
+// Update admin-更新部门管理
 func (e SysDept) Update(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptUpdateReq{}
@@ -118,7 +118,7 @@ func (e SysDept) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除部门管理
+// Delete admin-删除部门管理
 func (e SysDept) Delete(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptDeleteReq{}
@@ -141,7 +141,7 @@ func (e SysDept) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetTree sys-部门管理左侧树
+// GetTree admin-部门管理左侧树
 func (e SysDept) GetTree(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptQueryReq{}
@@ -162,7 +162,7 @@ func (e SysDept) GetTree(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetDeptTreeByRole sys-根据角色获取部门
+// GetDeptTreeByRole admin-根据角色获取部门
 func (e SysDept) GetDeptTreeByRole(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SelectDeptRole{}

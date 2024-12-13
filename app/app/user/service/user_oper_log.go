@@ -124,7 +124,7 @@ func (e *UserOperLog) QueryOne(queryCondition *dto.UserOperLogQueryReq, p *middl
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取用户操作记录数据总数
+// Count admin-获取用户操作记录数据总数
 func (e *UserOperLog) Count(queryCondition *dto.UserOperLogQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -141,7 +141,7 @@ func (e *UserOperLog) Count(queryCondition *dto.UserOperLogQueryReq) (int64, int
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-新增用户操作记录
+// Insert admin-新增用户操作记录
 func (e *UserOperLog) Insert(c *dto.UserOperLogInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 || c.UserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)

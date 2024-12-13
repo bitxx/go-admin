@@ -16,7 +16,7 @@ type SysOperLog struct {
 	api.Api
 }
 
-// GetPage sys-获取操作日志分页列表
+// GetPage admin-获取操作日志分页列表
 func (e SysOperLog) GetPage(c *gin.Context) {
 	s := service.SysOperLog{}
 	req := dto.SysOperLogQueryReq{}
@@ -38,7 +38,7 @@ func (e SysOperLog) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取操作日志详情
+// Get admin-获取操作日志详情
 func (e SysOperLog) Get(c *gin.Context) {
 	s := new(service.SysOperLog)
 	req := dto.SysOperLogGetReq{}
@@ -60,7 +60,7 @@ func (e SysOperLog) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除操作日志
+// Delete admin-删除操作日志
 func (e SysOperLog) Delete(c *gin.Context) {
 	s := new(service.SysOperLog)
 	req := dto.SysOperLogDeleteReq{}
@@ -83,7 +83,7 @@ func (e SysOperLog) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export sys-导出操作日志
+// Export admin-导出操作日志
 func (e SysOperLog) Export(c *gin.Context) {
 	req := dto.SysOperLogQueryReq{}
 	s := service.SysOperLog{}

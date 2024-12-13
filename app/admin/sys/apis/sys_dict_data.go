@@ -16,7 +16,7 @@ type SysDictData struct {
 	api.Api
 }
 
-// GetPage sys-获取字典数据分页列表
+// GetPage admin-获取字典数据分页列表
 func (e SysDictData) GetPage(c *gin.Context) {
 	s := service.SysDictData{}
 	req := dto.SysDictDataQueryReq{}
@@ -38,7 +38,7 @@ func (e SysDictData) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取字典数据详情
+// Get admin-获取字典数据详情
 func (e SysDictData) Get(c *gin.Context) {
 	s := service.SysDictData{}
 	req := dto.SysDictDataGetReq{}
@@ -60,7 +60,7 @@ func (e SysDictData) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-新增字典数据
+// Insert admin-新增字典数据
 func (e SysDictData) Insert(c *gin.Context) {
 	s := service.SysDictData{}
 	req := dto.SysDictDataInsertReq{}
@@ -87,7 +87,7 @@ func (e SysDictData) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新字典数据
+// Update admin-更新字典数据
 func (e SysDictData) Update(c *gin.Context) {
 	s := service.SysDictData{}
 	req := dto.SysDictDataUpdateReq{}
@@ -119,7 +119,7 @@ func (e SysDictData) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除字典数据
+// Delete admin-删除字典数据
 func (e SysDictData) Delete(c *gin.Context) {
 	s := service.SysDictData{}
 	req := dto.SysDictDataDeleteReq{}
@@ -141,7 +141,7 @@ func (e SysDictData) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetList sys-获取字典数据全部列表
+// GetList admin-获取字典数据全部列表
 func (e SysDictData) GetList(c *gin.Context) {
 	s := service.SysDictData{}
 	req := dto.SysDictDataQueryReq{}

@@ -99,7 +99,7 @@ func (e *FilemgrApp) QueryOne(queryCondition *dto.FilemgrAppQueryReq, p *middlew
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取APP管理数据总数
+// Count admin-获取APP管理数据总数
 func (e *FilemgrApp) Count(queryCondition *dto.FilemgrAppQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -257,7 +257,7 @@ func (e *FilemgrApp) Delete(ids []int64, p *middleware.DataPermission) (int, err
 	return lang.SuccessCode, nil
 }
 
-// GetSingleUploadFileInfo sys-获取APP管理单个上传文件信息
+// GetSingleUploadFileInfo admin-获取APP管理单个上传文件信息
 func (e *FilemgrApp) GetSingleUploadFileInfo(form *multipart.Form, file *multipart.FileHeader, dst *string) (int, error) {
 	if len(form.File) != 1 {
 		return fLang.AppSelectOneFileUploadCode, lang.MsgErr(fLang.AppSelectOneFileUploadCode, e.Lang)

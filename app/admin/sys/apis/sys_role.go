@@ -19,7 +19,7 @@ type SysRole struct {
 	api.Api
 }
 
-// GetList sys-获取角色管理全部列表
+// GetList admin-获取角色管理全部列表
 func (e SysRole) GetList(c *gin.Context) {
 	s := service.SysRole{}
 	req := dto.SysRoleQueryReq{}
@@ -41,7 +41,7 @@ func (e SysRole) GetList(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetPage sys-获取角色管理分页列表
+// GetPage admin-获取角色管理分页列表
 func (e SysRole) GetPage(c *gin.Context) {
 	s := service.SysRole{}
 	req := dto.SysRoleQueryReq{}
@@ -63,7 +63,7 @@ func (e SysRole) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取角色管理详情
+// Get admin-获取角色管理详情
 func (e SysRole) Get(c *gin.Context) {
 	s := service.SysRole{}
 	req := dto.SysRoleGetReq{}
@@ -85,7 +85,7 @@ func (e SysRole) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-创建角色管理
+// Insert admin-创建角色管理
 func (e SysRole) Insert(c *gin.Context) {
 	s := service.SysRole{}
 	req := dto.SysRoleInsertReq{}
@@ -114,7 +114,7 @@ func (e SysRole) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新角色管理
+// Update admin-更新角色管理
 func (e SysRole) Update(c *gin.Context) {
 	s := service.SysRole{}
 	req := dto.SysRoleUpdateReq{}
@@ -145,7 +145,7 @@ func (e SysRole) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除角色管理
+// Delete admin-删除角色管理
 func (e SysRole) Delete(c *gin.Context) {
 	s := new(service.SysRole)
 	req := dto.SysRoleDeleteReq{}
@@ -168,7 +168,7 @@ func (e SysRole) Delete(c *gin.Context) {
 	e.OK(req.Ids, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdateStatus sys-更新角色管理状态
+// UpdateStatus admin-更新角色管理状态
 func (e SysRole) UpdateStatus(c *gin.Context) {
 	s := service.SysRole{}
 	req := dto.UpdateStatusReq{}
@@ -195,7 +195,7 @@ func (e SysRole) UpdateStatus(c *gin.Context) {
 	e.OK(req.RoleId, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// UpdateDataScope sys-更新角色管理数据权限
+// UpdateDataScope admin-更新角色管理数据权限
 func (e SysRole) UpdateDataScope(c *gin.Context) {
 	s := service.SysRole{}
 	req := dto.RoleDataScopeReq{}

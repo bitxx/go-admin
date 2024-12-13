@@ -22,7 +22,7 @@ type SysRole struct {
 	service.Service
 }
 
-// NewSysRoleService sys-实例化角色管理
+// NewSysRoleService admin-实例化角色管理
 func NewSysRoleService(s *service.Service) *SysRole {
 	var srv = new(SysRole)
 	srv.Orm = s.Orm
@@ -30,7 +30,7 @@ func NewSysRoleService(s *service.Service) *SysRole {
 	return srv
 }
 
-// GetList sys-获取角色管理全部列表
+// GetList admin-获取角色管理全部列表
 func (e *SysRole) GetList(c *dto.SysRoleQueryReq, p *middleware.DataPermission) ([]models.SysRole, int64, int, error) {
 	var list []models.SysRole
 	var data models.SysRole
@@ -47,7 +47,7 @@ func (e *SysRole) GetList(c *dto.SysRoleQueryReq, p *middleware.DataPermission) 
 	return list, count, lang.SuccessCode, nil
 }
 
-// GetPage sys-获取角色管理分页列表
+// GetPage admin-获取角色管理分页列表
 func (e *SysRole) GetPage(c *dto.SysRoleQueryReq, p *middleware.DataPermission) ([]models.SysRole, int64, int, error) {
 	var list []models.SysRole
 	var data models.SysRole
@@ -65,7 +65,7 @@ func (e *SysRole) GetPage(c *dto.SysRoleQueryReq, p *middleware.DataPermission) 
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get sys-获取角色管理详情
+// Get admin-获取角色管理详情
 func (e *SysRole) Get(id int64, p *middleware.DataPermission) (*models.SysRole, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -94,7 +94,7 @@ func (e *SysRole) Get(id int64, p *middleware.DataPermission) (*models.SysRole, 
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取角色管理一条记录
+// QueryOne admin-获取角色管理一条记录
 func (e *SysRole) QueryOne(queryCondition *dto.SysRoleQueryReq, p *middleware.DataPermission) (*models.SysRole, int, error) {
 	data := &models.SysRole{}
 	err := e.Orm.Model(&models.SysRole{}).
@@ -111,7 +111,7 @@ func (e *SysRole) QueryOne(queryCondition *dto.SysRoleQueryReq, p *middleware.Da
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取角色管理数据总数
+// Count admin-获取角色管理数据总数
 func (e *SysRole) Count(c *dto.SysRoleQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -129,7 +129,7 @@ func (e *SysRole) Count(c *dto.SysRoleQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-创建角色管理
+// Insert admin-创建角色管理
 func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -208,7 +208,7 @@ func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (in
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新角色管理
+// Update admin-更新角色管理
 func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -279,7 +279,7 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 	return lang.SuccessCode, nil
 }
 
-// Delete sys-删除角色管理
+// Delete admin-删除角色管理
 func (e *SysRole) Delete(ids []int64) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -323,7 +323,7 @@ func (e *SysRole) Delete(ids []int64) (int, error) {
 	return lang.SuccessCode, nil
 }
 
-// GetMenuIdsByRole sys-获取角色对应的菜单编号集合
+// GetMenuIdsByRole admin-获取角色对应的菜单编号集合
 func (e *SysRole) GetMenuIdsByRole(roleId int64) ([]int64, int, error) {
 	if roleId <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -341,7 +341,7 @@ func (e *SysRole) GetMenuIdsByRole(roleId int64) ([]int64, int, error) {
 	return menuIds, lang.SuccessCode, nil
 }
 
-// GetDeptIdsByRole sys-获取角色对应的的部门编号集合
+// GetDeptIdsByRole admin-获取角色对应的的部门编号集合
 func (e *SysRole) GetDeptIdsByRole(roleId int64) ([]int64, int, error) {
 	deptIds := make([]int64, 0)
 	deptList := make([]dto.SysRoleDeptResp, 0)
@@ -359,7 +359,7 @@ func (e *SysRole) GetDeptIdsByRole(roleId int64) ([]int64, int, error) {
 	return deptIds, lang.SuccessCode, nil
 }
 
-// UpdateDataScope sys-更新角色管理数据权限
+// UpdateDataScope admin-更新角色管理数据权限
 func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (int, error) {
 	var err error
 	e.Orm = e.Orm.Begin()
@@ -391,7 +391,7 @@ func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (int, error) {
 	return lang.SuccessCode, nil
 }
 
-// UpdateStatus sys-更新角色管理状态
+// UpdateStatus admin-更新角色管理状态
 func (e *SysRole) UpdateStatus(c *dto.UpdateStatusReq) (int, error) {
 	var err error
 	tx := e.Orm.Debug().Begin()
@@ -415,7 +415,7 @@ func (e *SysRole) UpdateStatus(c *dto.UpdateStatusReq) (int, error) {
 	return lang.SuccessCode, nil
 }
 
-// GetWithName sys-根据角色名获取角色详情
+// GetWithName admin-根据角色名获取角色详情
 func (e *SysRole) GetWithName(d *dto.SysRoleQueryReq) (*models.SysRole, int, error) {
 	model := &models.SysRole{}
 	err := e.Orm.Where("role_name = ?", d.RoleName).First(model).Error
@@ -437,7 +437,7 @@ func (e *SysRole) GetWithName(d *dto.SysRoleQueryReq) (*models.SysRole, int, err
 	return model, lang.SuccessCode, nil
 }
 
-// GetPermissionsByRoleId sys-根据角色获取权限
+// GetPermissionsByRoleId admin-根据角色获取权限
 func (e *SysRole) GetPermissionsByRoleId(roleId int64) ([]string, int, error) {
 	permissions := make([]string, 0)
 	model := models.SysRole{}

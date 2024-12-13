@@ -18,7 +18,7 @@ type SysApi struct {
 	api.Api
 }
 
-// GetPage sys-获取接口管理分页列表
+// GetPage admin-获取接口管理分页列表
 func (e SysApi) GetPage(c *gin.Context) {
 	s := service.SysApi{}
 	req := dto.SysApiQueryReq{}
@@ -40,7 +40,7 @@ func (e SysApi) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetList sys-获取接口管理全部列表
+// GetList admin-获取接口管理全部列表
 func (e SysApi) GetList(c *gin.Context) {
 	s := service.SysApi{}
 	req := dto.SysApiQueryReq{}
@@ -62,7 +62,7 @@ func (e SysApi) GetList(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取接口管理详情
+// Get admin-获取接口管理详情
 func (e SysApi) Get(c *gin.Context) {
 	req := dto.SysApiGetReq{}
 	s := service.SysApi{}
@@ -84,7 +84,7 @@ func (e SysApi) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新接口管理
+// Update admin-更新接口管理
 func (e SysApi) Update(c *gin.Context) {
 	req := dto.SysApiUpdateReq{}
 	s := service.SysApi{}
@@ -116,7 +116,7 @@ func (e SysApi) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除接口管理
+// Delete admin-删除接口管理
 func (e SysApi) Delete(c *gin.Context) {
 	req := dto.SysApiDeleteReq{}
 	s := service.SysApi{}
@@ -139,7 +139,7 @@ func (e SysApi) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export sys-导出接口管理
+// Export admin-导出接口管理
 func (e SysApi) Export(c *gin.Context) {
 	req := dto.SysApiQueryReq{}
 	s := service.SysApi{}
@@ -172,7 +172,7 @@ func (e SysApi) Export(c *gin.Context) {
 	e.DownloadExcel(fileName, data)
 }
 
-// Sync sys-同步接口数据
+// Sync admin-同步接口数据
 func (e SysApi) Sync(c *gin.Context) {
 	s := service.SysApi{}
 	err := e.MakeContext(c).

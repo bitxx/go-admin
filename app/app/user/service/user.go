@@ -158,7 +158,7 @@ func (e *User) queryMaxTreeSort(queryCondition *dto.UserQueryReq) (int64, int, e
 	return maxSort, lang.SuccessCode, nil
 }
 
-// Count sys-获取用户管理数据总数
+// Count admin-获取用户管理数据总数
 func (e *User) Count(queryCondition *dto.UserQueryReq) (int64, int, error) {
 	var err error
 	var count int64

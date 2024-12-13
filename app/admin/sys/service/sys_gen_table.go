@@ -26,7 +26,7 @@ type SysGenTable struct {
 	service.Service
 }
 
-// NewSysGenTableService sys-实例化表管理
+// NewSysGenTableService admin-实例化表管理
 func NewSysGenTableService(s *service.Service) *SysGenTable {
 	var srv = new(SysGenTable)
 	srv.Orm = s.Orm
@@ -34,7 +34,7 @@ func NewSysGenTableService(s *service.Service) *SysGenTable {
 	return srv
 }
 
-// GetPage sys-获取表管理分页列表
+// GetPage admin-获取表管理分页列表
 func (e *SysGenTable) GetPage(c *dto.SysGenTableQueryReq, p *middleware.DataPermission) ([]models.SysGenTable, int64, int, error) {
 	var list []models.SysGenTable
 	var data models.SysGenTable
@@ -52,7 +52,7 @@ func (e *SysGenTable) GetPage(c *dto.SysGenTableQueryReq, p *middleware.DataPerm
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get sys-获取表管理详情
+// Get admin-获取表管理详情
 func (e *SysGenTable) Get(id int64, p *middleware.DataPermission) (*models.SysGenTable, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -70,7 +70,7 @@ func (e *SysGenTable) Get(id int64, p *middleware.DataPermission) (*models.SysGe
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取表管理一条记录
+// QueryOne admin-获取表管理一条记录
 func (e *SysGenTable) QueryOne(queryCondition *dto.SysGenTableQueryReq, p *middleware.DataPermission) (*models.SysGenTable, int, error) {
 	data := &models.SysGenTable{}
 	err := e.Orm.Model(&models.SysGenTable{}).
@@ -87,7 +87,7 @@ func (e *SysGenTable) QueryOne(queryCondition *dto.SysGenTableQueryReq, p *middl
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取表管理数据总数
+// Count admin-获取表管理数据总数
 func (e *SysGenTable) Count(c *dto.SysGenTableQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -105,7 +105,7 @@ func (e *SysGenTable) Count(c *dto.SysGenTableQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-新增表管理
+// Insert admin-新增表管理
 func (e *SysGenTable) Insert(c *dto.SysGenTableInsertReq) (int, error) {
 	if len(c.DbTableNames) <= 0 {
 		return sysLang.SysGenTableSelectCode, lang.MsgErr(sysLang.SysGenTableSelectCode, e.Lang)
@@ -136,7 +136,7 @@ func (e *SysGenTable) Insert(c *dto.SysGenTableInsertReq) (int, error) {
 	return lang.SuccessCode, nil
 }
 
-// Update sys-更新表管理
+// Update admin-更新表管理
 func (e *SysGenTable) Update(c *dto.SysGenTableUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -205,7 +205,7 @@ func (e *SysGenTable) Update(c *dto.SysGenTableUpdateReq, p *middleware.DataPerm
 	return isUpdate, lang.SuccessCode, nil
 }
 
-// Delete sys-删除表管理
+// Delete admin-删除表管理
 func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -236,7 +236,7 @@ func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, er
 	return lang.SuccessCode, nil
 }
 
-// GetDBTablePage sys-获取表管理的DB表分页列表
+// GetDBTablePage admin-获取表管理的DB表分页列表
 func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, int64, int, error) {
 	var list []models.DBTable
 	var data models.DBTable
@@ -266,7 +266,7 @@ func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, 
 	return respList, count, lang.SuccessCode, nil
 }
 
-// genTables sys-根据表名称生成表结构集合
+// genTables admin-根据表名称生成表结构集合
 func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, int, error) {
 	if len(dbTableNames) <= 0 {
 		return nil, sysLang.SysGenTableSelectCode, lang.MsgErr(sysLang.SysGenTableSelectCode, e.Lang)
@@ -382,7 +382,7 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 	return sysTables, lang.SuccessCode, nil
 }
 
-// getDBTableList sys-从数据库中获取表指定表的完整结构
+// getDBTableList admin-从数据库中获取表指定表的完整结构
 func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int, error) {
 	if len(tableNames) <= 0 {
 		return nil, sysLang.SysGenTableSelectCode, lang.MsgErr(sysLang.SysGenTableSelectCode, e.Lang)
@@ -398,7 +398,7 @@ func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int
 	return data, lang.SuccessCode, nil
 }
 
-// Preview sys-预览表管理的代码页面
+// Preview admin-预览表管理的代码页面
 func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPermission) ([]dto.TemplateResp, int, error) {
 	if c.Id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -487,7 +487,7 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 	return resp, lang.SuccessCode, nil
 }
 
-// GenCode sys-生成表管理的代码
+// GenCode admin-生成表管理的代码
 func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPermission) (*bytes.Buffer, int, error) {
 	if c.Id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -522,7 +522,7 @@ func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 	return nil, lang.SuccessCode, nil
 }
 
-// GenDB sys-表管理中生成菜单数据
+// GenDB admin-表管理中生成菜单数据
 func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermission) (int, error) {
 	if c.Id <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)

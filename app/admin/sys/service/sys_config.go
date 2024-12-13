@@ -22,7 +22,7 @@ type SysConfig struct {
 	service.Service
 }
 
-// NewSysConfigService sys-实例化配置管理
+// NewSysConfigService admin-实例化配置管理
 func NewSysConfigService(s *service.Service) *SysConfig {
 	var srv = new(SysConfig)
 	srv.Orm = s.Orm
@@ -30,7 +30,7 @@ func NewSysConfigService(s *service.Service) *SysConfig {
 	return srv
 }
 
-// GetPage sys-获取配置管理分页列表
+// GetPage admin-获取配置管理分页列表
 func (e *SysConfig) GetPage(c *dto.SysConfigQueryReq, p *middleware.DataPermission) ([]models.SysConfig, int64, int, error) {
 	var list []models.SysConfig
 	var data models.SysConfig
@@ -48,7 +48,7 @@ func (e *SysConfig) GetPage(c *dto.SysConfigQueryReq, p *middleware.DataPermissi
 	return list, count, lang.SuccessCode, nil
 }
 
-// GetList sys-获取系统配置全部列表
+// GetList admin-获取系统配置全部列表
 func (e *SysConfig) GetList(c *dto.SysConfigQueryReq) ([]models.SysConfig, int, error) {
 	var list []models.SysConfig
 	var err error
@@ -61,7 +61,7 @@ func (e *SysConfig) GetList(c *dto.SysConfigQueryReq) ([]models.SysConfig, int, 
 	return list, lang.SuccessCode, nil
 }
 
-// Get sys-获取配置管理详情
+// Get admin-获取配置管理详情
 func (e *SysConfig) Get(id int64, p *middleware.DataPermission) (*models.SysConfig, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -79,7 +79,7 @@ func (e *SysConfig) Get(id int64, p *middleware.DataPermission) (*models.SysConf
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取配置管理一条记录
+// QueryOne admin-获取配置管理一条记录
 func (e *SysConfig) QueryOne(queryCondition *dto.SysConfigQueryReq, p *middleware.DataPermission) (*models.SysConfig, int, error) {
 	data := &models.SysConfig{}
 	err := e.Orm.Model(&models.SysConfig{}).
@@ -96,7 +96,7 @@ func (e *SysConfig) QueryOne(queryCondition *dto.SysConfigQueryReq, p *middlewar
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取配置管理数据总数
+// Count admin-获取配置管理数据总数
 func (e *SysConfig) Count(c *dto.SysConfigQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -114,7 +114,7 @@ func (e *SysConfig) Count(c *dto.SysConfigQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-创建配置管理
+// Insert admin-创建配置管理
 func (e *SysConfig) Insert(c *dto.SysConfigInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -164,7 +164,7 @@ func (e *SysConfig) Insert(c *dto.SysConfigInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新配置管理
+// Update admin-更新配置管理
 func (e *SysConfig) Update(c *dto.SysConfigUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -233,7 +233,7 @@ func (e *SysConfig) Update(c *dto.SysConfigUpdateReq, p *middleware.DataPermissi
 	return false, lang.SuccessCode, nil
 }
 
-// Delete sys-删除配置管理
+// Delete admin-删除配置管理
 func (e *SysConfig) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -249,7 +249,7 @@ func (e *SysConfig) Delete(ids []int64, p *middleware.DataPermission) (int, erro
 	return lang.SuccessCode, nil
 }
 
-// Export sys-导出配置管理
+// Export admin-导出配置管理
 func (e *SysConfig) Export(list []models.SysConfig) ([]byte, error) {
 	//sheet名称
 	sheetName := "config"
@@ -276,7 +276,7 @@ func (e *SysConfig) Export(list []models.SysConfig) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-// GetByKey sys-根据Key获取配置
+// GetByKey admin-根据Key获取配置
 func (e *SysConfig) GetByKey(c *dto.SysConfigByKeyReq) (*dto.SysConfigByKeyResp, int, error) {
 	var err error
 	var data models.SysConfig
@@ -291,7 +291,7 @@ func (e *SysConfig) GetByKey(c *dto.SysConfigByKeyReq) (*dto.SysConfigByKeyResp,
 	return resp, lang.SuccessCode, nil
 }
 
-// GetWithKeyStr sys-使用字符串key获取配置
+// GetWithKeyStr admin-使用字符串key获取配置
 func (e *SysConfig) GetWithKeyStr(key string) (string, int, error) {
 	query := dto.SysConfigByKeyReq{}
 	query.ConfigKey = key
@@ -303,7 +303,7 @@ func (e *SysConfig) GetWithKeyStr(key string) (string, int, error) {
 	return resp.ConfigValue, lang.SuccessCode, nil
 }
 
-// GetWithKeyInt sys-使用数字key获取配置
+// GetWithKeyInt admin-使用数字key获取配置
 func (e *SysConfig) GetWithKeyInt(key string) (int, int, error) {
 	query := dto.SysConfigByKeyReq{}
 	query.ConfigKey = key
@@ -319,7 +319,7 @@ func (e *SysConfig) GetWithKeyInt(key string) (int, int, error) {
 	return int(value), lang.SuccessCode, nil
 }
 
-// GetWithKeyDecimal sys-使用字符串key获取配置，返回decimal
+// GetWithKeyDecimal admin-使用字符串key获取配置，返回decimal
 func (e *SysConfig) GetWithKeyDecimal(key string) (*decimal.Decimal, int, error) {
 	resultValue, respCode, err := e.GetWithKeyStr(key)
 	if err != nil {

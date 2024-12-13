@@ -79,7 +79,7 @@ func (e *UserCountryCode) QueryOne(queryCondition *dto.UserCountryCodeQueryReq, 
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取国家区号管理数据总数
+// Count admin-获取国家区号管理数据总数
 func (e *UserCountryCode) Count(queryCondition *dto.UserCountryCodeQueryReq) (int64, int, error) {
 	var err error
 	var count int64

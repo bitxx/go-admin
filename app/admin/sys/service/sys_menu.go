@@ -23,7 +23,7 @@ type SysMenu struct {
 	service.Service
 }
 
-// NewSysMenuService sys-实例化菜单管理
+// NewSysMenuService admin-实例化菜单管理
 func NewSysMenuService(s *service.Service) *SysMenu {
 	var srv = new(SysMenu)
 	srv.Orm = s.Orm
@@ -31,7 +31,7 @@ func NewSysMenuService(s *service.Service) *SysMenu {
 	return srv
 }
 
-// GetTreeList sys-获取菜单管理树
+// GetTreeList admin-获取菜单管理树
 func (e *SysMenu) GetTreeList(c *dto.SysMenuQueryReq) ([]*models.SysMenu, int, error) {
 	list, respCode, err := e.GetList(c, false)
 	if err != nil {
@@ -44,7 +44,7 @@ func (e *SysMenu) GetTreeList(c *dto.SysMenuQueryReq) ([]*models.SysMenu, int, e
 	), lang.SuccessCode, nil
 }
 
-// Get sys-获取菜单管理详情
+// Get admin-获取菜单管理详情
 func (e *SysMenu) Get(id int64, p *middleware.DataPermission) (*models.SysMenu, int, error) {
 	if id <= 0 {
 		//id<=0,表示为顶级根菜单
@@ -68,7 +68,7 @@ func (e *SysMenu) Get(id int64, p *middleware.DataPermission) (*models.SysMenu, 
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取菜单管理一条记录
+// QueryOne admin-获取菜单管理一条记录
 func (e *SysMenu) QueryOne(queryCondition *dto.SysMenuQueryReq, p *middleware.DataPermission) (*models.SysMenu, int, error) {
 	data := &models.SysMenu{}
 	err := e.Orm.Model(&models.SysMenu{}).
@@ -85,7 +85,7 @@ func (e *SysMenu) QueryOne(queryCondition *dto.SysMenuQueryReq, p *middleware.Da
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取菜单管理数据总数
+// Count admin-获取菜单管理数据总数
 func (e *SysMenu) Count(c *dto.SysMenuQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -103,7 +103,7 @@ func (e *SysMenu) Count(c *dto.SysMenuQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert sys-创建菜单管理
+// Insert admin-创建菜单管理
 func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	if c.ParentId < 0 {
 		return 0, sysLang.SysMenuParentIdEmptyCode, lang.MsgErr(sysLang.SysMenuParentIdEmptyCode, e.Lang)
@@ -166,7 +166,7 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新菜单管理
+// Update admin-更新菜单管理
 func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -245,7 +245,7 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	return true, lang.SuccessCode, nil
 }
 
-// Delete sys-删除菜单管理
+// Delete admin-删除菜单管理
 func (e *SysMenu) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -296,7 +296,7 @@ func (e *SysMenu) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 	return lang.SuccessCode, nil
 }
 
-// GetList sys-获取菜单管理全部列表
+// GetList admin-获取菜单管理全部列表
 func (e *SysMenu) GetList(c *dto.SysMenuQueryReq, withApi bool) ([]models.SysMenu, int, error) {
 	var list []models.SysMenu
 	var err error
@@ -317,7 +317,7 @@ func (e *SysMenu) GetList(c *dto.SysMenuQueryReq, withApi bool) ([]models.SysMen
 	return list, lang.SuccessCode, nil
 }
 
-// GetMenuRole sys-根据角色获取菜单树使用
+// GetMenuRole admin-根据角色获取菜单树使用
 func (e *SysMenu) GetMenuRole(roleKey string) ([]*models.SysMenu, int, error) {
 	menus, respCode, err := e.getByRoleKey(roleKey)
 	return tree.GenTree(&menus,
@@ -327,7 +327,7 @@ func (e *SysMenu) GetMenuRole(roleKey string) ([]*models.SysMenu, int, error) {
 	), respCode, err
 }
 
-// getByRoleKey sys-内部方法，根据角色获取菜单树使用
+// getByRoleKey admin-内部方法，根据角色获取菜单树使用
 func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 	var menuList []models.SysMenu
 	var err error

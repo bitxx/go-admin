@@ -16,7 +16,7 @@ type SysGenColumn struct {
 	service.Service
 }
 
-// NewSysColumnsService sys-实例化表字段管理
+// NewSysColumnsService admin-实例化表字段管理
 func NewSysColumnsService(s *service.Service) *SysGenColumn {
 	var srv = new(SysGenColumn)
 	srv.Orm = s.Orm
@@ -24,7 +24,7 @@ func NewSysColumnsService(s *service.Service) *SysGenColumn {
 	return srv
 }
 
-// GetList sys-获取表字段全部列表
+// GetList admin-获取表字段全部列表
 func (e *SysGenColumn) GetList(c *dto.SysGenColumnQueryReq, p *middleware.DataPermission) ([]models.SysGenColumn, int, error) {
 	var list []models.SysGenColumn
 	var data models.SysGenColumn
@@ -41,7 +41,7 @@ func (e *SysGenColumn) GetList(c *dto.SysGenColumnQueryReq, p *middleware.DataPe
 	return list, lang.SuccessCode, nil
 }
 
-// Get sys-获取表字段详情
+// Get admin-获取表字段详情
 func (e *SysGenColumn) Get(id int64, p *middleware.DataPermission) (*models.SysGenColumn, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -59,7 +59,7 @@ func (e *SysGenColumn) Get(id int64, p *middleware.DataPermission) (*models.SysG
 	return data, lang.SuccessCode, nil
 }
 
-// Insert sys-新增表字段
+// Insert admin-新增表字段
 func (e *SysGenColumn) Insert(c dto.SysGenColumnInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -78,7 +78,7 @@ func (e *SysGenColumn) Insert(c dto.SysGenColumnInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update sys-更新表字段
+// Update admin-更新表字段
 func (e *SysGenColumn) Update(c *dto.SysGenColumnUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -135,7 +135,7 @@ func (e *SysGenColumn) Update(c *dto.SysGenColumnUpdateReq, p *middleware.DataPe
 	return false, lang.SuccessCode, nil
 }
 
-// GetDBColumnList sys-从数据库表中获取表字段列表
+// GetDBColumnList admin-从数据库表中获取表字段列表
 func (e *SysGenColumn) GetDBColumnList(dbTableName string) ([]models.DBColumn, int, error) {
 	if len(dbTableName) <= 0 {
 		return nil, sysLang.SysGenTableSelectCode, lang.MsgErr(sysLang.SysGenTableSelectCode, e.Lang)
@@ -151,7 +151,7 @@ func (e *SysGenColumn) GetDBColumnList(dbTableName string) ([]models.DBColumn, i
 	return data, lang.SuccessCode, nil
 }
 
-// Delete sys-删除表字段
+// Delete admin-删除表字段
 func (e *SysGenColumn) Delete(req dto.SysGenColumnDeleteReq, p *middleware.DataPermission) (int, error) {
 	var err error
 	if len(req.Ids) > 0 {

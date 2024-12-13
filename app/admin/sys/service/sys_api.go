@@ -22,7 +22,7 @@ type SysApi struct {
 	service.Service
 }
 
-// NewSysApiService sys-实例化接口管理
+// NewSysApiService admin-实例化接口管理
 func NewSysApiService(s *service.Service) *SysApi {
 	var srv = new(SysApi)
 	srv.Orm = s.Orm
@@ -30,7 +30,7 @@ func NewSysApiService(s *service.Service) *SysApi {
 	return srv
 }
 
-// GetPage sys-获取接口管理分页列表
+// GetPage admin-获取接口管理分页列表
 func (e *SysApi) GetPage(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([]models.SysApi, int64, int, error) {
 	var list []models.SysApi
 	var data models.SysApi
@@ -48,7 +48,7 @@ func (e *SysApi) GetPage(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([
 	return list, count, lang.SuccessCode, nil
 }
 
-// GetList sys-获取接口管理全部列表
+// GetList admin-获取接口管理全部列表
 func (e *SysApi) GetList(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([]models.SysApi, int64, int, error) {
 	var list []models.SysApi
 	var data models.SysApi
@@ -65,7 +65,7 @@ func (e *SysApi) GetList(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get sys-获取接口管理详情
+// Get admin-获取接口管理详情
 func (e *SysApi) Get(id int64, p *middleware.DataPermission) (*models.SysApi, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -83,7 +83,7 @@ func (e *SysApi) Get(id int64, p *middleware.DataPermission) (*models.SysApi, in
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne sys-获取接口管理一条记录
+// QueryOne admin-获取接口管理一条记录
 func (e *SysApi) QueryOne(queryCondition *dto.SysApiQueryReq, p *middleware.DataPermission) (*models.SysApi, int, error) {
 	data := &models.SysApi{}
 	err := e.Orm.Model(&models.SysApi{}).
@@ -100,7 +100,7 @@ func (e *SysApi) QueryOne(queryCondition *dto.SysApiQueryReq, p *middleware.Data
 	return data, lang.SuccessCode, nil
 }
 
-// Update sys-更新接口管理
+// Update admin-更新接口管理
 func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -129,7 +129,7 @@ func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *middleware.DataPermission) (b
 	return false, lang.SuccessCode, nil
 }
 
-// Delete sys-删除接口管理
+// Delete admin-删除接口管理
 func (e *SysApi) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -156,7 +156,7 @@ func (e *SysApi) Delete(ids []int64, p *middleware.DataPermission) (int, error) 
 	return lang.SuccessCode, nil
 }
 
-// Export sys-导出接口管理
+// Export admin-导出接口管理
 func (e *SysApi) Export(list []models.SysApi) ([]byte, error) {
 	//sheet名称
 	sheetName := "Api"
@@ -183,12 +183,12 @@ func (e *SysApi) Export(list []models.SysApi) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-// GetSyncStatus sys-获取接口同步状态
+// GetSyncStatus admin-获取接口同步状态
 func (e *SysApi) GetSyncStatus() (string, int, error) {
 	return models.SyncStatus, lang.SuccessCode, nil
 }
 
-// Sync sys-接口同步数据
+// Sync admin-接口同步数据
 func (e *SysApi) Sync() (string, int, error) {
 	if models.SyncStatus == models.SyncStatusSyncing {
 		return models.SyncStatus, lang.SuccessCode, nil

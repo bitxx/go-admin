@@ -117,7 +117,7 @@ func (e *UserAccountLog) QueryOne(queryCondition *dto.UserAccountLogQueryReq, p 
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取账变记录数据总数
+// Count admin-获取账变记录数据总数
 func (e *UserAccountLog) Count(queryCondition *dto.UserAccountLogQueryReq) (int64, int, error) {
 	var err error
 	var count int64

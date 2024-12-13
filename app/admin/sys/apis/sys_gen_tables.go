@@ -17,7 +17,7 @@ type SysTables struct {
 	api.Api
 }
 
-// GetPage sys-获取表管理分页列表
+// GetPage admin-获取表管理分页列表
 func (e SysTables) GetPage(c *gin.Context) {
 	s := service.SysGenTable{}
 	req := dto.SysGenTableQueryReq{}
@@ -39,7 +39,7 @@ func (e SysTables) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取表管理详情
+// Get admin-获取表管理详情
 func (e SysTables) Get(c *gin.Context) {
 	req := dto.SysGenTableGetReq{}
 	s := service.SysGenTable{}
@@ -61,7 +61,7 @@ func (e SysTables) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-新增表管理
+// Insert admin-新增表管理
 func (e SysTables) Insert(c *gin.Context) {
 	s := service.SysGenTable{}
 	req := dto.SysGenTableInsertReq{}
@@ -88,7 +88,7 @@ func (e SysTables) Insert(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新表管理
+// Update admin-更新表管理
 func (e SysTables) Update(c *gin.Context) {
 	req := dto.SysGenTableUpdateReq{}
 	s := service.SysGenTable{}
@@ -121,7 +121,7 @@ func (e SysTables) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除表管理
+// Delete admin-删除表管理
 func (e SysTables) Delete(c *gin.Context) {
 	req := dto.SysGenTableDeleteReq{}
 	s := service.SysGenTable{}
@@ -144,7 +144,7 @@ func (e SysTables) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetDBTablePage sys-获取表管理的DB表分页列表
+// GetDBTablePage admin-获取表管理的DB表分页列表
 func (e SysTables) GetDBTablePage(c *gin.Context) {
 	s := service.SysGenTable{}
 	req := dto.DBTableQueryReq{}
@@ -165,7 +165,7 @@ func (e SysTables) GetDBTablePage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Preview sys-预览表管理的代码页面
+// Preview admin-预览表管理的代码页面
 func (e SysTables) Preview(c *gin.Context) {
 	s := service.SysGenTable{}
 	req := dto.SysGenTableGenCodeReq{}
@@ -187,7 +187,7 @@ func (e SysTables) Preview(c *gin.Context) {
 	e.OK(resp, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GenCode sys-生成表管理的代码
+// GenCode admin-生成表管理的代码
 func (e SysTables) GenCode(c *gin.Context) {
 	s := service.SysGenTable{}
 	req := dto.SysGenTableGenCodeReq{}
@@ -210,7 +210,7 @@ func (e SysTables) GenCode(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// DownloadCode sys-表管理下载代码
+// DownloadCode admin-表管理下载代码
 func (e SysTables) DownloadCode(c *gin.Context) {
 	s := service.SysGenTable{}
 	req := dto.SysGenTableGenCodeReq{}
@@ -234,7 +234,7 @@ func (e SysTables) DownloadCode(c *gin.Context) {
 	e.DownloadZip("code.zip", resp.Bytes())
 }
 
-// GenDB sys-表管理中生成菜单数据
+// GenDB admin-表管理中生成菜单数据
 func (e SysTables) GenDB(c *gin.Context) {
 	req := dto.SysGenTableGetReq{}
 	s := service.SysGenTable{}

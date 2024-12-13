@@ -15,7 +15,7 @@ type SysMenu struct {
 	api.Api
 }
 
-// GetTreeList sys-获取菜单管理树
+// GetTreeList admin-获取菜单管理树
 func (e SysMenu) GetTreeList(c *gin.Context) {
 	s := service.SysMenu{}
 	req := dto.SysMenuQueryReq{}
@@ -36,7 +36,7 @@ func (e SysMenu) GetTreeList(c *gin.Context) {
 	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get sys-获取菜单管理详情
+// Get admin-获取菜单管理详情
 func (e SysMenu) Get(c *gin.Context) {
 	req := dto.SysMenuGetReq{}
 	s := new(service.SysMenu)
@@ -58,7 +58,7 @@ func (e SysMenu) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert sys-创建菜单管理
+// Insert admin-创建菜单管理
 func (e SysMenu) Insert(c *gin.Context) {
 	req := dto.SysMenuInsertReq{}
 	s := new(service.SysMenu)
@@ -85,7 +85,7 @@ func (e SysMenu) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update sys-更新菜单管理
+// Update admin-更新菜单管理
 func (e SysMenu) Update(c *gin.Context) {
 	req := dto.SysMenuUpdateReq{}
 	s := new(service.SysMenu)
@@ -117,7 +117,7 @@ func (e SysMenu) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete sys-删除菜单管理
+// Delete admin-删除菜单管理
 func (e SysMenu) Delete(c *gin.Context) {
 	req := dto.SysMenuDeleteReq{}
 	s := service.SysMenu{}
@@ -140,7 +140,7 @@ func (e SysMenu) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetMenuRole sys-根据角色获取菜单
+// GetMenuRole admin-根据角色获取菜单
 func (e SysMenu) GetMenuRole(c *gin.Context) {
 	s := new(service.SysMenu)
 	err := e.MakeContext(c).
@@ -165,7 +165,7 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// GetMenuTreeSelect sys-获取全部菜单以及选中的菜单编号
+// GetMenuTreeSelect admin-获取全部菜单以及选中的菜单编号
 func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 	m := service.SysMenu{}
 	r := service.SysRole{}

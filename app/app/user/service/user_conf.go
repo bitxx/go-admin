@@ -117,7 +117,7 @@ func (e *UserConf) QueryOne(queryCondition *dto.UserConfQueryReq, p *middleware.
 	return data, lang.SuccessCode, nil
 }
 
-// Count sys-获取用户配置数据总数
+// Count admin-获取用户配置数据总数
 func (e *UserConf) Count(queryCondition *dto.UserConfQueryReq) (int64, int, error) {
 	var err error
 	var count int64
