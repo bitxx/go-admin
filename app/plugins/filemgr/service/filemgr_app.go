@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/plugins/filemgr/constant"
 	fLang "go-admin/app/plugins/filemgr/lang"
 	"go-admin/app/plugins/filemgr/models"
@@ -28,10 +28,7 @@ type FilemgrApp struct {
 	service.Service
 }
 
-// NewFilemgrAppService
-// @Description: 实例化FilemgrApp
-// @param s
-// @return *FilemgrApp
+// NewFilemgrAppService plugins-实例化APP管理
 func NewFilemgrAppService(s *service.Service) *FilemgrApp {
 	var srv = new(FilemgrApp)
 	srv.Orm = s.Orm
@@ -39,15 +36,7 @@ func NewFilemgrAppService(s *service.Service) *FilemgrApp {
 	return srv
 }
 
-// GetPage
-// @Description: 获取FilemgrApp列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.FilemgrApp
-// @return int64
-// @return int
-// @return error
+// GetPage plugins-获取APP管理分页列表
 func (e *FilemgrApp) GetPage(c *dto.FilemgrAppQueryReq, p *middleware.DataPermission) ([]models.FilemgrApp, int64, int, error) {
 	var data models.FilemgrApp
 	var list []models.FilemgrApp
@@ -76,14 +65,7 @@ func (e *FilemgrApp) GetPage(c *dto.FilemgrAppQueryReq, p *middleware.DataPermis
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取FilemgrApp对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.FilemgrApp
-// @return int
-// @return error
+// Get plugins-获取APP管理详情
 func (e *FilemgrApp) Get(id int64, p *middleware.DataPermission) (*models.FilemgrApp, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -101,12 +83,7 @@ func (e *FilemgrApp) Get(id int64, p *middleware.DataPermission) (*models.Filemg
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取FilemgrApp一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.FilemgrApp
-// @return error
+// QueryOne plugins-获取APP管理一条记录
 func (e *FilemgrApp) QueryOne(queryCondition *dto.FilemgrAppQueryReq, p *middleware.DataPermission) (*models.FilemgrApp, int, error) {
 	data := &models.FilemgrApp{}
 	err := e.Orm.Scopes(
@@ -122,14 +99,7 @@ func (e *FilemgrApp) QueryOne(queryCondition *dto.FilemgrAppQueryReq, p *middlew
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取APP管理数据总数
 func (e *FilemgrApp) Count(queryCondition *dto.FilemgrAppQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -146,36 +116,30 @@ func (e *FilemgrApp) Count(queryCondition *dto.FilemgrAppQueryReq) (int64, int, 
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建FilemgrApp对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert plugins-新增APP管理
 func (e *FilemgrApp) Insert(c *dto.FilemgrAppInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
 	if c.Platform == "" {
-		return 0, fLang.PluginsAppPlatformEmptyCode, lang.MsgErr(fLang.PluginsAppPlatformEmptyCode, e.Lang)
+		return 0, fLang.AppPlatformEmptyCode, lang.MsgErr(fLang.AppPlatformEmptyCode, e.Lang)
 	}
 	if c.Version == "" {
-		return 0, fLang.PluginsAppVersionEmptyCode, lang.MsgErr(fLang.PluginsAppVersionEmptyCode, e.Lang)
+		return 0, fLang.AppVersionEmptyCode, lang.MsgErr(fLang.AppVersionEmptyCode, e.Lang)
 	}
 	if c.DownloadType == "" {
-		return 0, fLang.PluginsAppDownloadTypeEmptyCode, lang.MsgErr(fLang.PluginsAppDownloadTypeEmptyCode, e.Lang)
+		return 0, fLang.AppDownloadTypeEmptyCode, lang.MsgErr(fLang.AppDownloadTypeEmptyCode, e.Lang)
 	}
 	if c.DownloadType == constant.AppDownloadTypeOss || c.DownloadType == constant.AppDownloadTypeLocal {
 		if c.AppType == "" {
-			return 0, fLang.PluginsAppTypeCode, lang.MsgErr(fLang.PluginsAppTypeCode, e.Lang)
+			return 0, fLang.AppTypeCode, lang.MsgErr(fLang.AppTypeCode, e.Lang)
 		}
 		if c.LocalAddress == "" {
-			return 0, fLang.PluginsAppUploadCode, lang.MsgErr(fLang.PluginsAppUploadCode, e.Lang)
+			return 0, fLang.AppUploadCode, lang.MsgErr(fLang.AppUploadCode, e.Lang)
 		}
 	}
 	if c.Remark == "" {
-		return 0, fLang.PluginsAppRemarkCode, lang.MsgErr(fLang.PluginsAppRemarkCode, e.Lang)
+		return 0, fLang.AppRemarkCode, lang.MsgErr(fLang.AppRemarkCode, e.Lang)
 	}
 
 	query := dto.FilemgrAppQueryReq{}
@@ -187,19 +151,19 @@ func (e *FilemgrApp) Insert(c *dto.FilemgrAppInsertReq) (int64, int, error) {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, fLang.PluginsAppExistCode, lang.MsgErr(fLang.PluginsAppExistCode, e.Lang)
+		return 0, fLang.AppExistCode, lang.MsgErr(fLang.AppExistCode, e.Lang)
 	}
 
 	//oss上传
 	if c.DownloadType == constant.AppDownloadTypeOss {
 		err = e.uploadOssFile(c.AppType, c.Version, c.Platform, c.LocalAddress)
 		if err != nil {
-			return 0, fLang.PluginsAppOssUploadLogCode, lang.MsgLogErrf(e.Log, e.Lang, fLang.PluginsAppUploadCode, fLang.PluginsAppOssUploadLogCode, err)
+			return 0, fLang.AppOssUploadLogCode, lang.MsgLogErrf(e.Log, e.Lang, fLang.AppUploadCode, fLang.AppOssUploadLogCode, err)
 		}
 	}
 	if c.DownloadType == constant.AppDownloadTypeLocal {
 		if c.LocalRootUrl == "" {
-			return 0, fLang.PluginsAppLocalUrlEmptyCode, lang.MsgErr(fLang.PluginsAppLocalUrlEmptyCode, e.Lang)
+			return 0, fLang.AppLocalUrlEmptyCode, lang.MsgErr(fLang.AppLocalUrlEmptyCode, e.Lang)
 		}
 		//c.LocalAddress = strings.Replace(c.LocalAddress, config.ApplicationConfig.FileRootPath, "", -1)
 		c.DownloadUrl = c.LocalRootUrl + c.LocalAddress
@@ -226,13 +190,7 @@ func (e *FilemgrApp) Insert(c *dto.FilemgrAppInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改FilemgrApp对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update plugins-更新APP管理
 func (e *FilemgrApp) Update(c *dto.FilemgrAppUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -259,14 +217,8 @@ func (e *FilemgrApp) Update(c *dto.FilemgrAppUpdateReq, p *middleware.DataPermis
 	return false, lang.SuccessCode, nil
 }
 
-// Remove
-// @Description: 删除FilemgrApp
-// @receiver e
-// @param ids
-// @param p
-// @return int
-// @return error
-func (e *FilemgrApp) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
+// Delete plugins-删除APP管理
+func (e *FilemgrApp) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
@@ -305,22 +257,14 @@ func (e *FilemgrApp) Remove(ids []int64, p *middleware.DataPermission) (int, err
 	return lang.SuccessCode, nil
 }
 
-// GetSingleUploadFileInfo
-//
-//	@Description: 获取单个上传文件信息
-//	@receiver e
-//	@param form
-//	@param file
-//	@param dst
-//	@return int
-//	@return error
+// GetSingleUploadFileInfo sys-获取APP管理单个上传文件信息
 func (e *FilemgrApp) GetSingleUploadFileInfo(form *multipart.Form, file *multipart.FileHeader, dst *string) (int, error) {
 	if len(form.File) != 1 {
-		return fLang.PluginsAppSelectOneFileUploadCode, lang.MsgErr(fLang.PluginsAppSelectOneFileUploadCode, e.Lang)
+		return fLang.AppSelectOneFileUploadCode, lang.MsgErr(fLang.AppSelectOneFileUploadCode, e.Lang)
 	}
 	for _, files := range form.File {
 		if len(files) != 1 {
-			return fLang.PluginsAppSelectOneFileUploadCode, lang.MsgErr(fLang.PluginsAppSelectOneFileUploadCode, e.Lang)
+			return fLang.AppSelectOneFileUploadCode, lang.MsgErr(fLang.AppSelectOneFileUploadCode, e.Lang)
 		}
 		for _, item := range files {
 			*dst = config.ApplicationConfig.FileRootPath + "app/" + idgen.UUID() + path.Ext(item.Filename)
@@ -331,14 +275,8 @@ func (e *FilemgrApp) GetSingleUploadFileInfo(form *multipart.Form, file *multipa
 	return lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出FilemgrApp excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *FilemgrApp) GetExcel(list []models.FilemgrApp) ([]byte, error) {
+// Export plugins-导出APP管理
+func (e *FilemgrApp) Export(list []models.FilemgrApp) ([]byte, error) {
 	sheetName := "FilemgrApp"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)
@@ -363,14 +301,7 @@ func (e *FilemgrApp) GetExcel(list []models.FilemgrApp) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-// uploadOssFile
-// @Description:
-// @receiver e
-// @param appType
-// @param version
-// @param platform
-// @param localAddress
-// @return error
+// uploadOssFile plugins-内部方法，上传文件到oss
 func (e *FilemgrApp) uploadOssFile(appType, version, platform, localAddress string) error {
 	app := models.FilemgrApp{}
 	app.AppType = appType
@@ -392,12 +323,7 @@ func (e *FilemgrApp) uploadOssFile(appType, version, platform, localAddress stri
 	return nil
 }
 
-// generateAppOssUrl
-// @Description: 获取app下载链接
-// @receiver e
-// @param App
-// @return string
-// @return error
+// generateAppOssUrl plugins-内部方法，获取APP管理的下载链接
 func (e *FilemgrApp) generateAppOssUrl(App *models.FilemgrApp) (string, error) {
 	appPath, err := e.generateAppOssObjectKey(App)
 	if err != nil {
@@ -410,12 +336,7 @@ func (e *FilemgrApp) generateAppOssUrl(App *models.FilemgrApp) (string, error) {
 	return oss.GeneratePresignedUrl(appPath)
 }
 
-// getOssClient
-// @Description: 获取oss客户端
-// @receiver e
-// @param App
-// @return *ossutils.ALiYunOSS
-// @return error
+// getOssClient plugins-内部方法，APP管理获取oss客户端
 func (e *FilemgrApp) getOssClient() (*ossutils.ALiYunOSS, error) {
 	var sysConfService = adminService.NewSysConfigService(&e.Service)
 	endPoint, _, _ := sysConfService.GetWithKeyStr("plugin_filemgr_app_oss_endpoint")
@@ -433,12 +354,7 @@ func (e *FilemgrApp) getOssClient() (*ossutils.ALiYunOSS, error) {
 	return &oss, nil
 }
 
-// generateAppOssObjectKey
-// @Description: 生成oss key
-// @receiver e
-// @param App
-// @return string
-// @return error
+// generateAppOssObjectKey plugins-内部方法，生成oss key
 func (e *FilemgrApp) generateAppOssObjectKey(App *models.FilemgrApp) (string, error) {
 	var sysConfService = adminService.NewSysConfigService(&e.Service)
 	var dictDataService = adminService.NewSysDictDataService(&e.Service)

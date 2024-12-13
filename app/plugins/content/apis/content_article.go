@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/plugins/content/service"
 	"go-admin/app/plugins/content/service/dto"
 	"go-admin/core/dto/api"
@@ -18,10 +18,7 @@ type ContentArticle struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取文章管理列表
-// @receiver e
-// @param c
+// GetPage plugins-获取文章管理分页列表
 func (e ContentArticle) GetPage(c *gin.Context) {
 	req := dto.ContentArticleQueryReq{}
 	s := service.ContentArticle{}
@@ -43,10 +40,7 @@ func (e ContentArticle) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取文章管理
-// @receiver e
-// @param c
+// Get plugins-获取文章管理详情
 func (e ContentArticle) Get(c *gin.Context) {
 	req := dto.ContentArticleGetReq{}
 	s := service.ContentArticle{}
@@ -68,10 +62,7 @@ func (e ContentArticle) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert
-// @Description: 创建文章管理
-// @receiver e
-// @param c
+// Insert plugins-新增文章管理
 func (e ContentArticle) Insert(c *gin.Context) {
 	req := dto.ContentArticleInsertReq{}
 	s := service.ContentArticle{}
@@ -98,10 +89,7 @@ func (e ContentArticle) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update
-// @Description: 修改文章管理
-// @receiver e
-// @param c
+// Update plugins-更新文章管理
 func (e ContentArticle) Update(c *gin.Context) {
 	req := dto.ContentArticleUpdateReq{}
 	s := service.ContentArticle{}
@@ -133,10 +121,7 @@ func (e ContentArticle) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete
-// @Description:文章管理
-// @receiver e
-// @param c
+// Delete plugins-删除文章管理
 func (e ContentArticle) Delete(c *gin.Context) {
 	s := service.ContentArticle{}
 	req := dto.ContentArticleDeleteReq{}
@@ -151,7 +136,7 @@ func (e ContentArticle) Delete(c *gin.Context) {
 	}
 
 	p := middleware.GetPermissionFromContext(c)
-	respCode, err := s.Remove(req.Ids, p)
+	respCode, err := s.Delete(req.Ids, p)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -159,10 +144,7 @@ func (e ContentArticle) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出文章管理
-// @receiver e
-// @param c
+// Export plugins-导出文章管理
 func (e ContentArticle) Export(c *gin.Context) {
 	req := dto.ContentArticleQueryReq{}
 	s := service.ContentArticle{}
@@ -177,7 +159,6 @@ func (e ContentArticle) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -190,7 +171,7 @@ func (e ContentArticle) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "content-article_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

@@ -22,7 +22,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
-	"go-admin/app/admin/models"
+	"go-admin/app/admin/sys/models"
 	"go-admin/core/global"
 	"go-admin/core/middleware"
 )

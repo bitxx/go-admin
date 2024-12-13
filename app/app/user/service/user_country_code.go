@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	uLang "go-admin/app/app/user/lang"
 	"go-admin/app/app/user/models"
 	"go-admin/app/app/user/service/dto"
@@ -19,10 +19,7 @@ type UserCountryCode struct {
 	service.Service
 }
 
-// NewUserCountryCodeService
-// @Description: 实例化UserCountryCode
-// @param s
-// @return *UserCountryCode
+// NewUserCountryCodeService app-实例化国家区号管理
 func NewUserCountryCodeService(s *service.Service) *UserCountryCode {
 	var srv = new(UserCountryCode)
 	srv.Orm = s.Orm
@@ -30,15 +27,7 @@ func NewUserCountryCodeService(s *service.Service) *UserCountryCode {
 	return srv
 }
 
-// GetPage
-// @Description: 获取UserCountryCode列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.UserCountryCode
-// @return int64
-// @return int
-// @return error
+// GetPage app-获取国家区号管理分页列表
 func (e *UserCountryCode) GetPage(c *dto.UserCountryCodeQueryReq, p *middleware.DataPermission) ([]models.UserCountryCode, int64, int, error) {
 	var data models.UserCountryCode
 	var list []models.UserCountryCode
@@ -56,14 +45,7 @@ func (e *UserCountryCode) GetPage(c *dto.UserCountryCodeQueryReq, p *middleware.
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取UserCountryCode对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.UserCountryCode
-// @return int
-// @return error
+// Get app-获取国家区号管理详情
 func (e *UserCountryCode) Get(id int64, p *middleware.DataPermission) (*models.UserCountryCode, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -81,12 +63,7 @@ func (e *UserCountryCode) Get(id int64, p *middleware.DataPermission) (*models.U
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取UserCountryCode一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.UserCountryCode
-// @return error
+// QueryOne app-获取国家区号管理一条记录
 func (e *UserCountryCode) QueryOne(queryCondition *dto.UserCountryCodeQueryReq, p *middleware.DataPermission) (*models.UserCountryCode, int, error) {
 	data := &models.UserCountryCode{}
 	err := e.Orm.Scopes(
@@ -102,14 +79,7 @@ func (e *UserCountryCode) QueryOne(queryCondition *dto.UserCountryCodeQueryReq, 
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取国家区号管理数据总数
 func (e *UserCountryCode) Count(queryCondition *dto.UserCountryCodeQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -126,25 +96,19 @@ func (e *UserCountryCode) Count(queryCondition *dto.UserCountryCodeQueryReq) (in
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建UserCountryCode对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert app-新增国家区号管理
 func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
 	if c.Country == "" {
-		return 0, uLang.AppUserCountryEmptyCode, lang.MsgErr(uLang.AppUserCountryEmptyCode, e.Lang)
+		return 0, uLang.UserCountryEmptyCode, lang.MsgErr(uLang.UserCountryEmptyCode, e.Lang)
 	}
 	if c.Code == "" {
-		return 0, uLang.AppUserCountryCodeEmptyCode, lang.MsgErr(uLang.AppUserCountryCodeEmptyCode, e.Lang)
+		return 0, uLang.UserCountryCodeEmptyCode, lang.MsgErr(uLang.UserCountryCodeEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return 0, uLang.AppUserCountryStatusEmptyCode, lang.MsgErr(uLang.AppUserCountryStatusEmptyCode, e.Lang)
+		return 0, uLang.UserCountryStatusEmptyCode, lang.MsgErr(uLang.UserCountryStatusEmptyCode, e.Lang)
 	}
 
 	//检测国家名称是否存在
@@ -155,7 +119,7 @@ func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, e
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, uLang.AppUserCountryHasExistCode, lang.MsgErr(uLang.AppUserCountryHasExistCode, e.Lang)
+		return 0, uLang.UserCountryHasExistCode, lang.MsgErr(uLang.UserCountryHasExistCode, e.Lang)
 	}
 
 	//检测国家区号是否存在
@@ -166,7 +130,7 @@ func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, e
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, uLang.AppUserCountryCodeHasExistCode, lang.MsgErr(uLang.AppUserCountryCodeHasExistCode, e.Lang)
+		return 0, uLang.UserCountryCodeHasExistCode, lang.MsgErr(uLang.UserCountryCodeHasExistCode, e.Lang)
 	}
 
 	now := time.Now()
@@ -185,32 +149,25 @@ func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, e
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改UserCountryCode对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update app-更新国家区号管理
 func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
 	if c.Country == "" {
-		return false, uLang.AppUserCountryEmptyCode, lang.MsgErr(uLang.AppUserCountryEmptyCode, e.Lang)
+		return false, uLang.UserCountryEmptyCode, lang.MsgErr(uLang.UserCountryEmptyCode, e.Lang)
 	}
 	if c.Code == "" {
-		return false, uLang.AppUserCountryCodeEmptyCode, lang.MsgErr(uLang.AppUserCountryCodeEmptyCode, e.Lang)
+		return false, uLang.UserCountryCodeEmptyCode, lang.MsgErr(uLang.UserCountryCodeEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return false, uLang.AppUserCountryStatusEmptyCode, lang.MsgErr(uLang.AppUserCountryStatusEmptyCode, e.Lang)
+		return false, uLang.UserCountryStatusEmptyCode, lang.MsgErr(uLang.UserCountryStatusEmptyCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
 		return false, respCode, err
 	}
 
-	//最小化变更改动过的数据
 	updates := map[string]interface{}{}
 	if c.Country != "" && data.Country != c.Country {
 		req := dto.UserCountryCodeQueryReq{}
@@ -220,7 +177,7 @@ func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.
 			return false, respCode, err
 		}
 		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, uLang.AppUserCountryHasExistCode, lang.MsgErr(uLang.AppUserCountryHasExistCode, e.Lang)
+			return false, uLang.UserCountryHasExistCode, lang.MsgErr(uLang.UserCountryHasExistCode, e.Lang)
 		}
 		updates["country"] = c.Country
 	}
@@ -232,7 +189,7 @@ func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.
 			return false, respCode, err
 		}
 		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, uLang.AppUserCountryCodeHasExistCode, lang.MsgErr(uLang.AppUserCountryCodeHasExistCode, e.Lang)
+			return false, uLang.UserCountryCodeHasExistCode, lang.MsgErr(uLang.UserCountryCodeHasExistCode, e.Lang)
 		}
 		updates["code"] = c.Code
 	}
@@ -251,14 +208,8 @@ func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.
 	return false, lang.SuccessCode, nil
 }
 
-// Remove
-// @Description: 删除UserCountryCode
-// @receiver e
-// @param ids
-// @param p
-// @return int
-// @return error
-func (e *UserCountryCode) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
+// Delete app-删除国家区号管理
+func (e *UserCountryCode) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
@@ -272,14 +223,8 @@ func (e *UserCountryCode) Remove(ids []int64, p *middleware.DataPermission) (int
 	return lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出UserCountryCode excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *UserCountryCode) GetExcel(list []models.UserCountryCode) ([]byte, error) {
+// Export app-导出国家区号管理
+func (e *UserCountryCode) Export(list []models.UserCountryCode) ([]byte, error) {
 	sheetName := "UserCountryCode"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)

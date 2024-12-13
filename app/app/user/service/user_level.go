@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	aLang "go-admin/app/app/user/lang"
 	"go-admin/app/app/user/models"
 	"go-admin/app/app/user/service/dto"
@@ -21,10 +21,7 @@ type UserLevel struct {
 	service.Service
 }
 
-// NewUserLevelService
-// @Description: 实例化UserLevel
-// @param s
-// @return *UserLevel
+// NewUserLevelService app-实例化用户等级管理
 func NewUserLevelService(s *service.Service) *UserLevel {
 	var srv = new(UserLevel)
 	srv.Orm = s.Orm
@@ -32,15 +29,7 @@ func NewUserLevelService(s *service.Service) *UserLevel {
 	return srv
 }
 
-// GetPage
-// @Description: 获取UserLevel列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.UserLevel
-// @return int64
-// @return int
-// @return error
+// GetPage app-获取用户等级管理分页列表
 func (e *UserLevel) GetPage(c *dto.UserLevelQueryReq, p *middleware.DataPermission) ([]models.UserLevel, int64, int, error) {
 	var data models.UserLevel
 	var list []models.UserLevel
@@ -58,14 +47,7 @@ func (e *UserLevel) GetPage(c *dto.UserLevelQueryReq, p *middleware.DataPermissi
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取UserLevel对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.UserLevel
-// @return int
-// @return error
+// Get app-获取用户等级管理详情
 func (e *UserLevel) Get(id int64, p *middleware.DataPermission) (*models.UserLevel, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -83,12 +65,7 @@ func (e *UserLevel) Get(id int64, p *middleware.DataPermission) (*models.UserLev
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取UserLevel一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.UserLevel
-// @return error
+// QueryOne app-获取用户等级管理一条记录
 func (e *UserLevel) QueryOne(queryCondition *dto.UserLevelQueryReq, p *middleware.DataPermission) (*models.UserLevel, int, error) {
 	data := &models.UserLevel{}
 	err := e.Orm.Scopes(
@@ -104,14 +81,7 @@ func (e *UserLevel) QueryOne(queryCondition *dto.UserLevelQueryReq, p *middlewar
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取用户等级管理数据总数
 func (e *UserLevel) Count(queryCondition *dto.UserLevelQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -128,25 +98,19 @@ func (e *UserLevel) Count(queryCondition *dto.UserLevelQueryReq) (int64, int, er
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建UserLevel对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert app-新增用户等级管理详情
 func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
 	if c.LevelType == "" {
-		return 0, aLang.AppUserLevelTypeEmptyCode, lang.MsgErr(aLang.AppUserLevelTypeEmptyCode, e.Lang)
+		return 0, aLang.UserLevelTypeEmptyCode, lang.MsgErr(aLang.UserLevelTypeEmptyCode, e.Lang)
 	}
 	if c.Name == "" {
-		return 0, aLang.AppUserLevelNameEmptyCode, lang.MsgErr(aLang.AppUserLevelNameEmptyCode, e.Lang)
+		return 0, aLang.UserLevelNameEmptyCode, lang.MsgErr(aLang.UserLevelNameEmptyCode, e.Lang)
 	}
 	if c.Level <= 0 {
-		return 0, aLang.AppUserLevelEmptyCode, lang.MsgErr(aLang.AppUserLevelEmptyCode, e.Lang)
+		return 0, aLang.UserLevelEmptyCode, lang.MsgErr(aLang.UserLevelEmptyCode, e.Lang)
 	}
 
 	//若存在等级名称和类型对应的信息，则不可继续添加
@@ -158,7 +122,7 @@ func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, aLang.AppUserLevelNameAndTypeExistCode, lang.MsgErr(aLang.AppUserLevelNameAndTypeExistCode, e.Lang)
+		return 0, aLang.UserLevelNameAndTypeExistCode, lang.MsgErr(aLang.UserLevelNameAndTypeExistCode, e.Lang)
 	}
 
 	now := time.Now()
@@ -178,13 +142,7 @@ func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改UserLevel对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update app-更新用户等级管理详情
 func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -201,7 +159,7 @@ func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermissi
 		return false, respCode, err
 	}
 	if respCode == lang.SuccessCode && resp.Id != data.Id {
-		return false, aLang.AppUserLevelNameAndTypeExistCode, lang.MsgErr(aLang.AppUserLevelNameAndTypeExistCode, e.Lang)
+		return false, aLang.UserLevelNameAndTypeExistCode, lang.MsgErr(aLang.UserLevelNameAndTypeExistCode, e.Lang)
 	}
 
 	//最小化变更改动过的数据
@@ -227,14 +185,8 @@ func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermissi
 	return false, lang.SuccessCode, nil
 }
 
-// Remove
-// @Description: 删除UserLevel
-// @receiver e
-// @param ids
-// @param p
-// @return int
-// @return error
-func (e *UserLevel) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
+// Delete app-删除用户等级管理详情
+func (e *UserLevel) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
@@ -248,7 +200,7 @@ func (e *UserLevel) Remove(ids []int64, p *middleware.DataPermission) (int, erro
 		return respCode, err
 	}
 	if count > 0 {
-		return aLang.AppUserLevelNameAndTypeExistCode, lang.MsgErr(cLang.PluginsCategoryNameHasUsedCode, e.Lang)
+		return aLang.UserLevelNameAndTypeExistCode, lang.MsgErr(cLang.PluginsCategoryNameHasUsedCode, e.Lang)
 	}
 
 	//
@@ -262,14 +214,8 @@ func (e *UserLevel) Remove(ids []int64, p *middleware.DataPermission) (int, erro
 	return lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出UserLevel excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *UserLevel) GetExcel(list []models.UserLevel) ([]byte, error) {
+// Export app-导出用户等级管理详情
+func (e *UserLevel) Export(list []models.UserLevel) ([]byte, error) {
 	sheetName := "UserLevel"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)

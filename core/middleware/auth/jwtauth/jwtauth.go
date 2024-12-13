@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/casbin/casbin/v2/util"
 	"github.com/gin-gonic/gin"
-	"go-admin/app/admin/constant"
+	"go-admin/app/admin/sys/constant"
 	"go-admin/core/config"
 	"go-admin/core/dto/response"
 	"go-admin/core/lang"

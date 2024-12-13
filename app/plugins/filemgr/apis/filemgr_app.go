@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	fLang "go-admin/app/plugins/filemgr/lang"
 	"go-admin/app/plugins/filemgr/service"
 	"go-admin/app/plugins/filemgr/service/dto"
@@ -20,10 +20,7 @@ type FilemgrApp struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取App管理列表
-// @receiver e
-// @param c
+// GetPage plugins-获取APP管理分页列表
 func (e FilemgrApp) GetPage(c *gin.Context) {
 	req := dto.FilemgrAppQueryReq{}
 	s := service.FilemgrApp{}
@@ -45,10 +42,7 @@ func (e FilemgrApp) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取App管理
-// @receiver e
-// @param c
+// Get plugins-获取APP管理详情
 func (e FilemgrApp) Get(c *gin.Context) {
 	req := dto.FilemgrAppGetReq{}
 	s := service.FilemgrApp{}
@@ -70,10 +64,7 @@ func (e FilemgrApp) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert
-// @Description: 创建App管理
-// @receiver e
-// @param c
+// Insert plugins-新增APP管理
 func (e FilemgrApp) Insert(c *gin.Context) {
 	req := dto.FilemgrAppInsertReq{}
 	s := service.FilemgrApp{}
@@ -100,10 +91,7 @@ func (e FilemgrApp) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete
-// @Description:App管理
-// @receiver e
-// @param c
+// Delete plugins-删除APP管理
 func (e FilemgrApp) Delete(c *gin.Context) {
 	s := service.FilemgrApp{}
 	req := dto.FilemgrAppDeleteReq{}
@@ -118,7 +106,7 @@ func (e FilemgrApp) Delete(c *gin.Context) {
 	}
 
 	p := middleware.GetPermissionFromContext(c)
-	respCode, err := s.Remove(req.Ids, p)
+	respCode, err := s.Delete(req.Ids, p)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -126,11 +114,7 @@ func (e FilemgrApp) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Upload 上传App文件
-// @Summary 上传App文件
-// @Description 上传App文件
-// @Tags App管理
-// @Router /api/v1/app-manager/upload [post]
+// Upload  plugins-上传APP
 func (e FilemgrApp) Upload(c *gin.Context) {
 	s := service.FilemgrApp{}
 	err := e.MakeContext(c).
@@ -159,16 +143,13 @@ func (e FilemgrApp) Upload(c *gin.Context) {
 
 	//保存上传文件
 	if err := c.SaveUploadedFile(file, filePath); err != nil {
-		e.Error(fLang.PluginsAppUploadLogCode, lang.MsgLogErrf(e.Logger, e.Lang, fLang.PluginsAppUploadCode, fLang.PluginsAppUploadLogCode, err).Error())
+		e.Error(fLang.AppUploadLogCode, lang.MsgLogErrf(e.Logger, e.Lang, fLang.AppUploadCode, fLang.AppUploadLogCode, err).Error())
 		return
 	}
-	e.OK(filePath, lang.MsgByCode(fLang.PluginsAppUploadSuccessCode, e.Lang))
+	e.OK(filePath, lang.MsgByCode(fLang.AppUploadSuccessCode, e.Lang))
 }
 
-// Update
-// @Description: 修改App管理
-// @receiver e
-// @param c
+// Update  plugins-更新APP管理
 func (e FilemgrApp) Update(c *gin.Context) {
 	req := dto.FilemgrAppUpdateReq{}
 	s := service.FilemgrApp{}
@@ -200,10 +181,7 @@ func (e FilemgrApp) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出App管理
-// @receiver e
-// @param c
+// Export  plugins-导出APP管理
 func (e FilemgrApp) Export(c *gin.Context) {
 	req := dto.FilemgrAppQueryReq{}
 	s := service.FilemgrApp{}
@@ -218,7 +196,6 @@ func (e FilemgrApp) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -231,7 +208,7 @@ func (e FilemgrApp) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "filemgr-app_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

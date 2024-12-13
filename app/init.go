@@ -3,8 +3,8 @@
 package app
 
 import (
-	adminLang "go-admin/app/admin/lang"
-	adminRouter "go-admin/app/admin/router"
+	adminLang "go-admin/app/admin/sys/lang"
+	adminRouter "go-admin/app/admin/sys/router"
 	appLang "go-admin/app/app"
 	appRouter "go-admin/app/app"
 	contentLang "go-admin/app/plugins/content/lang"

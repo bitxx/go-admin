@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/plugins/content/service"
 	"go-admin/app/plugins/content/service/dto"
 	"go-admin/core/dto/api"
@@ -18,10 +18,7 @@ type ContentAnnouncement struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取公告管理列表
-// @receiver e
-// @param c
+// GetPage plugins-获取公告管理分页列表
 func (e ContentAnnouncement) GetPage(c *gin.Context) {
 	req := dto.ContentAnnouncementQueryReq{}
 	s := service.ContentAnnouncement{}
@@ -43,10 +40,7 @@ func (e ContentAnnouncement) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取公告管理
-// @receiver e
-// @param c
+// Get plugins-获取公告管理详情
 func (e ContentAnnouncement) Get(c *gin.Context) {
 	req := dto.ContentAnnouncementGetReq{}
 	s := service.ContentAnnouncement{}
@@ -68,10 +62,7 @@ func (e ContentAnnouncement) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert
-// @Description: 创建公告管理
-// @receiver e
-// @param c
+// Insert plugins-新增公告管理
 func (e ContentAnnouncement) Insert(c *gin.Context) {
 	req := dto.ContentAnnouncementInsertReq{}
 	s := service.ContentAnnouncement{}
@@ -98,10 +89,7 @@ func (e ContentAnnouncement) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update
-// @Description: 修改公告管理
-// @receiver e
-// @param c
+// Update plugins-更新公告管理
 func (e ContentAnnouncement) Update(c *gin.Context) {
 	req := dto.ContentAnnouncementUpdateReq{}
 	s := service.ContentAnnouncement{}
@@ -133,10 +121,7 @@ func (e ContentAnnouncement) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete
-// @Description:公告管理
-// @receiver e
-// @param c
+// Delete plugins-删除公告管理
 func (e ContentAnnouncement) Delete(c *gin.Context) {
 	s := service.ContentAnnouncement{}
 	req := dto.ContentAnnouncementDeleteReq{}
@@ -151,7 +136,7 @@ func (e ContentAnnouncement) Delete(c *gin.Context) {
 	}
 
 	p := middleware.GetPermissionFromContext(c)
-	respCode, err := s.Remove(req.Ids, p)
+	respCode, err := s.Delete(req.Ids, p)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -159,10 +144,7 @@ func (e ContentAnnouncement) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出公告管理
-// @receiver e
-// @param c
+// Export plugins-导出公告管理
 func (e ContentAnnouncement) Export(c *gin.Context) {
 	req := dto.ContentAnnouncementQueryReq{}
 	s := service.ContentAnnouncement{}
@@ -177,7 +159,6 @@ func (e ContentAnnouncement) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -190,7 +171,7 @@ func (e ContentAnnouncement) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "content-announcement_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

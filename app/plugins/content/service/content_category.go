@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	sysLang "go-admin/app/admin/lang"
+	sysLang "go-admin/app/admin/sys/lang"
 	cLang "go-admin/app/plugins/content/lang"
 	"go-admin/app/plugins/content/models"
 	"go-admin/app/plugins/content/service/dto"
@@ -22,10 +22,7 @@ type ContentCategory struct {
 	service.Service
 }
 
-// NewContentCategoryService
-// @Description: 实例化ContentCategory
-// @param s
-// @return *ContentCategory
+// NewContentCategoryService plugins-实例化内容分类管理
 func NewContentCategoryService(s *service.Service) *ContentCategory {
 	var srv = new(ContentCategory)
 	srv.Orm = s.Orm
@@ -33,15 +30,7 @@ func NewContentCategoryService(s *service.Service) *ContentCategory {
 	return srv
 }
 
-// GetPage
-// @Description: 获取ContentCategory列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.ContentCategory
-// @return int64
-// @return int
-// @return error
+// GetPage plugins-获取内容分类管理分页列表
 func (e *ContentCategory) GetPage(c *dto.ContentCategoryQueryReq, p *middleware.DataPermission) ([]models.ContentCategory, int64, int, error) {
 	var data models.ContentCategory
 	var list []models.ContentCategory
@@ -59,14 +48,7 @@ func (e *ContentCategory) GetPage(c *dto.ContentCategoryQueryReq, p *middleware.
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取ContentCategory对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.ContentCategory
-// @return int
-// @return error
+// Get plugins-获取内容分类管理详情
 func (e *ContentCategory) Get(id int64, p *middleware.DataPermission) (*models.ContentCategory, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -84,12 +66,7 @@ func (e *ContentCategory) Get(id int64, p *middleware.DataPermission) (*models.C
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取ContentCategory一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.ContentCategory
-// @return error
+// QueryOne plugins-获取内容分类管理一条记录
 func (e *ContentCategory) QueryOne(queryCondition *dto.ContentCategoryQueryReq, p *middleware.DataPermission) (*models.ContentCategory, int, error) {
 	data := &models.ContentCategory{}
 	err := e.Orm.Scopes(
@@ -105,14 +82,7 @@ func (e *ContentCategory) QueryOne(queryCondition *dto.ContentCategoryQueryReq, 
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取内容分类管理数据总数
 func (e *ContentCategory) Count(queryCondition *dto.ContentCategoryQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -129,13 +99,7 @@ func (e *ContentCategory) Count(queryCondition *dto.ContentCategoryQueryReq) (in
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建ContentCategory对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert plugins-新增内容分类管理详情
 func (e *ContentCategory) Insert(c *dto.ContentCategoryInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -168,13 +132,7 @@ func (e *ContentCategory) Insert(c *dto.ContentCategoryInsertReq) (int64, int, e
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改ContentCategory对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update plugins-更新内容分类管理
 func (e *ContentCategory) Update(c *dto.ContentCategoryUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -215,14 +173,8 @@ func (e *ContentCategory) Update(c *dto.ContentCategoryUpdateReq, p *middleware.
 	return false, lang.SuccessCode, nil
 }
 
-// Remove
-// @Description: 删除ContentCategory
-// @receiver e
-// @param ids
-// @param p
-// @return int
-// @return error
-func (e *ContentCategory) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
+// Delete plugins-删除内容分类管理
+func (e *ContentCategory) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
@@ -247,14 +199,8 @@ func (e *ContentCategory) Remove(ids []int64, p *middleware.DataPermission) (int
 	return lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出ContentCategory excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *ContentCategory) GetExcel(list []models.ContentCategory) ([]byte, error) {
+// Export plugins-导出内容分类管理
+func (e *ContentCategory) Export(list []models.ContentCategory) ([]byte, error) {
 	sheetName := "ContentCategory"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)

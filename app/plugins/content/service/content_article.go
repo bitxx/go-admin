@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	sysLang "go-admin/app/admin/lang"
+	sysLang "go-admin/app/admin/sys/lang"
 	cLang "go-admin/app/plugins/content/lang"
 	"go-admin/app/plugins/content/models"
 	"go-admin/app/plugins/content/service/dto"
@@ -21,10 +21,7 @@ type ContentArticle struct {
 	service.Service
 }
 
-// NewContentArticleService
-// @Description: 实例化ContentArticle
-// @param s
-// @return *ContentArticle
+// NewContentArticleService plugins-实例化文章管理
 func NewContentArticleService(s *service.Service) *ContentArticle {
 	var srv = new(ContentArticle)
 	srv.Orm = s.Orm
@@ -32,15 +29,7 @@ func NewContentArticleService(s *service.Service) *ContentArticle {
 	return srv
 }
 
-// GetPage
-// @Description: 获取ContentArticle列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.ContentArticle
-// @return int64
-// @return int
-// @return error
+// GetPage plugins-获取文章管理分页列表
 func (e *ContentArticle) GetPage(c *dto.ContentArticleQueryReq, p *middleware.DataPermission) ([]models.ContentArticle, int64, int, error) {
 	var data models.ContentArticle
 	var list []models.ContentArticle
@@ -58,14 +47,7 @@ func (e *ContentArticle) GetPage(c *dto.ContentArticleQueryReq, p *middleware.Da
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取ContentArticle对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.ContentArticle
-// @return int
-// @return error
+// Get plugins-获取文章管理详情
 func (e *ContentArticle) Get(id int64, p *middleware.DataPermission) (*models.ContentArticle, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -83,12 +65,7 @@ func (e *ContentArticle) Get(id int64, p *middleware.DataPermission) (*models.Co
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取ContentArticle一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.ContentArticle
-// @return error
+// QueryOne plugins-获取文章管理一条记录
 func (e *ContentArticle) QueryOne(queryCondition *dto.ContentArticleQueryReq, p *middleware.DataPermission) (*models.ContentArticle, int, error) {
 	data := &models.ContentArticle{}
 	err := e.Orm.Scopes(
@@ -104,14 +81,7 @@ func (e *ContentArticle) QueryOne(queryCondition *dto.ContentArticleQueryReq, p 
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取文章管理数据总数
 func (e *ContentArticle) Count(queryCondition *dto.ContentArticleQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -128,13 +98,7 @@ func (e *ContentArticle) Count(queryCondition *dto.ContentArticleQueryReq) (int6
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建ContentArticle对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert plugins-新增文章管理
 func (e *ContentArticle) Insert(c *dto.ContentArticleInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -187,13 +151,7 @@ func (e *ContentArticle) Insert(c *dto.ContentArticleInsertReq) (int64, int, err
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改ContentArticle对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update plugins-更新文章管理
 func (e *ContentArticle) Update(c *dto.ContentArticleUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -247,14 +205,8 @@ func (e *ContentArticle) Update(c *dto.ContentArticleUpdateReq, p *middleware.Da
 	return false, lang.SuccessCode, nil
 }
 
-// Remove
-// @Description: 删除ContentArticle
-// @receiver e
-// @param ids
-// @param p
-// @return int
-// @return error
-func (e *ContentArticle) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
+// Delete plugins-删除文章管理
+func (e *ContentArticle) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
@@ -268,14 +220,8 @@ func (e *ContentArticle) Remove(ids []int64, p *middleware.DataPermission) (int,
 	return lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出ContentArticle excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *ContentArticle) GetExcel(list []models.ContentArticle) ([]byte, error) {
+// Export plugins-导出文章管理
+func (e *ContentArticle) Export(list []models.ContentArticle) ([]byte, error) {
 	sheetName := "ContentArticle"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)

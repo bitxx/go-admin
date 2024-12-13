@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/core/dto/api"
@@ -18,10 +18,7 @@ type User struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取用户管理列表
-// @receiver e
-// @param c
+// GetPage app-获取用户管理分页列表
 func (e User) GetPage(c *gin.Context) {
 	req := dto.UserQueryReq{}
 	s := service.User{}
@@ -45,10 +42,7 @@ func (e User) GetPage(c *gin.Context) {
 	e.PageOK(list, result, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取用户管理
-// @receiver e
-// @param c
+// Get app-获取用户管理详情
 func (e User) Get(c *gin.Context) {
 	req := dto.UserGetReq{}
 	s := service.User{}
@@ -70,10 +64,7 @@ func (e User) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert
-// @Description: 创建用户管理
-// @receiver e
-// @param c
+// Insert app-新增用户管理
 func (e User) Insert(c *gin.Context) {
 	req := dto.UserInsertReq{}
 	s := service.User{}
@@ -100,10 +91,7 @@ func (e User) Insert(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update
-// @Description: 修改用户管理
-// @receiver e
-// @param c
+// Update app-更新用户管理
 func (e User) Update(c *gin.Context) {
 	req := dto.UserUpdateReq{}
 	s := service.User{}
@@ -135,10 +123,7 @@ func (e User) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出用户管理
-// @receiver e
-// @param c
+// Export app-导出用户管理
 func (e User) Export(c *gin.Context) {
 	req := dto.UserQueryReq{}
 	s := service.User{}
@@ -153,7 +138,6 @@ func (e User) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -167,7 +151,7 @@ func (e User) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "user_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

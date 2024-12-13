@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/models"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/core/config"
@@ -20,10 +20,7 @@ type UserAccountLog struct {
 	service.Service
 }
 
-// NewUserAccountLogService
-// @Description: 实例化UserAccountLog
-// @param s
-// @return *UserAccountLog
+// NewUserAccountLogService app-实例化账变记录
 func NewUserAccountLogService(s *service.Service) *UserAccountLog {
 	var srv = new(UserAccountLog)
 	srv.Orm = s.Orm
@@ -31,15 +28,7 @@ func NewUserAccountLogService(s *service.Service) *UserAccountLog {
 	return srv
 }
 
-// GetPage
-// @Description: 获取UserAccountLog列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.UserAccountLog
-// @return int64
-// @return int
-// @return error
+// GetPage app-获取账变记录分页列表
 func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.DataPermission) ([]models.UserAccountLog, int64, int, error) {
 	var data models.UserAccountLog
 	var list []models.UserAccountLog
@@ -94,14 +83,7 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取UserAccountLog对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.UserAccountLog
-// @return int
-// @return error
+// Get app-获取账变记录详情
 func (e *UserAccountLog) Get(id int64, p *middleware.DataPermission) (*models.UserAccountLog, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -119,12 +101,7 @@ func (e *UserAccountLog) Get(id int64, p *middleware.DataPermission) (*models.Us
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取UserAccountLog一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.UserAccountLog
-// @return error
+// QueryOne app-获取账变记录一条记录
 func (e *UserAccountLog) QueryOne(queryCondition *dto.UserAccountLogQueryReq, p *middleware.DataPermission) (*models.UserAccountLog, int, error) {
 	data := &models.UserAccountLog{}
 	err := e.Orm.Scopes(
@@ -140,14 +117,7 @@ func (e *UserAccountLog) QueryOne(queryCondition *dto.UserAccountLogQueryReq, p 
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取账变记录数据总数
 func (e *UserAccountLog) Count(queryCondition *dto.UserAccountLogQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -164,14 +134,8 @@ func (e *UserAccountLog) Count(queryCondition *dto.UserAccountLogQueryReq) (int6
 	return count, lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出UserAccountLog excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *UserAccountLog) GetExcel(list []models.UserAccountLog) ([]byte, error) {
+// Export app-导出账变记录
+func (e *UserAccountLog) Export(list []models.UserAccountLog) ([]byte, error) {
 	sheetName := "UserAccountLog"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)

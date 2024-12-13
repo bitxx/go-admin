@@ -18,10 +18,7 @@ type ContentAnnouncement struct {
 	service.Service
 }
 
-// NewContentAnnouncementService
-// @Description: 实例化ContentAnnouncement
-// @param s
-// @return *ContentAnnouncement
+// NewContentAnnouncementService plugins-实例化公告管理
 func NewContentAnnouncementService(s *service.Service) *ContentAnnouncement {
 	var srv = new(ContentAnnouncement)
 	srv.Orm = s.Orm
@@ -29,15 +26,7 @@ func NewContentAnnouncementService(s *service.Service) *ContentAnnouncement {
 	return srv
 }
 
-// GetPage
-// @Description: 获取ContentAnnouncement列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.ContentAnnouncement
-// @return int64
-// @return int
-// @return error
+// GetPage plugins-获取公告管理分页列表
 func (e *ContentAnnouncement) GetPage(c *dto.ContentAnnouncementQueryReq, p *middleware.DataPermission) ([]models.ContentAnnouncement, int64, int, error) {
 	var data models.ContentAnnouncement
 	var list []models.ContentAnnouncement
@@ -55,14 +44,7 @@ func (e *ContentAnnouncement) GetPage(c *dto.ContentAnnouncementQueryReq, p *mid
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取ContentAnnouncement对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.ContentAnnouncement
-// @return int
-// @return error
+// Get plugins-获取公告管理详情
 func (e *ContentAnnouncement) Get(id int64, p *middleware.DataPermission) (*models.ContentAnnouncement, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -80,12 +62,7 @@ func (e *ContentAnnouncement) Get(id int64, p *middleware.DataPermission) (*mode
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取ContentAnnouncement一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.ContentAnnouncement
-// @return error
+// QueryOne plugins-获取公告管理一条记录
 func (e *ContentAnnouncement) QueryOne(queryCondition *dto.ContentAnnouncementQueryReq, p *middleware.DataPermission) (*models.ContentAnnouncement, int, error) {
 	data := &models.ContentAnnouncement{}
 	err := e.Orm.Scopes(
@@ -101,14 +78,7 @@ func (e *ContentAnnouncement) QueryOne(queryCondition *dto.ContentAnnouncementQu
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取公告管理数据总数
 func (e *ContentAnnouncement) Count(queryCondition *dto.ContentAnnouncementQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -125,13 +95,7 @@ func (e *ContentAnnouncement) Count(queryCondition *dto.ContentAnnouncementQuery
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建ContentAnnouncement对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert plugins-新增公告管理
 func (e *ContentAnnouncement) Insert(c *dto.ContentAnnouncementInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -166,13 +130,7 @@ func (e *ContentAnnouncement) Insert(c *dto.ContentAnnouncementInsertReq) (int64
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改ContentAnnouncement对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update plugins-更新公告管理
 func (e *ContentAnnouncement) Update(c *dto.ContentAnnouncementUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -229,14 +187,8 @@ func (e *ContentAnnouncement) Update(c *dto.ContentAnnouncementUpdateReq, p *mid
 	return false, lang.SuccessCode, nil
 }
 
-// Remove
-// @Description: 删除ContentAnnouncement
-// @receiver e
-// @param ids
-// @param p
-// @return int
-// @return error
-func (e *ContentAnnouncement) Remove(ids []int64, p *middleware.DataPermission) (int, error) {
+// Delete plugins-删除公告管理
+func (e *ContentAnnouncement) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
@@ -250,14 +202,8 @@ func (e *ContentAnnouncement) Remove(ids []int64, p *middleware.DataPermission) 
 	return lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出ContentAnnouncement excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *ContentAnnouncement) GetExcel(list []models.ContentAnnouncement) ([]byte, error) {
+// Export plugins-导出公告管理
+func (e *ContentAnnouncement) Export(list []models.ContentAnnouncement) ([]byte, error) {
 	sheetName := "ContentAnnouncement"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)

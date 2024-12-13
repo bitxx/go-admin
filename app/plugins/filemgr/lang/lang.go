@@ -5,42 +5,42 @@ import (
 )
 
 const (
-	PluginsAppPlatformEmptyCode       = 30000
-	PluginsAppVersionEmptyCode        = 30001
-	PluginsAppDownloadTypeEmptyCode   = 30002
-	PluginsAppDownloadCode            = 30003
-	PluginsAppPublishStatusCode       = 30004
-	PluginsAppTypeCode                = 30005
-	PluginsAppCheckFileUploadCode     = 30006
-	PluginsAppSelectOneFileUploadCode = 30007
-	PluginsAppRemarkCode              = 30008
-	PluginsAppExistCode               = 30009
-	PluginsAppOssGenLogCode           = 30010
-	PluginsAppUploadLogCode           = 30011
-	PluginsAppUploadCode              = 30012
-	PluginsAppLocalUrlEmptyCode       = 30013
-	PluginsAppOssUploadLogCode        = 30014
-	PluginsAppUploadSuccessCode       = 30015
+	AppPlatformEmptyCode       = 30000
+	AppVersionEmptyCode        = 30001
+	AppDownloadTypeEmptyCode   = 30002
+	AppDownloadCode            = 30003
+	AppPublishStatusCode       = 30004
+	AppTypeCode                = 30005
+	AppCheckFileUploadCode     = 30006
+	AppSelectOneFileUploadCode = 30007
+	AppRemarkCode              = 30008
+	AppExistCode               = 30009
+	AppOssGenLogCode           = 30010
+	AppUploadLogCode           = 30011
+	AppUploadCode              = 30012
+	AppLocalUrlEmptyCode       = 30013
+	AppOssUploadLogCode        = 30014
+	AppUploadSuccessCode       = 30015
 )
 
 var (
 	MsgInfo = map[int]string{
-		PluginsAppPlatformEmptyCode:       "请选择一个平台",
-		PluginsAppVersionEmptyCode:        "请输入版本号",
-		PluginsAppDownloadTypeEmptyCode:   "请选择下载类型",
-		PluginsAppDownloadCode:            "下载失败",
-		PluginsAppPublishStatusCode:       "请设置发布状态",
-		PluginsAppTypeCode:                "请选择app类型",
-		PluginsAppCheckFileUploadCode:     "请选择一个app文件上传",
-		PluginsAppSelectOneFileUploadCode: "每次仅可上传一个文件",
-		PluginsAppRemarkCode:              "更新内容不得为空",
-		PluginsAppExistCode:               "该版本已经存在，请重新输入",
-		PluginsAppOssGenLogCode:           "oss url生成失败：%s",
-		PluginsAppUploadLogCode:           "app上传失败：%s",
-		PluginsAppUploadCode:              "app上传失败",
-		PluginsAppLocalUrlEmptyCode:       "本地Url根地址为空",
-		PluginsAppOssUploadLogCode:        "oss app上传失败：%s",
-		PluginsAppUploadSuccessCode:       "app上传成功",
+		AppPlatformEmptyCode:       "请选择一个平台",
+		AppVersionEmptyCode:        "请输入版本号",
+		AppDownloadTypeEmptyCode:   "请选择下载类型",
+		AppDownloadCode:            "下载失败",
+		AppPublishStatusCode:       "请设置发布状态",
+		AppTypeCode:                "请选择app类型",
+		AppCheckFileUploadCode:     "请选择一个app文件上传",
+		AppSelectOneFileUploadCode: "每次仅可上传一个文件",
+		AppRemarkCode:              "更新内容不得为空",
+		AppExistCode:               "该版本已经存在，请重新输入",
+		AppOssGenLogCode:           "oss url生成失败：%s",
+		AppUploadLogCode:           "app上传失败：%s",
+		AppUploadCode:              "app上传失败",
+		AppLocalUrlEmptyCode:       "本地Url根地址为空",
+		AppOssUploadLogCode:        "oss app上传失败：%s",
+		AppUploadSuccessCode:       "app上传成功",
 	}
 )
 

@@ -20,10 +20,7 @@ type UserConf struct {
 	service.Service
 }
 
-// NewUserConfService
-// @Description: 实例化UserConf
-// @param s
-// @return *UserConf
+// NewUserConfService app-实例用户配置管理记录
 func NewUserConfService(s *service.Service) *UserConf {
 	var srv = new(UserConf)
 	srv.Orm = s.Orm
@@ -31,15 +28,7 @@ func NewUserConfService(s *service.Service) *UserConf {
 	return srv
 }
 
-// GetPage
-// @Description: 获取UserConf列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.UserConf
-// @return int64
-// @return int
-// @return error
+// GetPage app-获取用户配置管理分页列表
 func (e *UserConf) GetPage(c *dto.UserConfQueryReq, p *middleware.DataPermission) ([]models.UserConf, int64, int, error) {
 	var data models.UserConf
 	var list []models.UserConf
@@ -94,14 +83,7 @@ func (e *UserConf) GetPage(c *dto.UserConfQueryReq, p *middleware.DataPermission
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取UserConf对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.UserConf
-// @return int
-// @return error
+// Get app-获取用户配置管理详情
 func (e *UserConf) Get(id int64, p *middleware.DataPermission) (*models.UserConf, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -119,12 +101,7 @@ func (e *UserConf) Get(id int64, p *middleware.DataPermission) (*models.UserConf
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取UserConf一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.UserConf
-// @return error
+// QueryOne app-获取用户配置管理一条记录
 func (e *UserConf) QueryOne(queryCondition *dto.UserConfQueryReq, p *middleware.DataPermission) (*models.UserConf, int, error) {
 	data := &models.UserConf{}
 	err := e.Orm.Scopes(
@@ -140,14 +117,7 @@ func (e *UserConf) QueryOne(queryCondition *dto.UserConfQueryReq, p *middleware.
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取用户配置数据总数
 func (e *UserConf) Count(queryCondition *dto.UserConfQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -164,13 +134,7 @@ func (e *UserConf) Count(queryCondition *dto.UserConfQueryReq) (int64, int, erro
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建UserConf对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert app-新增用户配置管理
 func (e *UserConf) Insert(c *dto.UserConfInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -191,13 +155,7 @@ func (e *UserConf) Insert(c *dto.UserConfInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改UserConf对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update app-更新用户配置管理
 func (e *UserConf) Update(c *dto.UserConfUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -238,7 +196,7 @@ func (e *UserConf) Update(c *dto.UserConfUpdateReq, p *middleware.DataPermission
 			return false, respCode, err
 		}
 
-		//todo 清除已登录用户的session
+		//todo 清除已登录用户的session,此处需要配合前端用户接口变更逻辑
 
 		//更改用户状态
 		userStatusUpdateReq := dto.UserStatusUpdateReq{}

@@ -150,10 +150,10 @@ export function getCodeImg() {
   })
 }
 
-// 查询 此接口不在验证数据权限
+// 查询 获取所有配置信息
 export function getSetting() {
   return request({
-    url: '/admin-api/v1/app-config',
+    url: '/admin-api/v1/config/list',
     method: 'get'
   })
 }

@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/core/dto/api"
@@ -17,10 +17,7 @@ type UserOperLog struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取用户关键行为日志表列表
-// @receiver e
-// @param c
+// GetPage app-获取用户操作日志分页列表
 func (e UserOperLog) GetPage(c *gin.Context) {
 	req := dto.UserOperLogQueryReq{}
 	s := service.UserOperLog{}
@@ -43,10 +40,7 @@ func (e UserOperLog) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取用户关键行为日志表
-// @receiver e
-// @param c
+// Get app-获取用户操作日志详情
 func (e UserOperLog) Get(c *gin.Context) {
 	req := dto.UserOperLogGetReq{}
 	s := service.UserOperLog{}
@@ -68,10 +62,7 @@ func (e UserOperLog) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出用户关键行为日志表
-// @receiver e
-// @param c
+// Export app-导出用户操作日志
 func (e UserOperLog) Export(c *gin.Context) {
 	req := dto.UserOperLogQueryReq{}
 	s := service.UserOperLog{}
@@ -86,7 +77,6 @@ func (e UserOperLog) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -100,7 +90,7 @@ func (e UserOperLog) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "user-oper-log_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

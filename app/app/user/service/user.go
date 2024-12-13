@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/constant"
 	uLang "go-admin/app/app/user/lang"
 	"go-admin/app/app/user/models"
@@ -28,10 +28,7 @@ type User struct {
 	service.Service
 }
 
-// NewUserService
-// @Description: 实例化User
-// @param s
-// @return *User
+// NewUserService app-实例化用户管理
 func NewUserService(s *service.Service) *User {
 	var srv = new(User)
 	srv.Orm = s.Orm
@@ -39,15 +36,7 @@ func NewUserService(s *service.Service) *User {
 	return srv
 }
 
-// GetPage
-// @Description: 获取User列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.User
-// @return int64
-// @return int
-// @return error
+// GetPage app-获取用户管理分页列表
 func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]models.User, int64, int, error) {
 	var data models.User
 	var list []models.User
@@ -117,14 +106,7 @@ func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]mod
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取User对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.User
-// @return int
-// @return error
+// Get app-获取用户管理详情
 func (e *User) Get(id int64, p *middleware.DataPermission) (*models.User, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -148,12 +130,7 @@ func (e *User) Get(id int64, p *middleware.DataPermission) (*models.User, int, e
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取User一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.User
-// @return error
+// QueryOne app-获取用户管理一条记录
 func (e *User) QueryOne(queryCondition *dto.UserQueryReq, p *middleware.DataPermission) (*models.User, int, error) {
 	data := &models.User{}
 	err := e.Orm.Scopes(
@@ -169,6 +146,7 @@ func (e *User) QueryOne(queryCondition *dto.UserQueryReq, p *middleware.DataPerm
 	return data, lang.SuccessCode, nil
 }
 
+// QueryOne app-获取用户在树同一个层最大排序号
 func (e *User) queryMaxTreeSort(queryCondition *dto.UserQueryReq) (int64, int, error) {
 	maxSort := int64(0)
 	err := e.Orm.Scopes(
@@ -180,14 +158,7 @@ func (e *User) queryMaxTreeSort(queryCondition *dto.UserQueryReq) (int64, int, e
 	return maxSort, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取用户管理数据总数
 func (e *User) Count(queryCondition *dto.UserQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -204,19 +175,13 @@ func (e *User) Count(queryCondition *dto.UserQueryReq) (int64, int, error) {
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建User对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert app-新增用户管理
 func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	if c.CurrUserId <= 0 {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
 	if c.Emails == "" && c.Mobiles == "" {
-		return uLang.AppUserEmailOrMobileNeedCode, lang.MsgErr(uLang.AppUserEmailOrMobileNeedCode, e.Lang)
+		return uLang.UserEmailOrMobileNeedCode, lang.MsgErr(uLang.UserEmailOrMobileNeedCode, e.Lang)
 	}
 
 	var mobiles, emails []string
@@ -224,19 +189,19 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 		emails = strings.Split(c.Emails, ",")
 		for _, email := range emails {
 			if !strutils.IsEmail(email) {
-				return uLang.AppUserEmailFormatErrCode, lang.MsgErr(uLang.AppUserEmailFormatErrCode, e.Lang)
+				return uLang.UserEmailFormatErrCode, lang.MsgErr(uLang.UserEmailFormatErrCode, e.Lang)
 			}
 		}
 	}
 
 	if c.Mobiles != "" {
 		if c.MobileTitle == "" {
-			return uLang.AppUserMobileNeedTitleCode, lang.MsgErr(uLang.AppUserMobileNeedTitleCode, e.Lang)
+			return uLang.UserMobileNeedTitleCode, lang.MsgErr(uLang.UserMobileNeedTitleCode, e.Lang)
 		}
 		mobiles = strings.Split(c.Mobiles, ",")
 		for _, mobile := range mobiles {
 			if !strutils.IsMobile(mobile) {
-				return uLang.AppUserMobileFormatErrCode, lang.MsgErr(uLang.AppUserMobileFormatErrCode, e.Lang)
+				return uLang.UserMobileFormatErrCode, lang.MsgErr(uLang.UserMobileFormatErrCode, e.Lang)
 			}
 		}
 	}
@@ -269,7 +234,7 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	for _, mobile := range mobiles {
 		mobile, err = encrypt.AesEncrypt(mobile, []byte(config.AuthConfig.Secret))
 		if err != nil {
-			return uLang.AppUserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserMobileEncryptErrCode, uLang.AppUserMobileEncryptErrLogCode, err)
+			return uLang.UserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.UserMobileEncryptErrCode, uLang.UserMobileEncryptErrLogCode, err)
 		}
 		respCode, err = e.register(constant.AccountMobileType, "", mobile, c.MobileTitle, refUser)
 		if err != nil {
@@ -279,7 +244,7 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	for _, email := range emails {
 		email, err = encrypt.AesEncrypt(email, []byte(config.AuthConfig.Secret))
 		if err != nil {
-			return uLang.AppUserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserEmailEncryptErrCode, uLang.AppUserEmailEncryptErrLogCode, err)
+			return uLang.UserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.UserEmailEncryptErrCode, uLang.UserEmailEncryptErrLogCode, err)
 		}
 		respCode, err = e.register(constant.AccountEmailType, email, "", "", refUser)
 		if err != nil {
@@ -290,13 +255,14 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	return lang.SuccessCode, nil
 }
 
+// register app-内部方法，注册用户管理
 func (e *User) register(registerType, email, mobile, mobileTitle string, refUser *models.User) (int, error) {
 
 	//验证手机号和邮箱是否重复
 	queryUserCondition := dto.UserQueryReq{}
 	if registerType == constant.AccountMobileType {
 		if (mobile != "" && mobileTitle == "") || (mobile == "" && mobileTitle != "") || (mobile == "" && mobileTitle == "") {
-			return uLang.AppUserMobileNeedTitleCode, lang.MsgErr(uLang.AppUserMobileNeedTitleCode, e.Lang)
+			return uLang.UserMobileNeedTitleCode, lang.MsgErr(uLang.UserMobileNeedTitleCode, e.Lang)
 		}
 		queryUserCondition.Mobile = mobile
 		queryUserCondition.MobileTitle = mobileTitle
@@ -316,12 +282,13 @@ func (e *User) register(registerType, email, mobile, mobileTitle string, refUser
 		} else if mobile != "" {
 			account, _ = encrypt.AesDecrypt(mobile, []byte(config.AuthConfig.Secret))
 		}
-		return uLang.AppUserAccountExistLogCode, lang.MsgErrf(uLang.AppUserAccountExistLogCode, e.Lang, account)
+		return uLang.UserAccountExistLogCode, lang.MsgErrf(uLang.UserAccountExistLogCode, e.Lang, account)
 	}
 
 	return e.insertRegisterInfo(registerType, email, mobile, mobileTitle, refUser)
 }
 
+// insertRegisterInfo app-内部方法，注册用户管理
 func (e *User) insertRegisterInfo(registerType, emial, mobile, mobileTitle string, refCode *models.User) (int, error) {
 
 	//插入用户数据
@@ -347,6 +314,7 @@ func (e *User) insertRegisterInfo(registerType, emial, mobile, mobileTitle strin
 	return lang.SuccessCode, nil
 }
 
+// insertMemUser app-内部方法，注册用户管理
 func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, refUser *models.User) (int64, int, error) {
 	user := models.User{}
 	if registerType == constant.AccountMobileType {
@@ -362,7 +330,7 @@ func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, re
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, uLang.AppUserRefCodeErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserRegisterErrCode, uLang.AppUserRefCodeErrLogCode, err)
+		return 0, uLang.UserRefCodeErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.UserRegisterErrCode, uLang.UserRefCodeErrLogCode, err)
 	}
 
 	//插入数据
@@ -430,13 +398,7 @@ func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, re
 	return user.Id, lang.SuccessCode, nil
 }
 
-// Update
-// @Description: 修改User对象
-// @receiver e
-// @param c
-// @param p
-// @return bool 是否有数据更新
-// @return error
+// Update app-更新用户管理
 func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -446,14 +408,14 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 		return false, respCode, err
 	}
 	if (c.Mobile != "" && c.MobileTitle == "") || (c.Mobile == "" && c.MobileTitle != "") {
-		return false, uLang.AppUserMobileNeedTitleCode, lang.MsgErr(uLang.AppUserMobileNeedTitleCode, e.Lang)
+		return false, uLang.UserMobileNeedTitleCode, lang.MsgErr(uLang.UserMobileNeedTitleCode, e.Lang)
 	}
 
 	mobile := ""
 	if c.Mobile != "" {
 		mobile, err = encrypt.AesEncrypt(strings.TrimSpace(c.Mobile), []byte(config.AuthConfig.Secret))
 		if err != nil {
-			return false, uLang.AppUserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserMobileEncryptErrCode, uLang.AppUserMobileEncryptErrLogCode, err)
+			return false, uLang.UserMobileEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.UserMobileEncryptErrCode, uLang.UserMobileEncryptErrLogCode, err)
 		}
 	}
 
@@ -462,7 +424,7 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 	if c.Email != "" {
 		email, err = encrypt.AesEncrypt(c.Email, []byte(config.AuthConfig.Secret))
 		if err != nil {
-			return false, uLang.AppUserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.AppUserEmailEncryptErrCode, uLang.AppUserEmailEncryptErrLogCode, err)
+			return false, uLang.UserEmailEncryptErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, uLang.UserEmailEncryptErrCode, uLang.UserEmailEncryptErrLogCode, err)
 		}
 	}
 
@@ -475,7 +437,7 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 			return false, respCode, err
 		}
 		if respCode == lang.SuccessCode && mobileUser.Id != c.Id && mobile == mobileUser.Mobile {
-			return false, uLang.AppUserMobileExistLogCode, lang.MsgErr(uLang.AppUserMobileExistLogCode, e.Lang)
+			return false, uLang.UserMobileExistLogCode, lang.MsgErr(uLang.UserMobileExistLogCode, e.Lang)
 		}
 	}
 
@@ -488,7 +450,7 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 			return false, respCode, err
 		}
 		if respCode == lang.SuccessCode && emailUserUser.Id != c.Id && email == emailUserUser.Email {
-			return false, uLang.AppUserEmailExistLogCode, lang.MsgErr(uLang.AppUserEmailExistLogCode, e.Lang)
+			return false, uLang.UserEmailExistLogCode, lang.MsgErr(uLang.UserEmailExistLogCode, e.Lang)
 		}
 	}
 
@@ -524,13 +486,13 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 	return false, lang.SuccessCode, nil
 }
 
-// UpdateStatus 更新用户状态
+// UpdateStatus app-更新用户管理状态
 func (e *User) UpdateStatus(c *dto.UserStatusUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 || c.Id <= 0 {
 		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
 	if c.Status == "" {
-		return false, uLang.AppUserStatusEmptyCode, lang.MsgErr(uLang.AppUserStatusEmptyCode, e.Lang)
+		return false, uLang.UserStatusEmptyCode, lang.MsgErr(uLang.UserStatusEmptyCode, e.Lang)
 	}
 	var err error
 	u, respCode, err := e.Get(c.Id, p)
@@ -555,14 +517,8 @@ func (e *User) UpdateStatus(c *dto.UserStatusUpdateReq, p *middleware.DataPermis
 	return false, lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出User excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *User) GetExcel(list []models.User) ([]byte, error) {
+// Export app-导出用户管理
+func (e *User) Export(list []models.User) ([]byte, error) {
 	sheetName := "User"
 	xlsx := excelize.NewFile()
 	defer xlsx.Close()
@@ -585,7 +541,7 @@ func (e *User) GetExcel(list []models.User) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-// GetSummaries 统计用户数据信息Z
+// GetSummaries app-统计用户管理数据
 func (e *User) GetSummaries(c *dto.UserQueryReq, p *middleware.DataPermission) (*models.User, int, error) {
 	var err error
 	var data models.User

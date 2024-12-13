@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service"
 	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
 	"go-admin/core/dto/api"
@@ -18,12 +18,7 @@ type {{.ClassName}} struct {
 	api.Api
 }
 
-//
-// GetPage
-// @Description: 获取{{.TableComment}}列表
-// @receiver e
-// @param c
-//
+// GetPage {{.PackageName}}-获取{{.TableComment}}分页列表
 func (e {{.ClassName}}) GetPage(c *gin.Context) {
     req := dto.{{.ClassName}}QueryReq{}
     s := service.{{.ClassName}}{}
@@ -45,12 +40,7 @@ func (e {{.ClassName}}) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
-// Get
-// @Description: 获取{{.TableComment}}
-// @receiver e
-// @param c
-//
+// Get {{.PackageName}}-获取{{.TableComment}}详情
 func (e {{.ClassName}}) Get(c *gin.Context) {
 	req := dto.{{.ClassName}}GetReq{}
 	s := service.{{.ClassName}}{}
@@ -72,12 +62,7 @@ func (e {{.ClassName}}) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
-// Insert
-// @Description: 创建{{.TableComment}}
-// @receiver e
-// @param c
-//
+// Insert {{.PackageName}}-创建{{.TableComment}}
 func (e {{.ClassName}}) Insert(c *gin.Context) {
     req := dto.{{.ClassName}}InsertReq{}
     s := service.{{.ClassName}}{}
@@ -104,12 +89,7 @@ func (e {{.ClassName}}) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
-// Update
-// @Description: 修改{{.TableComment}}
-// @receiver e
-// @param c
-//
+// Update {{.PackageName}}-更新{{.TableComment}}
 func (e {{.ClassName}}) Update(c *gin.Context) {
     req := dto.{{.ClassName}}UpdateReq{}
     s := service.{{.ClassName}}{}
@@ -141,12 +121,7 @@ func (e {{.ClassName}}) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
-// Delete
-// @Description:{{.TableComment}}
-// @receiver e
-// @param c
-//
+// Delete {{.PackageName}}-删除{{.TableComment}}
 func (e {{.ClassName}}) Delete(c *gin.Context) {
     s := service.{{.ClassName}}{}
     req := dto.{{.ClassName}}DeleteReq{}
@@ -161,7 +136,7 @@ func (e {{.ClassName}}) Delete(c *gin.Context) {
 	}
 
 	p := middleware.GetPermissionFromContext(c)
-	respCode, err := s.Remove(req.Ids, p)
+	respCode, err := s.Delete(req.Ids, p)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -169,12 +144,7 @@ func (e {{.ClassName}}) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-//
-// Export
-// @Description: 导出{{.TableComment}}
-// @receiver e
-// @param c
-//
+// Export {{.PackageName}}-导出{{.TableComment}}
 func (e {{.ClassName}}) Export(c *gin.Context) {
     req := dto.{{.ClassName}}QueryReq{}
     s := service.{{.ClassName}}{}
@@ -189,7 +159,6 @@ func (e {{.ClassName}}) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -202,7 +171,7 @@ func (e {{.ClassName}}) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "{{.ModuleName}}_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

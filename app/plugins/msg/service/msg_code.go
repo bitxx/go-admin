@@ -14,10 +14,7 @@ type MsgCode struct {
 	service.Service
 }
 
-// NewMsgCodeService
-// @Description: 实例化MsgCode
-// @param s
-// @return *MsgCode
+// NewMsgCodeService plugins-实例化验证码管理
 func NewMsgCodeService(s *service.Service) *MsgCode {
 	var srv = new(MsgCode)
 	srv.Orm = s.Orm
@@ -25,15 +22,7 @@ func NewMsgCodeService(s *service.Service) *MsgCode {
 	return srv
 }
 
-// GetPage
-// @Description: 获取MsgCode列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.MsgCode
-// @return int64
-// @return int
-// @return error
+// GetPage plugins-获取验证码管理分页列表
 func (e *MsgCode) GetPage(c *dto.MsgCodeQueryReq, p *middleware.DataPermission) ([]models.MsgCode, int64, int, error) {
 	var data models.MsgCode
 	var list []models.MsgCode
@@ -51,14 +40,7 @@ func (e *MsgCode) GetPage(c *dto.MsgCodeQueryReq, p *middleware.DataPermission) 
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取MsgCode对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.MsgCode
-// @return int
-// @return error
+// Get 获取验证码管理详情
 func (e *MsgCode) Get(id int64, p *middleware.DataPermission) (*models.MsgCode, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -76,12 +58,7 @@ func (e *MsgCode) Get(id int64, p *middleware.DataPermission) (*models.MsgCode, 
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取MsgCode一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.MsgCode
-// @return error
+// QueryOne plugins-获取验证码管理一条记录
 func (e *MsgCode) QueryOne(queryCondition *dto.MsgCodeQueryReq, p *middleware.DataPermission) (*models.MsgCode, int, error) {
 	data := &models.MsgCode{}
 	err := e.Orm.Scopes(
@@ -97,14 +74,7 @@ func (e *MsgCode) QueryOne(queryCondition *dto.MsgCodeQueryReq, p *middleware.Da
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取验证码管理数据总数
 func (e *MsgCode) Count(queryCondition *dto.MsgCodeQueryReq) (int64, int, error) {
 	var err error
 	var count int64

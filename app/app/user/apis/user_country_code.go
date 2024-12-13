@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/core/dto/api"
@@ -18,10 +18,7 @@ type UserCountryCode struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取国家电话区号列表
-// @receiver e
-// @param c
+// GetPage app-获取国家区号管理分页列表
 func (e UserCountryCode) GetPage(c *gin.Context) {
 	req := dto.UserCountryCodeQueryReq{}
 	s := service.UserCountryCode{}
@@ -43,10 +40,7 @@ func (e UserCountryCode) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取国家电话区号
-// @receiver e
-// @param c
+// Get app-获取国家区号管理详情
 func (e UserCountryCode) Get(c *gin.Context) {
 	req := dto.UserCountryCodeGetReq{}
 	s := service.UserCountryCode{}
@@ -68,10 +62,7 @@ func (e UserCountryCode) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert
-// @Description: 创建国家电话区号
-// @receiver e
-// @param c
+// Insert app-新增国家区号管理
 func (e UserCountryCode) Insert(c *gin.Context) {
 	req := dto.UserCountryCodeInsertReq{}
 	s := service.UserCountryCode{}
@@ -98,10 +89,7 @@ func (e UserCountryCode) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update
-// @Description: 修改国家电话区号
-// @receiver e
-// @param c
+// Update app-更新国家区号管理
 func (e UserCountryCode) Update(c *gin.Context) {
 	req := dto.UserCountryCodeUpdateReq{}
 	s := service.UserCountryCode{}
@@ -133,10 +121,7 @@ func (e UserCountryCode) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete
-// @Description:国家电话区号
-// @receiver e
-// @param c
+// Delete app-删除国家区号管理
 func (e UserCountryCode) Delete(c *gin.Context) {
 	s := service.UserCountryCode{}
 	req := dto.UserCountryCodeDeleteReq{}
@@ -151,7 +136,7 @@ func (e UserCountryCode) Delete(c *gin.Context) {
 	}
 
 	p := middleware.GetPermissionFromContext(c)
-	respCode, err := s.Remove(req.Ids, p)
+	respCode, err := s.Delete(req.Ids, p)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -159,10 +144,7 @@ func (e UserCountryCode) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出国家电话区号
-// @receiver e
-// @param c
+// Export app-导出国家区号管理
 func (e UserCountryCode) Export(c *gin.Context) {
 	req := dto.UserCountryCodeQueryReq{}
 	s := service.UserCountryCode{}
@@ -177,7 +159,6 @@ func (e UserCountryCode) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -190,7 +171,7 @@ func (e UserCountryCode) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "user-country-code_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

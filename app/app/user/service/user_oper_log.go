@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/constant"
 	appLang "go-admin/app/app/user/lang"
 	"go-admin/app/app/user/models"
@@ -25,10 +25,7 @@ type UserOperLog struct {
 	service.Service
 }
 
-// NewUserOperLogService
-// @Description: 实例化UserOperLog
-// @param s
-// @return *UserOperLog
+// NewUserOperLogService app-实例化用户操作日志
 func NewUserOperLogService(s *service.Service) *UserOperLog {
 	var srv = new(UserOperLog)
 	srv.Orm = s.Orm
@@ -36,15 +33,7 @@ func NewUserOperLogService(s *service.Service) *UserOperLog {
 	return srv
 }
 
-// GetPage
-// @Description: 获取UserOperLog列表
-// @receiver e
-// @param c
-// @param p
-// @return []models.UserOperLog
-// @return int64
-// @return int
-// @return error
+// GetPage app-获取用户操作日志分页列表
 func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPermission) ([]models.UserOperLog, int64, int, error) {
 	var err error
 	if c.Mobile != "" {
@@ -101,14 +90,7 @@ func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPerm
 	return list, count, lang.SuccessCode, nil
 }
 
-// Get
-// @Description: 获取UserOperLog对象
-// @receiver e
-// @param id 编号
-// @param p
-// @return *models.UserOperLog
-// @return int
-// @return error
+// Get app-获取用户操作日志详情
 func (e *UserOperLog) Get(id int64, p *middleware.DataPermission) (*models.UserOperLog, int, error) {
 	if id <= 0 {
 		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
@@ -126,12 +108,7 @@ func (e *UserOperLog) Get(id int64, p *middleware.DataPermission) (*models.UserO
 	return data, lang.SuccessCode, nil
 }
 
-// QueryOne
-// @Description: 通过自定义条件获取UserOperLog一条记录
-// @receiver e
-// @param queryCondition 条件
-// @return *models.UserOperLog
-// @return error
+// QueryOne app-获取用户操作记录一条记录
 func (e *UserOperLog) QueryOne(queryCondition *dto.UserOperLogQueryReq, p *middleware.DataPermission) (*models.UserOperLog, int, error) {
 	data := &models.UserOperLog{}
 	err := e.Orm.Scopes(
@@ -147,14 +124,7 @@ func (e *UserOperLog) QueryOne(queryCondition *dto.UserOperLogQueryReq, p *middl
 	return data, lang.SuccessCode, nil
 }
 
-// Count
-//
-//	@Description: 获取条数
-//	@receiver e
-//	@param c
-//	@return int64
-//	@return int
-//	@return error
+// Count sys-获取用户操作记录数据总数
 func (e *UserOperLog) Count(queryCondition *dto.UserOperLogQueryReq) (int64, int, error) {
 	var err error
 	var count int64
@@ -171,22 +141,16 @@ func (e *UserOperLog) Count(queryCondition *dto.UserOperLogQueryReq) (int64, int
 	return count, lang.SuccessCode, nil
 }
 
-// Insert
-// @Description: 创建UserOperLog对象
-// @receiver e
-// @param c
-// @return int64 插入数据的主键
-// @return int
-// @return error
+// Insert sys-新增用户操作记录
 func (e *UserOperLog) Insert(c *dto.UserOperLogInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 || c.UserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
 	}
 	if c.ActionType == "" {
-		return 0, appLang.AppUserActionTypeEmptyCode, lang.MsgErr(appLang.AppUserActionTypeEmptyCode, e.Lang)
+		return 0, appLang.UserActionTypeEmptyCode, lang.MsgErr(appLang.UserActionTypeEmptyCode, e.Lang)
 	}
 	if c.UserId <= 0 {
-		return 0, appLang.AppUserIdEmptyCode, lang.MsgErr(appLang.AppUserIdEmptyCode, e.Lang)
+		return 0, appLang.UserIdEmptyCode, lang.MsgErr(appLang.UserIdEmptyCode, e.Lang)
 	}
 	now := time.Now()
 	var data models.UserOperLog
@@ -205,14 +169,8 @@ func (e *UserOperLog) Insert(c *dto.UserOperLogInsertReq) (int64, int, error) {
 	return data.Id, lang.SuccessCode, nil
 }
 
-// GetExcel
-// @Description: GetExcel 导出UserOperLog excel数据
-// @receiver e
-// @param list
-// @return []byte
-// @return int
-// @return error
-func (e *UserOperLog) GetExcel(list []models.UserOperLog) ([]byte, error) {
+// Export app-导出用户操作日志
+func (e *UserOperLog) Export(list []models.UserOperLog) ([]byte, error) {
 	sheetName := "UserOperLog"
 	xlsx := excelize.NewFile()
 	no, _ := xlsx.NewSheet(sheetName)

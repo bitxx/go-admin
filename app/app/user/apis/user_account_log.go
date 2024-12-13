@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
 	"go-admin/core/dto/api"
@@ -17,10 +17,7 @@ type UserAccountLog struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取账变记录列表
-// @receiver e
-// @param c
+// GetPage app-获取账变记录分页列表
 func (e UserAccountLog) GetPage(c *gin.Context) {
 	req := dto.UserAccountLogQueryReq{}
 	s := service.UserAccountLog{}
@@ -43,10 +40,7 @@ func (e UserAccountLog) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取账变记录
-// @receiver e
-// @param c
+// Get app-获取账变记录详情
 func (e UserAccountLog) Get(c *gin.Context) {
 	req := dto.UserAccountLogGetReq{}
 	s := service.UserAccountLog{}
@@ -68,10 +62,7 @@ func (e UserAccountLog) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出账变记录
-// @receiver e
-// @param c
+// Export app-导出账变记录
 func (e UserAccountLog) Export(c *gin.Context) {
 	req := dto.UserAccountLogQueryReq{}
 	s := service.UserAccountLog{}
@@ -86,7 +77,6 @@ func (e UserAccountLog) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -100,7 +90,7 @@ func (e UserAccountLog) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "user-account-log_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

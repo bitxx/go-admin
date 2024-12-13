@@ -2,7 +2,7 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	adminService "go-admin/app/admin/service"
+	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/plugins/content/service"
 	"go-admin/app/plugins/content/service/dto"
 	"go-admin/core/dto/api"
@@ -18,10 +18,7 @@ type ContentCategory struct {
 	api.Api
 }
 
-// GetPage
-// @Description: 获取内容分类列表
-// @receiver e
-// @param c
+// GetPage plugins-获取内容分类管理分页列表
 func (e ContentCategory) GetPage(c *gin.Context) {
 	req := dto.ContentCategoryQueryReq{}
 	s := service.ContentCategory{}
@@ -43,10 +40,7 @@ func (e ContentCategory) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Description: 获取内容分类
-// @receiver e
-// @param c
+// Get plugins-获取内容分类管理详情
 func (e ContentCategory) Get(c *gin.Context) {
 	req := dto.ContentCategoryGetReq{}
 	s := service.ContentCategory{}
@@ -68,10 +62,7 @@ func (e ContentCategory) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert
-// @Description: 创建内容分类
-// @receiver e
-// @param c
+// Insert plugins-新增内容分类管理详情
 func (e ContentCategory) Insert(c *gin.Context) {
 	req := dto.ContentCategoryInsertReq{}
 	s := service.ContentCategory{}
@@ -98,10 +89,7 @@ func (e ContentCategory) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Update
-// @Description: 修改内容分类
-// @receiver e
-// @param c
+// Update plugins-更新内容分类管理
 func (e ContentCategory) Update(c *gin.Context) {
 	req := dto.ContentCategoryUpdateReq{}
 	s := service.ContentCategory{}
@@ -133,10 +121,7 @@ func (e ContentCategory) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Delete
-// @Description:内容分类
-// @receiver e
-// @param c
+// Delete plugins-删除内容分类管理
 func (e ContentCategory) Delete(c *gin.Context) {
 	s := service.ContentCategory{}
 	req := dto.ContentCategoryDeleteReq{}
@@ -151,7 +136,7 @@ func (e ContentCategory) Delete(c *gin.Context) {
 	}
 
 	p := middleware.GetPermissionFromContext(c)
-	respCode, err := s.Remove(req.Ids, p)
+	respCode, err := s.Delete(req.Ids, p)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -159,10 +144,7 @@ func (e ContentCategory) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Export
-// @Description: 导出内容分类
-// @receiver e
-// @param c
+// Export plugins-导出内容分类管理
 func (e ContentCategory) Export(c *gin.Context) {
 	req := dto.ContentCategoryQueryReq{}
 	s := service.ContentCategory{}
@@ -177,7 +159,6 @@ func (e ContentCategory) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	//最小导出数据量
 	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
@@ -190,7 +171,7 @@ func (e ContentCategory) Export(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	data, _ := s.GetExcel(list)
+	data, _ := s.Export(list)
 	fileName := "content-category_" + dateutils.ConvertToStr(time.Now(), 3) + ".xlsx"
 	e.DownloadExcel(fileName, data)
 }

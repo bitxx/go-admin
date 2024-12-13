@@ -8,70 +8,70 @@ import (
 // 多语言翻译 i18n
 const (
 	// 等级
-	AppUserLevelNameAndTypeExistCode = 40000
-	AppUserLevelNameEmptyCode        = 40001
-	AppUserLevelTypeEmptyCode        = 40002
-	AppUserLevelEmptyCode            = 40003
-	AppUserLevelHasUsedCode          = 40004
+	UserLevelNameAndTypeExistCode = 40000
+	UserLevelNameEmptyCode        = 40001
+	UserLevelTypeEmptyCode        = 40002
+	UserLevelEmptyCode            = 40003
+	UserLevelHasUsedCode          = 40004
 
 	//用户
-	AppUserEmailOrMobileNeedCode   = 40100
-	AppUserMobileNeedTitleCode     = 40101
-	AppUserEmailFormatErrCode      = 40102
-	AppUserMobileFormatErrCode     = 40103
-	AppUserMobileEncryptErrCode    = 40104
-	AppUserMobileEncryptErrLogCode = 40105
-	AppUserEmailEncryptErrCode     = 40106
-	AppUserEmailEncryptErrLogCode  = 40107
-	AppUserAccountExistLogCode     = 40108
-	AppUserMobileExistLogCode      = 40109
-	AppUserEmailExistLogCode       = 40110
-	AppUserStatusEmptyCode         = 40111
-	AppUserActionTypeEmptyCode     = 40112
-	AppUserIdEmptyCode             = 40113
-	AppUserRefCodeErrLogCode       = 40114
-	AppUserRegisterErrCode         = 40115
+	UserEmailOrMobileNeedCode   = 40100
+	UserMobileNeedTitleCode     = 40101
+	UserEmailFormatErrCode      = 40102
+	UserMobileFormatErrCode     = 40103
+	UserMobileEncryptErrCode    = 40104
+	UserMobileEncryptErrLogCode = 40105
+	UserEmailEncryptErrCode     = 40106
+	UserEmailEncryptErrLogCode  = 40107
+	UserAccountExistLogCode     = 40108
+	UserMobileExistLogCode      = 40109
+	UserEmailExistLogCode       = 40110
+	UserStatusEmptyCode         = 40111
+	UserActionTypeEmptyCode     = 40112
+	UserIdEmptyCode             = 40113
+	UserRefCodeErrLogCode       = 40114
+	UserRegisterErrCode         = 40115
 
 	//国家区号
-	AppUserCountryEmptyCode        = 40116
-	AppUserCountryCodeEmptyCode    = 40117
-	AppUserCountryStatusEmptyCode  = 40118
-	AppUserCountryHasExistCode     = 40119
-	AppUserCountryCodeHasExistCode = 40120
+	UserCountryEmptyCode        = 40116
+	UserCountryCodeEmptyCode    = 40117
+	UserCountryStatusEmptyCode  = 40118
+	UserCountryHasExistCode     = 40119
+	UserCountryCodeHasExistCode = 40120
 )
 
 var (
 	MsgInfo = map[int]string{
-		AppUserLevelNameAndTypeExistCode: "该等级名称和对应类型已存在!",
-		AppUserLevelNameEmptyCode:        "等级名称不得为空",
-		AppUserLevelTypeEmptyCode:        "等级类型不得为空",
-		AppUserLevelEmptyCode:            "等级不得为空",
-		AppUserLevelHasUsedCode:          "等级已被使用",
-		AppUserMobileEncryptErrLogCode:   "手机号加密失败：%s",
-		AppUserMobileEncryptErrCode:      "手机号加密失败",
-		AppUserEmailEncryptErrLogCode:    "邮箱加密失败：%s",
-		AppUserEmailEncryptErrCode:       "邮箱加密失败",
+		UserLevelNameAndTypeExistCode: "该等级名称和对应类型已存在!",
+		UserLevelNameEmptyCode:        "等级名称不得为空",
+		UserLevelTypeEmptyCode:        "等级类型不得为空",
+		UserLevelEmptyCode:            "等级不得为空",
+		UserLevelHasUsedCode:          "等级已被使用",
+		UserMobileEncryptErrLogCode:   "手机号加密失败：%s",
+		UserMobileEncryptErrCode:      "手机号加密失败",
+		UserEmailEncryptErrLogCode:    "邮箱加密失败：%s",
+		UserEmailEncryptErrCode:       "邮箱加密失败",
 
 		//用户
-		AppUserEmailOrMobileNeedCode: "邮箱或手机号至少需要一样",
-		AppUserMobileNeedTitleCode:   "手机号和区号需同时输入",
-		AppUserEmailFormatErrCode:    "邮箱格式错误",
-		AppUserMobileFormatErrCode:   "手机号格式错误",
-		AppUserAccountExistLogCode:   "账号：%s 已存在",
-		AppUserMobileExistLogCode:    "该手机号已被其他用户使用，不得使用！",
-		AppUserEmailExistLogCode:     "该邮箱已被其他用户使用，不得使用！",
-		AppUserStatusEmptyCode:       "用户状态不得为空",
-		AppUserActionTypeEmptyCode:   "用户行为类型不得为空",
-		AppUserIdEmptyCode:           "用户编号",
-		AppUserRefCodeErrLogCode:     "推荐吗异常：%s",
-		AppUserRegisterErrCode:       "注册异常",
+		UserEmailOrMobileNeedCode: "邮箱或手机号至少需要一样",
+		UserMobileNeedTitleCode:   "手机号和区号需同时输入",
+		UserEmailFormatErrCode:    "邮箱格式错误",
+		UserMobileFormatErrCode:   "手机号格式错误",
+		UserAccountExistLogCode:   "账号：%s 已存在",
+		UserMobileExistLogCode:    "该手机号已被其他用户使用，不得使用！",
+		UserEmailExistLogCode:     "该邮箱已被其他用户使用，不得使用！",
+		UserStatusEmptyCode:       "用户状态不得为空",
+		UserActionTypeEmptyCode:   "用户行为类型不得为空",
+		UserIdEmptyCode:           "用户编号",
+		UserRefCodeErrLogCode:     "推荐吗异常：%s",
+		UserRegisterErrCode:       "注册异常",
 
 		//国家区号
-		AppUserCountryEmptyCode:        "国家名称不得为空",
-		AppUserCountryCodeEmptyCode:    "区号不得为空",
-		AppUserCountryStatusEmptyCode:  "状态不得为空",
-		AppUserCountryHasExistCode:     "该国家名称已存在",
-		AppUserCountryCodeHasExistCode: "该国家区号已存在",
+		UserCountryEmptyCode:        "国家名称不得为空",
+		UserCountryCodeEmptyCode:    "区号不得为空",
+		UserCountryStatusEmptyCode:  "状态不得为空",
+		UserCountryHasExistCode:     "该国家名称已存在",
+		UserCountryCodeHasExistCode: "该国家区号已存在",
 	}
 )
 
