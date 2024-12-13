@@ -25,7 +25,7 @@ import (
 )
 
 const (
-	defaultTableName = "sys_casbin_rule"
+	defaultTableName = "admin_sys_casbin_rule"
 )
 
 type customTableKey struct{}
@@ -41,7 +41,7 @@ type CasbinRule struct {
 }
 
 func (CasbinRule) TableName() string {
-	return "sys_casbin_rule"
+	return "admin_sys_casbin_rule"
 }
 
 type Filter struct {

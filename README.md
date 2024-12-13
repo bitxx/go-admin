@@ -119,6 +119,8 @@ npm-check
 
 ## 6.待处理
 1. apis目录中的路由方法前，规范注释，方便接口路由数据同步入库
+2. 隐藏页面在字典、表字典管理编辑不同列，数据不刷新问题
+3. 顶级树加入默认值
 
 ## 感谢
 [go-admin-team](https://github.com/go-admin-team)  

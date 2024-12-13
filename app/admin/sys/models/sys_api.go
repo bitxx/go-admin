@@ -39,7 +39,7 @@ type SysApi struct {
 }
 
 func (SysApi) TableName() string {
-	return "sys_api"
+	return "admin_sys_api"
 }
 
 func SaveSysApi(message storage.Messager) (err error) {
@@ -140,7 +140,7 @@ func SaveSysApi(message storage.Messager) (err error) {
 	if len(delIds) > 0 {
 		err = db.Transaction(func(tx *gorm.DB) error {
 			// 删除子表数据
-			if err := tx.Table("sys_menu_api_rule").Where("sys_api_id in (?)", delIds).Delete(nil).Error; err != nil {
+			if err := tx.Table("admin_sys_menu_api_rule").Where("admin_sys_api_id in (?)", delIds).Delete(nil).Error; err != nil {
 				return err
 			}
 			// 删除主表数据

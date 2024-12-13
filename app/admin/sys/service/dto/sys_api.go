@@ -7,20 +7,20 @@ import (
 // SysApiQueryReq 功能列表请求参数
 type SysApiQueryReq struct {
 	dto.Pagination `search:"-"`
-	Description    string   `form:"description"  search:"type:contains;column:description;table:sys_api" comment:"功能描述"`
-	Path           string   `form:"path"  search:"type:contains;column:path;table:sys_api" comment:"地址"`
-	Method         string   `form:"method"  search:"type:exact;column:method;table:sys_api" comment:"请求方法"`
-	ApiType        string   `form:"apiType"  search:"type:exact;column:api_type;table:sys_api" comment:"接口类型"`
-	ApiTypes       []string `form:"apiTypes"  search:"type:in;column:api_type;table:sys_api" comment:"接口类型"`
-	BeginCreatedAt string   `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_api" comment:"创建时间"`
-	EndCreatedAt   string   `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_api" comment:"创建时间"`
+	Description    string   `form:"description"  search:"type:contains;column:description;table:admin_sys_api" comment:"功能描述"`
+	Path           string   `form:"path"  search:"type:contains;column:path;table:admin_sys_api" comment:"地址"`
+	Method         string   `form:"method"  search:"type:exact;column:method;table:admin_sys_api" comment:"请求方法"`
+	ApiType        string   `form:"apiType"  search:"type:exact;column:api_type;table:admin_sys_api" comment:"接口类型"`
+	ApiTypes       []string `form:"apiTypes"  search:"type:in;column:api_type;table:admin_sys_api" comment:"接口类型"`
+	BeginCreatedAt string   `form:"beginCreatedAt" search:"type:gte;column:created_at;table:admin_sys_api" comment:"创建时间"`
+	EndCreatedAt   string   `form:"endCreatedAt" search:"type:lte;column:created_at;table:admin_sys_api" comment:"创建时间"`
 	SysApiOrder
 }
 
 type SysApiOrder struct {
-	DescriptionOrder string `search:"type:order;column:description;table:sys_api" form:"descriptionOrder"`
-	PathOrder        string `search:"type:order;column:path;table:sys_api" form:"pathOrder"`
-	CreatedAtOrder   string `search:"type:order;column:created_at;table:sys_api" form:"createdAtOrder"`
+	DescriptionOrder string `search:"type:order;column:description;table:admin_sys_api" form:"descriptionOrder"`
+	PathOrder        string `search:"type:order;column:path;table:admin_sys_api" form:"pathOrder"`
+	CreatedAtOrder   string `search:"type:order;column:created_at;table:admin_sys_api" form:"createdAtOrder"`
 }
 
 func (m *SysApiQueryReq) GetNeedSearch() interface{} {

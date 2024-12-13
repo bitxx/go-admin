@@ -20,7 +20,7 @@ type SysMenu struct {
 	IsAffix     string     `json:"isAffix" gorm:"size:1;comment:1-是 2-否"`
 	IsHidden    string     `json:"isHidden" gorm:"size:1;comment:1-是 2-否"`
 	IsFrame     string     `json:"isFrame" gorm:"size:1;comment:1-是 2-否"`
-	SysApi      []SysApi   `json:"sysApi" gorm:"many2many:sys_menu_api_rule;foreignKey:id;joinForeignKey:sys_menu_menu_id;references:Id;joinReferences:sys_api_id;"`
+	SysApi      []SysApi   `json:"sysApi" gorm:"many2many:admin_sys_menu_api_rule;foreignKey:id;joinForeignKey:admin_sys_menu_menu_id;references:Id;joinReferences:admin_sys_api_id;"`
 	CreateBy    int64      `json:"createBy" gorm:"index;comment:创建者"`
 	UpdateBy    int64      `json:"updateBy" gorm:"index;comment:更新者"`
 	CreatedAt   *time.Time `json:"createdAt" gorm:"comment:创建时间"`
@@ -30,5 +30,5 @@ type SysMenu struct {
 }
 
 func (SysMenu) TableName() string {
-	return "sys_menu"
+	return "admin_sys_menu"
 }

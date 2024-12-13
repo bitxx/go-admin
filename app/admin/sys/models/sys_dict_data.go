@@ -21,5 +21,5 @@ type SysDictData struct {
 }
 
 func (SysDictData) TableName() string {
-	return "sys_dict_data"
+	return "admin_sys_dict_data"
 }

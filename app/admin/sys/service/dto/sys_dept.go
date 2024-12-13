@@ -9,15 +9,15 @@ import (
 // SysDeptQueryReq 列表或者搜索使用结构体
 type SysDeptQueryReq struct {
 	dto.Pagination `search:"-"`
-	Id             int    `form:"id" search:"type:exact;column:id;table:sys_dept" comment:"id"`                   //id
-	ParentId       int    `form:"parentId" search:"type:exact;column:parent_id;table:sys_dept" comment:"上级部门"`    //上级部门
-	ParentIds      string `form:"-" search:"type:contains;column:parent_ids;table:sys_dept" comment:""`           //路径
-	DeptName       string `form:"deptName" search:"type:contains;column:dept_name;table:sys_dept" comment:"部门名称"` //部门名称
-	Sort           int    `form:"-" search:"type:exact;column:sort;table:sys_dept" comment:"排序"`                  //排序
-	Leader         string `form:"leader" search:"type:contains;column:leader;table:sys_dept" comment:"负责人"`       //负责人
-	Phone          string `form:"phone" search:"type:exact;column:phone;table:sys_dept" comment:"手机"`             //手机
-	Email          string `form:"email" search:"type:exact;column:email;table:sys_dept" comment:"邮箱"`             //邮箱
-	Status         string `form:"-" search:"type:exact;column:status;table:sys_dept" comment:"状态"`                //状态
+	Id             int    `form:"id" search:"type:exact;column:id;table:admin_sys_dept" comment:"id"`                   //id
+	ParentId       int    `form:"parentId" search:"type:exact;column:parent_id;table:admin_sys_dept" comment:"上级部门"`    //上级部门
+	ParentIds      string `form:"-" search:"type:contains;column:parent_ids;table:admin_sys_dept" comment:""`           //路径
+	DeptName       string `form:"deptName" search:"type:contains;column:dept_name;table:admin_sys_dept" comment:"部门名称"` //部门名称
+	Sort           int    `form:"-" search:"type:exact;column:sort;table:admin_sys_dept" comment:"排序"`                  //排序
+	Leader         string `form:"leader" search:"type:contains;column:leader;table:admin_sys_dept" comment:"负责人"`       //负责人
+	Phone          string `form:"phone" search:"type:exact;column:phone;table:admin_sys_dept" comment:"手机"`             //手机
+	Email          string `form:"email" search:"type:exact;column:email;table:admin_sys_dept" comment:"邮箱"`             //邮箱
+	Status         string `form:"-" search:"type:exact;column:status;table:admin_sys_dept" comment:"状态"`                //状态
 }
 
 func (m *SysDeptQueryReq) GetNeedSearch() interface{} {

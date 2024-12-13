@@ -335,7 +335,7 @@ func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, re
 
 	//插入数据
 	sysConfService := adminService.NewSysConfigService(&e.Service)
-	defaultAvatar, respCode, err := sysConfService.GetWithKeyStr("app_user_default_avatar")
+	defaultAvatar, respCode, err := sysConfService.GetWithKeyStr("admin_sys_user_default_avatar")
 	if err != nil {
 		return 0, respCode, err
 	}
@@ -529,7 +529,7 @@ func (e *User) Export(list []models.User) ([]byte, error) {
 	dictService := adminService.NewSysDictDataService(&e.Service)
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
-		status := dictService.GetLabel("sys_status", item.Status)
+		status := dictService.GetLabel("admin_sys_status", item.Status)
 
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{

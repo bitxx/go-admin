@@ -21,7 +21,7 @@ type SysGenTable struct {
 }
 
 func (SysGenTable) TableName() string {
-	return "sys_gen_table"
+	return "admin_sys_gen_table"
 }
 
 type DBTable struct {

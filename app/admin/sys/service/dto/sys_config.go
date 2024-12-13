@@ -7,21 +7,21 @@ import (
 // SysConfigQueryReq 列表或者搜索使用结构体
 type SysConfigQueryReq struct {
 	dto.Pagination `search:"-"`
-	ConfigName     string `form:"configName" search:"type:contains;column:config_name;table:sys_config"`
-	ConfigKey      string `form:"configKey" search:"type:contains;column:config_key;table:sys_config"`
-	ConfigType     string `form:"configType" search:"type:exact;column:config_type;table:sys_config"`
-	IsFrontend     string `form:"isFrontend" search:"type:exact;column:is_frontend;table:sys_config"`
-	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_config" comment:"创建时间"`
-	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_config" comment:"创建时间"`
+	ConfigName     string `form:"configName" search:"type:contains;column:config_name;table:admin_sys_config"`
+	ConfigKey      string `form:"configKey" search:"type:contains;column:config_key;table:admin_sys_config"`
+	ConfigType     string `form:"configType" search:"type:exact;column:config_type;table:admin_sys_config"`
+	IsFrontend     string `form:"isFrontend" search:"type:exact;column:is_frontend;table:admin_sys_config"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:admin_sys_config" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:admin_sys_config" comment:"创建时间"`
 	SysConfigOrder
 }
 
 type SysConfigOrder struct {
-	IdOrder         string `search:"type:order;column:id;table:sys_config" form:"idOrder"`
-	ConfigNameOrder string `search:"type:order;column:config_name;table:sys_config" form:"configNameOrder"`
-	ConfigKeyOrder  string `search:"type:order;column:config_key;table:sys_config" form:"configKeyOrder"`
-	ConfigTypeOrder string `search:"type:order;column:config_type;table:sys_config" form:"configTypeOrder"`
-	CreatedAtOrder  string `search:"type:order;column:created_at;table:sys_config" form:"createdAtOrder"`
+	IdOrder         string `search:"type:order;column:id;table:admin_sys_config" form:"idOrder"`
+	ConfigNameOrder string `search:"type:order;column:config_name;table:admin_sys_config" form:"configNameOrder"`
+	ConfigKeyOrder  string `search:"type:order;column:config_key;table:admin_sys_config" form:"configKeyOrder"`
+	ConfigTypeOrder string `search:"type:order;column:config_type;table:admin_sys_config" form:"configTypeOrder"`
+	CreatedAtOrder  string `search:"type:order;column:created_at;table:admin_sys_config" form:"createdAtOrder"`
 }
 
 func (m *SysConfigQueryReq) GetNeedSearch() interface{} {
@@ -52,7 +52,7 @@ type SysConfigUpdateReq struct {
 
 // SysConfigByKeyReq 根据Key获取配置
 type SysConfigByKeyReq struct {
-	ConfigKey string `uri:"configKey" search:"type:contains;column:config_key;table:sys_config"`
+	ConfigKey string `uri:"configKey" search:"type:contains;column:config_key;table:admin_sys_config"`
 }
 
 func (m *SysConfigByKeyReq) GetNeedSearch() interface{} {

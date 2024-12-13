@@ -92,7 +92,7 @@ func (e *SysLoginLog) Export(list []models.SysLoginLog) ([]byte, error) {
 
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
-		loginLogStatus := dictService.GetLabel("sys_loginlog_status", item.Status) //平台
+		loginLogStatus := dictService.GetLabel("admin_sys_loginlog_status", item.Status) //平台
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.UserId, loginLogStatus, item.Ipaddr, item.LoginLocation, item.Agent,

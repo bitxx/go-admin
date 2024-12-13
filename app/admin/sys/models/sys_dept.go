@@ -23,5 +23,5 @@ type SysDept struct {
 }
 
 func (SysDept) TableName() string {
-	return "sys_dept"
+	return "admin_sys_dept"
 }

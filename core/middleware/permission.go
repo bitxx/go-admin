@@ -53,10 +53,10 @@ func newDataPermission(tx *gorm.DB, userId interface{}) (*DataPermission, error)
 	var err error
 	p := &DataPermission{}
 
-	err = tx.Table("sys_user").
-		Select("sys_user.id", "sys_role.id", "sys_user.dept_id", "sys_role.data_scope").
-		Joins("left join sys_role on sys_role.id = sys_user.role_id").
-		Where("sys_user.id = ?", userId).
+	err = tx.Table("admin_sys_user").
+		Select("admin_sys_user.id", "admin_sys_role.id", "admin_sys_user.dept_id", "admin_sys_role.data_scope").
+		Joins("left join admin_sys_role on admin_sys_role.id = admin_sys_user.role_id").
+		Where("admin_sys_user.id = ?", userId).
 		Scan(p).Error
 	if err != nil {
 		err = errors.New("获取用户数据出错 msg:" + err.Error())
@@ -73,13 +73,13 @@ func Permission(tableName string, p *DataPermission) func(db *gorm.DB) *gorm.DB 
 		switch p.DataScope {
 		case constant.DataScope2:
 			//自定数据权限
-			return db.Where(tableName+".create_by in (select sys_user.id from sys_role_dept left join sys_user on sys_user.dept_id=sys_role_dept.dept_id where sys_role_dept.role_id = ?)", p.RoleId)
+			return db.Where(tableName+".create_by in (select admin_sys_user.id from admin_sys_role_dept left join admin_sys_user on admin_sys_user.dept_id=admin_sys_role_dept.dept_id where admin_sys_role_dept.role_id = ?)", p.RoleId)
 		case constant.DataScope3:
 			//本部门数据权限
-			return db.Where(tableName+".create_by in (SELECT id from sys_user where dept_id = ? )", p.DeptId)
+			return db.Where(tableName+".create_by in (SELECT id from admin_sys_user where dept_id = ? )", p.DeptId)
 		case constant.DataScope4:
 			//本部门及以下数据权限
-			return db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+strutils.Int64ToString(p.DeptId)+"/%")
+			return db.Where(tableName+".create_by in (SELECT id from admin_sys_user where admin_sys_user.dept_id in(select dept_id from admin_sys_dept where dept_path like ? ))", "%/"+strutils.Int64ToString(p.DeptId)+"/%")
 		case constant.DataScope5:
 			//仅本人数据权限
 			return db.Where(tableName+".create_by = ?", p.UserId)

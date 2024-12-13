@@ -176,7 +176,7 @@ func (e *SysUser) Insert(c *dto.SysUserInsertReq) (int64, int, error) {
 
 	if c.Avatar == "" {
 		sysConfService := NewSysConfigService(&e.Service)
-		defaultAvatar, respCode, err := sysConfService.GetWithKeyStr("app_user_default_avatar")
+		defaultAvatar, respCode, err := sysConfService.GetWithKeyStr("admin_sys_user_default_avatar")
 		if err != nil {
 			return 0, respCode, err
 		}

@@ -264,8 +264,8 @@ func (e *SysConfig) Export(list []models.SysConfig) ([]byte, error) {
 
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
-		configType := dictService.GetLabel("sys_config_type", item.ConfigType)
-		isFrontend := dictService.GetLabel("sys_config_is_frontend", item.IsFrontend)
+		configType := dictService.GetLabel("admin_sys_config_type", item.ConfigType)
+		isFrontend := dictService.GetLabel("admin_sys_config_is_frontend", item.IsFrontend)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.ConfigName, item.ConfigKey, item.ConfigValue, item.Remark, configType, isFrontend, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),

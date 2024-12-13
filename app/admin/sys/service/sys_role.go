@@ -345,11 +345,11 @@ func (e *SysRole) GetMenuIdsByRole(roleId int64) ([]int64, int, error) {
 func (e *SysRole) GetDeptIdsByRole(roleId int64) ([]int64, int, error) {
 	deptIds := make([]int64, 0)
 	deptList := make([]dto.SysRoleDeptResp, 0)
-	if err := e.Orm.Table("sys_role_dept").
-		Select("sys_role_dept.dept_id").
-		Joins("LEFT JOIN sys_dept on sys_dept.id=sys_role_dept.dept_id").
+	if err := e.Orm.Table("admin_sys_role_dept").
+		Select("admin_sys_role_dept.dept_id").
+		Joins("LEFT JOIN admin_sys_dept on admin_sys_dept.id=admin_sys_role_dept.dept_id").
 		Where("role_id = ? ", roleId).
-		Where(" sys_role_dept.dept_id not in(select sys_dept.parent_id from sys_role_dept LEFT JOIN sys_dept on sys_dept.id=sys_role_dept.dept_id where role_id =? )", roleId).
+		Where(" admin_sys_role_dept.dept_id not in(select admin_sys_dept.parent_id from admin_sys_role_dept LEFT JOIN admin_sys_dept on admin_sys_dept.id=admin_sys_role_dept.dept_id where role_id =? )", roleId).
 		Find(&deptList).Error; err != nil {
 		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
 	}

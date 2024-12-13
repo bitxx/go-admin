@@ -270,7 +270,7 @@ func (e *SysPost) Export(list []models.SysPost) ([]byte, error) {
 
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
-		postStatus := dictService.GetLabel("sys_status", item.Status)
+		postStatus := dictService.GetLabel("admin_sys_status", item.Status)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.PostName, item.PostCode, item.Sort, postStatus, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),

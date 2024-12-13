@@ -6,14 +6,14 @@ import (
 
 type SysDictTypeQueryReq struct {
 	dto.Pagination `search:"-"`
-	DictName       string `form:"dictName" search:"type:icontains;column:dict_name;table:sys_dict_type"`
-	DictType       string `form:"dictType" search:"type:icontains;column:dict_type;table:sys_dict_type"`
-	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_dict_type" comment:"创建时间"`
-	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_dict_type" comment:"创建时间"`
+	DictName       string `form:"dictName" search:"type:icontains;column:dict_name;table:admin_sys_dict_type"`
+	DictType       string `form:"dictType" search:"type:icontains;column:dict_type;table:admin_sys_dict_type"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:admin_sys_dict_type" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:admin_sys_dict_type" comment:"创建时间"`
 }
 
 type SysDictTypeOrder struct {
-	IdOrder string `form:"idOrder" search:"type:order;column:id;table:sys_dict_type"`
+	IdOrder string `form:"idOrder" search:"type:order;column:id;table:admin_sys_dict_type"`
 }
 
 func (m *SysDictTypeQueryReq) GetNeedSearch() interface{} {

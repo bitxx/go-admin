@@ -8,19 +8,19 @@ import (
 
 type SysOperLogQueryReq struct {
 	dto.Pagination `search:"-"`
-	Title          string `form:"title" search:"type:contains;column:title;table:sys_oper_log" comment:"操作模块"`
-	Method         string `form:"method" search:"type:contains;column:method;table:sys_oper_log" comment:"函数"`
-	RequestMethod  string `form:"requestMethod" search:"type:contains;column:request_method;table:sys_oper_log" comment:"请求方式"`
-	OperUrl        string `form:"operUrl" search:"type:contains;column:oper_url;table:sys_oper_log" comment:"访问地址"`
-	OperIp         string `form:"operIp" search:"type:exact;column:oper_ip;table:sys_oper_log" comment:"客户端ip"`
-	Status         string `form:"status" search:"type:exact;column:status;table:sys_oper_log" comment:"状态"`
-	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_oper_log" comment:"创建时间"`
-	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_oper_log" comment:"创建时间"`
+	Title          string `form:"title" search:"type:contains;column:title;table:admin_sys_oper_log" comment:"操作模块"`
+	Method         string `form:"method" search:"type:contains;column:method;table:admin_sys_oper_log" comment:"函数"`
+	RequestMethod  string `form:"requestMethod" search:"type:contains;column:request_method;table:admin_sys_oper_log" comment:"请求方式"`
+	OperUrl        string `form:"operUrl" search:"type:contains;column:oper_url;table:admin_sys_oper_log" comment:"访问地址"`
+	OperIp         string `form:"operIp" search:"type:exact;column:oper_ip;table:admin_sys_oper_log" comment:"客户端ip"`
+	Status         string `form:"status" search:"type:exact;column:status;table:admin_sys_oper_log" comment:"状态"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:admin_sys_oper_log" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:admin_sys_oper_log" comment:"创建时间"`
 	SysOperLogOrder
 }
 
 type SysOperLogOrder struct {
-	CreatedAtOrder string `search:"type:order;column:created_at;table:sys_oper_log" form:"createdAtOrder"`
+	CreatedAtOrder string `search:"type:order;column:created_at;table:admin_sys_oper_log" form:"createdAtOrder"`
 }
 
 func (m *SysOperLogQueryReq) GetNeedSearch() interface{} {

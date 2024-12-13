@@ -234,7 +234,7 @@ func (e *UserCountryCode) Export(list []models.UserCountryCode) ([]byte, error) 
 	dictService := adminService.NewSysDictDataService(&e.Service)
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
-		status := dictService.GetLabel("sys_status", item.Status)
+		status := dictService.GetLabel("admin_sys_status", item.Status)
 
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{

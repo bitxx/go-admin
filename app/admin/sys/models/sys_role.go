@@ -18,10 +18,10 @@ type SysRole struct {
 	UpdateBy  int64      `json:"updateBy" gorm:"index;comment:更新者"`
 	CreatedAt *time.Time `json:"createdAt" gorm:"comment:创建时间"`
 	UpdatedAt *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
-	SysDept   []SysDept  `json:"sysDept" gorm:"many2many:sys_role_dept;foreignKey:id;joinForeignKey:role_id;references:id;joinReferences:dept_id;"`
-	SysMenu   *[]SysMenu `json:"sysMenu" gorm:"many2many:sys_role_menu;foreignKey:id;joinForeignKey:role_id;references:Id;joinReferences:menu_id;"`
+	SysDept   []SysDept  `json:"sysDept" gorm:"many2many:admin_sys_role_dept;foreignKey:id;joinForeignKey:role_id;references:id;joinReferences:dept_id;"`
+	SysMenu   *[]SysMenu `json:"sysMenu" gorm:"many2many:admin_sys_role_menu;foreignKey:id;joinForeignKey:role_id;references:Id;joinReferences:menu_id;"`
 }
 
 func (SysRole) TableName() string {
-	return "sys_role"
+	return "admin_sys_role"
 }

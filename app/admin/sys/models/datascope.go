@@ -34,13 +34,13 @@ func (e *DataPermission) GetDataScope(tableName string, db *gorm.DB) (*gorm.DB, 
 		return nil, errors.New("获取用户数据出错 msg:" + err.Error())
 	}
 	if role.DataScope == "2" {
-		db = db.Where(tableName+".create_by in (select sys_user.id from sys_role_dept left join sys_user on sys_user.dept_id=sys_role_dept.dept_id where sys_role_dept.role_id = ?)", user.RoleId)
+		db = db.Where(tableName+".create_by in (select admin_sys_user.id from admin_sys_role_dept left join admin_sys_user on admin_sys_user.dept_id=admin_sys_role_dept.dept_id where admin_sys_role_dept.role_id = ?)", user.RoleId)
 	}
 	if role.DataScope == "3" {
-		db = db.Where(tableName+".create_by in (SELECT id from sys_user where dept_id = ? )", user.DeptId)
+		db = db.Where(tableName+".create_by in (SELECT id from admin_sys_user where dept_id = ? )", user.DeptId)
 	}
 	if role.DataScope == "4" {
-		db = db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%"+strutils.IntToString(user.DeptId)+"%")
+		db = db.Where(tableName+".create_by in (SELECT id from admin_sys_user where admin_sys_user.dept_id in(select dept_id from admin_sys_dept where dept_path like ? ))", "%"+strutils.IntToString(user.DeptId)+"%")
 	}
 	if role.DataScope == "5" || role.DataScope == "" {
 		db = db.Where(tableName+".create_by = ?", e.UserId)
@@ -65,13 +65,13 @@ func (e *DataPermission) GetDataScope(tableName string, db *gorm.DB) (*gorm.DB, 
 //			return db
 //		}
 //		if role.DataScope == "2" {
-//			return db.Where(tableName+".create_by in (select sys_user.id from sys_role_dept left join sys_user on sys_user.dept_id=sys_role_dept.dept_id where sys_role_dept.role_id = ?)", user.Id)
+//			return db.Where(tableName+".create_by in (select admin_sys_user.id from admin_sys_role_dept left join admin_sys_user on admin_sys_user.dept_id=admin_sys_role_dept.dept_id where admin_sys_role_dept.role_id = ?)", user.Id)
 //		}
 //		if role.DataScope == "3" {
-//			return db.Where(tableName+".create_by in (SELECT id from sys_user where dept_id = ? )", user.Id)
+//			return db.Where(tableName+".create_by in (SELECT id from admin_sys_user where dept_id = ? )", user.Id)
 //		}
 //		if role.DataScope == "4" {
-//			return db.Where(tableName+".create_by in (SELECT id from sys_user where sys_user.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%"+pkg.IntToString(user.Id)+"%")
+//			return db.Where(tableName+".create_by in (SELECT id from admin_sys_user where admin_sys_user.dept_id in(select dept_id from admin_sys_dept where dept_path like ? ))", "%"+pkg.IntToString(user.Id)+"%")
 //		}
 //		if role.DataScope == "5" || role.DataScope == "" {
 //			return db.Where(tableName+".create_by = ?", userId)

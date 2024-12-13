@@ -194,7 +194,7 @@ func (e *SysDictData) Update(c *dto.SysDictDataUpdateReq, p *middleware.DataPerm
 	return false, lang.SuccessCode, nil
 }
 
-// UpdateDictType 用于sys_dict_type同步修改
+// UpdateDictType 用于admin_sys_dict_type同步修改
 func (e *SysDictData) UpdateDictType(oldDictType, newDictType string) (int, error) {
 	if oldDictType == newDictType {
 		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)

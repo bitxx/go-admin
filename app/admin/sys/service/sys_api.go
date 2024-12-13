@@ -139,7 +139,7 @@ func (e *SysApi) Delete(ids []int64, p *middleware.DataPermission) (int, error) 
 
 	err = e.Orm.Transaction(func(tx *gorm.DB) error {
 		// 删除子表数据
-		if err := tx.Table("sys_menu_api_rule").Where("sys_api_id in (?)", ids).Delete(nil).Error; err != nil {
+		if err := tx.Table("admin_sys_menu_api_rule").Where("admin_sys_api_id in (?)", ids).Delete(nil).Error; err != nil {
 			return err
 		}
 		err = tx.Scopes(
@@ -171,8 +171,8 @@ func (e *SysApi) Export(list []models.SysApi) ([]byte, error) {
 	dictService := NewSysDictDataService(&e.Service)
 	for i, item := range list {
 		axis := fmt.Sprintf("A%d", i+2)
-		method := dictService.GetLabel("sys_api_method", item.Method)
-		apiType := dictService.GetLabel("sys_api_type", item.ApiType)
+		method := dictService.GetLabel("admin_sys_api_method", item.Method)
+		apiType := dictService.GetLabel("admin_sys_config_type", item.ApiType)
 		//按标签对应输入数据
 		_ = xlsx.SetSheetRow(sheetName, axis, &[]interface{}{
 			item.Id, item.Description, item.Path, method, apiType, dateutils.ConvertToStrByPrt(item.CreatedAt, -1),

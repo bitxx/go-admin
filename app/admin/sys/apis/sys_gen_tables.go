@@ -39,8 +39,7 @@ func (e SysTables) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Get
-// @Summary sys-获取表管理详情
+// Get sys-获取表管理详情
 func (e SysTables) Get(c *gin.Context) {
 	req := dto.SysGenTableGetReq{}
 	s := service.SysGenTable{}

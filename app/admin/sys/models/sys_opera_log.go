@@ -29,7 +29,7 @@ type SysOperLog struct {
 }
 
 func (SysOperLog) TableName() string {
-	return "sys_oper_log"
+	return "admin_sys_oper_log"
 }
 
 // SaveOperLog 从队列中获取操作日志

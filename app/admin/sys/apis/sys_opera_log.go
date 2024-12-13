@@ -98,7 +98,7 @@ func (e SysOperLog) Export(c *gin.Context) {
 	}
 
 	sysConfService := adminService.NewSysConfigService(&s.Service)
-	maxSize, respCode, err := sysConfService.GetWithKeyInt("sys_max_export_size")
+	maxSize, respCode, err := sysConfService.GetWithKeyInt("admin_sys_max_export_size")
 	if err != nil {
 		e.Error(respCode, err.Error())
 	}

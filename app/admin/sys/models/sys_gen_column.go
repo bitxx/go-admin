@@ -27,7 +27,7 @@ type SysGenColumn struct {
 }
 
 func (SysGenColumn) TableName() string {
-	return "sys_gen_column"
+	return "admin_sys_gen_column"
 }
 
 type DBColumn struct {

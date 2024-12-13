@@ -5,13 +5,13 @@ import (
 )
 
 type SysGenColumnQueryReq struct {
-	TableId        int64 `form:"tableId" search:"type:exact;column:table_id;table:sys_gen_column" comment:"表id"`
+	TableId        int64 `form:"tableId" search:"type:exact;column:table_id;table:admin_sys_gen_column" comment:"表id"`
 	dto.Pagination `search:"-"`
 	SysGenColumnOrder
 }
 
 type SysGenColumnOrder struct {
-	CreatedAtOrder string `search:"type:order;column:created_at;table:sys_gen_column" form:"createdAtOrder"`
+	CreatedAtOrder string `search:"type:order;column:created_at;table:admin_sys_gen_column" form:"createdAtOrder"`
 }
 
 func (m *SysGenColumnQueryReq) GetNeedSearch() interface{} {

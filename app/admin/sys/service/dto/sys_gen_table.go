@@ -6,18 +6,18 @@ import (
 
 type SysGenTableQueryReq struct {
 	dto.Pagination `search:"-"`
-	TableName      string   `form:"tableName" search:"type:contains;column:table_name;table:sys_gen_table" comment:"表名"`
-	TableNames     []string `form:"-" search:"type:in;column:table_name;table:sys_gen_table" comment:"表名"`
-	TableComment   string   `form:"tableComment" search:"type:icontains;column:table_comment;table:sys_gen_table" comment:"表别名"`
-	BeginCreatedAt string   `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_gen_table" comment:"创建时间"`
-	EndCreatedAt   string   `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_gen_table" comment:"创建时间"`
+	TableName      string   `form:"tableName" search:"type:contains;column:table_name;table:admin_sys_gen_table" comment:"表名"`
+	TableNames     []string `form:"-" search:"type:in;column:table_name;table:admin_sys_gen_table" comment:"表名"`
+	TableComment   string   `form:"tableComment" search:"type:icontains;column:table_comment;table:admin_sys_gen_table" comment:"表别名"`
+	BeginCreatedAt string   `form:"beginCreatedAt" search:"type:gte;column:created_at;table:admin_sys_gen_table" comment:"创建时间"`
+	EndCreatedAt   string   `form:"endCreatedAt" search:"type:lte;column:created_at;table:admin_sys_gen_table" comment:"创建时间"`
 	SysGenTableOrder
 }
 
 type SysGenTableOrder struct {
-	TableName      string `search:"type:order;column:table_name;table:sys_gen_table" form:"tableNameOrder"`
-	TableComment   string `search:"type:order;column:table_comment;table:sys_gen_table" form:"tableCommentOrder"`
-	CreatedAtOrder string `search:"type:order;column:created_at;table:sys_gen_table" form:"createdAtOrder"`
+	TableName      string `search:"type:order;column:table_name;table:admin_sys_gen_table" form:"tableNameOrder"`
+	TableComment   string `search:"type:order;column:table_comment;table:admin_sys_gen_table" form:"tableCommentOrder"`
+	CreatedAtOrder string `search:"type:order;column:created_at;table:admin_sys_gen_table" form:"createdAtOrder"`
 }
 
 func (m *SysGenTableQueryReq) GetNeedSearch() interface{} {

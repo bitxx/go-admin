@@ -94,12 +94,12 @@ const {{.ClassName}}: React.FC = () => {
       width: 150,
       render: (_, data) => (
         <Space>
-          <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:edit"]}>
+          <HocAuth permission={["{{.PackageName}}:{{.ModuleName}}:edit"]}>
             <LoadingButton key="edit" type="link" size="small" icon={<EditOutlined />} onClick={(done) => handleShowEditFormModal(data.id!,done)}>
               编辑
             </LoadingButton>
           </HocAuth>
-          <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:del"]}>
+          <HocAuth permission={["{{.PackageName}}:{{.ModuleName}}:del"]}>
             <LoadingButton key="delete" type="link" size="small" danger icon={<DeleteOutlined />} onClick={(done) => handleDelete(data.id!,done)}>
               删除
             </LoadingButton>
@@ -196,12 +196,12 @@ const {{.ClassName}}: React.FC = () => {
   };
 
   const toolBarRender = () => [
-    <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:add"]}>
+    <HocAuth permission={["{{.PackageName}}:{{.ModuleName}}:add"]}>
       <LoadingButton type="primary" key="addTable" icon={<PlusCircleOutlined />} onClick={(done) => handleShowAddFormModal(done)}>
         新增
       </LoadingButton>
     </HocAuth>,
-    <HocAuth permission={["{{.PackageName}}:{{.BusinessName}}:{{.ModuleName}}:export"]}>
+    <HocAuth permission={["{{.PackageName}}:{{.ModuleName}}:export"]}>
       <LoadingButton type="primary" key="importTable" icon={<CloudDownloadOutlined />} onClick={done => handleExport(done)}>
         Excel导出
       </LoadingButton>

@@ -7,12 +7,12 @@ import (
 
 type SysDictDataQueryReq struct {
 	dto.Pagination `search:"-"`
-	Id             int64  `form:"id" search:"type:exact;column:id;table:sys_dict_data" comment:""`
-	DictLabel      string `form:"dictLabel" search:"type:contains;column:dict_label;table:sys_dict_data" comment:""`
-	DictValue      string `form:"dictValue" search:"type:leftcontains;column:dict_value;table:sys_dict_data" comment:""`
-	DictType       string `form:"dictType" search:"type:contains;column:dict_type;table:sys_dict_data" comment:""`
-	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_dict_data" comment:"创建时间"`
-	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_dict_data" comment:"创建时间"`
+	Id             int64  `form:"id" search:"type:exact;column:id;table:admin_sys_dict_data" comment:""`
+	DictLabel      string `form:"dictLabel" search:"type:contains;column:dict_label;table:admin_sys_dict_data" comment:""`
+	DictValue      string `form:"dictValue" search:"type:leftcontains;column:dict_value;table:admin_sys_dict_data" comment:""`
+	DictType       string `form:"dictType" search:"type:contains;column:dict_type;table:admin_sys_dict_data" comment:""`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:admin_sys_dict_data" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:admin_sys_dict_data" comment:"创建时间"`
 }
 
 func (m *SysDictDataQueryReq) GetNeedSearch() interface{} {

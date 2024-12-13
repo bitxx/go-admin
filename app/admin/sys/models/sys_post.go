@@ -19,5 +19,5 @@ type SysPost struct {
 }
 
 func (SysPost) TableName() string {
-	return "sys_post"
+	return "admin_sys_post"
 }

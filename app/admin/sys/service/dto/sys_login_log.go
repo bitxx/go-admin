@@ -8,18 +8,18 @@ import (
 
 type SysLoginLogQueryReq struct {
 	dto.Pagination `search:"-"`
-	UserId         string `form:"userId" search:"type:exact;column:user_id;table:sys_login_log" comment:"用户编号"`
-	Username       string `form:"username" search:"type:exact;column:username;table:sys_login_log" comment:"用户名"`
-	Status         string `form:"status" search:"type:exact;column:status;table:sys_login_log" comment:"状态"`
-	Ipaddr         string `form:"ipaddr" search:"type:exact;column:ipaddr;table:sys_login_log" comment:"ip地址"`
-	LoginLocation  string `form:"loginLocation" search:"type:exact;column:login_location;table:sys_login_log" comment:"归属地"`
-	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:sys_login_log" comment:"创建时间"`
-	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:sys_login_log" comment:"创建时间"`
+	UserId         string `form:"userId" search:"type:exact;column:user_id;table:admin_sys_login_log" comment:"用户编号"`
+	Username       string `form:"username" search:"type:exact;column:username;table:admin_sys_login_log" comment:"用户名"`
+	Status         string `form:"status" search:"type:exact;column:status;table:admin_sys_login_log" comment:"状态"`
+	Ipaddr         string `form:"ipaddr" search:"type:exact;column:ipaddr;table:admin_sys_login_log" comment:"ip地址"`
+	LoginLocation  string `form:"loginLocation" search:"type:exact;column:login_location;table:admin_sys_login_log" comment:"归属地"`
+	BeginCreatedAt string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:admin_sys_login_log" comment:"创建时间"`
+	EndCreatedAt   string `form:"endCreatedAt" search:"type:lte;column:created_at;table:admin_sys_login_log" comment:"创建时间"`
 	SysLoginLogOrder
 }
 
 type SysLoginLogOrder struct {
-	CreatedAtOrder string `search:"type:order;column:created_at;table:sys_login_log" form:"createdAtOrder"`
+	CreatedAtOrder string `search:"type:order;column:created_at;table:admin_sys_login_log" form:"createdAtOrder"`
 }
 
 func (m *SysLoginLogQueryReq) GetNeedSearch() interface{} {

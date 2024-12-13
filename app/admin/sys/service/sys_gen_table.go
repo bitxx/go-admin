@@ -247,8 +247,9 @@ func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, 
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
 		).
-		Where("table_name not like 'sys_%'").
-		Where("table_name not in (select table_name from sys_gen_table)").
+		//Where("table_name not like 'admin_sys_%'").
+		Where("table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
+		Where("table_name not in (select table_name from admin_sys_gen_table)").
 		Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase()).
 		Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {

@@ -31,7 +31,7 @@ type SysUser struct {
 }
 
 func (SysUser) TableName() string {
-	return "sys_user"
+	return "admin_sys_user"
 }
 
 // 加密

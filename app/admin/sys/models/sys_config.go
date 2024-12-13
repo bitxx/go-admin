@@ -17,5 +17,5 @@ type SysConfig struct {
 }
 
 func (SysConfig) TableName() string {
-	return "sys_config"
+	return "admin_sys_config"
 }

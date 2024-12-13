@@ -28,7 +28,7 @@ type SysLoginLog struct {
 }
 
 func (SysLoginLog) TableName() string {
-	return "sys_login_log"
+	return "admin_sys_login_log"
 }
 
 // SaveLoginLog 从队列中获取登录日志
