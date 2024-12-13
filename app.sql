@@ -11,7 +11,7 @@
  Target Server Version : 80040 (8.0.40)
  File Encoding         : 65001
 
- Date: 14/12/2024 01:25:34
+ Date: 14/12/2024 03:47:29
 */
 
 SET NAMES utf8mb4;
@@ -61,9 +61,9 @@ INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, 
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (21, 'admin-表管理下载代码', '/admin-api/v1/admin/sys/sys-table/gen/download/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-13 21:45:39', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (22, 'admin-表管理中生成菜单数据', '/admin-api/v1/admin/sys/sys-table/gen/db/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-13 21:45:39', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (23, 'admin-生成表管理的代码', '/admin-api/v1/admin/sys/sys-table/gen/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-13 21:45:39', 0, 0);
-INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (24, 'admin-获取表管理的DB表分页列表', '/admin-api/v1/admin/sys/sys-table/db-tables', '1', 'GET', '2024-12-13 20:37:35', '2024-12-13 21:45:39', 0, 0);
+INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (24, 'admin-获取表管理的DB表分页列表', '/admin-api/v1/admin/sys/sys-table/db-tables', '1', 'GET', '2024-12-13 20:37:35', '2024-12-14 03:45:37', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (25, 'admin-预览表管理的代码页面', '/admin-api/v1/admin/sys/sys-table/preview/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-13 21:45:39', 0, 0);
-INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (26, 'admin-获取表管理详情', '/admin-api/v1/admin/sys/sys-table/:id', '1', 'GET', '2024-12-13 20:37:36', '2024-12-13 21:45:39', 0, 0);
+INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (26, 'admin-获取表管理详情', '/admin-api/v1/admin/sys/sys-table/:id', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 03:45:37', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (27, 'admin-获取接口管理分页列表', '/admin-api/v1/admin/sys/sys-api', '1', 'GET', '2024-12-13 20:37:36', '2024-12-13 21:11:40', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (28, 'admin-同步接口数据', '/admin-api/v1/admin/sys/sys-api/sync', '1', 'GET', '2024-12-13 20:37:36', '2024-12-13 21:12:47', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (29, '获取接口同步状态', '/admin-api/v1/admin/sys/sys-api/sync/status', '1', 'GET', '2024-12-13 20:37:36', '2024-12-13 20:37:36', 0, 0);
@@ -157,7 +157,7 @@ INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, 
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (118, 'admin-更新角色管理', '/admin-api/v1/admin/sys/sys-role/:id', '1', 'PUT', '2024-12-13 20:37:51', '2024-12-13 21:27:26', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (119, 'admin-更新接口管理', '/admin-api/v1/admin/sys/sys-api/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-13 21:11:22', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (120, 'admin-更新配置管理', '/admin-api/v1/admin/sys/sys-config/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-13 21:36:47', 0, 0);
-INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (121, 'admin-更新表管理', '/admin-api/v1/admin/sys/sys-table/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-13 21:45:29', 0, 0);
+INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (121, 'admin-更新表管理', '/admin-api/v1/admin/sys/sys-table/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-14 03:45:37', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (122, 'admin-更新菜单管理', '/admin-api/v1/admin/sys/sys-menu/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-13 21:28:30', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (123, 'admin-更新岗位管理', '/admin-api/v1/admin/sys/sys-post/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-13 21:32:27', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (124, 'app-更新用户配置管理', '/admin-api/v1/app/user/user-conf/:id', '3', 'PUT', '2024-12-13 20:37:52', '2024-12-13 20:57:45', 0, 0);
@@ -884,7 +884,7 @@ CREATE TABLE `admin_sys_menu` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='菜单管理';
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='菜单管理';
 
 -- ----------------------------
 -- Records of admin_sys_menu
@@ -937,7 +937,7 @@ INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirec
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (45, '删除登录日志', 'AppstoreOutlined', '', '', '', 'admin:sys-login-log:del', 0, 14, '0,1,14,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:38:09');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (46, '查询操作日志', 'AppstoreOutlined', '', '', '', 'admin:sys-oper-log:query', 0, 15, '0,1,15,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:40:36');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (47, '删除操作日志', 'AppstoreOutlined', '', '', '', 'admin:sys-oper-log:del', 0, 15, '0,1,15,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:41:20');
-INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (48, '代码生成', 'AndroidOutlined', '/admin/sys/tools/sys-gen', '/admin/sys/tools/gen/index', '', '', 20, 54, '0,54,', '2', '1', '2', '2', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:45:39');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (48, '代码生成', 'AndroidOutlined', '/admin/sys/tools/sys-gen', '/admin/sys/tools/gen/index', '', '', 20, 54, '0,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-14 03:36:24');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (49, '代码生成修改', 'AliwangwangOutlined', '/admin/sys/tools/sys-edit-table', '/admin/sys/tools/gen/edit/index', '', '', 100, 54, '0,54,', '2', '1', '2', '1', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-13 22:04:52');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (50, '服务监控', 'ArrowLeftOutlined', '/admin/sys/tools/monitor', '/admin/sys/tools/monitor/index', '', '', 0, 54, '0,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-14 00:28:19', '2024-12-13 21:42:01');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (51, '接口管理', 'AlertTwoTone', '/admin/sys/sys-api', '/admin/sys/api/index', NULL, '', 0, 1, '0,1,', '2', '1', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
@@ -1014,7 +1014,13 @@ INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirec
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (123, '修改角色数据范围', 'AppstoreOutlined', '', '', '', 'admin:sys-role:datascope', 0, 8, '0,1,8,', '3', '', '', '', '', 1, 1, '2024-12-09 15:19:53', '2024-12-13 21:22:28');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (124, '删除接口', 'AppstoreOutlined', '', '', '', 'admin:sys-api:del', 0, 51, '0,1,51,', '3', '', '', '', '', 1, 1, '2024-12-09 15:37:48', '2024-12-13 21:10:46');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (125, '同步接口', 'AppstoreOutlined', '', '', '', 'admin:sys-api:sync', 0, 51, '0,1,51,', '3', '', '', '', '', 1, 1, '2024-12-13 21:12:34', '2024-12-13 21:12:47');
-INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (126, '修改表字段', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:edit', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-13 22:04:00', '2024-12-13 22:04:00');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (126, '修改表字段', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:edit', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-13 22:04:00', '2024-12-14 03:45:37');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (127, '代码预览', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:preview', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-14 03:36:14', '2024-12-14 03:36:14');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (128, '获取表管理分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:query', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-14 03:39:04', '2024-12-14 03:39:04');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (129, '生成表管理代码', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:gen-code', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-14 03:40:26', '2024-12-14 03:40:26');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (130, '下载表管理代码', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:download-code', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-14 03:41:22', '2024-12-14 03:41:22');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (131, '导入数据到db', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:import-db', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-14 03:43:36', '2024-12-14 03:43:36');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (132, '表管理删除', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:del', 0, 48, '0,54,48,', '3', '', '', '', '', 1, 1, '2024-12-14 03:44:46', '2024-12-14 03:44:46');
 COMMIT;
 
 -- ----------------------------
@@ -1048,13 +1054,13 @@ INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (20, 13);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (22, 13);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (50, 16);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 20);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 21);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 22);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 23);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 24);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 25);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 26);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (128, 20);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (130, 21);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (131, 22);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (129, 23);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (126, 24);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (127, 25);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (126, 26);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (52, 27);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (125, 28);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (121, 31);
@@ -1107,7 +1113,6 @@ INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (25, 91);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (3, 92);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (41, 94);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 95);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (16, 96);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (29, 97);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (20, 98);
@@ -1145,7 +1150,7 @@ INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (27, 134);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (124, 135);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (43, 136);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (48, 137);
+INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (132, 137);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (45, 138);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (19, 139);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (31, 141);
