@@ -62,12 +62,14 @@
                 @click="handleEditTable(scope.row)"
               >编辑</el-button>
               <el-button
+                v-permisaction="['admin:sys-gen:preview']"
                 type="text"
                 size="small"
                 icon="el-icon-view"
                 @click="handlePreview(scope.row)"
               >预览</el-button>
               <el-button
+                v-permisaction="['admin:sys-gen:gen-code']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
@@ -75,6 +77,7 @@
               >生成代码
               </el-button>
               <el-button
+                v-permisaction="['admin:sys-gen:download-code']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
@@ -82,6 +85,7 @@
               >下载代码
               </el-button>
               <el-button
+                v-permisaction="['admin:sys-gen:import-db']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
@@ -89,6 +93,7 @@
               >配置生成
               </el-button>
               <el-button
+                v-permisaction="['admin:sys-gen:del']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
