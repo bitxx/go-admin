@@ -11,7 +11,7 @@
  Target Server Version : 80040 (8.0.40)
  File Encoding         : 65001
 
- Date: 13/12/2024 22:05:53
+ Date: 14/12/2024 00:15:33
 */
 
 SET NAMES utf8mb4;
@@ -202,7 +202,7 @@ CREATE TABLE `admin_sys_casbin_rule` (
   `v4` varchar(100) DEFAULT NULL,
   `v5` varchar(100) DEFAULT NULL,
   UNIQUE KEY `idx_admin_sys_casbin_rule` (`p_type`,`v0`,`v1`,`v2`,`v3`,`v4`,`v5`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of admin_sys_casbin_rule
@@ -939,8 +939,8 @@ INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirec
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (45, '删除登录日志', 'AppstoreOutlined', '', '', '', 'admin:sys-login-log:del', 0, 14, '0,1,14,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:38:09');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (46, '查询操作日志', 'AppstoreOutlined', '', '', '', 'admin:sys-oper-log:query', 0, 15, '0,1,15,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:40:36');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (47, '删除操作日志', 'AppstoreOutlined', '', '', '', 'admin:sys-oper-log:del', 0, 15, '0,1,15,', '3', '', '', '', '', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:41:20');
-INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (48, '代码生成', 'AndroidOutlined', '/admin/sys/tools/sys-gen', '/admin/sys/tools/gen/index', '', '', 20, 54, '0,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:45:39');
-INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (49, '代码生成修改', 'AliwangwangOutlined', '/admin/sys/tools/sys-edit-table', '/admin/sys/tools/gen/edit/index', '', '', 100, 54, '0,54,', '2', '2', '2', '1', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-13 22:04:52');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (48, '代码生成', 'AndroidOutlined', '/admin/sys/tools/sys-gen', '/admin/sys/tools/gen/index', '', '', 20, 54, '0,54,', '2', '1', '2', '2', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:45:39');
+INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (49, '代码生成修改', 'AliwangwangOutlined', '/admin/sys/tools/sys-edit-table', '/admin/sys/tools/gen/edit/index', '', '', 100, 54, '0,54,', '2', '1', '2', '1', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-13 22:04:52');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (50, '服务监控', 'ArrowLeftOutlined', '/admin/sys/tools/monitor', '/admin/sys/tools/monitor/index', '', '', 0, 54, '0,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-14 00:28:19', '2024-12-13 21:42:01');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (51, '接口管理', 'AlertTwoTone', '/admin/sys/sys-api', '/admin/sys/api/index', NULL, '', 0, 1, '0,1,', '2', '1', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2023-04-27 16:32:41');
 INSERT INTO `admin_sys_menu` (`id`, `title`, `icon`, `path`, `element`, `redirect`, `permission`, `sort`, `parent_id`, `parent_ids`, `menu_type`, `is_keep_alive`, `is_affix`, `is_hidden`, `is_frame`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (52, '查询接口', 'AppstoreOutlined', '', '', '', 'admin:sys-api:query', 40, 51, '0,1,51,', '3', '', '', '', '', 1, 1, '2021-05-20 22:08:45', '2024-12-13 21:11:40');
