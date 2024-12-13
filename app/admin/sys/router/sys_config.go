@@ -22,7 +22,6 @@ func registerSysConfigRouter(v1 *gin.RouterGroup) {
 		r.PUT("/:id", api.Update)
 		r.DELETE("", api.Delete)
 		r.GET("/export", api.Export)
-		r.GET("/list", api.GetList)
 		r.GET("/key/:configKey", api.GetByKey)
 	}
 }

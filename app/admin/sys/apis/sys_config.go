@@ -2,9 +2,6 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
-	"go-admin/app/admin/sys/constant"
-	"go-admin/app/admin/sys/models"
 	"go-admin/app/admin/sys/service"
 	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
@@ -40,36 +37,6 @@ func (e SysConfig) GetPage(c *gin.Context) {
 		return
 	}
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
-// GetList admin-获取系统配置全部列表
-func (e SysConfig) GetList(c *gin.Context) {
-	req := dto.SysConfigQueryReq{}
-	s := service.SysConfig{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		Bind(&req, binding.Form).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-	list := make([]models.SysConfig, 0)
-	req.IsFrontend = constant.SysConfIsFrontend
-	list, respCode, err := s.GetList(&req)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	mp := make(map[string]string)
-	for i := 0; i < len(list); i++ {
-		key := list[i].ConfigKey
-		if key != "" {
-			mp[key] = list[i].ConfigValue
-		}
-	}
-	e.OK(mp, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
 // Get admin-获取配置管理详情
