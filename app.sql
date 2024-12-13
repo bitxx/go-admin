@@ -11,7 +11,7 @@
  Target Server Version : 80040 (8.0.40)
  File Encoding         : 65001
 
- Date: 14/12/2024 00:15:33
+ Date: 14/12/2024 01:25:34
 */
 
 SET NAMES utf8mb4;
@@ -72,7 +72,6 @@ INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, 
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (32, 'admin-获取接口管理详情', '/admin-api/v1/admin/sys/sys-api/:id', '1', 'GET', '2024-12-13 20:37:37', '2024-12-13 21:11:22', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (33, 'admin-获取配置管理分页列表', '/admin-api/v1/admin/sys/sys-config', '1', 'GET', '2024-12-13 20:37:37', '2024-12-13 21:35:48', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (34, 'admin-导出配置管理', '/admin-api/v1/admin/sys/sys-config/export', '1', 'GET', '2024-12-13 20:37:37', '2024-12-13 21:37:17', 0, 0);
-INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (35, 'admin-获取系统配置全部列表', '/admin-api/v1/admin/sys/sys-config/list', '1', 'GET', '2024-12-13 20:37:37', '2024-12-13 20:37:37', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (36, 'admin-根据Key获取配置值', '/admin-api/v1/admin/sys/sys-config/key/:configKey', '1', 'GET', '2024-12-13 20:37:37', '2024-12-13 20:37:37', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (37, 'admin-获取配置管理详情', '/admin-api/v1/admin/sys/sys-config/:id', '1', 'GET', '2024-12-13 20:37:37', '2024-12-13 21:36:47', 0, 0);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`) VALUES (38, 'admin-获取岗位管理分页列表', '/admin-api/v1/admin/sys/sys-post', '1', 'GET', '2024-12-13 20:37:38', '2024-12-13 21:31:42', 0, 0);
@@ -234,7 +233,6 @@ CREATE TABLE `admin_sys_config` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `admin_sys_config` (`id`, `config_name`, `config_key`, `config_value`, `config_type`, `is_frontend`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (1, '管理-皮肤样式', 'admin_sys_index_skinName', 'skin-green', '1', '1', '主框架页-默认皮肤样式名称:蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:16:02');
-INSERT INTO `admin_sys_config` (`id`, `config_name`, `config_key`, `config_value`, `config_type`, `is_frontend`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (2, '管理-初始密码', 'admin_sys_user_initPassword', '123456', '1', '1', '用户管理-账号初始密码:123456', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:16:10');
 INSERT INTO `admin_sys_config` (`id`, `config_name`, `config_key`, `config_value`, `config_type`, `is_frontend`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (3, '管理-侧栏主题', 'admin_sys_index_sideTheme', 'theme-dark', '1', '1', '主框架页-侧边栏主题:深色主题theme-dark，浅色主题theme-light', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:16:06');
 INSERT INTO `admin_sys_config` (`id`, `config_name`, `config_key`, `config_value`, `config_type`, `is_frontend`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (4, '管理-系统名称', 'admin_sys_app_name', 'go-admin后台管理系统', '1', '1', '', 1, 1, '2021-03-17 08:52:06', '2023-03-11 23:16:19');
 INSERT INTO `admin_sys_config` (`id`, `config_name`, `config_key`, `config_value`, `config_type`, `is_frontend`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (5, '管理-系统logo', 'admin_sys_app_logo', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '1', '1', '', 1, 1, '2021-03-17 08:53:19', '2023-03-11 23:16:15');
