@@ -339,7 +339,7 @@ func (e *SysMenu) getByRoleKey(roleKey string) ([]models.SysMenu, int, error) {
 		var role models.SysRole
 		role.RoleKey = roleKey
 		err = e.Orm.Debug().Model(&role).Where("role_key = ? ", roleKey).Preload("SysMenu", func(db *gorm.DB) *gorm.DB {
-			return db.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC}).Order("sort")
+			return db.Where(" menu_type in (?)", []string{constant.MenuM, constant.MenuC, constant.MenuF}).Order("sort")
 		}).Find(&role).Error
 		if role.SysMenu != nil {
 			filterParentMenuIds := make(map[int64]bool) // 存储所有的父菜单 ID
