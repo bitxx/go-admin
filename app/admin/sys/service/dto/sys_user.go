@@ -9,11 +9,11 @@ type SysUserQueryReq struct {
 	Id             int     `form:"userId" search:"type:exact;column:id;table:admin_sys_user" comment:"用户ID"`
 	Username       string  `form:"username" search:"type:contains;column:username;table:admin_sys_user" comment:"用户名"`
 	NickName       string  `form:"-" search:"type:contains;column:nick_name;table:admin_sys_user" comment:"昵称"`
-	Phone          string  `form:"phone" search:"type:contains;column:phone;table:admin_sys_user" comment:"手机号"`
+	Phone          string  `form:"phone" search:"type:exact;column:phone;table:admin_sys_user" comment:"手机号"`
 	RoleId         int64   `form:"-" search:"type:exact;column:role_id;table:admin_sys_user" comment:"角色ID"`
 	RoleIds        []int64 `form:"-" search:"type:in;column:role_id;table:admin_sys_user" comment:"角色ID集合"`
 	Sex            string  `form:"-" search:"type:exact;column:sex;table:admin_sys_user" comment:"性别"`
-	Email          string  `form:"email" search:"type:contains;column:email;table:admin_sys_user" comment:"邮箱"`
+	Email          string  `form:"email" search:"type:exact;column:email;table:admin_sys_user" comment:"邮箱"`
 	PostId         int64   `form:"postId" search:"type:exact;column:post_id;table:admin_sys_user" comment:"岗位"`
 	DeptId         int64   `form:"deptId" search:"type:exact;column:dept_id;table:admin_sys_user" comment:"部门"`
 	Status         string  `form:"status" search:"type:exact;column:status;table:admin_sys_user" comment:"状态"`
