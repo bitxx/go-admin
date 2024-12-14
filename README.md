@@ -117,10 +117,6 @@ npm-check
 ## 5. 其余
 这里只是大概讲了下基本情况，具体更多内容，还是需要在使用中一点点去发现。 
 
-## 6.待处理
-1. 顶级树加入默认值
-2. 接口页面显示授权了哪些菜单
-
 ## 感谢
 [go-admin-team](https://github.com/go-admin-team)  
 [flipped-aurora](https://github.com/flipped-aurora)
