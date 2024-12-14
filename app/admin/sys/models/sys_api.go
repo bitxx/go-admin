@@ -125,21 +125,22 @@ func SaveSysApi(message storage.Messager) (err error) {
 		}
 		newSysApis = append(newSysApis, newSysApi)
 	}
-
-	//事务批量插入，提高效率
-	err = db.Transaction(func(tx *gorm.DB) error {
-		if err = tx.Debug().Model(&SysApi{}).Create(&newSysApis).Error; err != nil {
-			return err
+	if len(newSysApis) > 0 {
+		//事务批量插入，提高效率
+		err = db.Transaction(func(tx *gorm.DB) error {
+			if err = tx.Debug().Model(&SysApi{}).Create(&newSysApis).Error; err != nil {
+				return err
+			}
+			return nil
+		})
+		if err != nil {
+			err = errors.New(fmt.Sprintf("Models SaveSysApi error: %s \r\n ", err.Error()))
+			SyncStatus = SyncStatusError
+			return
 		}
-		return nil
-	})
-	if err != nil {
-		err = errors.New(fmt.Sprintf("Models SaveSysApi error: %s \r\n ", err.Error()))
-		SyncStatus = SyncStatusError
-		return
-	}
-	for _, item := range newSysApis {
-		apiCacheMap[item.Path+"-"+item.Method] = true
+		for _, item := range newSysApis {
+			apiCacheMap[item.Path+"-"+item.Method] = true
+		}
 	}
 
 	// 删除库中无效接口
