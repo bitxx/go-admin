@@ -121,15 +121,12 @@ func (e *SysGenTable) Insert(c *dto.SysGenTableInsertReq) (int, error) {
 		return respCode, err
 	}
 
-	e.Orm = e.Orm.Begin()
-	defer func() {
-		if err != nil {
-			e.Orm.Rollback()
-		} else {
-			e.Orm.Commit()
+	err = e.Orm.Transaction(func(tx *gorm.DB) error {
+		if err = e.Orm.Create(&sysTables).Error; err != nil {
+			return err
 		}
-	}()
-	err = e.Orm.Create(&sysTables).Error
+		return nil
+	})
 	if err != nil {
 		return lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
 	}
@@ -361,7 +358,7 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 			}
 			if strings.Contains(column.ColumnType, "int") {
 				sysColumn.GoType = "int64"
-				sysColumn.HtmlType = "input"
+				sysColumn.HtmlType = "numInput"
 			} else if strings.Contains(column.ColumnType, "decimal") {
 				sysColumn.GoType = "decimal.Decimal"
 				sysColumn.HtmlType = "input"
