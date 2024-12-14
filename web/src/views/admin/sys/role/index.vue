@@ -263,7 +263,6 @@ export default {
   },
   created() {
     this.getList()
-    this.getMenuTreeselect()
     this.getDicts('admin_sys_status').then(response => {
       this.statusOptions = response.data
     })
@@ -400,6 +399,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset()
+      this.getMenuTreeselect()
       // this.getMenuTreeselect(0)
       this.open = true
       this.title = '添加角色'
@@ -420,6 +420,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset()
+      this.getMenuTreeselect()
       const id = row.id
       getRole(id).then(response => {
         this.form = response.data
