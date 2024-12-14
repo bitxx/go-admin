@@ -119,7 +119,7 @@ npm-check
 
 ## 6.待处理
 1. 顶级树加入默认值
-2. 子账户接口权限配置
+2. 接口页面显示授权了哪些菜单
 
 ## 感谢
 [go-admin-team](https://github.com/go-admin-team)  
