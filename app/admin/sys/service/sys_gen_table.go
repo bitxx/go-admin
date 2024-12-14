@@ -538,22 +538,23 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	if err != nil {
 		return respCode, err
 	}
+	basePremission := table.PackageName + ":" + table.ModuleName
+	basePath := "/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName
+
 	menuService := NewSysMenuService(&e.Service)
 
-	//插入菜单
-	premission := table.PackageName + ":" + table.BusinessName + ":" + table.ModuleName
-	path := "/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName
+	//插入主菜单
 	cMenuInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
 		Title:       table.TableComment,
-		Icon:        "pass",
-		Path:        path,
+		Icon:        "LayoutFilled",
+		Path:        basePath,
+		Element:     basePath + "/index",
 		MenuType:    constant.MenuC,
 		ParentId:    0,
-		IsKeepAlive: global.SysStatusNotOk,
-		Element:     path + "/index.vue",
-		IsHidden:    global.SysStatusNotOk,
+		IsKeepAlive: global.SysStatusOk,
 		IsFrame:     global.SysStatusOk,
+		IsHidden:    global.SysStatusNotOk,
 		IsAffix:     global.SysStatusNotOk,
 	}
 	cMenuId, respCode, err := menuService.Insert(&cMenuInsertReq)
@@ -564,14 +565,15 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	//查询按钮
 	mMenuQueryInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
-		Title:       "分页获取" + table.TableComment,
+		Title:       "获取" + table.TableComment + "分页列表",
+		Icon:        "AppstoreOutlined",
 		MenuType:    constant.MenuF,
-		Permission:  premission + ":query",
+		Permission:  basePremission + ":query",
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusOk,
 		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuQueryInsertReq)
 	if err != nil {
@@ -582,30 +584,32 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	mMenuAddInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
 		Title:       "新增" + table.TableComment,
+		Icon:        "AppstoreOutlined",
 		MenuType:    constant.MenuF,
-		Permission:  premission + ":add",
+		Permission:  basePremission + ":add",
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusOk,
 		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuAddInsertReq)
 	if err != nil {
 		return respCode, err
 	}
 
-	//修改按钮
+	//更新按钮
 	mMenuUpdateInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
-		Title:       "修改" + table.TableComment,
+		Title:       "更新" + table.TableComment,
+		Icon:        "AppstoreOutlined",
 		MenuType:    constant.MenuF,
-		Permission:  premission + ":edit",
+		Permission:  basePremission + ":edit",
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusOk,
 		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuUpdateInsertReq)
 	if err != nil {
@@ -616,13 +620,14 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	mMenuDelInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
 		Title:       "删除" + table.TableComment,
+		Icon:        "AppstoreOutlined",
 		MenuType:    constant.MenuF,
-		Permission:  premission + ":del",
+		Permission:  basePremission + ":del",
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusOk,
 		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuDelInsertReq)
 	if err != nil {
@@ -633,13 +638,14 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	mMenuExportInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
 		Title:       "导出" + table.TableComment,
+		Icon:        "AppstoreOutlined",
 		MenuType:    constant.MenuF,
-		Permission:  premission + ":export",
+		Permission:  basePremission + ":export",
 		ParentId:    cMenuId,
 		IsKeepAlive: global.SysStatusNotOk,
 		IsHidden:    global.SysStatusNotOk,
-		IsFrame:     global.SysStatusOk,
 		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
 	}
 	_, respCode, err = menuService.Insert(&mMenuExportInsertReq)
 	if err != nil {
