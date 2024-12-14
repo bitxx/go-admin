@@ -584,7 +584,7 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	//新增按钮
 	mMenuAddInsertReq := dto.SysMenuInsertReq{
 		CurrUserId:  c.CurrUserId,
-		Title:       "创建" + table.TableComment,
+		Title:       "新增" + table.TableComment,
 		MenuType:    constant.MenuF,
 		Permission:  premission + ":add",
 		ParentId:    cMenuId,

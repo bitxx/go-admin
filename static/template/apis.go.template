@@ -62,7 +62,7 @@ func (e {{.ClassName}}) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
-// Insert {{.PackageName}}-创建{{.TableComment}}
+// Insert {{.PackageName}}-新增{{.TableComment}}
 func (e {{.ClassName}}) Insert(c *gin.Context) {
     req := dto.{{.ClassName}}InsertReq{}
     s := service.{{.ClassName}}{}

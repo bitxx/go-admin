@@ -103,7 +103,7 @@ func (e *{{.ClassName}}) Count(queryCondition *dto.{{.ClassName}}QueryReq) (int6
 	return count, lang.SuccessCode, nil
 }
 
-// Insert {{.PackageName}}-创建{{.TableComment}}
+// Insert {{.PackageName}}-新增{{.TableComment}}
 func (e *{{.ClassName}}) Insert(c *dto.{{.ClassName}}InsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
