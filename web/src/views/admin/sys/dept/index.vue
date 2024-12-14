@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { getDeptList, getDept, delDept, addDept, updateDept } from '@/api/admin/sys/dept'
+import { getDept, delDept, addDept, updateDept, treeselect } from '@/api/admin/sys/dept'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
@@ -193,7 +193,7 @@ export default {
     /** 查询部门列表 */
     getList() {
       this.loading = true
-      getDeptList(this.queryParams).then(response => {
+      treeselect(this.queryParams).then(response => {
         this.deptList = response.data
         this.loading = false
       })
@@ -211,7 +211,7 @@ export default {
     },
     /** 查询部门下拉树结构 */
     getTreeselect(e) {
-      getDeptList().then(response => {
+      treeselect().then(response => {
         this.deptOptions = []
         if (e === 'update') {
           const dept = { id: 0, deptName: '主类目', children: [] }

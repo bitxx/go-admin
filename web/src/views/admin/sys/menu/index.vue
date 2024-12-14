@@ -364,7 +364,6 @@ export default {
   created() {
     this.getList()
 
-    this.getApiList()
     this.getDicts('admin_sys_menu_show_hide').then(response => {
       this.hiddenOptions = response.data
     })
@@ -485,6 +484,7 @@ export default {
     handleAdd(row) {
       this.reset()
       this.getTreeselect()
+      this.getApiList()
       if (row != null) {
         this.form.parentId = row.id
       }
@@ -495,6 +495,7 @@ export default {
     handleUpdate(row) {
       this.reset()
       this.getTreeselect()
+      this.getApiList()
       getMenu(row.id).then(response => {
         this.form = response.data
         this.open = true

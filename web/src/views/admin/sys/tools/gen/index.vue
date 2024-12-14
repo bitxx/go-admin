@@ -29,7 +29,7 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-              v-permisaction="['sys:table:add']"
+              v-permisaction="['admin:sys-gen:import-table']"
               type="warning"
               icon="el-icon-upload"
               size="mini"
@@ -85,7 +85,7 @@
               >下载代码
               </el-button>
               <el-button
-                v-permisaction="['admin:sys-gen:import-db']"
+                v-permisaction="['admin:sys-gen:import-config']"
                 size="mini"
                 type="text"
                 icon="el-icon-delete"

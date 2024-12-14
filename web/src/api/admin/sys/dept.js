@@ -1,13 +1,5 @@
 import request from '@/utils/request'
 
-export function getDeptList(query) {
-  return request({
-    url: '/admin-api/v1/admin/sys/sys-dept',
-    method: 'get',
-    params: query
-  })
-}
-
 // 查询部门详细
 export function getDept(deptId) {
   return request({
@@ -17,10 +9,11 @@ export function getDept(deptId) {
 }
 
 // 查询部门下拉树结构
-export function treeselect() {
+export function treeselect(query) {
   return request({
     url: '/admin-api/v1/admin/sys/sys-dept/dept-tree',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 

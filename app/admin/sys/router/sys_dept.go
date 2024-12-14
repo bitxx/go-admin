@@ -16,7 +16,6 @@ func registerSysDeptRouter(v1 *gin.RouterGroup) {
 
 	r := v1.Group("/admin/sys/sys-dept").Use(middleware.Auth()).Use(middleware.AuthCheckRole())
 	{
-		r.GET("", api.GetTreeList)
 		r.GET("/:id", api.Get)
 		r.POST("", api.Insert)
 		r.PUT("/:id", api.Update)

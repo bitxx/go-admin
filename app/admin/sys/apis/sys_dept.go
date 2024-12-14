@@ -2,7 +2,6 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
 	"go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
 	"go-admin/core/dto/api"
@@ -16,8 +15,8 @@ type SysDept struct {
 	api.Api
 }
 
-// GetTreeList admin-获取部门树列表
-func (e SysDept) GetTreeList(c *gin.Context) {
+// GetTree admin-获取部门管理树
+func (e SysDept) GetTree(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptQueryReq{}
 	err := e.MakeContext(c).
@@ -139,27 +138,6 @@ func (e SysDept) Delete(c *gin.Context) {
 		return
 	}
 	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
-}
-
-// GetTree admin-部门管理左侧树
-func (e SysDept) GetTree(c *gin.Context) {
-	s := service.SysDept{}
-	req := dto.SysDeptQueryReq{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		Bind(&req, binding.Form).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
-		return
-	}
-	list, respCode, err := s.GetTreeList(&req)
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
 }
 
 // GetDeptTreeByRole admin-根据角色获取部门
