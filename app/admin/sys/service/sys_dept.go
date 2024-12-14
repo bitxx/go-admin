@@ -34,11 +34,15 @@ func (e *SysDept) GetTreeList(c *dto.SysDeptQueryReq) ([]*models.SysDept, int, e
 	if err != nil {
 		return nil, respCode, err
 	}
-	return tree.GenTree(&list,
+	treeList := tree.GenTree(&list,
 		func(item models.SysDept) int64 { return item.Id },
 		func(item models.SysDept) int64 { return item.ParentId },
 		func(item *models.SysDept, children []*models.SysDept) { item.Children = children },
-	), lang.SuccessCode, nil
+	)
+
+	return []*models.SysDept{
+		{Id: 0, DeptName: "主目录", ParentId: 0, Children: treeList},
+	}, lang.SuccessCode, nil
 }
 
 // Get admin-获取部门管理详情

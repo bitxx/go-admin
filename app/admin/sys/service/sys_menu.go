@@ -37,11 +37,16 @@ func (e *SysMenu) GetTreeList(c *dto.SysMenuQueryReq) ([]*models.SysMenu, int, e
 	if err != nil {
 		return nil, respCode, err
 	}
-	return tree.GenTree(&list,
+
+	treeList := tree.GenTree(&list,
 		func(item models.SysMenu) int64 { return item.Id },
 		func(item models.SysMenu) int64 { return item.ParentId },
 		func(item *models.SysMenu, children []*models.SysMenu) { item.Children = children },
-	), lang.SuccessCode, nil
+	)
+
+	return []*models.SysMenu{
+		{Id: 0, Title: "主目录", ParentId: 0, Children: treeList},
+	}, lang.SuccessCode, nil
 }
 
 // Get admin-获取菜单管理详情
