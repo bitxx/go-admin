@@ -95,6 +95,7 @@ func SaveSysApi(message storage.Messager) (err error) {
 	}
 
 	//根据实际路由对比库中路由，将新路由加入库中
+	var newSysApis []SysApi
 	for _, v := range l.List {
 		routerCacheMap[v.RelativePath+"-"+v.HttpMethod] = true
 		if v.HttpMethod == "HEAD" {
@@ -122,12 +123,23 @@ func SaveSysApi(message storage.Messager) (err error) {
 		if apiInfos[v.Handler] != "" {
 			newSysApi.Description = apiInfos[v.Handler]
 		}
-		err = db.Debug().Model(&SysApi{}).Create(&newSysApi).Error
-		if err != nil {
-			log.Errorf("Models SaveSysApi error: %s \r\n ", err.Error())
-			continue
+		newSysApis = append(newSysApis, newSysApi)
+	}
+
+	//事务批量插入，提高效率
+	err = db.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Debug().Model(&SysApi{}).Create(&newSysApis).Error; err != nil {
+			return err
 		}
-		apiCacheMap[v.RelativePath+"-"+v.HttpMethod] = true
+		return nil
+	})
+	if err != nil {
+		err = errors.New(fmt.Sprintf("Models SaveSysApi error: %s \r\n ", err.Error()))
+		SyncStatus = SyncStatusError
+		return
+	}
+	for _, item := range newSysApis {
+		apiCacheMap[item.Path+"-"+item.Method] = true
 	}
 
 	// 删除库中无效接口
