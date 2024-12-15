@@ -37,7 +37,7 @@ func (e MsgCode) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
-// Get 获取验证码管理详情
+// Get plugins-获取验证码管理详情
 func (e MsgCode) Get(c *gin.Context) {
 	req := dto.MsgCodeGetReq{}
 	s := service.MsgCode{}
