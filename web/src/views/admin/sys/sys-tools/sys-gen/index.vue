@@ -289,7 +289,7 @@ export default {
     },
     /** 修改按钮操作 */
     handleEditTable(row) {
-      this.$router.push({ path: '/admin/sys/tools/sys-edit-table', query: { tableId: row.id }})
+      this.$router.push({ path: '/admin/sys/sys-tools/sys-gen/edit', query: { tableId: row.id }})
     },
     /** 删除按钮操作 */
     handleDelete(row) {
