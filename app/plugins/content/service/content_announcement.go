@@ -3,9 +3,9 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	cLang "go-admin/app/plugins/content/lang"
 	"go-admin/app/plugins/content/models"
 	"go-admin/app/plugins/content/service/dto"
+	baseLang "go-admin/config/base/lang"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
@@ -39,27 +39,27 @@ func (e *ContentAnnouncement) GetPage(c *dto.ContentAnnouncementQueryReq, p *mid
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get plugins-获取公告管理详情
 func (e *ContentAnnouncement) Get(id int64, p *middleware.DataPermission) (*models.ContentAnnouncement, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.ContentAnnouncement{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne plugins-获取公告管理一条记录
@@ -70,12 +70,12 @@ func (e *ContentAnnouncement) QueryOne(queryCondition *dto.ContentAnnouncementQu
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取公告管理数据总数
@@ -87,30 +87,30 @@ func (e *ContentAnnouncement) Count(queryCondition *dto.ContentAnnouncementQuery
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert plugins-新增公告管理
 func (e *ContentAnnouncement) Insert(c *dto.ContentAnnouncementInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Title == "" {
-		return 0, cLang.PluginsAnnouncementTitleEmptyCode, lang.MsgErr(cLang.PluginsAnnouncementTitleEmptyCode, e.Lang)
+		return 0, baseLang.PluginsAnnouncementTitleEmptyCode, lang.MsgErr(baseLang.PluginsAnnouncementTitleEmptyCode, e.Lang)
 	}
 	if c.Content == "" {
-		return 0, cLang.PluginsAnnouncementContentEmptyCode, lang.MsgErr(cLang.PluginsAnnouncementContentEmptyCode, e.Lang)
+		return 0, baseLang.PluginsAnnouncementContentEmptyCode, lang.MsgErr(baseLang.PluginsAnnouncementContentEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return 0, cLang.PluginsAnnouncementStatusEmptyCode, lang.MsgErr(cLang.PluginsAnnouncementStatusEmptyCode, e.Lang)
+		return 0, baseLang.PluginsAnnouncementStatusEmptyCode, lang.MsgErr(baseLang.PluginsAnnouncementStatusEmptyCode, e.Lang)
 	}
 	if c.Num < 0 {
-		return 0, cLang.PluginsAnnouncementNumCode, lang.MsgErr(cLang.PluginsAnnouncementNumCode, e.Lang)
+		return 0, baseLang.PluginsAnnouncementNumCode, lang.MsgErr(baseLang.PluginsAnnouncementNumCode, e.Lang)
 	}
 	now := time.Now()
 	var data models.ContentAnnouncement
@@ -125,24 +125,24 @@ func (e *ContentAnnouncement) Insert(c *dto.ContentAnnouncementInsertReq) (int64
 	data.CreatedAt = &now
 	err := e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update plugins-更新公告管理
 func (e *ContentAnnouncement) Update(c *dto.ContentAnnouncementUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Num < 0 {
-		return false, cLang.PluginsAnnouncementNumCode, lang.MsgErr(cLang.PluginsAnnouncementNumCode, e.Lang)
+		return false, baseLang.PluginsAnnouncementNumCode, lang.MsgErr(baseLang.PluginsAnnouncementNumCode, e.Lang)
 	}
 	if c.Title == "" {
-		return false, cLang.PluginsAnnouncementTitleEmptyCode, lang.MsgErr(cLang.PluginsAnnouncementTitleEmptyCode, e.Lang)
+		return false, baseLang.PluginsAnnouncementTitleEmptyCode, lang.MsgErr(baseLang.PluginsAnnouncementTitleEmptyCode, e.Lang)
 	}
 	if c.Content == "" {
-		return false, cLang.PluginsAnnouncementContentEmptyCode, lang.MsgErr(cLang.PluginsAnnouncementContentEmptyCode, e.Lang)
+		return false, baseLang.PluginsAnnouncementContentEmptyCode, lang.MsgErr(baseLang.PluginsAnnouncementContentEmptyCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -155,11 +155,11 @@ func (e *ContentAnnouncement) Update(c *dto.ContentAnnouncementUpdateReq, p *mid
 		req := dto.ContentAnnouncementQueryReq{}
 		req.Title = c.Title
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, cLang.PluginsAnnouncementTitleHasUsedCode, lang.MsgErr(cLang.PluginsAnnouncementTitleHasUsedCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.PluginsAnnouncementTitleHasUsedCode, lang.MsgErr(baseLang.PluginsAnnouncementTitleHasUsedCode, e.Lang)
 		}
 		updates["title"] = c.Title
 	}
@@ -180,26 +180,26 @@ func (e *ContentAnnouncement) Update(c *dto.ContentAnnouncementUpdateReq, p *mid
 		updates["update_by"] = c.CurrUserId
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete plugins-删除公告管理
 func (e *ContentAnnouncement) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var data models.ContentAnnouncement
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Export plugins-导出公告管理

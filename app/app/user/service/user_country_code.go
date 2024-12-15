@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/sys/service"
-	uLang "go-admin/app/app/user/lang"
 	"go-admin/app/app/user/models"
 	"go-admin/app/app/user/service/dto"
+	baseLang "go-admin/config/base/lang"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
@@ -40,27 +40,27 @@ func (e *UserCountryCode) GetPage(c *dto.UserCountryCodeQueryReq, p *middleware.
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get app-获取国家区号管理详情
 func (e *UserCountryCode) Get(id int64, p *middleware.DataPermission) (*models.UserCountryCode, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.UserCountryCode{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne app-获取国家区号管理一条记录
@@ -71,12 +71,12 @@ func (e *UserCountryCode) QueryOne(queryCondition *dto.UserCountryCodeQueryReq, 
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取国家区号管理数据总数
@@ -88,49 +88,49 @@ func (e *UserCountryCode) Count(queryCondition *dto.UserCountryCodeQueryReq) (in
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert app-新增国家区号管理
 func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Country == "" {
-		return 0, uLang.UserCountryEmptyCode, lang.MsgErr(uLang.UserCountryEmptyCode, e.Lang)
+		return 0, baseLang.UserCountryEmptyCode, lang.MsgErr(baseLang.UserCountryEmptyCode, e.Lang)
 	}
 	if c.Code == "" {
-		return 0, uLang.UserCountryCodeEmptyCode, lang.MsgErr(uLang.UserCountryCodeEmptyCode, e.Lang)
+		return 0, baseLang.UserCountryCodeEmptyCode, lang.MsgErr(baseLang.UserCountryCodeEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return 0, uLang.UserCountryStatusEmptyCode, lang.MsgErr(uLang.UserCountryStatusEmptyCode, e.Lang)
+		return 0, baseLang.UserCountryStatusEmptyCode, lang.MsgErr(baseLang.UserCountryStatusEmptyCode, e.Lang)
 	}
 
 	//检测国家名称是否存在
 	reqName := dto.UserCountryCodeQueryReq{}
 	reqName.CountryInner = c.Country
 	count, respCode, err := e.Count(&reqName)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, uLang.UserCountryHasExistCode, lang.MsgErr(uLang.UserCountryHasExistCode, e.Lang)
+		return 0, baseLang.UserCountryHasExistCode, lang.MsgErr(baseLang.UserCountryHasExistCode, e.Lang)
 	}
 
 	//检测国家区号是否存在
 	reqCode := dto.UserCountryCodeQueryReq{}
 	reqCode.Code = c.Code
 	count, respCode, err = e.Count(&reqCode)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, uLang.UserCountryCodeHasExistCode, lang.MsgErr(uLang.UserCountryCodeHasExistCode, e.Lang)
+		return 0, baseLang.UserCountryCodeHasExistCode, lang.MsgErr(baseLang.UserCountryCodeHasExistCode, e.Lang)
 	}
 
 	now := time.Now()
@@ -144,24 +144,24 @@ func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, e
 	data.UpdatedAt = &now
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update app-更新国家区号管理
 func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Country == "" {
-		return false, uLang.UserCountryEmptyCode, lang.MsgErr(uLang.UserCountryEmptyCode, e.Lang)
+		return false, baseLang.UserCountryEmptyCode, lang.MsgErr(baseLang.UserCountryEmptyCode, e.Lang)
 	}
 	if c.Code == "" {
-		return false, uLang.UserCountryCodeEmptyCode, lang.MsgErr(uLang.UserCountryCodeEmptyCode, e.Lang)
+		return false, baseLang.UserCountryCodeEmptyCode, lang.MsgErr(baseLang.UserCountryCodeEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return false, uLang.UserCountryStatusEmptyCode, lang.MsgErr(uLang.UserCountryStatusEmptyCode, e.Lang)
+		return false, baseLang.UserCountryStatusEmptyCode, lang.MsgErr(baseLang.UserCountryStatusEmptyCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -173,11 +173,11 @@ func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.
 		req := dto.UserCountryCodeQueryReq{}
 		req.CountryInner = c.Country
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, uLang.UserCountryHasExistCode, lang.MsgErr(uLang.UserCountryHasExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.UserCountryHasExistCode, lang.MsgErr(baseLang.UserCountryHasExistCode, e.Lang)
 		}
 		updates["country"] = c.Country
 	}
@@ -185,11 +185,11 @@ func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.
 		req := dto.UserCountryCodeQueryReq{}
 		req.Code = c.Code
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, uLang.UserCountryCodeHasExistCode, lang.MsgErr(uLang.UserCountryCodeHasExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.UserCountryCodeHasExistCode, lang.MsgErr(baseLang.UserCountryCodeHasExistCode, e.Lang)
 		}
 		updates["code"] = c.Code
 	}
@@ -201,26 +201,26 @@ func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.
 		updates["update_by"] = c.CurrUserId
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete app-删除国家区号管理
 func (e *UserCountryCode) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var data models.UserCountryCode
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Export app-导出国家区号管理

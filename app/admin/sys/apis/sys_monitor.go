@@ -3,6 +3,7 @@ package apis
 import (
 	"fmt"
 	"github.com/shirou/gopsutil/v4/host"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
 	"go-admin/core/lang"
 	"go-admin/core/utils/fileutils"
@@ -97,5 +98,5 @@ func (e Monitor) GetMonitor(c *gin.Context) {
 		"disk":     diskDic,
 		"diskList": disklist,
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }

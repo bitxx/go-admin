@@ -40,8 +40,6 @@ const (
 	ModelName          = "model.go"
 	DtoName            = "dto.go"
 	ServiceName        = "service.go"
-	LangName           = "lang.go"
-	ConstantName       = "constant.go"
 	VueApiJsName       = "vue.js"              //Vue
 	VueIndexName       = "vue.index"           //Vue
 	ReactApiName       = "react.api.ts"        //React
@@ -58,8 +56,6 @@ var (
 		ModelName:          "static/template/model.go.template",
 		DtoName:            "static/template/dto.go.template",
 		ServiceName:        "static/template/service.go.template",
-		LangName:           "static/template/lang.go.template",
-		ConstantName:       "static/template/constant.go.template",
 		VueApiJsName:       "static/template/vue.api.js.template",
 		VueIndexName:       "static/template/vue.index.template",
 		ReactApiName:       "static/template/react.api.ts.template",

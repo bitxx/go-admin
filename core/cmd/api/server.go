@@ -51,8 +51,7 @@ func init() {
 			//国际化-初始化底层
 			lang.InitLang()
 
-			//国际化-插件支持
-			app.AllLang()
+			//国际化-业务
 
 			AppRouters = append(AppRouters, app.AllRouter()...)
 

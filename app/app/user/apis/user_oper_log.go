@@ -5,6 +5,7 @@ import (
 	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
 	"go-admin/core/lang"
@@ -27,7 +28,7 @@ func (e UserOperLog) GetPage(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -37,7 +38,7 @@ func (e UserOperLog) GetPage(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Get app-获取用户操作日志详情
@@ -50,7 +51,7 @@ func (e UserOperLog) Get(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -59,7 +60,7 @@ func (e UserOperLog) Get(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Export app-导出用户操作日志
@@ -72,7 +73,7 @@ func (e UserOperLog) Export(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 

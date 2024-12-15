@@ -5,6 +5,7 @@ import (
 	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/plugins/content/service"
 	"go-admin/app/plugins/content/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
 	"go-admin/core/lang"
@@ -28,7 +29,7 @@ func (e ContentCategory) GetPage(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -37,7 +38,7 @@ func (e ContentCategory) GetPage(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Get plugins-获取内容分类管理详情
@@ -50,7 +51,7 @@ func (e ContentCategory) Get(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -59,7 +60,7 @@ func (e ContentCategory) Get(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Insert plugins-新增内容分类管理详情
@@ -72,7 +73,7 @@ func (e ContentCategory) Insert(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -86,7 +87,7 @@ func (e ContentCategory) Insert(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(id, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Update plugins-更新内容分类管理
@@ -99,7 +100,7 @@ func (e ContentCategory) Update(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -115,10 +116,10 @@ func (e ContentCategory) Update(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Delete plugins-删除内容分类管理
@@ -131,7 +132,7 @@ func (e ContentCategory) Delete(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -141,7 +142,7 @@ func (e ContentCategory) Delete(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Export plugins-导出内容分类管理
@@ -154,7 +155,7 @@ func (e ContentCategory) Export(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 

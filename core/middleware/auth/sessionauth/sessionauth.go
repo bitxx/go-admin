@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"github.com/casbin/casbin/v2/util"
 	"github.com/gin-gonic/gin"
-	"go-admin/app/admin/sys/constant"
+	"go-admin/config/base/constant"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	"go-admin/core/dto/response"
 	"go-admin/core/lang"
@@ -31,14 +32,14 @@ func (s *SessionAuth) Init() {}
 func (s *SessionAuth) Login(c *gin.Context) {
 	errResp := authdto.Resp{
 		RequestId: strutils.GenerateMsgIDFromContext(c),
-		Msg:       lang.MsgByCode(lang.RequestErr, lang.GetAcceptLanguage(c)),
-		Code:      lang.RequestErr,
+		Msg:       lang.MsgByCode(baseLang.RequestErr, lang.GetAcceptLanguage(c)),
+		Code:      baseLang.RequestErr,
 		Data:      nil,
 	}
 
 	userId := c.GetInt64(authdto.LoginUserId)
 	if userId <= 0 {
-		c.JSON(lang.RequestErr, errResp)
+		c.JSON(baseLang.RequestErr, errResp)
 		return
 	}
 
@@ -50,7 +51,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 	rLog := log.GetRequestLogger(c)
 	if err != nil {
 		rLog.Error(err)
-		c.JSON(lang.RequestErr, errResp)
+		c.JSON(baseLang.RequestErr, errResp)
 		return
 	}
 	if config.ApplicationConfig.IsSingleLogin {
@@ -73,7 +74,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 	})
 	if err != nil {
 		rLog.Error(err)
-		c.JSON(lang.RequestErr, errResp)
+		c.JSON(baseLang.RequestErr, errResp)
 		return
 	}
 	values := map[string]interface{}{}
@@ -89,7 +90,7 @@ func (s *SessionAuth) Login(c *gin.Context) {
 	err = cache.HashSet(config.AuthConfig.Timeout, SessionLoginPrefix, strconv.FormatInt(userId, 10), values)
 	if err != nil {
 		rLog.Error(err)
-		c.JSON(lang.RequestErr, errResp)
+		c.JSON(baseLang.RequestErr, errResp)
 		return
 	}
 	//userInfo, _ := c.Get(authdto.UserInfo)
@@ -133,16 +134,16 @@ func (s *SessionAuth) Get(c *gin.Context, key string) (interface{}, int, error) 
 	sid := strings.Replace(c.Request.Header.Get(authdto.HeaderAuthorization), authdto.HeaderTokenName+" ", "", -1)
 	uid, err := cache.Get(SessionLoginPrefixTmp, sid)
 	if sid == "" || uid == "" || err != nil {
-		err = lang.MsgErr(lang.AuthErr, lang.GetAcceptLanguage(c))
-		return "", lang.AuthErr, err
+		err = lang.MsgErr(baseLang.AuthErr, lang.GetAcceptLanguage(c))
+		return "", baseLang.AuthErr, err
 	}
 	userInfoStr, err := cache.HashGet(SessionLoginPrefix, uid, sid)
 	userInfo := map[string]interface{}{}
 	err = json.Unmarshal([]byte(userInfoStr), &userInfo)
 	if err != nil || userInfo[key] == nil {
-		return "", lang.AuthErr, lang.MsgErr(lang.AuthErr, lang.GetAcceptLanguage(c))
+		return "", baseLang.AuthErr, lang.MsgErr(baseLang.AuthErr, lang.GetAcceptLanguage(c))
 	}
-	return userInfo[key], lang.SuccessCode, nil
+	return userInfo[key], baseLang.SuccessCode, nil
 }
 
 func (s *SessionAuth) GetUserId(c *gin.Context) (int64, int, error) {
@@ -190,12 +191,12 @@ func (s *SessionAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 		isExist := cache.Exist(SessionLoginPrefixTmp, sid)
 		errResp := authdto.Resp{
 			RequestId: strutils.GenerateMsgIDFromContext(c),
-			Msg:       lang.MsgByCode(lang.AuthErr, lang.GetAcceptLanguage(c)),
-			Code:      lang.AuthErr,
+			Msg:       lang.MsgByCode(baseLang.AuthErr, lang.GetAcceptLanguage(c)),
+			Code:      baseLang.AuthErr,
 			Data:      nil,
 		}
 		if !isExist {
-			c.JSON(lang.AuthErr, errResp)
+			c.JSON(baseLang.AuthErr, errResp)
 			c.Abort()
 			return
 		}
@@ -203,13 +204,13 @@ func (s *SessionAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 		// 从session中获取用户id,第一次用于缓存拿到uid，第二次用uid检测sid是否有效，可用于多端登录
 		uid, err := cache.Get(SessionLoginPrefixTmp, sid)
 		if err != nil {
-			c.JSON(lang.AuthErr, errResp)
+			c.JSON(baseLang.AuthErr, errResp)
 			c.Abort()
 			return
 		}
 		_, err = cache.HashGet(SessionLoginPrefix, uid, sid)
 		if err != nil {
-			c.JSON(lang.AuthErr, errResp)
+			c.JSON(baseLang.AuthErr, errResp)
 			c.Abort()
 			return
 		}
@@ -248,7 +249,7 @@ func (s *SessionAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
 			rLog.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
-			response.Error(c, lang.ServerErr, lang.MsgByCode(lang.ServerErr, lang.GetAcceptLanguage(c)))
+			response.Error(c, baseLang.ServerErr, lang.MsgByCode(baseLang.ServerErr, lang.GetAcceptLanguage(c)))
 			return
 		}
 
@@ -257,7 +258,7 @@ func (s *SessionAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 			c.Next()
 		} else {
 			rLog.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
-			response.Error(c, lang.ForbitErr, lang.MsgByCode(lang.ForbitErr, lang.GetAcceptLanguage(c)))
+			response.Error(c, baseLang.ForbitErr, lang.MsgByCode(baseLang.ForbitErr, lang.GetAcceptLanguage(c)))
 			c.Abort()
 			return
 		}

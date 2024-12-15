@@ -5,6 +5,7 @@ import (
 	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/service"
 	"go-admin/app/app/user/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
 	"go-admin/core/lang"
@@ -28,7 +29,7 @@ func (e User) GetPage(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -39,7 +40,7 @@ func (e User) GetPage(c *gin.Context) {
 		return
 	}
 	result, _, _ := s.GetSummaries(&req, p)
-	e.PageOK(list, result, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.PageOK(list, result, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Get app-获取用户管理详情
@@ -52,7 +53,7 @@ func (e User) Get(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -61,7 +62,7 @@ func (e User) Get(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Insert app-新增用户管理
@@ -74,7 +75,7 @@ func (e User) Insert(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -88,7 +89,7 @@ func (e User) Insert(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Update app-更新用户管理
@@ -101,7 +102,7 @@ func (e User) Update(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -117,10 +118,10 @@ func (e User) Update(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Export app-导出用户管理
@@ -133,7 +134,7 @@ func (e User) Export(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 

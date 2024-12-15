@@ -2,9 +2,9 @@ package apis
 
 import (
 	"github.com/gin-gonic/gin"
-	sysLang "go-admin/app/admin/sys/lang"
 	"go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
@@ -25,7 +25,7 @@ func (e SysMenu) GetTreeList(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	list, respCode, err := s.GetTreeList(&req)
@@ -33,7 +33,7 @@ func (e SysMenu) GetTreeList(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(list, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Get admin-获取菜单管理详情
@@ -46,7 +46,7 @@ func (e SysMenu) Get(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -55,7 +55,7 @@ func (e SysMenu) Get(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Insert admin-新增菜单管理
@@ -68,7 +68,7 @@ func (e SysMenu) Insert(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -82,7 +82,7 @@ func (e SysMenu) Insert(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(id, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Update admin-更新菜单管理
@@ -95,7 +95,7 @@ func (e SysMenu) Update(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -111,10 +111,10 @@ func (e SysMenu) Update(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Delete admin-删除菜单管理
@@ -127,7 +127,7 @@ func (e SysMenu) Delete(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -137,7 +137,7 @@ func (e SysMenu) Delete(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // GetMenuRole admin-根据角色获取菜单
@@ -148,7 +148,7 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -159,10 +159,10 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 		return
 	}
 	if result == nil || len(result) <= 0 {
-		e.Error(sysLang.SysNoRoleMenuCode, lang.MsgErr(sysLang.SysNoRoleMenuCode, e.Lang).Error())
+		e.Error(baseLang.SysNoRoleMenuCode, lang.MsgErr(baseLang.SysNoRoleMenuCode, e.Lang).Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // GetMenuTreeSelect admin-获取全部菜单以及选中的菜单编号
@@ -177,7 +177,7 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 		Bind(&req, nil).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -199,5 +199,5 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 	e.OK(dto.MenuTreeRoleResp{
 		Menus:       result,
 		CheckedKeys: menuIds,
-	}, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	}, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }

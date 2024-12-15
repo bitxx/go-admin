@@ -3,10 +3,11 @@ package service
 import (
 	"archive/zip"
 	"bytes"
-	"go-admin/app/admin/sys/constant"
-	sysLang "go-admin/app/admin/sys/lang"
+	"go-admin/config/base/constant"
+
 	"go-admin/app/admin/sys/models"
 	"go-admin/app/admin/sys/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
@@ -47,27 +48,27 @@ func (e *SysGenTable) GetPage(c *dto.SysGenTableQueryReq, p *middleware.DataPerm
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get admin-获取表管理详情
 func (e *SysGenTable) Get(id int64, p *middleware.DataPermission) (*models.SysGenTable, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.SysGenTable{}
 	err := e.Orm.Preload("SysGenColumns").Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne admin-获取表管理一条记录
@@ -79,12 +80,12 @@ func (e *SysGenTable) QueryOne(queryCondition *dto.SysGenTableQueryReq, p *middl
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取表管理数据总数
@@ -97,24 +98,24 @@ func (e *SysGenTable) Count(c *dto.SysGenTableQueryReq) (int64, int, error) {
 		).Limit(-1).Offset(-1).
 		Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert admin-新增表管理
 func (e *SysGenTable) Insert(c *dto.SysGenTableInsertReq) (int, error) {
 	if len(c.DbTableNames) <= 0 {
-		return sysLang.SysGenTableSelectCode, lang.MsgErr(sysLang.SysGenTableSelectCode, e.Lang)
+		return baseLang.SysGenTableSelectCode, lang.MsgErr(baseLang.SysGenTableSelectCode, e.Lang)
 	}
 	req := dto.SysGenTableQueryReq{}
 	req.TableNames = c.DbTableNames
 	count, respCode, err := e.Count(&req)
 	if count > 0 {
-		return sysLang.SysGenTableInsertExistCode, lang.MsgErr(sysLang.SysGenTableInsertExistCode, e.Lang)
+		return baseLang.SysGenTableInsertExistCode, lang.MsgErr(baseLang.SysGenTableInsertExistCode, e.Lang)
 	}
 	sysTables, respCode, err := e.genTables(c.DbTableNames)
 	if err != nil {
@@ -128,9 +129,9 @@ func (e *SysGenTable) Insert(c *dto.SysGenTableInsertReq) (int, error) {
 		return nil
 	})
 	if err != nil {
-		return lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Update admin-更新表管理
@@ -182,7 +183,7 @@ func (e *SysGenTable) Update(c *dto.SysGenTableUpdateReq, p *middleware.DataPerm
 		updates["update_by"] = c.CurrUserId
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
 		isUpdate = true
 	}
@@ -199,13 +200,13 @@ func (e *SysGenTable) Update(c *dto.SysGenTableUpdateReq, p *middleware.DataPerm
 		}
 	}
 
-	return isUpdate, lang.SuccessCode, nil
+	return isUpdate, baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除表管理
 func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var err error
 	e.Orm = e.Orm.Begin()
@@ -221,7 +222,7 @@ func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, er
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
 	columnsService := NewSysColumnsService(&e.Service)
 	columnReq := dto.SysGenColumnDeleteReq{}
@@ -230,7 +231,7 @@ func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, er
 	if err != nil {
 		return respCode, err
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // GetDBTablePage admin-获取表管理的DB表分页列表
@@ -250,7 +251,7 @@ func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, 
 		Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase()).
 		Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	var respList []dto.DBTableResp
 	for _, item := range list {
@@ -260,13 +261,13 @@ func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, 
 		dbTableResp.TableComment = item.TableComment
 		respList = append(respList, dbTableResp)
 	}
-	return respList, count, lang.SuccessCode, nil
+	return respList, count, baseLang.SuccessCode, nil
 }
 
 // genTables admin-根据表名称生成表结构集合
 func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, int, error) {
 	if len(dbTableNames) <= 0 {
-		return nil, sysLang.SysGenTableSelectCode, lang.MsgErr(sysLang.SysGenTableSelectCode, e.Lang)
+		return nil, baseLang.SysGenTableSelectCode, lang.MsgErr(baseLang.SysGenTableSelectCode, e.Lang)
 	}
 	dbTables, resp, err := e.getDBTableList(dbTableNames)
 	if err != nil {
@@ -376,32 +377,32 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 		}
 		sysTables = append(sysTables, sysTable)
 	}
-	return sysTables, lang.SuccessCode, nil
+	return sysTables, baseLang.SuccessCode, nil
 }
 
 // getDBTableList admin-从数据库中获取表指定表的完整结构
 func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int, error) {
 	if len(tableNames) <= 0 {
-		return nil, sysLang.SysGenTableSelectCode, lang.MsgErr(sysLang.SysGenTableSelectCode, e.Lang)
+		return nil, baseLang.SysGenTableSelectCode, lang.MsgErr(baseLang.SysGenTableSelectCode, e.Lang)
 	}
 	var data []models.DBTable
 	err := e.Orm.Where("TABLE_NAME in (?)", tableNames).Find(&data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Preview admin-预览表管理的代码页面
 func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPermission) ([]dto.TemplateResp, int, error) {
 	if c.Id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if config.GenConfig.Type != global.GenTypeVue && config.GenConfig.Type != global.GenTypeReact {
-		return nil, sysLang.SysGenFrontTypeErrCode, lang.MsgErr(sysLang.SysGenFrontTypeErrCode, e.Lang)
+		return nil, baseLang.SysGenFrontTypeErrCode, lang.MsgErr(baseLang.SysGenFrontTypeErrCode, e.Lang)
 	}
 	table, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -413,13 +414,13 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 			"contains": strings.Contains,
 		}).ParseFiles(v)
 		if err != nil {
-			return nil, sysLang.SysGenTemplateModelReadLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysGenTemplateModelReadErrCode, sysLang.SysGenTemplateModelReadLogErrCode, err)
+			return nil, baseLang.SysGenTemplateModelReadLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.SysGenTemplateModelReadErrCode, baseLang.SysGenTemplateModelReadLogErrCode, err)
 		}
 
 		var content bytes.Buffer
 		err = tpl.Execute(&content, table)
 		if err != nil {
-			return nil, sysLang.SysGenTemplateModelDecodeLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysGenTemplateModelDecodeErrCode, sysLang.SysGenTemplateModelDecodeLogErrCode, err)
+			return nil, baseLang.SysGenTemplateModelDecodeLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.SysGenTemplateModelDecodeErrCode, baseLang.SysGenTemplateModelDecodeLogErrCode, err)
 		}
 
 		//生成文件的路径
@@ -443,12 +444,6 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		}
 		if k == constant.RouterName {
 			path = path + table.PackageName + "/" + table.BusinessName + "/router/router.go.bk"
-		}
-		if k == constant.LangName {
-			path = path + table.PackageName + "/" + table.BusinessName + "/lang/lang.go.bk"
-		}
-		if k == constant.ConstantName {
-			path = path + table.PackageName + "/" + table.BusinessName + "/constant/constant.go.bk"
 		}
 		if config.GenConfig.Type == global.GenTypeVue {
 			if k == constant.VueApiJsName {
@@ -481,13 +476,13 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		}
 
 	}
-	return resp, lang.SuccessCode, nil
+	return resp, baseLang.SuccessCode, nil
 }
 
 // GenCode admin-生成表管理的代码
 func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPermission) (*bytes.Buffer, int, error) {
 	if c.Id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 
 	templateResp, respCode, err := e.Preview(c, p)
@@ -503,7 +498,7 @@ func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		for _, tpl := range templateResp {
 			err = fileutils.ZipFilCreate(writer, *bytes.NewBufferString(tpl.Content), tpl.Path)
 		}
-		return buf, lang.SuccessCode, nil
+		return buf, baseLang.SuccessCode, nil
 	}
 	//如果是直接生成代码
 	for _, tpl := range templateResp {
@@ -516,13 +511,13 @@ func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 			e.Log.Warn(err)
 		}
 	}
-	return nil, lang.SuccessCode, nil
+	return nil, baseLang.SuccessCode, nil
 }
 
 // GenDB admin-表管理中生成菜单数据
 func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermission) (int, error) {
 	if c.Id <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 
 	var err error
@@ -651,5 +646,5 @@ func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermissio
 	if err != nil {
 		return respCode, err
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }

@@ -5,6 +5,7 @@ import (
 	"go-admin/app/admin/sys/service"
 	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
 	"go-admin/core/lang"
@@ -28,7 +29,7 @@ func (e SysApi) GetPage(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -37,7 +38,7 @@ func (e SysApi) GetPage(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // GetList admin-获取接口管理全部列表
@@ -50,7 +51,7 @@ func (e SysApi) GetList(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -59,7 +60,7 @@ func (e SysApi) GetList(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(list, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Get admin-获取接口管理详情
@@ -72,7 +73,7 @@ func (e SysApi) Get(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -81,7 +82,7 @@ func (e SysApi) Get(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Update admin-更新接口管理
@@ -94,7 +95,7 @@ func (e SysApi) Update(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -110,10 +111,10 @@ func (e SysApi) Update(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Delete admin-删除接口管理
@@ -126,7 +127,7 @@ func (e SysApi) Delete(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -136,7 +137,7 @@ func (e SysApi) Delete(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Export admin-导出接口管理
@@ -149,7 +150,7 @@ func (e SysApi) Export(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -179,7 +180,7 @@ func (e SysApi) Sync(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -188,7 +189,7 @@ func (e SysApi) Sync(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(syncStatus, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(syncStatus, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // GetSyncStatus 获取接口同步状态
@@ -198,7 +199,7 @@ func (e SysApi) GetSyncStatus(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -207,5 +208,5 @@ func (e SysApi) GetSyncStatus(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(syncStatus, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(syncStatus, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }

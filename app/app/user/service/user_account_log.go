@@ -6,6 +6,7 @@ import (
 	adminService "go-admin/app/admin/sys/service"
 	"go-admin/app/app/user/models"
 	"go-admin/app/app/user/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
@@ -54,7 +55,7 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
 	for index, item := range list {
@@ -80,25 +81,25 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 			}
 		}
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get app-获取账变记录详情
 func (e *UserAccountLog) Get(id int64, p *middleware.DataPermission) (*models.UserAccountLog, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.UserAccountLog{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne app-获取账变记录一条记录
@@ -109,12 +110,12 @@ func (e *UserAccountLog) QueryOne(queryCondition *dto.UserAccountLogQueryReq, p 
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取账变记录数据总数
@@ -126,12 +127,12 @@ func (e *UserAccountLog) Count(queryCondition *dto.UserAccountLogQueryReq) (int6
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Export app-导出账变记录

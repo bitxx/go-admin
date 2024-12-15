@@ -3,7 +3,8 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	sysLang "go-admin/app/admin/sys/lang"
+
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
 	"go-admin/core/global"
 	"go-admin/core/lang"
@@ -43,9 +44,9 @@ func (e *SysApi) GetPage(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // GetList admin-获取接口管理全部列表
@@ -60,27 +61,27 @@ func (e *SysApi) GetList(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get admin-获取接口管理详情
 func (e *SysApi) Get(id int64, p *middleware.DataPermission) (*models.SysApi, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.SysApi{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne admin-获取接口管理一条记录
@@ -92,18 +93,18 @@ func (e *SysApi) QueryOne(queryCondition *dto.SysApiQueryReq, p *middleware.Data
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Update admin-更新接口管理
 func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -122,17 +123,17 @@ func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *middleware.DataPermission) (b
 		updates["updated_at"] = time.Now()
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除接口管理
 func (e *SysApi) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var err error
 	var data models.SysApi
@@ -151,9 +152,9 @@ func (e *SysApi) Delete(ids []int64, p *middleware.DataPermission) (int, error) 
 		return nil
 	})
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Export admin-导出接口管理
@@ -185,13 +186,13 @@ func (e *SysApi) Export(list []models.SysApi) ([]byte, error) {
 
 // GetSyncStatus admin-获取接口同步状态
 func (e *SysApi) GetSyncStatus() (string, int, error) {
-	return models.SyncStatus, lang.SuccessCode, nil
+	return models.SyncStatus, baseLang.SuccessCode, nil
 }
 
 // Sync admin-接口同步数据
 func (e *SysApi) Sync() (string, int, error) {
 	if models.SyncStatus == models.SyncStatusSyncing {
-		return models.SyncStatus, lang.SuccessCode, nil
+		return models.SyncStatus, baseLang.SuccessCode, nil
 	}
 	var routers = runtime.RuntimeConfig.GetRouter()
 	mp := make(map[string]interface{})
@@ -199,13 +200,13 @@ func (e *SysApi) Sync() (string, int, error) {
 	message, err := runtime.RuntimeConfig.GetStreamMessage("", global.ApiCheck, mp)
 	if err != nil {
 		models.SyncStatus = models.SyncStatusError
-		return models.SyncStatus, sysLang.SysApiGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiGetApiMqLogErrCode, err)
+		return models.SyncStatus, baseLang.SysApiGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.OpErrCode, baseLang.SysApiGetApiMqLogErrCode, err)
 	}
 	q := runtime.RuntimeConfig.GetMemoryQueue("")
 	err = q.Append(message)
 	if err != nil {
 		models.SyncStatus = models.SyncStatusError
-		return models.SyncStatus, sysLang.SysApiAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, lang.OpErrCode, sysLang.SysApiAppendApiMqLogErrCode, err)
+		return models.SyncStatus, baseLang.SysApiAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.OpErrCode, baseLang.SysApiAppendApiMqLogErrCode, err)
 	}
-	return models.SyncStatus, lang.SuccessCode, nil
+	return models.SyncStatus, baseLang.SuccessCode, nil
 }

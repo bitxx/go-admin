@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go-admin/app/admin/sys/constant"
+	"go-admin/config/base/constant"
 	"go-admin/core/global"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/log"

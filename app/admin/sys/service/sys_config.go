@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"github.com/shopspring/decimal"
 	"github.com/xuri/excelize/v2"
-	sysLang "go-admin/app/admin/sys/lang"
+
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
@@ -43,9 +44,9 @@ func (e *SysConfig) GetPage(c *dto.SysConfigQueryReq, p *middleware.DataPermissi
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // GetList admin-获取系统配置全部列表
@@ -56,27 +57,27 @@ func (e *SysConfig) GetList(c *dto.SysConfigQueryReq) ([]models.SysConfig, int, 
 		cDto.MakeCondition(c.GetNeedSearch()),
 	).Find(&list).Error
 	if err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, lang.SuccessCode, nil
+	return list, baseLang.SuccessCode, nil
 }
 
 // Get admin-获取配置管理详情
 func (e *SysConfig) Get(id int64, p *middleware.DataPermission) (*models.SysConfig, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.SysConfig{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne admin-获取配置管理一条记录
@@ -88,12 +89,12 @@ func (e *SysConfig) QueryOne(queryCondition *dto.SysConfigQueryReq, p *middlewar
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取配置管理数据总数
@@ -106,43 +107,43 @@ func (e *SysConfig) Count(c *dto.SysConfigQueryReq) (int64, int, error) {
 		).Limit(-1).Offset(-1).
 		Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert admin-新增配置管理
 func (e *SysConfig) Insert(c *dto.SysConfigInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.ConfigName == "" {
-		return 0, sysLang.SysConfNameEmptyCode, lang.MsgErr(sysLang.SysConfNameEmptyCode, e.Lang)
+		return 0, baseLang.SysConfNameEmptyCode, lang.MsgErr(baseLang.SysConfNameEmptyCode, e.Lang)
 	}
 	if c.ConfigKey == "" {
-		return 0, sysLang.SysConfKeyEmptyCode, lang.MsgErr(sysLang.SysConfKeyEmptyCode, e.Lang)
+		return 0, baseLang.SysConfKeyEmptyCode, lang.MsgErr(baseLang.SysConfKeyEmptyCode, e.Lang)
 	}
 	if c.ConfigValue == "" {
-		return 0, sysLang.SysConfValueEmptyCode, lang.MsgErr(sysLang.SysConfValueEmptyCode, e.Lang)
+		return 0, baseLang.SysConfValueEmptyCode, lang.MsgErr(baseLang.SysConfValueEmptyCode, e.Lang)
 	}
 	if c.ConfigType == "" {
-		return 0, sysLang.SysConfTypeEmptyCode, lang.MsgErr(sysLang.SysConfTypeEmptyCode, e.Lang)
+		return 0, baseLang.SysConfTypeEmptyCode, lang.MsgErr(baseLang.SysConfTypeEmptyCode, e.Lang)
 	}
 	if c.IsFrontend == "" {
-		return 0, sysLang.SysConfIsFrontendEmptyCode, lang.MsgErr(sysLang.SysConfIsFrontendEmptyCode, e.Lang)
+		return 0, baseLang.SysConfIsFrontendEmptyCode, lang.MsgErr(baseLang.SysConfIsFrontendEmptyCode, e.Lang)
 	}
 
 	req := dto.SysConfigQueryReq{}
 	req.ConfigKey = c.ConfigKey
 	count, respCode, err := e.Count(&req)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, sysLang.SysConfKeyExistCode, lang.MsgErr(sysLang.SysConfKeyExistCode, e.Lang)
+		return 0, baseLang.SysConfKeyExistCode, lang.MsgErr(baseLang.SysConfKeyExistCode, e.Lang)
 	}
 
 	now := time.Now()
@@ -159,30 +160,30 @@ func (e *SysConfig) Insert(c *dto.SysConfigInsertReq) (int64, int, error) {
 	data.UpdatedAt = &now
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update admin-更新配置管理
 func (e *SysConfig) Update(c *dto.SysConfigUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.ConfigName == "" {
-		return false, sysLang.SysConfNameEmptyCode, lang.MsgErr(sysLang.SysConfNameEmptyCode, e.Lang)
+		return false, baseLang.SysConfNameEmptyCode, lang.MsgErr(baseLang.SysConfNameEmptyCode, e.Lang)
 	}
 	if c.ConfigKey == "" {
-		return false, sysLang.SysConfKeyEmptyCode, lang.MsgErr(sysLang.SysConfKeyEmptyCode, e.Lang)
+		return false, baseLang.SysConfKeyEmptyCode, lang.MsgErr(baseLang.SysConfKeyEmptyCode, e.Lang)
 	}
 	if c.ConfigValue == "" {
-		return false, sysLang.SysConfValueEmptyCode, lang.MsgErr(sysLang.SysConfValueEmptyCode, e.Lang)
+		return false, baseLang.SysConfValueEmptyCode, lang.MsgErr(baseLang.SysConfValueEmptyCode, e.Lang)
 	}
 	if c.ConfigType == "" {
-		return false, sysLang.SysConfTypeEmptyCode, lang.MsgErr(sysLang.SysConfTypeEmptyCode, e.Lang)
+		return false, baseLang.SysConfTypeEmptyCode, lang.MsgErr(baseLang.SysConfTypeEmptyCode, e.Lang)
 	}
 	if c.IsFrontend == "" {
-		return false, sysLang.SysConfIsFrontendEmptyCode, lang.MsgErr(sysLang.SysConfIsFrontendEmptyCode, e.Lang)
+		return false, baseLang.SysConfIsFrontendEmptyCode, lang.MsgErr(baseLang.SysConfIsFrontendEmptyCode, e.Lang)
 	}
 
 	data, respCode, err := e.Get(c.Id, p)
@@ -200,11 +201,11 @@ func (e *SysConfig) Update(c *dto.SysConfigUpdateReq, p *middleware.DataPermissi
 		req := dto.SysConfigQueryReq{}
 		req.ConfigKey = c.ConfigKey
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysDictDataValueExistCode, lang.MsgErr(sysLang.SysDictDataValueExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysDictDataValueExistCode, lang.MsgErr(baseLang.SysDictDataValueExistCode, e.Lang)
 		}
 		updates["config_key"] = c.ConfigKey
 	}
@@ -226,17 +227,17 @@ func (e *SysConfig) Update(c *dto.SysConfigUpdateReq, p *middleware.DataPermissi
 		updates["updated_at"] = time.Now()
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除配置管理
 func (e *SysConfig) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var err error
 	var data models.SysConfig
@@ -244,9 +245,9 @@ func (e *SysConfig) Delete(ids []int64, p *middleware.DataPermission) (int, erro
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Export admin-导出配置管理
@@ -283,12 +284,12 @@ func (e *SysConfig) GetByKey(c *dto.SysConfigByKeyReq) (*dto.SysConfigByKeyResp,
 	resp := &dto.SysConfigByKeyResp{}
 	err = e.Orm.Scopes().Table(data.TableName()).Where("config_key = ?", c.ConfigKey).First(resp).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return resp, lang.SuccessCode, nil
+	return resp, baseLang.SuccessCode, nil
 }
 
 // GetWithKeyStr admin-使用字符串key获取配置
@@ -300,7 +301,7 @@ func (e *SysConfig) GetWithKeyStr(key string) (string, int, error) {
 	if err != nil || resp.ConfigValue == "" {
 		return "", respCode, err
 	}
-	return resp.ConfigValue, lang.SuccessCode, nil
+	return resp.ConfigValue, baseLang.SuccessCode, nil
 }
 
 // GetWithKeyInt admin-使用数字key获取配置
@@ -314,9 +315,9 @@ func (e *SysConfig) GetWithKeyInt(key string) (int, int, error) {
 	}
 	value, err := strconv.ParseInt(resp.ConfigValue, 10, 64)
 	if err != nil {
-		return -1, sysLang.SysConfGetErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysConfGetErrCode, sysLang.SysConfGetErrLogCode, err)
+		return -1, baseLang.SysConfGetErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.SysConfGetErrCode, baseLang.SysConfGetErrLogCode, err)
 	}
-	return int(value), lang.SuccessCode, nil
+	return int(value), baseLang.SuccessCode, nil
 }
 
 // GetWithKeyDecimal admin-使用字符串key获取配置，返回decimal
@@ -327,8 +328,8 @@ func (e *SysConfig) GetWithKeyDecimal(key string) (*decimal.Decimal, int, error)
 	}
 	result, err := decimal.NewFromString(resultValue)
 	if err != nil {
-		return nil, sysLang.SysConfGetErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, sysLang.SysConfGetErrCode, sysLang.SysConfGetErrLogCode, err)
+		return nil, baseLang.SysConfGetErrLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.SysConfGetErrCode, baseLang.SysConfGetErrLogCode, err)
 	}
-	return &result, lang.SuccessCode, nil
+	return &result, baseLang.SuccessCode, nil
 
 }

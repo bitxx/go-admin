@@ -1,8 +1,8 @@
 package service
 
 import (
-	sysLang "go-admin/app/admin/sys/lang"
 	"go-admin/app/admin/sys/models"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
 	"go-admin/core/global"
 	"go-admin/core/lang"
@@ -42,25 +42,25 @@ func (e *SysDept) GetTreeList(c *dto.SysDeptQueryReq) ([]*models.SysDept, int, e
 
 	return []*models.SysDept{
 		{Id: 0, DeptName: "主目录", ParentId: 0, Children: treeList},
-	}, lang.SuccessCode, nil
+	}, baseLang.SuccessCode, nil
 }
 
 // Get admin-获取部门管理详情
 func (e *SysDept) Get(id int64, p *middleware.DataPermission) (*models.SysDept, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.SysDept{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne admin-获取部门管理一条记录
@@ -72,12 +72,12 @@ func (e *SysDept) QueryOne(queryCondition *dto.SysDeptQueryReq, p *middleware.Da
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取部门管理数据总数
@@ -90,38 +90,38 @@ func (e *SysDept) Count(c *dto.SysDeptQueryReq) (int64, int, error) {
 		).Limit(-1).Offset(-1).
 		Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert admin-新增部门管理
 func (e *SysDept) Insert(c *dto.SysDeptInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.ParentId.IntPart() < 0 {
-		return 0, sysLang.SysDeptParentIdEmptyCode, lang.MsgErr(sysLang.SysDeptParentIdEmptyCode, e.Lang)
+		return 0, baseLang.SysDeptParentIdEmptyCode, lang.MsgErr(baseLang.SysDeptParentIdEmptyCode, e.Lang)
 	}
 	if c.DeptName == "" {
-		return 0, sysLang.SysDeptNameEmptyCode, lang.MsgErr(sysLang.SysDeptNameEmptyCode, e.Lang)
+		return 0, baseLang.SysDeptNameEmptyCode, lang.MsgErr(baseLang.SysDeptNameEmptyCode, e.Lang)
 	}
 	if c.Leader == "" {
-		return 0, sysLang.SysDeptLeaderEmptyCode, lang.MsgErr(sysLang.SysDeptLeaderEmptyCode, e.Lang)
+		return 0, baseLang.SysDeptLeaderEmptyCode, lang.MsgErr(baseLang.SysDeptLeaderEmptyCode, e.Lang)
 	}
 
 	//确保部门名称不存在
 	req := dto.SysDeptQueryReq{}
 	req.DeptName = c.DeptName
 	count, respCode, err := e.Count(&req)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, sysLang.SysDeptNameExistCode, lang.MsgErr(sysLang.SysDeptNameExistCode, e.Lang)
+		return 0, baseLang.SysDeptNameExistCode, lang.MsgErr(baseLang.SysDeptNameExistCode, e.Lang)
 	}
 	//path组装
 	parentIds := "0,"
@@ -150,28 +150,28 @@ func (e *SysDept) Insert(c *dto.SysDeptInsertReq) (int64, int, error) {
 	data.UpdatedAt = &now
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update admin-更新部门管理
 func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.DeptName == "" {
-		return false, sysLang.SysDeptNameEmptyCode, lang.MsgErr(sysLang.SysDeptNameEmptyCode, e.Lang)
+		return false, baseLang.SysDeptNameEmptyCode, lang.MsgErr(baseLang.SysDeptNameEmptyCode, e.Lang)
 	}
 	if c.Leader == "" {
-		return false, sysLang.SysDeptLeaderEmptyCode, lang.MsgErr(sysLang.SysDeptLeaderEmptyCode, e.Lang)
+		return false, baseLang.SysDeptLeaderEmptyCode, lang.MsgErr(baseLang.SysDeptLeaderEmptyCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
 		return false, respCode, err
 	}
 	if c.Id == c.ParentId {
-		return false, sysLang.SysDeptParentSelfCode, lang.MsgErr(sysLang.SysDeptParentSelfCode, e.Lang)
+		return false, baseLang.SysDeptParentSelfCode, lang.MsgErr(baseLang.SysDeptParentSelfCode, e.Lang)
 	}
 
 	updates := map[string]interface{}{}
@@ -179,11 +179,11 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) 
 		req := dto.SysDeptQueryReq{}
 		req.DeptName = c.DeptName
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysDeptNameExistCode, lang.MsgErr(sysLang.SysDeptNameExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysDeptNameExistCode, lang.MsgErr(baseLang.SysDeptNameExistCode, e.Lang)
 		}
 		updates["dept_name"] = c.DeptName
 	}
@@ -209,17 +209,17 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq, p *middleware.DataPermission) 
 		updates["update_by"] = c.CurrUserId
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除部门管理
 func (e *SysDept) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 
 	for _, id := range ids {
@@ -227,11 +227,11 @@ func (e *SysDept) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 		dataReq := dto.SysDeptQueryReq{}
 		dataReq.ParentIds = "," + strconv.FormatInt(id, 10) + ","
 		count, respCode, err := e.Count(&dataReq)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return respCode, err
 		}
 		if count > 0 {
-			return sysLang.SysDeptChildExistNoDelCode, lang.MsgErr(sysLang.SysDeptChildExistNoDelCode, e.Lang)
+			return baseLang.SysDeptChildExistNoDelCode, lang.MsgErr(baseLang.SysDeptChildExistNoDelCode, e.Lang)
 		}
 	}
 
@@ -241,9 +241,9 @@ func (e *SysDept) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // getList admin-获取部门管理全部列表
@@ -254,7 +254,7 @@ func (e *SysDept) getList(c *dto.SysDeptQueryReq) ([]models.SysDept, int, error)
 			cDto.MakeCondition(c.GetNeedSearch()),
 		).Find(&list).Error
 	if err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, lang.SuccessCode, nil
+	return list, baseLang.SuccessCode, nil
 }

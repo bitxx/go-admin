@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/sys/service"
-	"go-admin/app/plugins/filemgr/constant"
-	fLang "go-admin/app/plugins/filemgr/lang"
 	"go-admin/app/plugins/filemgr/models"
 	"go-admin/app/plugins/filemgr/service/dto"
+	"go-admin/config/base/constant"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
@@ -49,7 +49,7 @@ func (e *FilemgrApp) GetPage(c *dto.FilemgrAppQueryReq, p *middleware.DataPermis
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
 	for index, item := range list {
@@ -62,25 +62,25 @@ func (e *FilemgrApp) GetPage(c *dto.FilemgrAppQueryReq, p *middleware.DataPermis
 		}
 		list[index] = item
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get plugins-获取APP管理详情
 func (e *FilemgrApp) Get(id int64, p *middleware.DataPermission) (*models.FilemgrApp, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.FilemgrApp{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne plugins-获取APP管理一条记录
@@ -91,12 +91,12 @@ func (e *FilemgrApp) QueryOne(queryCondition *dto.FilemgrAppQueryReq, p *middlew
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取APP管理数据总数
@@ -108,38 +108,38 @@ func (e *FilemgrApp) Count(queryCondition *dto.FilemgrAppQueryReq) (int64, int, 
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert plugins-新增APP管理
 func (e *FilemgrApp) Insert(c *dto.FilemgrAppInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Platform == "" {
-		return 0, fLang.AppPlatformEmptyCode, lang.MsgErr(fLang.AppPlatformEmptyCode, e.Lang)
+		return 0, baseLang.AppPlatformEmptyCode, lang.MsgErr(baseLang.AppPlatformEmptyCode, e.Lang)
 	}
 	if c.Version == "" {
-		return 0, fLang.AppVersionEmptyCode, lang.MsgErr(fLang.AppVersionEmptyCode, e.Lang)
+		return 0, baseLang.AppVersionEmptyCode, lang.MsgErr(baseLang.AppVersionEmptyCode, e.Lang)
 	}
 	if c.DownloadType == "" {
-		return 0, fLang.AppDownloadTypeEmptyCode, lang.MsgErr(fLang.AppDownloadTypeEmptyCode, e.Lang)
+		return 0, baseLang.AppDownloadTypeEmptyCode, lang.MsgErr(baseLang.AppDownloadTypeEmptyCode, e.Lang)
 	}
 	if c.DownloadType == constant.AppDownloadTypeOss || c.DownloadType == constant.AppDownloadTypeLocal {
 		if c.AppType == "" {
-			return 0, fLang.AppTypeCode, lang.MsgErr(fLang.AppTypeCode, e.Lang)
+			return 0, baseLang.AppTypeCode, lang.MsgErr(baseLang.AppTypeCode, e.Lang)
 		}
 		if c.LocalAddress == "" {
-			return 0, fLang.AppUploadCode, lang.MsgErr(fLang.AppUploadCode, e.Lang)
+			return 0, baseLang.AppUploadCode, lang.MsgErr(baseLang.AppUploadCode, e.Lang)
 		}
 	}
 	if c.Remark == "" {
-		return 0, fLang.AppRemarkCode, lang.MsgErr(fLang.AppRemarkCode, e.Lang)
+		return 0, baseLang.AppRemarkCode, lang.MsgErr(baseLang.AppRemarkCode, e.Lang)
 	}
 
 	query := dto.FilemgrAppQueryReq{}
@@ -147,23 +147,23 @@ func (e *FilemgrApp) Insert(c *dto.FilemgrAppInsertReq) (int64, int, error) {
 	query.AppType = c.AppType
 	query.Version = c.Version
 	count, respCode, err := e.Count(&query)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, fLang.AppExistCode, lang.MsgErr(fLang.AppExistCode, e.Lang)
+		return 0, baseLang.AppExistCode, lang.MsgErr(baseLang.AppExistCode, e.Lang)
 	}
 
 	//oss上传
 	if c.DownloadType == constant.AppDownloadTypeOss {
 		err = e.uploadOssFile(c.AppType, c.Version, c.Platform, c.LocalAddress)
 		if err != nil {
-			return 0, fLang.AppOssUploadLogCode, lang.MsgLogErrf(e.Log, e.Lang, fLang.AppUploadCode, fLang.AppOssUploadLogCode, err)
+			return 0, baseLang.AppOssUploadLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.AppUploadCode, baseLang.AppOssUploadLogCode, err)
 		}
 	}
 	if c.DownloadType == constant.AppDownloadTypeLocal {
 		if c.LocalRootUrl == "" {
-			return 0, fLang.AppLocalUrlEmptyCode, lang.MsgErr(fLang.AppLocalUrlEmptyCode, e.Lang)
+			return 0, baseLang.AppLocalUrlEmptyCode, lang.MsgErr(baseLang.AppLocalUrlEmptyCode, e.Lang)
 		}
 		//c.LocalAddress = strings.Replace(c.LocalAddress, config.ApplicationConfig.FileRootPath, "", -1)
 		c.DownloadUrl = c.LocalRootUrl + c.LocalAddress
@@ -185,15 +185,15 @@ func (e *FilemgrApp) Insert(c *dto.FilemgrAppInsertReq) (int64, int, error) {
 	data.UpdatedAt = &now
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update plugins-更新APP管理
 func (e *FilemgrApp) Update(c *dto.FilemgrAppUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -210,21 +210,21 @@ func (e *FilemgrApp) Update(c *dto.FilemgrAppUpdateReq, p *middleware.DataPermis
 		updates["update_by"] = c.CurrUserId
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete plugins-删除APP管理
 func (e *FilemgrApp) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	for _, id := range ids {
 		result, respCode, err := e.Get(id, p)
-		if respCode != lang.DataNotFoundCode && err != nil {
+		if respCode != baseLang.DataNotFoundCode && err != nil {
 			return respCode, err
 		}
 
@@ -235,7 +235,7 @@ func (e *FilemgrApp) Delete(ids []int64, p *middleware.DataPermission) (int, err
 		query.Version = result.Version
 		var count int64
 		count, respCode, err = e.Count(&query)
-		if respCode != lang.DataNotFoundCode && err != nil {
+		if respCode != baseLang.DataNotFoundCode && err != nil {
 			return respCode, err
 		}
 		if count <= 1 {
@@ -252,27 +252,27 @@ func (e *FilemgrApp) Delete(ids []int64, p *middleware.DataPermission) (int, err
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // GetSingleUploadFileInfo admin-获取APP管理单个上传文件信息
 func (e *FilemgrApp) GetSingleUploadFileInfo(form *multipart.Form, file *multipart.FileHeader, dst *string) (int, error) {
 	if len(form.File) != 1 {
-		return fLang.AppSelectOneFileUploadCode, lang.MsgErr(fLang.AppSelectOneFileUploadCode, e.Lang)
+		return baseLang.AppSelectOneFileUploadCode, lang.MsgErr(baseLang.AppSelectOneFileUploadCode, e.Lang)
 	}
 	for _, files := range form.File {
 		if len(files) != 1 {
-			return fLang.AppSelectOneFileUploadCode, lang.MsgErr(fLang.AppSelectOneFileUploadCode, e.Lang)
+			return baseLang.AppSelectOneFileUploadCode, lang.MsgErr(baseLang.AppSelectOneFileUploadCode, e.Lang)
 		}
 		for _, item := range files {
 			*dst = config.ApplicationConfig.FileRootPath + "app/" + idgen.UUID() + path.Ext(item.Filename)
 			*file = *item
-			return lang.SuccessCode, nil
+			return baseLang.SuccessCode, nil
 		}
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Export plugins-导出APP管理

@@ -3,10 +3,11 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/mssola/user_agent"
-	"go-admin/app/admin/sys/constant"
-	sysLang "go-admin/app/admin/sys/lang"
+	"go-admin/config/base/constant"
+
 	"go-admin/app/admin/sys/models"
 	"go-admin/app/admin/sys/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	"go-admin/core/dto/service"
 	"go-admin/core/global"
@@ -47,27 +48,27 @@ func (e *SysUser) GetPage(c *dto.SysUserQueryReq, p *middleware.DataPermission) 
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get admin-获取系统用户管理详情
 func (e *SysUser) Get(id int64, p *middleware.DataPermission) (*models.SysUser, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.SysUser{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne admin-获取系统用户管理一条记录
@@ -79,12 +80,12 @@ func (e *SysUser) QueryOne(queryCondition *dto.SysUserQueryReq, p *middleware.Da
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取系统用户管理数据总数
@@ -97,80 +98,80 @@ func (e *SysUser) Count(c *dto.SysUserQueryReq) (int64, int, error) {
 		).Limit(-1).Offset(-1).
 		Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert admin-新增系统用户管理
 func (e *SysUser) Insert(c *dto.SysUserInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Username == "" {
-		return 0, sysLang.SysUserNameEmptyCode, lang.MsgErr(sysLang.SysUserNameEmptyCode, e.Lang)
+		return 0, baseLang.SysUserNameEmptyCode, lang.MsgErr(baseLang.SysUserNameEmptyCode, e.Lang)
 	}
 	if c.NickName == "" {
-		return 0, sysLang.SysNickNameEmptyCode, lang.MsgErr(sysLang.SysNickNameEmptyCode, e.Lang)
+		return 0, baseLang.SysNickNameEmptyCode, lang.MsgErr(baseLang.SysNickNameEmptyCode, e.Lang)
 	}
 	if c.Phone == "" {
-		return 0, sysLang.SysUserPhoneEmptyCode, lang.MsgErr(sysLang.SysUserPhoneEmptyCode, e.Lang)
+		return 0, baseLang.SysUserPhoneEmptyCode, lang.MsgErr(baseLang.SysUserPhoneEmptyCode, e.Lang)
 	}
 	if c.Email == "" {
-		return 0, sysLang.SysUserEmailEmptyCode, lang.MsgErr(sysLang.SysUserEmailEmptyCode, e.Lang)
+		return 0, baseLang.SysUserEmailEmptyCode, lang.MsgErr(baseLang.SysUserEmailEmptyCode, e.Lang)
 	}
 	if c.DeptId <= 0 {
-		return 0, sysLang.SysUserDeptEmptyCode, lang.MsgErr(sysLang.SysUserDeptEmptyCode, e.Lang)
+		return 0, baseLang.SysUserDeptEmptyCode, lang.MsgErr(baseLang.SysUserDeptEmptyCode, e.Lang)
 	}
 	if c.Password == "" {
-		return 0, sysLang.SysUserPwdEmptyCode, lang.MsgErr(sysLang.SysUserPwdEmptyCode, e.Lang)
+		return 0, baseLang.SysUserPwdEmptyCode, lang.MsgErr(baseLang.SysUserPwdEmptyCode, e.Lang)
 	}
 
 	if c.Username != "" {
 		query := dto.SysUserQueryReq{}
 		query.Username = c.Username
 		count, respCode, err := e.Count(&query)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return 0, respCode, err
 		}
 		if count > 0 {
-			return 0, sysLang.SysUserNameExistCode, lang.MsgErr(sysLang.SysUserNameExistCode, e.Lang)
+			return 0, baseLang.SysUserNameExistCode, lang.MsgErr(baseLang.SysUserNameExistCode, e.Lang)
 		}
 	}
 	if c.NickName != "" {
 		query := dto.SysUserQueryReq{}
 		query.NickName = c.NickName
 		count, respCode, err := e.Count(&query)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return 0, respCode, err
 		}
 		if count > 0 {
-			return 0, sysLang.SysUserNickNameExistCode, lang.MsgErr(sysLang.SysUserNickNameExistCode, e.Lang)
+			return 0, baseLang.SysUserNickNameExistCode, lang.MsgErr(baseLang.SysUserNickNameExistCode, e.Lang)
 		}
 	}
 	if c.Phone != "" {
 		query := dto.SysUserQueryReq{}
 		query.Phone = c.Phone
 		count, respCode, err := e.Count(&query)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return 0, respCode, err
 		}
 		if count > 0 {
-			return 0, sysLang.SysUserPhoneExistCode, lang.MsgErr(sysLang.SysUserPhoneExistCode, e.Lang)
+			return 0, baseLang.SysUserPhoneExistCode, lang.MsgErr(baseLang.SysUserPhoneExistCode, e.Lang)
 		}
 	}
 	if c.Email != "" {
 		query := dto.SysUserQueryReq{}
 		query.Email = c.Email
 		count, respCode, err := e.Count(&query)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return 0, respCode, err
 		}
 		if count > 0 {
-			return 0, sysLang.SysUserEmailExistCode, lang.MsgErr(sysLang.SysUserEmailExistCode, e.Lang)
+			return 0, baseLang.SysUserEmailExistCode, lang.MsgErr(baseLang.SysUserEmailExistCode, e.Lang)
 		}
 	}
 
@@ -204,30 +205,30 @@ func (e *SysUser) Insert(c *dto.SysUserInsertReq) (int64, int, error) {
 	data.UpdatedAt = &now
 	err := e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update admin-更新系统用户管理
 func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Username == "" {
-		return false, sysLang.SysUserNameEmptyCode, lang.MsgErr(sysLang.SysUserNameEmptyCode, e.Lang)
+		return false, baseLang.SysUserNameEmptyCode, lang.MsgErr(baseLang.SysUserNameEmptyCode, e.Lang)
 	}
 	//if c.NickName == "" {
-	//	return false, sysLang.SysNickNameEmptyCode, lang.MsgErr(sysLang.SysNickNameEmptyCode, e.Lang)
+	//	return false, baseLang.SysNickNameEmptyCode, lang.MsgErr(baseLang.SysNickNameEmptyCode, e.Lang)
 	//}
 	if c.Phone == "" {
-		return false, sysLang.SysUserPhoneEmptyCode, lang.MsgErr(sysLang.SysUserPhoneEmptyCode, e.Lang)
+		return false, baseLang.SysUserPhoneEmptyCode, lang.MsgErr(baseLang.SysUserPhoneEmptyCode, e.Lang)
 	}
 	if c.Email == "" {
-		return false, sysLang.SysUserEmailEmptyCode, lang.MsgErr(sysLang.SysUserEmailEmptyCode, e.Lang)
+		return false, baseLang.SysUserEmailEmptyCode, lang.MsgErr(baseLang.SysUserEmailEmptyCode, e.Lang)
 	}
 	/*	if c.DeptId <= 0 {
-		return false, sysLang.SysUserDeptEmptyCode, lang.MsgErr(sysLang.SysUserDeptEmptyCode, e.Lang)
+		return false, baseLang.SysUserDeptEmptyCode, lang.MsgErr(baseLang.SysUserDeptEmptyCode, e.Lang)
 	}*/
 
 	data, respCode, err := e.Get(c.Id, p)
@@ -240,11 +241,11 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 		req := dto.SysUserQueryReq{}
 		req.Username = c.Username
 		resp, respCode, err := e.QueryOne(&req, p)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysUserNameExistCode, lang.MsgErr(sysLang.SysUserNameExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysUserNameExistCode, lang.MsgErr(baseLang.SysUserNameExistCode, e.Lang)
 		}
 		updates["username"] = c.Username
 	}
@@ -252,11 +253,11 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 		req := dto.SysUserQueryReq{}
 		req.NickName = c.NickName
 		resp, respCode, err := e.QueryOne(&req, p)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysUserNickNameExistCode, lang.MsgErr(sysLang.SysUserNickNameExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysUserNickNameExistCode, lang.MsgErr(baseLang.SysUserNickNameExistCode, e.Lang)
 		}
 		updates["nick_name"] = c.NickName
 	}
@@ -264,11 +265,11 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 		req := dto.SysUserQueryReq{}
 		req.Phone = c.Phone
 		resp, respCode, err := e.QueryOne(&req, p)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysUserPhoneExistCode, lang.MsgErr(sysLang.SysUserPhoneExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysUserPhoneExistCode, lang.MsgErr(baseLang.SysUserPhoneExistCode, e.Lang)
 		}
 		updates["phone"] = c.Phone
 	}
@@ -283,16 +284,16 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 	}
 	if c.Email != "" && data.Email != c.Email {
 		if !strutils.VerifyEmailFormat(c.Email) {
-			return false, sysLang.SysUserEmailFormatErrCode, lang.MsgErr(sysLang.SysUserEmailFormatErrCode, e.Lang)
+			return false, baseLang.SysUserEmailFormatErrCode, lang.MsgErr(baseLang.SysUserEmailFormatErrCode, e.Lang)
 		}
 		req := dto.SysUserQueryReq{}
 		req.Email = c.Email
 		resp, respCode, err := e.QueryOne(&req, p)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysUserEmailExistCode, lang.MsgErr(sysLang.SysUserEmailExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysUserEmailExistCode, lang.MsgErr(baseLang.SysUserEmailExistCode, e.Lang)
 		}
 		updates["email"] = c.Email
 	}
@@ -313,20 +314,20 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 		updates["updated_at"] = time.Now()
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // UpdateStatus admin-更新系统用户状态
 func (e *SysUser) UpdateStatus(c *dto.SysUserStatusUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 || c.UserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Status == "" {
-		return false, sysLang.SysUserStatusEmptyCode, lang.MsgErr(sysLang.SysUserStatusEmptyCode, e.Lang)
+		return false, baseLang.SysUserStatusEmptyCode, lang.MsgErr(baseLang.SysUserStatusEmptyCode, e.Lang)
 	}
 	var err error
 	u, respCode, err := e.Get(c.UserId, p)
@@ -344,17 +345,17 @@ func (e *SysUser) UpdateStatus(c *dto.SysUserStatusUpdateReq, p *middleware.Data
 		updates["updated_at"] = time.Now()
 		err = e.Orm.Model(&models.SysUser{}).Where("id=?", c.UserId).Updates(updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // ResetPwd admin-重置系统用户密码
 func (e *SysUser) ResetPwd(c *dto.ResetSysUserPwdReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 || c.UserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 
 	var err error
@@ -371,17 +372,17 @@ func (e *SysUser) ResetPwd(c *dto.ResetSysUserPwdReq, p *middleware.DataPermissi
 			UpdateBy:  c.CurrUserId,
 		}).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除系统用户管理
 func (e *SysUser) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 
 	//find if have admin account,not allow delete
@@ -391,7 +392,7 @@ func (e *SysUser) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 			return respCode, err
 		}
 		if u.Username == constant.RoleKeyAdmin {
-			return sysLang.SysAdminUserNotAllowDeleteErrCode, lang.MsgErr(sysLang.SysAdminUserNotAllowDeleteErrCode, e.Lang)
+			return baseLang.SysAdminUserNotAllowDeleteErrCode, lang.MsgErr(baseLang.SysAdminUserNotAllowDeleteErrCode, e.Lang)
 		}
 	}
 	var err error
@@ -400,27 +401,27 @@ func (e *SysUser) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // GetProfile admin-获取系统登录用户信息
 func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	if userId <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	user := &models.SysUser{}
 	err := e.Orm.Preload("Dept").Preload("Post").Preload("Role").First(user, userId).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err != nil && err == gorm.ErrRecordNotFound {
-		return nil, sysLang.SysUserNoExistCode, lang.MsgErr(sysLang.SysUserNoExistCode, e.Lang)
+		return nil, baseLang.SysUserNoExistCode, lang.MsgErr(baseLang.SysUserNoExistCode, e.Lang)
 	}
 
 	if user.Role.RoleKey == "" {
-		return nil, sysLang.SysUserNoRoleErrCode, lang.MsgErr(sysLang.SysUserNoRoleErrCode, e.Lang)
+		return nil, baseLang.SysUserNoRoleErrCode, lang.MsgErr(baseLang.SysUserNoRoleErrCode, e.Lang)
 	}
 
 	respUser := &dto.SysUserResp{}
@@ -442,22 +443,22 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 		respUser.Permissions = list
 	}
 	respUser.RoleKyes = []string{user.Role.RoleKey}
-	return respUser, lang.SuccessCode, nil
+	return respUser, baseLang.SuccessCode, nil
 }
 
 // UpdateProfile admin-更新系统登录用户信息
 func (e *SysUser) UpdateProfile(c *dto.SysUserUpdateReq) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.Username == "" {
-		return false, sysLang.SysUserNameEmptyCode, lang.MsgErr(sysLang.SysUserNameEmptyCode, e.Lang)
+		return false, baseLang.SysUserNameEmptyCode, lang.MsgErr(baseLang.SysUserNameEmptyCode, e.Lang)
 	}
 	if c.Phone == "" {
-		return false, sysLang.SysUserPhoneEmptyCode, lang.MsgErr(sysLang.SysUserPhoneEmptyCode, e.Lang)
+		return false, baseLang.SysUserPhoneEmptyCode, lang.MsgErr(baseLang.SysUserPhoneEmptyCode, e.Lang)
 	}
 	if c.Email == "" {
-		return false, sysLang.SysUserEmailEmptyCode, lang.MsgErr(sysLang.SysUserEmailEmptyCode, e.Lang)
+		return false, baseLang.SysUserEmailEmptyCode, lang.MsgErr(baseLang.SysUserEmailEmptyCode, e.Lang)
 	}
 
 	data, respCode, err := e.Get(c.Id, nil)
@@ -473,11 +474,11 @@ func (e *SysUser) UpdateProfile(c *dto.SysUserUpdateReq) (bool, int, error) {
 		req := dto.SysUserQueryReq{}
 		req.Username = c.Username
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysUserNameExistCode, lang.MsgErr(sysLang.SysUserNameExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysUserNameExistCode, lang.MsgErr(baseLang.SysUserNameExistCode, e.Lang)
 		}
 		updates["username"] = c.Username
 	}
@@ -485,26 +486,26 @@ func (e *SysUser) UpdateProfile(c *dto.SysUserUpdateReq) (bool, int, error) {
 		req := dto.SysUserQueryReq{}
 		req.Phone = c.Phone
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysUserPhoneExistCode, lang.MsgErr(sysLang.SysUserPhoneExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysUserPhoneExistCode, lang.MsgErr(baseLang.SysUserPhoneExistCode, e.Lang)
 		}
 		updates["phone"] = c.Phone
 	}
 	if c.Email != "" && data.Email != c.Email {
 		if !strutils.VerifyEmailFormat(c.Email) {
-			return false, sysLang.SysUserEmailFormatErrCode, lang.MsgErr(sysLang.SysUserEmailFormatErrCode, e.Lang)
+			return false, baseLang.SysUserEmailFormatErrCode, lang.MsgErr(baseLang.SysUserEmailFormatErrCode, e.Lang)
 		}
 		req := dto.SysUserQueryReq{}
 		req.Email = c.Email
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysUserEmailExistCode, lang.MsgErr(sysLang.SysUserEmailExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysUserEmailExistCode, lang.MsgErr(baseLang.SysUserEmailExistCode, e.Lang)
 		}
 		updates["email"] = c.Email
 	}
@@ -513,11 +514,11 @@ func (e *SysUser) UpdateProfile(c *dto.SysUserUpdateReq) (bool, int, error) {
 		updates["updated_at"] = time.Now()
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // LoginVerify admin-登录验证
@@ -529,21 +530,21 @@ func (e *SysUser) LoginVerify(login *dto.LoginReq) (*models.SysUser, int, error)
 	}
 	err := e.Orm.Preload("Dept").Preload("Post").Preload("Role").Where("username = ? and status in (?)", login.Username, status).First(user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err != nil && err == gorm.ErrRecordNotFound {
-		return nil, sysLang.SysUserNoExistCode, lang.MsgErr(sysLang.SysUserNoExistCode, e.Lang)
+		return nil, baseLang.SysUserNoExistCode, lang.MsgErr(baseLang.SysUserNoExistCode, e.Lang)
 	}
 	if !strutils.CompareHashAndPassword(user.Password, login.Password) {
-		return nil, sysLang.SysUserPwdErrCode, lang.MsgErr(sysLang.SysUserPwdErrCode, e.Lang)
+		return nil, baseLang.SysUserPwdErrCode, lang.MsgErr(baseLang.SysUserPwdErrCode, e.Lang)
 	}
-	return user, lang.SuccessCode, nil
+	return user, baseLang.SuccessCode, nil
 }
 
 // UpdateProfileAvatar admin-更新系统登录用户头像
 func (e *SysUser) UpdateProfileAvatar(c *dto.SysUserAvatarUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var err error
 	u, respCode, err := e.Get(c.CurrUserId, p)
@@ -561,20 +562,20 @@ func (e *SysUser) UpdateProfileAvatar(c *dto.SysUserAvatarUpdateReq, p *middlewa
 		updates["updated_at"] = time.Now()
 		err = e.Orm.Model(&models.SysUser{}).Where("id=?", c.CurrUserId).Updates(updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // UpdateProfilePwd admin-更新系统登录用户密码
 func (e *SysUser) UpdateProfilePwd(c dto.UpdateSysUserPwdReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.NewPassword == "" {
-		return false, sysLang.SysUserNewPwdEmptyCode, lang.MsgErr(sysLang.SysUserNewPwdEmptyCode, e.Lang)
+		return false, baseLang.SysUserNewPwdEmptyCode, lang.MsgErr(baseLang.SysUserNewPwdEmptyCode, e.Lang)
 	}
 	var err error
 	u, respCode, err := e.Get(c.CurrUserId, p)
@@ -583,7 +584,7 @@ func (e *SysUser) UpdateProfilePwd(c dto.UpdateSysUserPwdReq, p *middleware.Data
 	}
 
 	if !strutils.CompareHashAndPassword(u.Password, c.OldPassword) {
-		return false, sysLang.SysUserPwdErrCode, lang.MsgErr(sysLang.SysUserPwdErrCode, e.Lang)
+		return false, baseLang.SysUserPwdErrCode, lang.MsgErr(baseLang.SysUserPwdErrCode, e.Lang)
 	}
 
 	if !strutils.CompareHashAndPassword(u.Password, c.NewPassword) {
@@ -597,11 +598,11 @@ func (e *SysUser) UpdateProfilePwd(c dto.UpdateSysUserPwdReq, p *middleware.Data
 			UpdateBy:  c.CurrUserId,
 		}).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // LoginLogToDB admin-登录日志记录到数据库

@@ -3,6 +3,7 @@ package jwtauth
 import (
 	"crypto/rsa"
 	"errors"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	"go-admin/core/lang"
 	"go-admin/core/middleware/auth/authdto"
@@ -434,7 +435,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) 
 	saveTokenStr, _ := runtime.RuntimeConfig.GetCacheAdapter().Get(JWTLoginPrefix, strconv.FormatInt(int64(claims[authdto.LoginUserId].(float64)), 10))
 	//单点登录
 	if config.ApplicationConfig.IsSingleLogin && saveTokenStr != tokenStr {
-		return nil, lang.MsgErr(lang.AuthErr, mw.GetAcceptLanguage(c))
+		return nil, lang.MsgErr(baseLang.AuthErr, mw.GetAcceptLanguage(c))
 	}
 
 	return claims, nil

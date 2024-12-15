@@ -1,8 +1,9 @@
 package service
 
 import (
-	"go-admin/app/admin/sys/constant"
-	sysLang "go-admin/app/admin/sys/lang"
+	"go-admin/config/base/constant"
+
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
@@ -42,9 +43,9 @@ func (e *SysRole) GetList(c *dto.SysRoleQueryReq, p *middleware.DataPermission) 
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // GetPage admin-获取角色管理分页列表
@@ -60,25 +61,25 @@ func (e *SysRole) GetPage(c *dto.SysRoleQueryReq, p *middleware.DataPermission) 
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get admin-获取角色管理详情
 func (e *SysRole) Get(id int64, p *middleware.DataPermission) (*models.SysRole, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.SysRole{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 
 	menuIds, respCode, err := e.GetMenuIdsByRole(data.Id)
@@ -91,7 +92,7 @@ func (e *SysRole) Get(id int64, p *middleware.DataPermission) (*models.SysRole, 
 	}
 	data.MenuIds = menuIds
 	data.DeptIds = deptIds
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne admin-获取角色管理一条记录
@@ -103,12 +104,12 @@ func (e *SysRole) QueryOne(queryCondition *dto.SysRoleQueryReq, p *middleware.Da
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取角色管理数据总数
@@ -121,42 +122,42 @@ func (e *SysRole) Count(c *dto.SysRoleQueryReq) (int64, int, error) {
 		).Limit(-1).Offset(-1).
 		Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert admin-新增角色管理
 func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 
 	if c.RoleName == "" {
-		return 0, sysLang.SysRoleNameEmptyCode, lang.MsgErr(sysLang.SysRoleNameEmptyCode, e.Lang)
+		return 0, baseLang.SysRoleNameEmptyCode, lang.MsgErr(baseLang.SysRoleNameEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return 0, sysLang.SysRoleStatusEmptyCode, lang.MsgErr(sysLang.SysRoleStatusEmptyCode, e.Lang)
+		return 0, baseLang.SysRoleStatusEmptyCode, lang.MsgErr(baseLang.SysRoleStatusEmptyCode, e.Lang)
 	}
 	if c.RoleKey == "" {
-		return 0, sysLang.SysRoleKeyEmptyCode, lang.MsgErr(sysLang.SysRoleKeyEmptyCode, e.Lang)
+		return 0, baseLang.SysRoleKeyEmptyCode, lang.MsgErr(baseLang.SysRoleKeyEmptyCode, e.Lang)
 	}
 	if c.RoleSort < 0 {
-		return 0, sysLang.SysRoleSortEmptyCode, lang.MsgErr(sysLang.SysRoleSortEmptyCode, e.Lang)
+		return 0, baseLang.SysRoleSortEmptyCode, lang.MsgErr(baseLang.SysRoleSortEmptyCode, e.Lang)
 	}
 
 	//确保角色key不存在
 	req := dto.SysRoleQueryReq{}
 	req.RoleKey = c.RoleKey
 	count, respCode, err := e.Count(&req)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, sysLang.SysRoleKeyExistCode, lang.MsgErr(sysLang.SysRoleKeyExistCode, e.Lang)
+		return 0, baseLang.SysRoleKeyExistCode, lang.MsgErr(baseLang.SysRoleKeyExistCode, e.Lang)
 	}
 
 	//获取菜单
@@ -195,7 +196,7 @@ func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (in
 
 	err = e.Orm.Save(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
 
 	//casbin
@@ -205,13 +206,13 @@ func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (in
 		}
 	}
 	_ = cb.SavePolicy()
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update admin-更新角色管理
 func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var err error
 
@@ -219,14 +220,14 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 	req := dto.SysRoleQueryReq{}
 	req.RoleKey = c.RoleKey
 	role, respCode, err := e.QueryOne(&req, nil)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return respCode, err
 	}
-	if respCode == lang.SuccessCode && role.Id != c.Id {
-		return sysLang.SysRoleKeyExistCode, lang.MsgErr(sysLang.SysRoleKeyExistCode, e.Lang)
+	if respCode == baseLang.SuccessCode && role.Id != c.Id {
+		return baseLang.SysRoleKeyExistCode, lang.MsgErr(baseLang.SysRoleKeyExistCode, e.Lang)
 	}
 	if role != nil && role.RoleKey == constant.RoleKeyAdmin {
-		return sysLang.SysRoleAdminNoOpCode, lang.MsgErr(sysLang.SysRoleAdminNoOpCode, e.Lang)
+		return baseLang.SysRoleAdminNoOpCode, lang.MsgErr(baseLang.SysRoleAdminNoOpCode, e.Lang)
 	}
 
 	e.Orm = e.Orm.Debug().Begin()
@@ -245,7 +246,7 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 	e.Orm.Preload("SysApi").Where("id in ?", c.MenuIds).Find(&mlist)
 	err = e.Orm.Model(&data).Association("SysMenu").Delete(data.SysMenu)
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
 
 	//更新角色信息
@@ -262,13 +263,13 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 	data.UpdateBy = c.CurrUserId
 	err = e.Orm.Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&data).Error
 	if err != nil {
-		return lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
 
 	//casbin
 	_, err = cb.RemoveFilteredPolicy(0, data.RoleKey)
 	if err != nil {
-		return lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
 	for _, menu := range mlist {
 		for _, api := range menu.SysApi {
@@ -276,13 +277,13 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 		}
 	}
 	_ = cb.SavePolicy()
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除角色管理
 func (e *SysRole) Delete(ids []int64) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var err error
 	tx := e.Orm.Begin()
@@ -298,47 +299,47 @@ func (e *SysRole) Delete(ids []int64) (int, error) {
 	userReq := dto.SysUserQueryReq{}
 	userReq.RoleIds = ids
 	count, respCode, err := userService.Count(&userReq)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return respCode, err
 	}
 	if count > 0 {
-		return sysLang.SysRoleUserExistNoDeleteCode, lang.MsgErr(sysLang.SysRoleUserExistNoDeleteCode, e.Lang)
+		return baseLang.SysRoleUserExistNoDeleteCode, lang.MsgErr(baseLang.SysRoleUserExistNoDeleteCode, e.Lang)
 	}
 
 	for _, id := range ids {
 		var role = models.SysRole{}
 		err = tx.Preload("SysMenu").Preload("SysDept").First(&role, id).Error
 		if err != nil {
-			return lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+			return baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 		}
 
 		if role.RoleKey == constant.RoleKeyAdmin {
-			return sysLang.SysRoleAdminNoOpCode, lang.MsgErr(sysLang.SysRoleAdminNoOpCode, e.Lang)
+			return baseLang.SysRoleAdminNoOpCode, lang.MsgErr(baseLang.SysRoleAdminNoOpCode, e.Lang)
 		}
 		err = tx.Select(clause.Associations).Delete(&role).Error
 		if err != nil {
-			return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+			return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 		}
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // GetMenuIdsByRole admin-获取角色对应的菜单编号集合
 func (e *SysRole) GetMenuIdsByRole(roleId int64) ([]int64, int, error) {
 	if roleId <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	menuIds := make([]int64, 0)
 	model := models.SysRole{}
 	model.Id = roleId
 	if err := e.Orm.Model(&model).Preload("SysMenu").First(&model).Error; err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	l := *model.SysMenu
 	for i := 0; i < len(l); i++ {
 		menuIds = append(menuIds, l[i].Id)
 	}
-	return menuIds, lang.SuccessCode, nil
+	return menuIds, baseLang.SuccessCode, nil
 }
 
 // GetDeptIdsByRole admin-获取角色对应的的部门编号集合
@@ -351,12 +352,12 @@ func (e *SysRole) GetDeptIdsByRole(roleId int64) ([]int64, int, error) {
 		Where("role_id = ? ", roleId).
 		Where(" admin_sys_role_dept.dept_id not in(select admin_sys_dept.parent_id from admin_sys_role_dept LEFT JOIN admin_sys_dept on admin_sys_dept.id=admin_sys_role_dept.dept_id where role_id =? )", roleId).
 		Find(&deptList).Error; err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	for i := 0; i < len(deptList); i++ {
 		deptIds = append(deptIds, deptList[i].DeptId)
 	}
-	return deptIds, lang.SuccessCode, nil
+	return deptIds, baseLang.SuccessCode, nil
 }
 
 // UpdateDataScope admin-更新角色管理数据权限
@@ -376,7 +377,7 @@ func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (int, error) {
 	e.Orm.Where("id in ?", c.DeptIds).Find(&dlist)                         //查找所选部门id对应的部门信息
 	err = e.Orm.Model(&model).Association("SysDept").Delete(model.SysDept) //删除角色原有的部门信息
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
 	if c.Id > 0 {
 		model.Id = c.Id
@@ -386,9 +387,9 @@ func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (int, error) {
 	model.SysDept = dlist
 	err = e.Orm.Model(&model).Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&model).Error
 	if err != nil {
-		return lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // UpdateStatus admin-更新角色管理状态
@@ -405,14 +406,14 @@ func (e *SysRole) UpdateStatus(c *dto.UpdateStatusReq) (int, error) {
 	var model = models.SysRole{}
 	err = tx.First(&model, c.RoleId).Error
 	if err != nil {
-		return lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
 	model.Status = c.Status
 	err = tx.Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&model).Error
 	if err != nil {
-		return lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // GetWithName admin-根据角色名获取角色详情
@@ -420,7 +421,7 @@ func (e *SysRole) GetWithName(d *dto.SysRoleQueryReq) (*models.SysRole, int, err
 	model := &models.SysRole{}
 	err := e.Orm.Where("role_name = ?", d.RoleName).First(model).Error
 	if err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	menuIds, respCode, err := e.GetMenuIdsByRole(model.Id)
 	if err != nil {
@@ -434,7 +435,7 @@ func (e *SysRole) GetWithName(d *dto.SysRoleQueryReq) (*models.SysRole, int, err
 
 	model.MenuIds = menuIds
 	model.DeptIds = deptIds
-	return model, lang.SuccessCode, nil
+	return model, baseLang.SuccessCode, nil
 }
 
 // GetPermissionsByRoleId admin-根据角色获取权限
@@ -443,11 +444,11 @@ func (e *SysRole) GetPermissionsByRoleId(roleId int64) ([]string, int, error) {
 	model := models.SysRole{}
 	model.Id = roleId
 	if err := e.Orm.Model(&model).Preload("SysMenu").First(&model).Error; err != nil {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	l := *model.SysMenu
 	for i := 0; i < len(l); i++ {
 		permissions = append(permissions, l[i].Permission)
 	}
-	return permissions, lang.SuccessCode, nil
+	return permissions, baseLang.SuccessCode, nil
 }

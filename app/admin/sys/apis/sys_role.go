@@ -6,6 +6,7 @@ import (
 	"go-admin/app/admin/sys/models"
 	"go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/casbin"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
@@ -29,7 +30,7 @@ func (e SysRole) GetList(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -38,7 +39,7 @@ func (e SysRole) GetList(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(list, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(list, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // GetPage admin-获取角色管理分页列表
@@ -51,7 +52,7 @@ func (e SysRole) GetPage(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -60,7 +61,7 @@ func (e SysRole) GetPage(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Get admin-获取角色管理详情
@@ -73,7 +74,7 @@ func (e SysRole) Get(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -82,7 +83,7 @@ func (e SysRole) Get(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Insert admin-新增角色管理
@@ -95,7 +96,7 @@ func (e SysRole) Insert(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -111,7 +112,7 @@ func (e SysRole) Insert(c *gin.Context) {
 		return
 	}
 	_, _ = mycasbin.LoadPolicy(c)
-	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(id, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Update admin-更新角色管理
@@ -124,7 +125,7 @@ func (e SysRole) Update(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -142,7 +143,7 @@ func (e SysRole) Update(c *gin.Context) {
 		return
 	}
 	_, _ = mycasbin.LoadPolicy(c)
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Delete admin-删除角色管理
@@ -155,7 +156,7 @@ func (e SysRole) Delete(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -165,7 +166,7 @@ func (e SysRole) Delete(c *gin.Context) {
 		return
 	}
 	_, _ = mycasbin.LoadPolicy(c)
-	e.OK(req.Ids, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(req.Ids, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // UpdateStatus admin-更新角色管理状态
@@ -178,7 +179,7 @@ func (e SysRole) UpdateStatus(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -192,7 +193,7 @@ func (e SysRole) UpdateStatus(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(req.RoleId, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(req.RoleId, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // UpdateDataScope admin-更新角色管理数据权限
@@ -205,7 +206,7 @@ func (e SysRole) UpdateDataScope(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	data := &models.SysRole{
@@ -224,5 +225,5 @@ func (e SysRole) UpdateDataScope(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }

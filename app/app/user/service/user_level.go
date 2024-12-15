@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/sys/service"
-	aLang "go-admin/app/app/user/lang"
 	"go-admin/app/app/user/models"
 	"go-admin/app/app/user/service/dto"
-	cLang "go-admin/app/plugins/content/lang"
+	baseLang "go-admin/config/base/lang"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
 	"go-admin/core/global"
@@ -42,27 +41,27 @@ func (e *UserLevel) GetPage(c *dto.UserLevelQueryReq, p *middleware.DataPermissi
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get app-获取用户等级管理详情
 func (e *UserLevel) Get(id int64, p *middleware.DataPermission) (*models.UserLevel, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.UserLevel{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne app-获取用户等级管理一条记录
@@ -73,12 +72,12 @@ func (e *UserLevel) QueryOne(queryCondition *dto.UserLevelQueryReq, p *middlewar
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取用户等级管理数据总数
@@ -90,27 +89,27 @@ func (e *UserLevel) Count(queryCondition *dto.UserLevelQueryReq) (int64, int, er
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert app-新增用户等级管理详情
 func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.LevelType == "" {
-		return 0, aLang.UserLevelTypeEmptyCode, lang.MsgErr(aLang.UserLevelTypeEmptyCode, e.Lang)
+		return 0, baseLang.UserLevelTypeEmptyCode, lang.MsgErr(baseLang.UserLevelTypeEmptyCode, e.Lang)
 	}
 	if c.Name == "" {
-		return 0, aLang.UserLevelNameEmptyCode, lang.MsgErr(aLang.UserLevelNameEmptyCode, e.Lang)
+		return 0, baseLang.UserLevelNameEmptyCode, lang.MsgErr(baseLang.UserLevelNameEmptyCode, e.Lang)
 	}
 	if c.Level <= 0 {
-		return 0, aLang.UserLevelEmptyCode, lang.MsgErr(aLang.UserLevelEmptyCode, e.Lang)
+		return 0, baseLang.UserLevelEmptyCode, lang.MsgErr(baseLang.UserLevelEmptyCode, e.Lang)
 	}
 
 	//若存在等级名称和类型对应的信息，则不可继续添加
@@ -118,11 +117,11 @@ func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 	queryReq.Name = c.Name
 	queryReq.LevelType = c.LevelType
 	count, respCode, err := e.Count(&queryReq)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, aLang.UserLevelNameAndTypeExistCode, lang.MsgErr(aLang.UserLevelNameAndTypeExistCode, e.Lang)
+		return 0, baseLang.UserLevelNameAndTypeExistCode, lang.MsgErr(baseLang.UserLevelNameAndTypeExistCode, e.Lang)
 	}
 
 	now := time.Now()
@@ -137,15 +136,15 @@ func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 	data.UpdatedAt = &now
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update app-更新用户等级管理详情
 func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -155,11 +154,11 @@ func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermissi
 	req.Name = c.Name
 	req.LevelType = c.LevelType
 	resp, respCode, err := e.QueryOne(&req, nil)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return false, respCode, err
 	}
-	if respCode == lang.SuccessCode && resp.Id != data.Id {
-		return false, aLang.UserLevelNameAndTypeExistCode, lang.MsgErr(aLang.UserLevelNameAndTypeExistCode, e.Lang)
+	if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+		return false, baseLang.UserLevelNameAndTypeExistCode, lang.MsgErr(baseLang.UserLevelNameAndTypeExistCode, e.Lang)
 	}
 
 	//最小化变更改动过的数据
@@ -178,17 +177,17 @@ func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermissi
 		updates["update_by"] = c.CurrUserId
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete app-删除用户等级管理详情
 func (e *UserLevel) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 
 	//用户是否使用该等级
@@ -196,11 +195,11 @@ func (e *UserLevel) Delete(ids []int64, p *middleware.DataPermission) (int, erro
 	userReq := dto.UserQueryReq{}
 	userReq.LevelIds = ids
 	count, respCode, err := userService.Count(&userReq)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return respCode, err
 	}
 	if count > 0 {
-		return aLang.UserLevelNameAndTypeExistCode, lang.MsgErr(cLang.PluginsCategoryNameHasUsedCode, e.Lang)
+		return baseLang.UserLevelNameAndTypeExistCode, lang.MsgErr(baseLang.PluginsCategoryNameHasUsedCode, e.Lang)
 	}
 
 	//
@@ -209,9 +208,9 @@ func (e *UserLevel) Delete(ids []int64, p *middleware.DataPermission) (int, erro
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Export app-导出用户等级管理详情

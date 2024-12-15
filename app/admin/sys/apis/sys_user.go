@@ -3,10 +3,10 @@ package apis
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go-admin/app/admin/sys/constant"
-	sysLang "go-admin/app/admin/sys/lang"
 	"go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
+	"go-admin/config/base/constant"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	"go-admin/core/dto/api"
 	_ "go-admin/core/dto/response"
@@ -34,7 +34,7 @@ func (e SysUser) GetPage(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -43,7 +43,7 @@ func (e SysUser) GetPage(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Get admin-获取系统用户管理详情
@@ -56,7 +56,7 @@ func (e SysUser) Get(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -65,7 +65,7 @@ func (e SysUser) Get(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(result, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Insert admin-新增系统用户管理
@@ -78,7 +78,7 @@ func (e SysUser) Insert(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -92,7 +92,7 @@ func (e SysUser) Insert(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(id, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(id, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Update admin-更新系统用户管理
@@ -105,7 +105,7 @@ func (e SysUser) Update(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	p := middleware.GetPermissionFromContext(c)
@@ -121,10 +121,10 @@ func (e SysUser) Update(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Delete admin-删除系统用户管理
@@ -137,7 +137,7 @@ func (e SysUser) Delete(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -147,7 +147,7 @@ func (e SysUser) Delete(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // UpdateStatus admin-更新系统用户状态
@@ -160,7 +160,7 @@ func (e SysUser) UpdateStatus(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -180,10 +180,10 @@ func (e SysUser) UpdateStatus(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // ResetPwd admin-重置系统用户密码
@@ -196,7 +196,7 @@ func (e SysUser) ResetPwd(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -216,10 +216,10 @@ func (e SysUser) ResetPwd(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // UpdateProfileAvatar admin-更新系统登录用户头像
@@ -231,7 +231,7 @@ func (e SysUser) UpdateProfileAvatar(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -241,10 +241,10 @@ func (e SysUser) UpdateProfileAvatar(c *gin.Context) {
 	reqPath := config.ApplicationConfig.FileRootPath + "admin/avatar/"
 	err = fileutils.IsNotExistMkDir(reqPath)
 	if err != nil {
-		e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
+		e.Error(baseLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.SysUseAvatarUploadErrCode, baseLang.SysUseAvatarUploadErrLogCode, err).Error())
 		/*err = fileutil.CreateDirAll(reqPath)
 		if err != nil {
-			e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
+			e.Error(baseLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.SysUseAvatarUploadErrCode, baseLang.SysUseAvatarUploadErrLogCode, err).Error())
 			return
 		}*/
 	}
@@ -253,7 +253,7 @@ func (e SysUser) UpdateProfileAvatar(c *gin.Context) {
 		// 上传文件至指定目录
 		err = c.SaveUploadedFile(file, filPath)
 		if err != nil {
-			e.Error(sysLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseAvatarUploadErrCode, sysLang.SysUseAvatarUploadErrLogCode, err).Error())
+			e.Error(baseLang.SysUseAvatarUploadErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.SysUseAvatarUploadErrCode, baseLang.SysUseAvatarUploadErrLogCode, err).Error())
 			return
 		}
 	}
@@ -274,10 +274,10 @@ func (e SysUser) UpdateProfileAvatar(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(req.Avatar, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(req.Avatar, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // UpdateProfilePwd admin-更新系统登录用户密码
@@ -290,7 +290,7 @@ func (e SysUser) UpdateProfilePwd(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -308,10 +308,10 @@ func (e SysUser) UpdateProfilePwd(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // GetProfile admin-获取系统登录用户信息
@@ -322,7 +322,7 @@ func (e SysUser) GetProfile(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
@@ -337,7 +337,7 @@ func (e SysUser) GetProfile(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(user, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(user, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // UpdateProfile admin-更新系统登录用户信息
@@ -352,7 +352,7 @@ func (e SysUser) UpdateProfile(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -368,10 +368,10 @@ func (e SysUser) UpdateProfile(c *gin.Context) {
 		return
 	}
 	if !b {
-		e.OK(nil, lang.MsgByCode(lang.DataNotUpdateCode, e.Lang))
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
-	e.OK(nil, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
 // Login admin-登录系统
@@ -384,18 +384,18 @@ func (e SysUser) Login(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 
 	if req.Code == "" || req.Password == "" || req.Username == "" {
-		e.Error(lang.ParamErrCode, lang.MsgByCode(lang.ParamErrCode, e.Lang))
+		e.Error(baseLang.ParamErrCode, lang.MsgByCode(baseLang.ParamErrCode, e.Lang))
 		return
 	}
 
 	if config.ApplicationConfig.Mode != "dev" {
 		if !captchautils.Verify(req.UUID, req.Code, true) {
-			e.Error(sysLang.SysUseCapErrLogCode, lang.MsgByCode(sysLang.SysUseCapErrLogCode, e.Lang))
+			e.Error(baseLang.SysUseCapErrLogCode, lang.MsgByCode(baseLang.SysUseCapErrLogCode, e.Lang))
 			return
 		}
 	}
@@ -414,7 +414,7 @@ func (e SysUser) Login(c *gin.Context) {
 	c.Set(authdto.DataScope, userResp.Role.DataScope)
 	c.Set(authdto.UserInfo, userResp)
 	auth.Auth.Login(c)
-	s.LoginLogToDB(c, constant.UserLoginStatus, lang.MsgByCode(sysLang.SysUseLoginOpCode, e.Lang), userResp.Id)
+	s.LoginLogToDB(c, constant.UserLoginStatus, lang.MsgByCode(baseLang.SysUseLoginOpCode, e.Lang), userResp.Id)
 }
 
 // LogOut admin-退出系统
@@ -425,7 +425,7 @@ func (e SysUser) LogOut(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
@@ -433,26 +433,26 @@ func (e SysUser) LogOut(c *gin.Context) {
 		e.Error(rCode, err.Error())
 		return
 	}
-	s.LoginLogToDB(c, constant.UserLogoutStatus, lang.MsgByCode(sysLang.SysUseLoginOpCode, e.Lang), uid)
+	s.LoginLogToDB(c, constant.UserLogoutStatus, lang.MsgByCode(baseLang.SysUseLoginOpCode, e.Lang), uid)
 
-	e.OK(nil, lang.MsgByCode(sysLang.SysUseLogoutSuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SysUseLogoutSuccessCode, e.Lang))
 }
 
 // GenCaptcha admin-获取图形验证码
 func (e SysUser) GenCaptcha(c *gin.Context) {
 	err := e.MakeContext(c).Errors
 	if err != nil {
-		e.Error(lang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, lang.DataDecodeCode, lang.DataDecodeLogCode, err).Error())
+		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
 	id, b64s, err := captchautils.DriverDigitFunc()
 	if err != nil {
-		e.Error(sysLang.SysUseGenCaptchaErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, sysLang.SysUseGenCaptchaErrCode, sysLang.SysUseGenCaptchaErrLogCode, err).Error())
+		e.Error(baseLang.SysUseGenCaptchaErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.SysUseGenCaptchaErrCode, baseLang.SysUseGenCaptchaErrLogCode, err).Error())
 		return
 	}
 	resp := map[string]string{
 		"data": b64s,
 		"id":   id,
 	}
-	e.OK(resp, lang.MsgByCode(lang.SuccessCode, e.Lang))
+	e.OK(resp, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }

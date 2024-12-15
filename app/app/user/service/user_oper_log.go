@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/sys/service"
-	"go-admin/app/app/user/constant"
-	appLang "go-admin/app/app/user/lang"
 	"go-admin/app/app/user/models"
 	"go-admin/app/app/user/service/dto"
+	"go-admin/config/base/constant"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
@@ -60,7 +60,7 @@ func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPerm
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
 	for index, item := range list {
@@ -87,25 +87,25 @@ func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPerm
 			}
 		}
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get app-获取用户操作日志详情
 func (e *UserOperLog) Get(id int64, p *middleware.DataPermission) (*models.UserOperLog, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.UserOperLog{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne app-获取用户操作记录一条记录
@@ -116,12 +116,12 @@ func (e *UserOperLog) QueryOne(queryCondition *dto.UserOperLogQueryReq, p *middl
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取用户操作记录数据总数
@@ -133,24 +133,24 @@ func (e *UserOperLog) Count(queryCondition *dto.UserOperLogQueryReq) (int64, int
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert admin-新增用户操作记录
 func (e *UserOperLog) Insert(c *dto.UserOperLogInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 || c.UserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.ActionType == "" {
-		return 0, appLang.UserActionTypeEmptyCode, lang.MsgErr(appLang.UserActionTypeEmptyCode, e.Lang)
+		return 0, baseLang.UserActionTypeEmptyCode, lang.MsgErr(baseLang.UserActionTypeEmptyCode, e.Lang)
 	}
 	if c.UserId <= 0 {
-		return 0, appLang.UserIdEmptyCode, lang.MsgErr(appLang.UserIdEmptyCode, e.Lang)
+		return 0, baseLang.UserIdEmptyCode, lang.MsgErr(baseLang.UserIdEmptyCode, e.Lang)
 	}
 	now := time.Now()
 	var data models.UserOperLog
@@ -164,9 +164,9 @@ func (e *UserOperLog) Insert(c *dto.UserOperLogInsertReq) (int64, int, error) {
 	data.UpdatedAt = &now
 	err := e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Export app-导出用户操作日志

@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"github.com/casbin/casbin/v2/util"
 	"github.com/gin-gonic/gin"
-	"go-admin/app/admin/sys/constant"
+	"go-admin/config/base/constant"
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	"go-admin/core/dto/response"
 	"go-admin/core/lang"
@@ -68,10 +69,10 @@ func (j *JwtAuth) Get(c *gin.Context, key string) (interface{}, int, error) {
 	}()
 	data := ExtractClaims(c)
 	if data[key] != nil {
-		return data[key], lang.SuccessCode, nil
+		return data[key], baseLang.SuccessCode, nil
 	}
-	err = lang.MsgErr(lang.AuthErr, lang.GetAcceptLanguage(c))
-	return nil, lang.AuthErr, err
+	err = lang.MsgErr(baseLang.AuthErr, lang.GetAcceptLanguage(c))
+	return nil, baseLang.AuthErr, err
 }
 
 func (j *JwtAuth) GetUserId(c *gin.Context) (int64, int, error) {
@@ -79,7 +80,7 @@ func (j *JwtAuth) GetUserId(c *gin.Context) (int64, int, error) {
 	if err != nil {
 		return 0, respCode, err
 	}
-	return int64(result.(float64)), lang.SuccessCode, nil
+	return int64(result.(float64)), baseLang.SuccessCode, nil
 }
 
 func (j *JwtAuth) GetRoleId(c *gin.Context) (int64, int, error) {
@@ -87,7 +88,7 @@ func (j *JwtAuth) GetRoleId(c *gin.Context) (int64, int, error) {
 	if err != nil {
 		return 0, respCode, err
 	}
-	return int64(result.(float64)), lang.SuccessCode, nil
+	return int64(result.(float64)), baseLang.SuccessCode, nil
 }
 
 func (j *JwtAuth) GetRoleKey(c *gin.Context) string {
@@ -103,7 +104,7 @@ func (j *JwtAuth) GetDeptId(c *gin.Context) (int64, int, error) {
 	if err != nil {
 		return 0, respCode, err
 	}
-	return int64(result.(float64)), lang.SuccessCode, nil
+	return int64(result.(float64)), baseLang.SuccessCode, nil
 }
 
 func (j *JwtAuth) GetUserName(c *gin.Context) string {
@@ -149,7 +150,7 @@ func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
 			rLog.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
-			response.Error(c, lang.ServerErr, lang.MsgByCode(lang.ServerErr, lang.GetAcceptLanguage(c)))
+			response.Error(c, baseLang.ServerErr, lang.MsgByCode(baseLang.ServerErr, lang.GetAcceptLanguage(c)))
 			return
 		}
 
@@ -158,7 +159,7 @@ func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 			c.Next()
 		} else {
 			rLog.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
-			response.Error(c, lang.ForbitErr, lang.MsgByCode(lang.ForbitErr, lang.GetAcceptLanguage(c)))
+			response.Error(c, baseLang.ForbitErr, lang.MsgByCode(baseLang.ForbitErr, lang.GetAcceptLanguage(c)))
 			c.Abort()
 			return
 		}

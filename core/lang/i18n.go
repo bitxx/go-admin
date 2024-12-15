@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+var MsgInfo = make(map[int]string)
+
 type I18n struct {
 	Path   string
 	Lang   string

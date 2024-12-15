@@ -3,16 +3,9 @@
 package app
 
 import (
-	adminLang "go-admin/app/admin/sys/lang"
-	adminRouter "go-admin/app/admin/sys/router"
-	appLang "go-admin/app/app"
+	adminRouter "go-admin/app/admin"
 	appRouter "go-admin/app/app"
-	contentLang "go-admin/app/plugins/content/lang"
-	contentRouter "go-admin/app/plugins/content/router"
-	fileMgrLang "go-admin/app/plugins/filemgr/lang"
-	filemgrRouter "go-admin/app/plugins/filemgr/router"
-	msgLang "go-admin/app/plugins/msg/lang"
-	msgRouter "go-admin/app/plugins/msg/router"
+	pluginsRouter "go-admin/app/plugins"
 )
 
 // AllRouter
@@ -25,29 +18,11 @@ func AllRouter() []func() {
 	//app-应用
 	routers = append(routers, appRouter.AllRouter()...)
 
-	//plugins-消息管理
-	routers = append(routers, msgRouter.InitRouter)
-	//plugins-内容板块
-	routers = append(routers, contentRouter.InitRouter)
-	//plugins-文件管理
-	routers = append(routers, filemgrRouter.InitRouter)
-	//admin-后台基础管理服务
-	routers = append(routers, adminRouter.InitRouter)
-	return routers
-}
+	//admin-基础服务
+	routers = append(routers, adminRouter.AllRouter()...)
 
-// AllLang
-// @Description: 多语言初始化
-func AllLang() {
-	//初始化多语言
-	//app应用
-	appLang.LangInit()
-	//plugins-消息管理
-	msgLang.Init()
-	//plugins-文件存储
-	fileMgrLang.Init()
-	//plugins-内容板块
-	contentLang.Init()
-	//后台基础
-	adminLang.Init()
+	//plugins-插件服务
+	routers = append(routers, pluginsRouter.AllRouter()...)
+
+	return routers
 }

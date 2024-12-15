@@ -3,7 +3,8 @@ package service
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	sysLang "go-admin/app/admin/sys/lang"
+
+	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
@@ -40,9 +41,9 @@ func (e *SysPost) GetTotalList(c *dto.SysPostQueryReq, p *middleware.DataPermiss
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // GetPage admin-获取岗位管理分页列表
@@ -58,27 +59,27 @@ func (e *SysPost) GetPage(c *dto.SysPostQueryReq, p *middleware.DataPermission) 
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	return list, count, lang.SuccessCode, nil
+	return list, count, baseLang.SuccessCode, nil
 }
 
 // Get admin-获取岗位管理详情
 func (e *SysPost) Get(id int64, p *middleware.DataPermission) (*models.SysPost, int, error) {
 	if id <= 0 {
-		return nil, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	data := &models.SysPost{}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // QueryOne admin-获取岗位管理一条记录
@@ -90,12 +91,12 @@ func (e *SysPost) QueryOne(queryCondition *dto.SysPostQueryReq, p *middleware.Da
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return nil, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, lang.SuccessCode, nil
+	return data, baseLang.SuccessCode, nil
 }
 
 // Count admin-获取岗位管理数据总数
@@ -108,41 +109,41 @@ func (e *SysPost) Count(c *dto.SysPostQueryReq) (int64, int, error) {
 		).Limit(-1).Offset(-1).
 		Count(&count).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return 0, lang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataQueryCode, lang.DataQueryLogCode, err)
+		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
-		return 0, lang.DataNotFoundCode, lang.MsgErr(lang.DataNotFoundCode, e.Lang)
+		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return count, lang.SuccessCode, nil
+	return count, baseLang.SuccessCode, nil
 }
 
 // Insert admin-新增岗位管理
 func (e *SysPost) Insert(c *dto.SysPostInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.PostName == "" {
-		return 0, sysLang.SysPostNameEmptyCode, lang.MsgErr(sysLang.SysPostNameEmptyCode, e.Lang)
+		return 0, baseLang.SysPostNameEmptyCode, lang.MsgErr(baseLang.SysPostNameEmptyCode, e.Lang)
 	}
 	if c.PostCode == "" {
-		return 0, sysLang.SysPostCodeEmptyCode, lang.MsgErr(sysLang.SysPostCodeEmptyCode, e.Lang)
+		return 0, baseLang.SysPostCodeEmptyCode, lang.MsgErr(baseLang.SysPostCodeEmptyCode, e.Lang)
 	}
 	if c.Sort < 0 {
-		return 0, sysLang.SysPostSortEmptyCode, lang.MsgErr(sysLang.SysPostSortEmptyCode, e.Lang)
+		return 0, baseLang.SysPostSortEmptyCode, lang.MsgErr(baseLang.SysPostSortEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return 0, sysLang.SysPostStatusEmptyCode, lang.MsgErr(sysLang.SysPostStatusEmptyCode, e.Lang)
+		return 0, baseLang.SysPostStatusEmptyCode, lang.MsgErr(baseLang.SysPostStatusEmptyCode, e.Lang)
 	}
 
 	//确保岗位名称不存在
 	req := dto.SysPostQueryReq{}
 	req.PostName = c.PostName
 	count, respCode, err := e.Count(&req)
-	if err != nil && respCode != lang.DataNotFoundCode {
+	if err != nil && respCode != baseLang.DataNotFoundCode {
 		return 0, respCode, err
 	}
 	if count > 0 {
-		return 0, sysLang.SysPostNameExistCode, lang.MsgErr(sysLang.SysPostNameExistCode, e.Lang)
+		return 0, baseLang.SysPostNameExistCode, lang.MsgErr(baseLang.SysPostNameExistCode, e.Lang)
 	}
 
 	now := time.Now()
@@ -158,27 +159,27 @@ func (e *SysPost) Insert(c *dto.SysPostInsertReq) (int64, int, error) {
 	data.UpdatedAt = &now
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, lang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataInsertCode, lang.DataInsertLogCode, err)
+		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	return data.Id, lang.SuccessCode, nil
+	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update admin-更新岗位管理
 func (e *SysPost) Update(c *dto.SysPostUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	if c.PostName == "" {
-		return false, sysLang.SysPostNameEmptyCode, lang.MsgErr(sysLang.SysPostNameEmptyCode, e.Lang)
+		return false, baseLang.SysPostNameEmptyCode, lang.MsgErr(baseLang.SysPostNameEmptyCode, e.Lang)
 	}
 	if c.PostCode == "" {
-		return false, sysLang.SysPostCodeEmptyCode, lang.MsgErr(sysLang.SysPostCodeEmptyCode, e.Lang)
+		return false, baseLang.SysPostCodeEmptyCode, lang.MsgErr(baseLang.SysPostCodeEmptyCode, e.Lang)
 	}
 	if c.Sort < 0 {
-		return false, sysLang.SysPostSortEmptyCode, lang.MsgErr(sysLang.SysPostSortEmptyCode, e.Lang)
+		return false, baseLang.SysPostSortEmptyCode, lang.MsgErr(baseLang.SysPostSortEmptyCode, e.Lang)
 	}
 	if c.Status == "" {
-		return false, sysLang.SysPostStatusEmptyCode, lang.MsgErr(sysLang.SysPostStatusEmptyCode, e.Lang)
+		return false, baseLang.SysPostStatusEmptyCode, lang.MsgErr(baseLang.SysPostStatusEmptyCode, e.Lang)
 	}
 
 	data, respCode, err := e.Get(c.Id, p)
@@ -196,11 +197,11 @@ func (e *SysPost) Update(c *dto.SysPostUpdateReq, p *middleware.DataPermission) 
 		req := dto.SysPostQueryReq{}
 		req.PostCode = c.PostCode
 		resp, respCode, err := e.QueryOne(&req, nil)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return false, respCode, err
 		}
-		if respCode == lang.SuccessCode && resp.Id != data.Id {
-			return false, sysLang.SysPostNameExistCode, lang.MsgErr(sysLang.SysPostNameExistCode, e.Lang)
+		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+			return false, baseLang.SysPostNameExistCode, lang.MsgErr(baseLang.SysPostNameExistCode, e.Lang)
 		}
 		updates["post_code"] = c.PostCode
 	}
@@ -219,28 +220,28 @@ func (e *SysPost) Update(c *dto.SysPostUpdateReq, p *middleware.DataPermission) 
 		updates["updated_at"] = time.Now()
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, lang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataUpdateCode, lang.DataUpdateLogCode, err)
+			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 		}
-		return true, lang.SuccessCode, nil
+		return true, baseLang.SuccessCode, nil
 	}
-	return false, lang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除岗位管理
 func (e *SysPost) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return lang.ParamErrCode, lang.MsgErr(lang.ParamErrCode, e.Lang)
+		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	for _, id := range ids {
 		userService := NewSysUserService(&e.Service)
 		userReq := dto.SysUserQueryReq{}
 		userReq.RoleId = id
 		count, respCode, err := userService.Count(&userReq)
-		if err != nil && respCode != lang.DataNotFoundCode {
+		if err != nil && respCode != baseLang.DataNotFoundCode {
 			return respCode, err
 		}
 		if count > 0 {
-			return sysLang.SysRoleUserExistNoDeleteCode, lang.MsgErr(sysLang.SysRoleUserExistNoDeleteCode, e.Lang)
+			return baseLang.SysRoleUserExistNoDeleteCode, lang.MsgErr(baseLang.SysRoleUserExistNoDeleteCode, e.Lang)
 		}
 	}
 
@@ -250,9 +251,9 @@ func (e *SysPost) Delete(ids []int64, p *middleware.DataPermission) (int, error)
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return lang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, lang.DataDeleteCode, lang.DataDeleteLogCode, err)
+		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
 	}
-	return lang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
 
 // Export admin-导出岗位管理
