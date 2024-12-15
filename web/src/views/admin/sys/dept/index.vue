@@ -214,13 +214,13 @@ export default {
       treeselect().then(response => {
         this.deptOptions = []
         if (e === 'update') {
-          const dept = { id: 0, deptName: '主类目', children: [] }
-          dept.children = response.data
-          this.deptOptions.push(dept)
+          // const dept = { id: 0, deptName: '主类目', children: [] }
+          // dept.children = response.data
+          this.deptOptions.push(response.data)
         } else {
-          const dept = { id: 0, deptName: '主类目', children: [] }
-          dept.children = response.data
-          this.deptOptions.push(dept)
+          // const dept = { id: 0, deptName: '主类目', children: [] }
+          // dept.children = response.data
+          this.deptOptions.push(response.data)
         }
       })
     },

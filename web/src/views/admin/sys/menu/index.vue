@@ -427,7 +427,7 @@ export default {
     getList() {
       this.loading = true
       listMenu(this.queryParams).then(response => {
-        this.menuList = response.data
+        this.menuList = response.data[0].children
         this.loading = false
       })
     },
@@ -446,10 +446,10 @@ export default {
     getTreeselect() {
       listMenu().then(response => {
         this.menuOptions = []
-        const menu = { id: 0, title: '主类目', children: [] }
-        menu.children = response.data
+        // const menu = { id: 0, title: '主类目', children: [] }
+        // menu.children = response.data
         // console.log(response.data)
-        this.menuOptions.push(menu)
+        this.menuOptions.push(response.data)
       })
     },
     // 菜单显示状态字典翻译
