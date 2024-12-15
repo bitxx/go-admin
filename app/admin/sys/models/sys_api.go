@@ -32,6 +32,7 @@ type SysApi struct {
 	Path        string     `json:"path" gorm:"size:128;comment:地址"`
 	Method      string     `json:"method" gorm:"size:16;comment:请求类型"`
 	ApiType     string     `json:"apiType" gorm:"size:16;comment:接口类型"`
+	Remark      string     `json:"remark" gorm:"size:128;comment:备注"`
 	CreatedAt   *time.Time `json:"createdAt" gorm:"comment:创建时间"`
 	UpdatedAt   *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
 	CreateBy    int64      `json:"createBy" gorm:"index;comment:创建者"`

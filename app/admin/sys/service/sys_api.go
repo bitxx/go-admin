@@ -118,6 +118,9 @@ func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *middleware.DataPermission) (b
 	if c.ApiType != "" && data.ApiType != c.ApiType {
 		updates["api_type"] = c.ApiType
 	}
+	if c.Remark != "" && data.Remark != c.Remark {
+		updates["remark"] = c.Remark
+	}
 	if len(updates) > 0 {
 		updates["update_by"] = c.CurrUserId
 		updates["updated_at"] = time.Now()

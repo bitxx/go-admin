@@ -32,6 +32,7 @@ type SysApiInsertReq struct {
 	Id          int    `json:"-" comment:"编码"` // 编码
 	Description string `json:"description" comment:"功能描述"`
 	//Path  string `json:"path" comment:"地址"`
+	Remark     string `json:"remark" comment:"备注"`
 	ApiType    string `json:"apiType" comment:""`
 	Method     string `json:"method" comment:"请求方法"`
 	CurrUserId int64  `json:"-" comment:""`
@@ -41,6 +42,7 @@ type SysApiInsertReq struct {
 type SysApiUpdateReq struct {
 	Id          int64  `uri:"id" json:"-" comment:"编码"` // 编码
 	Description string `json:"description" comment:"功能描述"`
+	Remark      string `json:"remark" comment:"备注"`
 	//Path       string `json:"path" comment:"地址"`
 	ApiType string `json:"apiType" comment:""`
 	//Method     string `json:"method" comment:"请求方法"`
