@@ -36,6 +36,7 @@ type SysApi struct {
 	UpdatedAt   *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
 	CreateBy    int64      `json:"createBy" gorm:"index;comment:创建者"`
 	UpdateBy    int64      `json:"updateBy" gorm:"index;comment:更新者"`
+	SysMenu     []SysMenu  `json:"sysMenu" gorm:"many2many:admin_sys_menu_api_rule;foreignKey:id;joinForeignKey:admin_sys_api_id;references:Id;joinReferences:admin_sys_menu_menu_id;"`
 }
 
 func (SysApi) TableName() string {
