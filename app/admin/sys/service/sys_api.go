@@ -36,7 +36,7 @@ func (e *SysApi) GetPage(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([
 	var data models.SysApi
 	var count int64
 
-	err := e.Orm.Order("created_at desc").Model(&data).
+	err := e.Orm.Order("created_at desc").Model(&data).Preload("SysMenu").
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
