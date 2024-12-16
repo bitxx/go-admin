@@ -19,7 +19,7 @@ var CasbinExclude = []UrlInfo{
 	//登录和退出
 	{Url: global.RouteRootPath + "/v1/login", Method: "POST"},
 	{Url: global.RouteRootPath + "/v1/admin/sys/sys-user/logout", Method: "GET"},
-	{Url: global.RouteRootPath + "/admin-api/v1/captcha", Method: "GET"},
+	{Url: global.RouteRootPath + "/v1/captcha", Method: "GET"},
 
 	//登录用户个人信息
 	{Url: global.RouteRootPath + "/v1/admin/sys/sys-user/profile", Method: "GET"},
