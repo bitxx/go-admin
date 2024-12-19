@@ -1,4 +1,4 @@
-import { RouteObject } from "@/api/admin/sys/sys-menu";
+import { RouteObjectType } from "@/api/admin/sys/sys-menu";
 import { SysMenuType } from "@/enums/base";
 
 /**
@@ -79,8 +79,8 @@ export const getOpenKeys = (path: string) => {
  * @param {Array} routes 路由列表
  * @returns array
  */
-export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObject => {
-	let result: RouteObject = {};
+export const searchRoute = (path: string, routes: RouteObjectType[] = []): RouteObjectType => {
+	let result: RouteObjectType = {};
 	for (let item of routes) {
 		if (item.path === path) return item;
 		if (item.children) {
@@ -97,10 +97,10 @@ export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObje
  * @param {Array} menuList 菜单列表
  * @returns array
  */
-export const getBreadcrumbList = (path: string, menuList: RouteObject[]) => {
+export const getBreadcrumbList = (path: string, menuList: RouteObjectType[]) => {
 	let tempPath: any[] = [];
 	try {
-		const getNodePath = (node: RouteObject) => {
+		const getNodePath = (node: RouteObjectType) => {
 			tempPath.push(node);
 			// 找到符合条件的节点，通过throw终止掉递归
 			if (node.path === path) {
@@ -130,9 +130,9 @@ export const getBreadcrumbList = (path: string, menuList: RouteObject[]) => {
  * @param {String} menuList 当前菜单列表
  * @returns object
  */
-export const findAllBreadcrumb = (menuList: RouteObject[]): { [key: string]: any } => {
+export const findAllBreadcrumb = (menuList: RouteObjectType[]): { [key: string]: any } => {
 	let handleBreadcrumbList: any = {};
-	const loop = (menuItem: RouteObject) => {
+	const loop = (menuItem: RouteObjectType) => {
 		// 下面判断代码解释 *** !item?.children?.length   ==>   (item.children && item.children.length > 0)
 		if (menuItem?.children?.length) menuItem.children.forEach(item => loop(item));
 		else handleBreadcrumbList[menuItem.path!] = getBreadcrumbList(menuItem.path!, menuList);
@@ -147,8 +147,8 @@ export const findAllBreadcrumb = (menuList: RouteObject[]): { [key: string]: any
  * @param {Array} newArr 菜单的一维数组
  * @return array
  */
-export function handleRouter(routerList: RouteObject[], newArr: string[] = []) {
-	routerList.forEach((item: RouteObject) => {
+export function handleRouter(routerList: RouteObjectType[], newArr: string[] = []) {
+	routerList.forEach((item: RouteObjectType) => {
 		typeof item === "object" && item.path && newArr.push(item.path);
 		item.children && item.children.length && handleRouter(item.children, newArr);
 	});
@@ -199,8 +199,8 @@ export function randomNum(min: number, max: number): number {
 	return num;
 }
 
-export function parseFlatMenuList(menuList: RouteObject[]): RouteObject[] {
-	let newMenuList: RouteObject[] = JSON.parse(JSON.stringify(menuList));
+export function parseFlatMenuList(menuList: RouteObjectType[]): RouteObjectType[] {
+	let newMenuList: RouteObjectType[] = JSON.parse(JSON.stringify(menuList));
 	return newMenuList
 		.filter(item => {
 			return item.menuType == SysMenuType.DIRECT || item.menuType == SysMenuType.MENU;

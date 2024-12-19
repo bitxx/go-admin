@@ -1,4 +1,4 @@
-import { RouteObject } from "@/api/admin/sys/sys-menu";
+import { RouteObjectType } from "@/api/admin/sys/sys-menu";
 import { SysStatus } from "@/enums/base";
 import { store } from "@/redux";
 import { setAuthRouter } from "@/redux/modules/auth/action";
@@ -19,7 +19,7 @@ const LayoutMenu = (props: any) => {
 	const { isCollapse, setBreadcrumbList, setAuthRouter, setMenuList: setMenuListAction } = props;
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
 	const [openKeys, setOpenKeys] = useState<string[]>([]);
-	const rList: RouteObject[] = store.getState().global.routeList;
+	const rList: RouteObjectType[] = store.getState().global.routeList;
 
 	// 刷新页面菜单保持高亮
 	useEffect(() => {
@@ -60,8 +60,8 @@ const LayoutMenu = (props: any) => {
 	};
 
 	// 处理后台返回菜单 key 值为 antd 菜单需要的 key 值
-	const deepLoopFloat = (menuList: RouteObject[], newArr: MenuItem[] = []) => {
-		menuList.forEach((item: RouteObject) => {
+	const deepLoopFloat = (menuList: RouteObjectType[], newArr: MenuItem[] = []) => {
+		menuList.forEach((item: RouteObjectType) => {
 			if (item.isHidden === SysStatus.FALSE) {
 				if (!item?.children?.length) return newArr.push(getItem(item.title, item.path, addIcon(item.icon!)));
 				newArr.push(getItem(item.title, item.path, addIcon(item.icon!), deepLoopFloat(item.children)));

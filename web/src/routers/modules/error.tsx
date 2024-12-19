@@ -1,9 +1,9 @@
-import { RouteObject } from "@/api/admin/sys/sys-menu";
+import { RouteObjectType } from "@/api/admin/sys/sys-menu";
 import lazyLoad from "@/routers/utils/lazyLoad";
 import React from "react";
 
 // 错误页面模块
-const errorRouter: Array<RouteObject> = [
+const errorRouter: Array<RouteObjectType> = [
 	{
 		path: "/403",
 		element: lazyLoad(React.lazy(() => import("@/components/ErrorMessage/403"))),

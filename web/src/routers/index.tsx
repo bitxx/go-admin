@@ -1,4 +1,4 @@
-import { RouteObject } from "@/api/admin/sys/sys-menu";
+import { RouteObjectType } from "@/api/admin/sys/sys-menu";
 import { SysMenuType, SysStatus } from "@/enums/base";
 import useMessage from "@/hooks/useMessage";
 import { store } from "@/redux";
@@ -13,14 +13,14 @@ import lazyLoad from "./utils/lazyLoad";
 const metaRouters = import.meta.globEager("./modules/*.tsx");
 
 // * 处理路由
-export const routerArray: RouteObject[] = [];
+export const routerArray: RouteObjectType[] = [];
 Object.keys(metaRouters).forEach(item => {
 	Object.keys(metaRouters[item]).forEach((key: any) => {
 		routerArray.push(...metaRouters[item][key]);
 	});
 });
 
-export const rootRouter: RouteObject[] = [
+export const rootRouter: RouteObjectType[] = [
 	{
 		path: "/",
 		element: <Navigate to="/login" />
@@ -34,8 +34,8 @@ export const rootRouter: RouteObject[] = [
 ];
 
 const Router = () => {
-	const [routerList, setRouterList] = useState<RouteObject[]>(rootRouter);
-	const rList: RouteObject[] = store.getState().global.routeList;
+	const [routerList, setRouterList] = useState<RouteObjectType[]>(rootRouter);
+	const rList: RouteObjectType[] = store.getState().global.routeList;
 	useMessage();
 	// const token: string = store.getState().global.token;
 	// const uInfo: LoginUserInfo = store.getState().global.userinfo;
@@ -54,7 +54,7 @@ const Router = () => {
 // const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameters<typeof lazy>[number]>;
 // console.log(modules["../views/admin/sys/home/index.tsx"]);
 
-export const dynamicRouter = (mList: RouteObject[]) => {
+export const dynamicRouter = (mList: RouteObjectType[]) => {
 	const list = parseFlatMenuList(mList);
 	const handleMenuList = list.map(item => {
 		item.children && delete item.children;
@@ -66,7 +66,7 @@ export const dynamicRouter = (mList: RouteObject[]) => {
 		return item;
 	});
 
-	const dynamicRouter: RouteObject[] = [{ element: <LayoutIndex />, children: [] }];
+	const dynamicRouter: RouteObjectType[] = [{ element: <LayoutIndex />, children: [] }];
 	handleMenuList.forEach(item => {
 		if (item.isFrame == SysStatus.FALSE && item.menuType == SysMenuType.MENU) dynamicRouter.push(item);
 		else if (item.menuType == SysMenuType.MENU || item.menuType == SysMenuType.DIRECT) dynamicRouter[0].children?.push(item);

@@ -1,4 +1,4 @@
-import { RouteObject } from "@/api/admin/sys/sys-menu";
+import { RouteObjectType } from "@/api/admin/sys/sys-menu";
 import { LoginUserInfo } from "@/api/admin/sys/sys-user";
 import { ThemeConfigProp } from "@/redux/interface/index";
 import * as types from "@/redux/mutation-types";
@@ -26,7 +26,7 @@ export const setUserInfo = (userInfo: LoginUserInfo) => {
 	};
 };
 
-export const setRouteList = (routeList: RouteObject[]) => ({
+export const setRouteList = (routeList: RouteObjectType[]) => ({
 	type: types.SET_ROUTE_LIST,
 	routeList
 });

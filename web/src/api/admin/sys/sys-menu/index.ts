@@ -1,14 +1,15 @@
 import request from "@/utils/request";
 import { ReqPage } from "@/utils/request/interface";
+import { RouteObject } from "react-router-dom";
 
-export interface RouteObject {
+export type RouteObjectType = Omit<RouteObject, "children"> & {
 	id?: number;
 	title?: string;
 	icon?: string;
+	index?: false;
 	redirect?: string; //针对目录跳转，比如搜索出菜单
 	permission?: string;
 	parentIds?: string;
-	index?: false;
 	parentId?: number;
 	sort?: number;
 	menuType?: string;
@@ -16,10 +17,13 @@ export interface RouteObject {
 	isAffix?: string;
 	isHidden?: string;
 	isFrame?: string;
-	path?: string;
-	caseSensitive?: boolean;
-	element?: React.ReactNode;
-	children?: RouteObject[];
+	children?: RouteObjectType[];
+};
+
+export interface MenuState {
+	totalMenuList: RouteObjectType[];
+	showMenuList: RouteObjectType[];
+	flatMenuList: RouteObjectType[];
 }
 
 export interface MenuModel {
@@ -52,7 +56,7 @@ export interface MenuTreeRole {
 }
 
 export const getMenuRoleApi = () => {
-	return request.get<RouteObject[]>(`/admin-api/v1/admin/sys/sys-menu/menu-role`);
+	return request.get<MenuState["totalMenuList"]>(`/admin-api/v1/admin/sys/sys-menu/menu-role`);
 };
 
 export const roleMenuTreeselectApi = (id: number) => {

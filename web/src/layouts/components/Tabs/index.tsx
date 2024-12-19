@@ -1,4 +1,4 @@
-import { RouteObject } from "@/api/admin/sys/sys-menu";
+import { RouteObjectType } from "@/api/admin/sys/sys-menu";
 import { HOME_URL } from "@/config";
 import { store } from "@/redux";
 import { setTabsList } from "@/redux/modules/tabs/action";
@@ -19,7 +19,7 @@ const LayoutTabs = (props: any) => {
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 	const [activeValue, setActiveValue] = useState<string>(pathname);
-	const rList: RouteObject[] = store.getState().global.routeList;
+	const rList: RouteObjectType[] = store.getState().global.routeList;
 
 	useEffect(() => {
 		addTabs();

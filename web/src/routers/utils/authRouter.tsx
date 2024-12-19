@@ -16,16 +16,19 @@ const AuthRouter = (props: { children: JSX.Element }) => {
 
 	useEffect(() => {
 		axiosCanceler.removeAllPending();
-		if (!token) {
-			return navigate(LOGIN_URL);
-		}
-		if (token && pathname === LOGIN_URL) {
-			return navigate(HOME_URL);
-		}
+		const update = async () => {
+			if (!token) {
+				return navigate(LOGIN_URL);
+			}
+			if (token && pathname === LOGIN_URL) {
+				return navigate(HOME_URL);
+			}
 
-		if (!token && pathname !== LOGIN_URL) {
-			return navigate(LOGIN_URL, { replace: true });
-		}
+			if (!token && pathname !== LOGIN_URL) {
+				return navigate(LOGIN_URL, { replace: true });
+			}
+		};
+		update();
 	}, [token, pathname]);
 	// * 当前账号有权限返回 Router，正常访问页面
 	return props.children;
