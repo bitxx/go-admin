@@ -4,21 +4,10 @@ import useMessage from "@/hooks/useMessage";
 import { store } from "@/redux";
 import { parseFlatMenuList } from "@/utils/util";
 import Login from "@/views/admin/sys/login/index";
-import React, { useEffect, useState } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { LayoutIndex } from "./constant";
 import lazyLoad from "./utils/lazyLoad";
-
-// * 导入所有router
-const metaRouters = import.meta.globEager("./modules/*.tsx");
-
-// * 处理路由
-export const routerArray: RouteObjectType[] = [];
-Object.keys(metaRouters).forEach(item => {
-	Object.keys(metaRouters[item]).forEach((key: any) => {
-		routerArray.push(...metaRouters[item][key]);
-	});
-});
 
 export const rootRouter: RouteObjectType[] = [
 	{
@@ -30,7 +19,21 @@ export const rootRouter: RouteObjectType[] = [
 		element: <Login />,
 		title: "登录页"
 	},
-	...routerArray
+	{
+		path: "/403",
+		element: lazyLoad(React.lazy(() => import("@/components/ErrorMessage/403"))),
+		title: "403页面"
+	},
+	{
+		path: "/404",
+		element: lazyLoad(React.lazy(() => import("@/components/ErrorMessage/404"))),
+		title: "404页面"
+	},
+	{
+		path: "/500",
+		element: lazyLoad(React.lazy(() => import("@/components/ErrorMessage/500"))),
+		title: "500页面"
+	}
 ];
 
 const Router = () => {
@@ -51,7 +54,7 @@ const Router = () => {
 	return routes;
 };
 
-// const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameters<typeof lazy>[number]>;
+const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameters<typeof lazy>[number]>;
 // console.log(modules["../views/admin/sys/home/index.tsx"]);
 
 export const dynamicRouter = (mList: RouteObjectType[]) => {
@@ -60,8 +63,8 @@ export const dynamicRouter = (mList: RouteObjectType[]) => {
 		item.children && delete item.children;
 		if (item.redirect) item.element = <Navigate to={item.redirect} />;
 		if (item.element && typeof item.element === "string") {
-			let ip: string = "../views" + String(item.element);
-			item.element = lazyLoad(React.lazy(() => import(ip)));
+			// let ip: string = "../views" + String(item.element);
+			item.element = lazyLoad(lazy(modules["/src/views" + item.element + ".tsx"]));
 		}
 		return item;
 	});

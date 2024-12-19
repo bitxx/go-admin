@@ -1,10 +1,9 @@
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
-import { visualizer } from "rollup-plugin-visualizer";
 import { ConfigEnv, defineConfig, loadEnv, UserConfig } from "vite";
 import viteCompression from "vite-plugin-compression";
 import { createHtmlPlugin } from "vite-plugin-html";
-import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons-new";
 import { wrapperEnv } from "./src/utils/getEnv";
 
 // @see: https://vitejs.dev/config/
@@ -67,8 +66,7 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 			}),
 			// * EsLint 报错信息显示在浏览器界面上
 			//eslintPlugin(),
-			// * 是否生成包预览
-			viteEnv.VITE_REPORT && visualizer(),
+
 			// * gzip compress
 			viteEnv.VITE_BUILD_GZIP &&
 				viteCompression({

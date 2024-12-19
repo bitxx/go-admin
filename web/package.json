@@ -17,8 +17,6 @@
 	},
 	"dependencies": {
 		"@ant-design/pro-components": "^2.8.2",
-		"@types/lodash": "^4.17.13",
-		"@types/react-syntax-highlighter": "^15.5.13",
 		"@wangeditor/editor-for-react": "^1.0.6",
 		"antd": "^5.22.3",
 		"antd-img-crop": "^4.23.0",
@@ -48,12 +46,11 @@
 		"screenfull": "^6.0.2"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^17.0.2",
-		"@commitlint/config-conventional": "^17.0.2",
+		"@types/lodash": "^4.17.13",
 		"@types/node": "^17.0.41",
 		"@types/react": "^18.0.0",
 		"@types/react-dom": "^18.0.0",
-		"@types/react-router-dom": "^5.3.3",
+		"@types/react-syntax-highlighter": "^15.5.13",
 		"@types/redux-promise": "^0.5.29",
 		"@typescript-eslint/eslint-plugin": "^5.27.1",
 		"@typescript-eslint/parser": "^5.27.1",
@@ -77,10 +74,10 @@
 		"stylelint-config-standard": "^26.0.0",
 		"stylelint-less": "^1.0.6",
 		"typescript": "^5.7.2",
-		"vite": "^2.9.9",
+		"vite": "^6.0.4",
 		"vite-plugin-compression": "^0.5.1",
 		"vite-plugin-eslint": "^1.6.1",
 		"vite-plugin-html": "^3.2.0",
-		"vite-plugin-svg-icons": "^2.0.1"
+		"vite-plugin-svg-icons-new": "^2.0.3"
 	}
 }
