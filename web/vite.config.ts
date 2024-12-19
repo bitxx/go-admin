@@ -9,11 +9,13 @@ import { wrapperEnv } from "./src/utils/getEnv";
 
 // @see: https://vitejs.dev/config/
 export default defineConfig((mode: ConfigEnv): UserConfig => {
+	const root = process.cwd();
 	const env = loadEnv(mode.mode, process.cwd());
 	const viteEnv = wrapperEnv(env);
 
 	return {
-		// base: "/",
+		base: "/",
+		root,
 		// alias config
 		resolve: {
 			alias: {
@@ -83,6 +85,7 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 		// build configure
 		build: {
 			outDir: "dist",
+			chunkSizeWarningLimit: 3000,
 			// esbuild 打包更快，但是不能去除 console.log，去除 console 使用 terser 模式
 			minify: "esbuild",
 			// minify: "terser",
