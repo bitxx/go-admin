@@ -97,8 +97,6 @@ const (
 	SysGenTemplateApiReadLogErrCode     = 10707
 	SysGenTemplateJsReadErrCode         = 10708
 	SysGenTemplateJsReadLogErrCode      = 10709
-	SysGenTemplateVueReadErrCode        = 10710
-	SysGenTemplateVueReadLogErrCode     = 10711
 	SysGenTemplateRouterReadErrCode     = 10712
 	SysGenTemplateRouterReadLogErrCode  = 10713
 	SysGenTemplateDtoReadErrCode        = 10714
@@ -109,7 +107,6 @@ const (
 	SysGenCreatePathErrCode             = 10719
 	SysGenTemplateModelDecodeErrCode    = 10720
 	SysGenTemplateModelDecodeLogErrCode = 10721
-	SysGenFrontTypeErrCode              = 10722
 
 	//API
 	SysApiGetApiMqLogErrCode    = 10800
@@ -217,8 +214,6 @@ func init() {
 	lang.MsgInfo[SysGenTemplateApiReadLogErrCode] = "api模版读取失败：%s"
 	lang.MsgInfo[SysGenTemplateJsReadErrCode] = "js模版读取失败"
 	lang.MsgInfo[SysGenTemplateJsReadLogErrCode] = "js模版读取失败：%s"
-	lang.MsgInfo[SysGenTemplateVueReadErrCode] = "vue模版读取失败"
-	lang.MsgInfo[SysGenTemplateVueReadLogErrCode] = "vue模版读取失败：%s"
 	lang.MsgInfo[SysGenTemplateRouterReadErrCode] = "router模版读取失败"
 	lang.MsgInfo[SysGenTemplateRouterReadLogErrCode] = "router模版读取失败：%s"
 	lang.MsgInfo[SysGenTemplateDtoReadErrCode] = "dto模版读取失败"
@@ -229,7 +224,6 @@ func init() {
 	lang.MsgInfo[SysGenCreatePathErrCode] = "创建目录失败"
 	lang.MsgInfo[SysGenTemplateModelDecodeErrCode] = "模板解析异常"
 	lang.MsgInfo[SysGenTemplateModelDecodeLogErrCode] = "模板解析异常：%s"
-	lang.MsgInfo[SysGenFrontTypeErrCode] = "前端类型配置异常"
 	lang.MsgInfo[SysApiGetApiMqLogErrCode] = "获取接口数据队列异常：s%"
 	lang.MsgInfo[SysApiAppendApiMqLogErrCode] = "接口数据队列添加异常]= s%"
 	lang.MsgInfo[SysApiIsSyncErrCode] = "接口数据正在同步中，请稍后"

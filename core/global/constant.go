@@ -19,11 +19,6 @@ const (
 )
 
 const (
-	GenTypeVue   string = "vue"   //开发模式
-	GenTypeReact string = "react" //测试模式
-)
-
-const (
 	ModeDev  string = "dev"  //开发模式
 	ModeTest string = "test" //测试模式
 	ModeProd string = "prod" //生产模式

@@ -40,8 +40,6 @@ const (
 	ModelName          = "model.go"
 	DtoName            = "dto.go"
 	ServiceName        = "service.go"
-	VueApiJsName       = "vue.js"              //Vue
-	VueIndexName       = "vue.index"           //Vue
 	ReactApiName       = "react.api.ts"        //React
 	ReactFormModalName = "react.formmodal.tsx" //React
 	ReactViewName      = "react.view.tsx"      //React
@@ -56,8 +54,6 @@ var (
 		ModelName:          "static/template/model.go.template",
 		DtoName:            "static/template/dto.go.template",
 		ServiceName:        "static/template/service.go.template",
-		VueApiJsName:       "static/template/vue.api.js.template",
-		VueIndexName:       "static/template/vue.index.template",
 		ReactApiName:       "static/template/react.api.ts.template",
 		ReactFormModalName: "static/template/react.formmodal.tsx.template",
 		ReactViewName:      "static/template/react.view.tsx.template",

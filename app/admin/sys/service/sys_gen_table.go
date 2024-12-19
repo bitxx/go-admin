@@ -401,9 +401,6 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 	if c.Id <= 0 {
 		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
-	if config.GenConfig.Type != global.GenTypeVue && config.GenConfig.Type != global.GenTypeReact {
-		return nil, baseLang.SysGenFrontTypeErrCode, lang.MsgErr(baseLang.SysGenFrontTypeErrCode, e.Lang)
-	}
 	table, respCode, err := e.Get(c.Id, p)
 	if err != nil {
 		return nil, respCode, err
@@ -445,25 +442,15 @@ func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPer
 		if k == constant.RouterName {
 			path = path + table.PackageName + "/" + table.BusinessName + "/router/router.go.bk"
 		}
-		if config.GenConfig.Type == global.GenTypeVue {
-			if k == constant.VueApiJsName {
-				path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + ".js"
-			}
-			if k == constant.VueIndexName {
-				path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.vue"
-			}
-		}
 
-		if config.GenConfig.Type == global.GenTypeReact {
-			if k == constant.ReactApiName {
-				path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.ts"
-			}
-			if k == constant.ReactFormModalName {
-				path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/components/FormModal.tsx"
-			}
-			if k == constant.ReactViewName {
-				path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.tsx"
-			}
+		if k == constant.ReactApiName {
+			path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.ts"
+		}
+		if k == constant.ReactFormModalName {
+			path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/components/FormModal.tsx"
+		}
+		if k == constant.ReactViewName {
+			path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.tsx"
 		}
 
 		if path != defaultPath {
