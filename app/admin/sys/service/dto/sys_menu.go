@@ -8,8 +8,9 @@ import (
 // SysMenuQueryReq 列表或者搜索使用结构体
 type SysMenuQueryReq struct {
 	dto.Pagination `search:"-"`
-	Id             string  `form:"id" search:"type:exact;column:id;table:admin_sys_menu" comment:"菜单编号"`                        // 菜单名称
+	Id             string  `form:"id" search:"type:exact;column:id;table:admin_sys_menu" comment:"菜单编号"`                        // 菜单编号
 	Title          string  `form:"title" search:"type:contains;column:title;table:admin_sys_menu" comment:"菜单名称"`               // 菜单名称
+	Path           string  `form:"path" search:"type:exact;column:path;table:admin_sys_menu" comment:"路由地址"`                    // 路由地址
 	IsHidden       string  `form:"isHidden" search:"type:exact;column:is_hidden;table:admin_sys_menu" comment:"显示状态 1-隐藏 2-显示"` // 显示状态
 	ParentId       int64   `form:"-" search:"type:exact;column:parent_id;table:admin_sys_menu" comment:"父级"`                    // 父级
 	ParentIds      []int64 `form:"-" search:"type:in;column:parent_id;table:admin_sys_menu" comment:"父级"`                       // 父级
