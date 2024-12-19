@@ -136,15 +136,13 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	data := models.SysMenu{}
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
 		data.Path = c.Path
-		data.Element = c.Element
 		data.IsHidden = c.IsHidden
 		if c.MenuType == constant.MenuM {
 			data.Redirect = c.Redirect
 		}
 		if c.MenuType == constant.MenuC {
-			c.IsKeepAlive = global.SysStatusNotOk
-			c.IsAffix = global.SysStatusNotOk
 			data.IsKeepAlive = c.IsKeepAlive
+			data.Element = c.Element
 			data.IsAffix = c.IsAffix
 			data.IsFrame = c.IsFrame
 		}
@@ -217,7 +215,6 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	now := time.Now()
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
 		data.Path = c.Path
-		data.Element = c.Element
 		data.IsHidden = c.IsHidden
 		if c.MenuType == constant.MenuM {
 			data.Redirect = c.Redirect
@@ -225,6 +222,7 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 		if c.MenuType == constant.MenuC {
 			c.IsKeepAlive = global.SysStatusNotOk
 			c.IsAffix = global.SysStatusNotOk
+			data.Element = c.Element
 			data.IsKeepAlive = c.IsKeepAlive
 			data.IsAffix = c.IsAffix
 			data.IsFrame = c.IsFrame
