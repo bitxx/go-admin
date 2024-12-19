@@ -85,6 +85,7 @@ const (
 	SysMenuSortEmptyCode     = 10603
 	SysMenuHasChildCode      = 10604
 	SysNoRoleMenuCode        = 10605
+	SysMenuPathExistCode     = 10606
 
 	//gen表
 	SysGenTableSelectCode               = 10700
@@ -202,6 +203,7 @@ func init() {
 	lang.MsgInfo[SysMenuSortEmptyCode] = "菜单排序不得为空"
 	lang.MsgInfo[SysMenuHasChildCode] = "该菜单有下级，不可删除"
 	lang.MsgInfo[SysNoRoleMenuCode] = "该账户无授权功能可用，请联系管理员"
+	lang.MsgInfo[SysMenuPathExistCode] = "路由地址已存在，请重新输入"
 
 	//表
 	lang.MsgInfo[SysGenTableSelectCode] = "请选择表"
