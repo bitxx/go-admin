@@ -86,6 +86,8 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 		build: {
 			outDir: "dist",
 			chunkSizeWarningLimit: 3000,
+			sourcemap: false,
+			reportCompressedSize: false,
 			// esbuild 打包更快，但是不能去除 console.log，去除 console 使用 terser 模式
 			minify: "esbuild",
 			// minify: "terser",
