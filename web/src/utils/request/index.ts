@@ -4,9 +4,13 @@ import { ResultEnum } from "@/enums/httpEnum";
 import { store } from "@/redux";
 import { setToken } from "@/redux/modules/global/action";
 import { message } from "antd";
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { checkStatus } from "./helper/checkStatus";
 import { ResultData } from "./interface";
+
+export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+	loading?: boolean;
+}
 
 const config = {
 	// 默认地址请求地址，可在 .env 开头文件中修改
@@ -29,12 +33,16 @@ class RequestHttp {
 		 * token校验(JWT) : 接受服务器返回的token,存储到redux/本地储存当中
 		 */
 		this.service.interceptors.request.use(
-			(config: AxiosRequestConfig) => {
+			(config: InternalAxiosRequestConfig) => {
 				NProgress.start();
 				// * 如果当前请求不需要显示 loading,在api服务中通过指定的第三个参数: { headers: { noLoading: true } }来控制不显示loading，参见loginApi
 				config.headers!.noLoading || showFullScreenLoading();
 				const token: string = store.getState().global.token;
-				return { ...config, headers: { ...config.headers, Authorization: token } };
+
+				if (config.headers && typeof config.headers.set === "function" && token !== undefined) {
+					config.headers.set("Authorization", token);
+				}
+				return config;
 			},
 			(error: AxiosError) => {
 				return Promise.reject(error);
