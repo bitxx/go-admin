@@ -135,6 +135,18 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 	now := time.Now()
 	data := models.SysMenu{}
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
+		//确保路由地址不重复
+		if c.Path != "" {
+			query := dto.SysMenuQueryReq{}
+			query.Path = c.Path
+			count, respCode, err := e.Count(&query)
+			if err != nil && respCode != baseLang.DataNotFoundCode {
+				return 0, respCode, err
+			}
+			if count > 0 {
+				return 0, baseLang.SysMenuPathExistCode, lang.MsgErr(baseLang.SysMenuPathExistCode, e.Lang)
+			}
+		}
 		data.Path = c.Path
 		data.IsHidden = c.IsHidden
 		if c.MenuType == constant.MenuM {
@@ -214,6 +226,18 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 
 	now := time.Now()
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
+		//确保路由地址唯一
+		if c.Path != "" && data.Path != c.Path {
+			req := dto.SysMenuQueryReq{}
+			req.Path = c.Path
+			resp, respCode, err := e.QueryOne(&req, p)
+			if err != nil && respCode != baseLang.DataNotFoundCode {
+				return false, respCode, err
+			}
+			if respCode == baseLang.SuccessCode && resp.Id != data.Id {
+				return false, baseLang.SysMenuPathExistCode, lang.MsgErr(baseLang.SysMenuPathExistCode, e.Lang)
+			}
+		}
 		data.Path = c.Path
 		data.IsHidden = c.IsHidden
 		if c.MenuType == constant.MenuM {
