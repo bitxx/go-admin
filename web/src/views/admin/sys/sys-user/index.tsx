@@ -109,7 +109,7 @@ const User: React.FC = () => {
 			title: "邮箱",
 			dataIndex: "email",
 			hideInSearch: true,
-			width: 160,
+			width: 200,
 			align: "left"
 		},
 		{
