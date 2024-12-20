@@ -11,7 +11,7 @@
  Target Server Version : 80040 (8.0.40)
  File Encoding         : 65001
 
- Date: 19/12/2024 14:40:44
+ Date: 20/12/2024 23:37:01
 */
 
 SET NAMES utf8mb4;
@@ -66,7 +66,6 @@ INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, 
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (26, 'admin-获取表管理详情', '/admin-api/v1/admin/sys/sys-table/:id', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 14:58:06', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (27, 'admin-获取接口管理分页列表', '/admin-api/v1/admin/sys/sys-api', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 13:06:50', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (28, 'admin-同步接口数据', '/admin-api/v1/admin/sys/sys-api/sync', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 13:10:41', 0, 0, NULL);
-INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (29, '获取接口同步状态', '/admin-api/v1/admin/sys/sys-api/sync/status', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 13:10:41', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (30, 'admin-获取接口管理全部列表', '/admin-api/v1/admin/sys/sys-api/list', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 14:13:21', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (31, 'admin-导出接口管理', '/admin-api/v1/admin/sys/sys-api/export', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 14:22:31', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (32, 'admin-获取接口管理详情', '/admin-api/v1/admin/sys/sys-api/:id', '1', 'GET', '2024-12-13 20:37:37', '2024-12-14 13:07:22', 0, 0, NULL);
@@ -201,7 +200,7 @@ CREATE TABLE `admin_sys_casbin_rule` (
   `v4` varchar(100) DEFAULT NULL,
   `v5` varchar(100) DEFAULT NULL,
   UNIQUE KEY `idx_admin_sys_casbin_rule` (`p_type`,`v0`,`v1`,`v2`,`v3`,`v4`,`v5`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of admin_sys_casbin_rule
@@ -1075,7 +1074,6 @@ INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (126, 26);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (52, 27);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (125, 28);
-INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (125, 29);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (16, 30);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (17, 30);
 INSERT INTO `admin_sys_menu_api_rule` (`admin_sys_menu_menu_id`, `admin_sys_api_id`) VALUES (121, 31);
