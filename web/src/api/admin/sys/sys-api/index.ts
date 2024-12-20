@@ -46,7 +46,3 @@ export const exportApiApi = (query: object) => {
 export const syncApiApi = () => {
 	return request.get<object>(`/admin-api/v1/admin/sys/sys-api/sync`);
 };
-
-export const getSyncStatusApiApi = () => {
-	return request.get<string>(`/admin-api/v1/admin/sys/sys-api/sync/status`);
-};

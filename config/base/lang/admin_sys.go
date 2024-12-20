@@ -110,13 +110,10 @@ const (
 	SysGenTemplateModelDecodeLogErrCode = 10721
 
 	//API
-	SysApiGetApiMqLogErrCode    = 10800
-	SysApiAppendApiMqLogErrCode = 10801
-	SysApiIsSyncErrCode         = 10802
-	SysApiDirGetLogErrCode      = 10803
-	SysApiDirGetErrCode         = 10804
-	SysApiParseLogErrCode       = 10805
-	SysApiParseErrCode          = 10806
+	SysApiDirGetLogErrCode = 10803
+	SysApiDirGetErrCode    = 10804
+	SysApiParseLogErrCode  = 10805
+	SysApiParseErrCode     = 10806
 )
 
 func init() {
@@ -226,9 +223,6 @@ func init() {
 	lang.MsgInfo[SysGenCreatePathErrCode] = "创建目录失败"
 	lang.MsgInfo[SysGenTemplateModelDecodeErrCode] = "模板解析异常"
 	lang.MsgInfo[SysGenTemplateModelDecodeLogErrCode] = "模板解析异常：%s"
-	lang.MsgInfo[SysApiGetApiMqLogErrCode] = "获取接口数据队列异常：s%"
-	lang.MsgInfo[SysApiAppendApiMqLogErrCode] = "接口数据队列添加异常]= s%"
-	lang.MsgInfo[SysApiIsSyncErrCode] = "接口数据正在同步中，请稍后"
 	lang.MsgInfo[SysApiDirGetLogErrCode] = "接口文件路径获取异常：%s"
 	lang.MsgInfo[SysApiDirGetErrCode] = "接口文件路径获取异常"
 	lang.MsgInfo[SysApiParseLogErrCode] = "api文件解析异常：%s"

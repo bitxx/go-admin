@@ -1,14 +1,11 @@
 package models
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"go-admin/config/base/constant"
 	"go-admin/core/global"
 	"go-admin/core/runtime"
-	"go-admin/core/utils/log"
-	"go-admin/core/utils/storage"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -18,13 +15,6 @@ import (
 	"strings"
 	"time"
 )
-
-const SyncStatusNoSync = "0"
-const SyncStatusSyncSuccess = "1"
-const SyncStatusSyncing = "2"
-const SyncStatusError = "3"
-
-var SyncStatus = SyncStatusNoSync //0-未同步（启动程序初始化值） 1-上次同步成功（每次同步正常完毕都是代表上次同步成功） 2-同步中 3-上次同步异常
 
 type SysApi struct {
 	Id          int64      `json:"id" gorm:"primaryKey;autoIncrement;comment:主键编码"`
@@ -44,46 +34,22 @@ func (SysApi) TableName() string {
 	return "admin_sys_api"
 }
 
-func SaveSysApi(message storage.Messager) (err error) {
-	var apiCacheMap = make(map[string]bool)
-	var routerCacheMap = make(map[string]bool) //缓存路由中实际包含的地址，用于对比数据库，删除库中已经实效的路由地址
-	SyncStatus = SyncStatusSyncing
+func SaveSysApi(db *gorm.DB, routers []runtime.Router) (err error) {
+	tx := db.Begin()
+	var dbApiCacheMap = make(map[string]bool)
+	var handlerApiCacheMap = make(map[string]*runtime.Router) //缓存路由中实际包含的地址，用于对比数据库，删除库中已经实效的路由地址
 	defer func() {
-		apiCacheMap = nil
-		routerCacheMap = nil
+		dbApiCacheMap = nil
+		handlerApiCacheMap = nil
 		if err != nil {
-			log.Error(err)
-			SyncStatus = SyncStatusError
+			tx.Rollback()
 			return
+		} else {
+			tx.Commit()
 		}
-		SyncStatus = SyncStatusSyncSuccess
 	}()
 
-	var rb []byte
-	rb, err = json.Marshal(message.GetValues())
-	if err != nil {
-		err = errors.New(fmt.Sprintf("api sync,json marshal err:%s", err))
-
-		return
-	}
-
-	var l runtime.Routers
-	err = json.Unmarshal(rb, &l)
-	if err != nil {
-		err = errors.New(fmt.Sprintf("api sync,json unmarshal err:%s", err))
-		return
-	}
 	apiInfos, err := getApiDescriptions()
-	dbMap := runtime.RuntimeConfig.GetDb()
-	var db = &gorm.DB{}
-	for _, d := range dbMap {
-		db = d
-		break
-	}
-	if db == nil {
-		err = errors.New("no db,please check")
-		return
-	}
 
 	//读取库中所有接口并加入map缓存
 	var dbApilist []SysApi
@@ -93,18 +59,21 @@ func SaveSysApi(message storage.Messager) (err error) {
 		return
 	}
 	for _, item := range dbApilist {
-		apiCacheMap[item.Path+"-"+item.Method] = true
+		dbApiCacheMap[item.Path+"-"+item.Method] = true
+	}
+	for _, v := range routers {
+		handlerApiCacheMap[v.RelativePath+"-"+v.HttpMethod] = &v
 	}
 
 	//根据实际路由对比库中路由，将新路由加入库中
 	var newSysApis []SysApi
-	for _, v := range l.List {
-		routerCacheMap[v.RelativePath+"-"+v.HttpMethod] = true
+	for k, v := range handlerApiCacheMap {
+
 		if v.HttpMethod == "HEAD" {
 			continue
 		}
 		//缓存
-		if apiCacheMap[v.RelativePath+"-"+v.HttpMethod] {
+		if dbApiCacheMap[k] {
 			continue
 		}
 		paths := strings.Split(v.RelativePath, "/")
@@ -129,47 +98,39 @@ func SaveSysApi(message storage.Messager) (err error) {
 	}
 	if len(newSysApis) > 0 {
 		//事务批量插入，提高效率
-		err = db.Transaction(func(tx *gorm.DB) error {
-			if err = tx.Debug().Model(&SysApi{}).Create(&newSysApis).Error; err != nil {
-				return err
-			}
-			return nil
-		})
+		if err = tx.Debug().Model(&SysApi{}).Create(&newSysApis).Error; err != nil {
+			return err
+		}
 		if err != nil {
 			err = errors.New(fmt.Sprintf("Models SaveSysApi error: %s \r\n ", err.Error()))
-			SyncStatus = SyncStatusError
 			return
 		}
 		for _, item := range newSysApis {
-			apiCacheMap[item.Path+"-"+item.Method] = true
+			dbApiCacheMap[item.Path+"-"+item.Method] = true
 		}
 	}
 
 	// 删除库中无效接口
 	var delIds []int64
 	for _, item := range dbApilist {
-		if !routerCacheMap[item.Path+"-"+item.Method] {
+		if handlerApiCacheMap[item.Path+"-"+item.Method] == nil {
 			delIds = append(delIds, item.Id)
 		}
 	}
 	if len(delIds) > 0 {
-		err = db.Transaction(func(tx *gorm.DB) error {
-			// 删除子表数据
-			if err := tx.Table("admin_sys_menu_api_rule").Where("admin_sys_api_id in (?)", delIds).Delete(nil).Error; err != nil {
-				return err
-			}
-			// 删除主表数据
-			if err := tx.Model(&SysApi{}).Delete(&SysApi{}, delIds).Error; err != nil {
-				return err
-			}
-			return nil
-		})
+		if err = tx.Table("admin_sys_menu_api_rule").Where("admin_sys_api_id in (?)", delIds).Delete(nil).Error; err != nil {
+			return
+		}
+		// 删除主表数据
+		if err = tx.Model(&SysApi{}).Delete(&SysApi{}, delIds).Error; err != nil {
+			return
+		}
 		if err != nil {
 			err = errors.New(fmt.Sprintf("sync delete api error: %s \r\n ", err.Error()))
 			return
 		}
 	}
-	return nil
+	return
 }
 
 // getApiDescriptions 获取所有api接口的说明

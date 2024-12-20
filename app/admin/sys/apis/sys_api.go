@@ -177,6 +177,7 @@ func (e SysApi) Export(c *gin.Context) {
 func (e SysApi) Sync(c *gin.Context) {
 	s := service.SysApi{}
 	err := e.MakeContext(c).
+		MakeOrm().
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -184,29 +185,10 @@ func (e SysApi) Sync(c *gin.Context) {
 		return
 	}
 
-	syncStatus, respCode, err := s.Sync()
+	respCode, err := s.Sync()
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
 	}
-	e.OK(syncStatus, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
-}
-
-// GetSyncStatus 获取接口同步状态
-func (e SysApi) GetSyncStatus(c *gin.Context) {
-	s := service.SysApi{}
-	err := e.MakeContext(c).
-		MakeService(&s.Service).
-		Errors
-	if err != nil {
-		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
-		return
-	}
-
-	syncStatus, respCode, err := s.GetSyncStatus()
-	if err != nil {
-		e.Error(respCode, err.Error())
-		return
-	}
-	e.OK(syncStatus, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
+	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }

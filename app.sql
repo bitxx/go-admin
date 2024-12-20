@@ -307,7 +307,7 @@ CREATE TABLE `admin_sys_dict_data` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='字典数据管理';
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='字典数据管理';
 
 -- ----------------------------
 -- Records of admin_sys_dict_data
@@ -404,10 +404,6 @@ INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`
 INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `default`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (92, 0, '待发布', '1', 'plugin_filemgr_publish_status', '', '', '', '1', '', '', 1, 1, '2024-12-01 23:20:36', '2024-12-01 23:20:36');
 INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `default`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (93, 0, '已发布', '2', 'plugin_filemgr_publish_status', '', '', '', '1', '', '', 1, 1, '2024-12-01 23:20:45', '2024-12-01 23:20:45');
 INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `default`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (94, 0, '数字文本框', 'numInput', 'admin_sys_gen_html_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:23:39', '2023-03-07 10:23:39');
-INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `default`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (95, 0, '未同步', '0', 'admin_sys_api_sync_status', '', '', '', '1', '', '启动程序初始化值', 1, 1, '2024-12-13 00:30:24', '2024-12-13 00:30:24');
-INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `default`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (96, 0, '上次同步成功', '1', 'admin_sys_api_sync_status', '', '', '', '1', '', '每次同步正常完毕都是代表上次同步成功', 1, 1, '2024-12-13 00:30:43', '2024-12-13 00:30:43');
-INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `default`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (97, 0, '自动同步中', '2', 'admin_sys_api_sync_status', '', '', '', '1', '', '', 1, 1, '2024-12-13 00:30:57', '2024-12-13 00:30:57');
-INSERT INTO `admin_sys_dict_data` (`id`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `default`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (98, 0, '上次同步异常', '3', 'admin_sys_api_sync_status', '', '', '', '1', '', '', 1, 1, '2024-12-13 00:31:08', '2024-12-13 00:31:08');
 COMMIT;
 
 -- ----------------------------
@@ -425,7 +421,7 @@ CREATE TABLE `admin_sys_dict_type` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='字典类型管理';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='字典类型管理';
 
 -- ----------------------------
 -- Records of admin_sys_dict_type
@@ -460,7 +456,6 @@ INSERT INTO `admin_sys_dict_type` (`id`, `dict_name`, `dict_type`, `status`, `re
 INSERT INTO `admin_sys_dict_type` (`id`, `dict_name`, `dict_type`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (30, '应用-用户-用户更新类型', 'app_user_by_type', '1', '', 1, 1, '2023-03-11 14:14:06', '2023-03-11 14:14:27');
 INSERT INTO `admin_sys_dict_type` (`id`, `dict_name`, `dict_type`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (31, '插件-消息-验证码类型', 'plugin_msg_code_type', '1', '1-邮箱 2-短信', 1, 1, '2023-03-12 12:12:30', '2023-03-12 12:15:20');
 INSERT INTO `admin_sys_dict_type` (`id`, `dict_name`, `dict_type`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (32, '插件-消息-验证码发送状态', 'plugin_msg_sendstatus', '1', '', 1, 1, '2023-03-12 12:14:56', '2023-03-12 13:23:37');
-INSERT INTO `admin_sys_dict_type` (`id`, `dict_name`, `dict_type`, `status`, `remark`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES (33, '管理-接口-同步状态', 'admin_sys_api_sync_status', '1', '', 1, 1, '2024-12-13 00:29:34', '2024-12-13 00:29:34');
 COMMIT;
 
 -- ----------------------------

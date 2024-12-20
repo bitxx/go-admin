@@ -1,4 +1,4 @@
-import { ApiModel, delApiApi, exportApiApi, getApiPageApi, getSyncStatusApiApi, syncApiApi } from "@/api/admin/sys/sys-api";
+import { ApiModel, delApiApi, exportApiApi, getApiPageApi, syncApiApi } from "@/api/admin/sys/sys-api";
 import { getDictOptions, getDictsApi } from "@/api/admin/sys/sys-dictdata";
 import HocAuth from "@/components/HocAuth";
 import LoadingButton from "@/components/LoadingButton";
@@ -19,9 +19,7 @@ const Api: React.FC = () => {
 	const formModalRef = useRef<FormModalRef>(null);
 	const [methodOptions, setMethodOptions] = useState<Map<string, string>>(new Map());
 	const [apiTypeOptions, setApiTypeOptions] = useState<Map<string, string>>(new Map());
-	const [syncStatusOptions, setSyncStatusOptions] = useState<Map<string, string>>(new Map());
 	const [menuTypeOptions, setMenuTypeOptions] = useState<Map<string, string>>(new Map());
-	const [currentSyncStatus, setCurrentSyncStatus] = useState("0");
 
 	const popoverColumns = [
 		{
@@ -196,19 +194,6 @@ const Api: React.FC = () => {
 				return;
 			}
 			setApiTypeOptions(getDictOptions(apiTypeData));
-			const { data: syncStatusData, msg: syncStatusMsg, code: syncStatusCode } = await getDictsApi("admin_sys_api_sync_status");
-			if (syncStatusCode !== ResultEnum.SUCCESS) {
-				message.error(syncStatusMsg);
-				return;
-			}
-			setSyncStatusOptions(getDictOptions(syncStatusData));
-
-			const { data: getSyncStatusData, msg: getSyncStatusMsg, code: getSyncStatusCode } = await getSyncStatusApiApi();
-			if (getSyncStatusCode !== ResultEnum.SUCCESS) {
-				message.error(getSyncStatusMsg);
-				return;
-			}
-			setCurrentSyncStatus(getSyncStatusData);
 			const { data: menuTypeData, msg: menuTypeMsg, code: menuTypeCode } = await getDictsApi("admin_sys_menu_type");
 			if (menuTypeCode !== ResultEnum.SUCCESS) {
 				message.error(menuTypeMsg);
@@ -297,8 +282,8 @@ const Api: React.FC = () => {
 						message.error(msg);
 						return;
 					}
+					message.success("同步完成！");
 					actionRef.current?.reload(true);
-					message.success("开始同步，请稍后...");
 				} finally {
 					done();
 				}
@@ -315,7 +300,7 @@ const Api: React.FC = () => {
 			</HocAuth>
 			<HocAuth permission={["admin:sys-api:sync"]}>
 				<LoadingButton type="primary" key="syncApi" icon={<SyncOutlined />} onClick={done => handleSync(done)}>
-					{currentSyncStatus === "0" ? "接口数据同步" : syncStatusOptions.get(currentSyncStatus)}
+					接口数据同步
 				</LoadingButton>
 			</HocAuth>
 		</>

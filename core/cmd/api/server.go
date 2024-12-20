@@ -73,7 +73,6 @@ func setup() {
 	queue := runtime.RuntimeConfig.GetMemoryQueue("")
 	queue.Register(global.LoginLog, models.SaveLoginLog)
 	queue.Register(global.OperateLog, models.SaveOperLog)
-	queue.Register(global.ApiCheck, models.SaveSysApi)
 	go queue.Run()
 	log.Info(`starting api server...`)
 }

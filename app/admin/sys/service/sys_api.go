@@ -6,7 +6,6 @@ import (
 
 	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
-	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"go-admin/core/runtime"
@@ -37,7 +36,7 @@ func (e *SysApi) GetPage(c *dto.SysApiQueryReq, p *middleware.DataPermission) ([
 	var data models.SysApi
 	var count int64
 
-	err := e.Orm.Order("created_at desc").Model(&data).Preload("SysMenu").
+	err := e.Orm.Order("id desc").Model(&data).Preload("SysMenu").
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
@@ -187,29 +186,13 @@ func (e *SysApi) Export(list []models.SysApi) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-// GetSyncStatus admin-获取接口同步状态
-func (e *SysApi) GetSyncStatus() (string, int, error) {
-	return models.SyncStatus, baseLang.SuccessCode, nil
-}
-
 // Sync admin-接口同步数据
-func (e *SysApi) Sync() (string, int, error) {
-	if models.SyncStatus == models.SyncStatusSyncing {
-		return models.SyncStatus, baseLang.SuccessCode, nil
-	}
+func (e *SysApi) Sync() (int, error) {
 	var routers = runtime.RuntimeConfig.GetRouter()
-	mp := make(map[string]interface{})
-	mp["List"] = routers
-	message, err := runtime.RuntimeConfig.GetStreamMessage("", global.ApiCheck, mp)
+
+	err := models.SaveSysApi(e.Orm, routers)
 	if err != nil {
-		models.SyncStatus = models.SyncStatusError
-		return models.SyncStatus, baseLang.SysApiGetApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.OpErrCode, baseLang.SysApiGetApiMqLogErrCode, err)
+		return baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-	q := runtime.RuntimeConfig.GetMemoryQueue("")
-	err = q.Append(message)
-	if err != nil {
-		models.SyncStatus = models.SyncStatusError
-		return models.SyncStatus, baseLang.SysApiAppendApiMqLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.OpErrCode, baseLang.SysApiAppendApiMqLogErrCode, err)
-	}
-	return models.SyncStatus, baseLang.SuccessCode, nil
+	return baseLang.SuccessCode, nil
 }
