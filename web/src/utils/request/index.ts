@@ -66,6 +66,10 @@ class RequestHttp {
 					window.location.hash = "/login";
 					return Promise.reject(data);
 				}
+				if (data.code == ResultEnum.UNAUTH) {
+					message.error(data.msg);
+					return Promise.reject(data);
+				}
 				return data;
 			},
 			async (error: AxiosError) => {
