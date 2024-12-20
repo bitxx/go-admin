@@ -3,13 +3,14 @@ import { exportUserApi, getUserPageApi, UserModel } from "@/api/app/user/user";
 import HocAuth from "@/components/HocAuth";
 import LoadingButton from "@/components/LoadingButton";
 import { pagination } from "@/config/proTable";
+import { SummaryColor } from "@/enums/base";
 import { ResultEnum } from "@/enums/httpEnum";
 import { message, modal } from "@/hooks/useMessage";
 import { formatDataForProTable, saveExcelBlob } from "@/utils";
 import { CloudDownloadOutlined, EditOutlined, ExclamationCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import type { ActionType, ProColumns, ProFormInstance } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import { Space } from "antd";
+import { Space, Statistic } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import FormModal, { FormModalRef } from "./components/FormModal";
 
@@ -19,6 +20,7 @@ const User: React.FC = () => {
 	const formModalRef = useRef<FormModalRef>(null);
 	const [statusOptions, setStatusOptions] = useState<Map<string, string>>(new Map());
 	const [levelTypeOptions, setLevelTypeOptions] = useState<Map<string, string>>(new Map());
+	const [extend, setExtend] = useState<UserModel>({});
 
 	// 定义列
 	const columns: ProColumns<UserModel>[] = [
@@ -260,6 +262,7 @@ const User: React.FC = () => {
 				scroll={{ x: "2000", y: "100%" }}
 				request={async params => {
 					const { data } = await getUserPageApi(params);
+					setExtend(data.extend);
 					return formatDataForProTable<UserModel>(data);
 				}}
 				columnsState={{
@@ -277,6 +280,7 @@ const User: React.FC = () => {
 				dateFormatter="string"
 				headerTitle="用户管理"
 				toolBarRender={toolBarRender}
+				footer={() => extend && <Statistic title="余额 总计" value={extend.money} valueStyle={{ color: SummaryColor.base }} />}
 			/>
 			<FormModal ref={formModalRef} onConfirm={handleFormModalConfirm} />
 		</>
