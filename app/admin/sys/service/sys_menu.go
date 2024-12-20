@@ -202,6 +202,8 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 		return false, respCode, err
 	}
 
+	oldCids := data.ParentIds + strconv.FormatInt(c.Id, 10) + ","
+
 	tx := e.Orm.Debug().Begin()
 	defer func() {
 		if err != nil {
@@ -270,6 +272,17 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	if err != nil {
 		return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
+
+	//其余所有包含cidsOld的菜单或者按钮，均替换为cidsNew
+	newCids := data.ParentIds + strconv.FormatInt(c.Id, 10) + ","
+	if err = tx.Model(&models.SysMenu{}).
+		Where("parent_ids LIKE ?", oldCids+"%").
+		Update("parent_ids", gorm.Expr("REPLACE(parent_ids, ?, ?)", oldCids, newCids)).Error; err != nil {
+	}
+	if err != nil {
+		return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+	}
+
 	return true, baseLang.SuccessCode, nil
 }
 
