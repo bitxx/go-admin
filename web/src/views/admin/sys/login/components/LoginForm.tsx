@@ -61,9 +61,8 @@ const LoginForm = (props: any) => {
 
 					message.success("登录成功！");
 					navigate(HOME_URL);
-				} catch (error) {
-					onCaptcha();
 				} finally {
+					onCaptcha();
 					done();
 					message.destroy("loading");
 				}
