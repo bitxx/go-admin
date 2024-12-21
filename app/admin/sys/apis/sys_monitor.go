@@ -2,6 +2,7 @@ package apis
 
 import (
 	"fmt"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/shirou/gopsutil/v4/host"
 	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
@@ -9,6 +10,7 @@ import (
 	"go-admin/core/utils/fileutils"
 	"go-admin/core/utils/iputils"
 	"go-admin/core/utils/strutils"
+	"net/http"
 	"runtime"
 	"strconv"
 	"time"
@@ -99,4 +101,14 @@ func (e Monitor) GetMonitor(c *gin.Context) {
 		"diskList": disklist,
 	}
 	e.OK(result, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
+}
+
+// Ping admin-ping测试
+func (e Monitor) Ping(c *gin.Context) {
+	c.Status(http.StatusOK)
+}
+
+// Prom admin-获取Prom信息
+func (e Monitor) Prom(c *gin.Context) {
+	promhttp.Handler().ServeHTTP(c.Writer, c.Request)
 }
