@@ -1,7 +1,7 @@
 /*
  Navicat Premium Dump SQL
 
- Source Server         : sqlhub
+ Source Server         : my-server
  Source Server Type    : MySQL
  Source Server Version : 80040 (8.0.40)
  Source Host           : 127.0.0.1:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80040 (8.0.40)
  File Encoding         : 65001
 
- Date: 20/12/2024 23:37:01
+ Date: 21/12/2024 23:18:01
 */
 
 SET NAMES utf8mb4;
@@ -56,7 +56,6 @@ INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, 
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (16, 'admin-获取服务器信息', '/admin-api/v1/admin/sys/sys-monitor', '1', 'GET', '2024-12-13 20:37:34', '2024-12-14 15:12:52', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (17, 'admin-普罗米监控', '/admin-api/v1/admin/sys/sys-monitor/prom', '1', 'GET', '2024-12-13 20:37:34', '2024-12-15 22:38:58', 0, 1, '未使用');
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (18, 'admin-ping', '/admin-api/v1/admin/sys/sys-monitor/ping', '1', 'GET', '2024-12-13 20:37:34', '2024-12-15 22:39:10', 0, 1, '未使用');
-INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (19, 'admin-健康检查', '/admin-api/v1/admin/sys/sys-monitor/health', '1', 'GET', '2024-12-13 20:37:34', '2024-12-15 22:39:26', 0, 1, '未使用');
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (20, 'admin-获取表管理分页列表', '/admin-api/v1/admin/sys/sys-table', '1', 'GET', '2024-12-13 20:37:35', '2024-12-13 21:45:39', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (21, 'admin-表管理下载代码', '/admin-api/v1/admin/sys/sys-table/gen/download/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-14 14:52:44', 0, 0, NULL);
 INSERT INTO `admin_sys_api` (`id`, `description`, `path`, `api_type`, `method`, `created_at`, `updated_at`, `create_by`, `update_by`, `remark`) VALUES (22, 'admin-表管理中生成菜单数据', '/admin-api/v1/admin/sys/sys-table/gen/db/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-14 14:53:37', 0, 0, NULL);
