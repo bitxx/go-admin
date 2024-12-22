@@ -1,11 +1,11 @@
 package service
 
 import (
+	"errors"
 	"go-admin/config/base/constant"
 
 	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
-	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"go-admin/core/utils/tree"
@@ -71,6 +71,23 @@ func (e *SysMenu) Get(id int64, p *middleware.DataPermission) (*models.SysMenu, 
 		apis = append(apis, v.Id)
 	}
 	data.Apis = apis
+	return data, baseLang.SuccessCode, nil
+}
+
+// GetWithRoles admin-根据菜单获取对应的所有角色
+func (e *SysMenu) GetWithRoles(id int64) (*models.SysMenu, int, error) {
+	if id <= 0 {
+		//id<=0,表示为顶级根菜单
+		return &models.SysMenu{Id: 0, ParentIds: ""}, baseLang.SuccessCode, nil
+	}
+	data := &models.SysMenu{}
+	err := e.Orm.Preload("SysMenu").First(data, id).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+	}
+	if err == gorm.ErrRecordNotFound {
+		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
+	}
 	return data, baseLang.SuccessCode, nil
 }
 
@@ -204,28 +221,13 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 
 	oldCids := data.ParentIds + strconv.FormatInt(c.Id, 10) + ","
 
-	tx := e.Orm.Debug().Begin()
-	defer func() {
-		if err != nil {
-			tx.Rollback()
-		} else {
-			tx.Commit()
-		}
-	}()
-
-	var alist = make([]models.SysApi, 0)
-	tx.Where("id in ?", c.Apis).Find(&alist)
-
-	err = tx.Model(&data).Association("SysApi").Delete(data.SysApi)
-	if err != nil {
-		return false, baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
-	}
-
+	//获取上级菜单
 	m, respCode, err := e.Get(c.ParentId, p)
 	if err != nil {
 		return false, respCode, err
 	}
 
+	menuUpdates := map[string]interface{}{}
 	now := time.Now()
 	if c.MenuType == constant.MenuM || c.MenuType == constant.MenuC {
 		//确保路由地址唯一
@@ -240,51 +242,146 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 				return false, baseLang.SysMenuPathExistCode, lang.MsgErr(baseLang.SysMenuPathExistCode, e.Lang)
 			}
 		}
-		data.Path = c.Path
-		data.IsHidden = c.IsHidden
+		if c.Path != "" && data.Path != c.Path {
+			menuUpdates["path"] = c.Path
+		}
+		if c.IsHidden != "" && data.IsHidden != c.IsHidden {
+			menuUpdates["is_hidden"] = c.IsHidden
+		}
+
 		if c.MenuType == constant.MenuM {
-			data.Redirect = c.Redirect
+			if c.Redirect != "" && data.Redirect != c.Redirect {
+				menuUpdates["redirect"] = c.Redirect
+			}
 		}
 		if c.MenuType == constant.MenuC {
-			c.IsKeepAlive = global.SysStatusNotOk
-			c.IsAffix = global.SysStatusNotOk
-			data.Element = c.Element
-			data.IsKeepAlive = c.IsKeepAlive
-			data.IsAffix = c.IsAffix
-			data.IsFrame = c.IsFrame
+			if c.Element != "" && data.Element != c.Element {
+				menuUpdates["element"] = c.Element
+			}
+			if c.IsKeepAlive != "" && data.IsKeepAlive != c.IsKeepAlive {
+				menuUpdates["is_keep_alive"] = c.IsKeepAlive
+			}
+			if c.IsAffix != "" && data.IsAffix != c.IsAffix {
+				menuUpdates["is_affix"] = c.IsAffix
+			}
+			if c.IsFrame != "" && data.IsFrame != c.IsFrame {
+				menuUpdates["is_frame"] = c.IsFrame
+			}
 		}
 	}
+	if c.Title != "" && data.Title != c.Title {
+		menuUpdates["title"] = c.Title
+	}
+	if c.Icon != "" && data.Icon != c.Icon {
+		menuUpdates["icon"] = c.Icon
+	}
+	if c.MenuType != "" && data.MenuType != c.MenuType {
+		menuUpdates["menu_type"] = c.MenuType
+	}
+	if c.MenuType != "" && data.MenuType != c.MenuType {
+		menuUpdates["menu_type"] = c.MenuType
+	}
+	if c.ParentId >= 0 && data.ParentId != c.ParentId {
+		menuUpdates["parent_id"] = c.ParentId
+	}
+	newPids := m.ParentIds + strconv.FormatInt(m.Id, 10) + ","
+	if data.ParentIds != newPids {
+		menuUpdates["parent_ids"] = newPids
+	}
+	if c.Sort >= 0 && data.Sort != c.Sort {
+		menuUpdates["sort"] = c.Sort
+	}
+
 	if c.MenuType == constant.MenuC || c.MenuType == constant.MenuF {
-		data.SysApi = alist
 		if c.MenuType == constant.MenuF {
-			data.Permission = c.Permission
+			if c.Permission != "" && data.Permission != c.Permission {
+				menuUpdates["permission"] = c.Permission
+			}
 		}
 	}
-	data.Title = c.Title
-	data.Icon = c.Icon
-	data.MenuType = c.MenuType
-	data.ParentId = c.ParentId
-	data.ParentIds = m.ParentIds + strconv.FormatInt(m.Id, 10) + ","
-	data.Sort = c.Sort
-	data.UpdateBy = c.CurrUserId
-	data.UpdatedAt = &now
-	err = tx.Model(&data).Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&data).Error
+	needUpdate := false
+	err = e.Orm.Transaction(func(tx *gorm.DB) error {
+		if len(menuUpdates) > 0 {
+			data.UpdateBy = c.CurrUserId
+			data.UpdatedAt = &now
+			needUpdate = true
+			if err = tx.Model(&data).Where("id=?", data.Id).Updates(menuUpdates).Error; err != nil {
+				return err
+			}
+		}
+		if c.MenuType == constant.MenuC || c.MenuType == constant.MenuF {
+			var alist = make([]models.SysApi, 0)
+			if err = tx.Where("id in ?", c.Apis).Find(&alist).Error; err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+				return err
+			}
+			needUpdateApi := false
+			if len(data.SysApi) != len(alist) {
+				data.SysApi = alist
+				needUpdateApi = true
+			} else {
+				apiMap := make(map[int64]bool) // 假设 SysApi 的主键 ID 类型是 int64
+				for _, api := range data.SysApi {
+					apiMap[api.Id] = true // 用 ID 作为键值存储 SysApi
+				}
+
+				// 遍历 alist，检查每个 SysApi 是否在 data.SysApi 中存在
+				for _, api := range alist {
+					if _, exists := apiMap[api.Id]; !exists {
+						needUpdateApi = true
+						break
+					}
+				}
+			}
+			if needUpdateApi {
+				needUpdate = true
+				// 清空旧的关联关系并添加新的关联关系
+				if err = tx.Model(&data).Association("SysApi").Replace(data.SysApi); err != nil {
+					return err // 如果更新失败，事务将自动回滚
+				}
+			}
+		}
+
+		//其余所有包含cidsOld的菜单或者按钮，均替换为cidsNew
+		newCids := data.ParentIds + strconv.FormatInt(c.Id, 10) + ","
+		if oldCids != newCids {
+			needUpdate = true
+			if err = tx.Model(&models.SysMenu{}).
+				Where("parent_ids LIKE ?", oldCids+"%").
+				Update("parent_ids", gorm.Expr("REPLACE(parent_ids, ?, ?)", oldCids, newCids)).Error; err != nil {
+			}
+		}
+
+		return nil
+	})
 	if err != nil {
 		return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
-
-	//其余所有包含cidsOld的菜单或者按钮，均替换为cidsNew
-	newCids := data.ParentIds + strconv.FormatInt(c.Id, 10) + ","
-	if err = tx.Model(&models.SysMenu{}).
-		Where("parent_ids LIKE ?", oldCids+"%").
-		Update("parent_ids", gorm.Expr("REPLACE(parent_ids, ?, ?)", oldCids, newCids)).Error; err != nil {
+	if needUpdate {
+		return true, baseLang.SuccessCode, nil
 	}
-	if err != nil {
-		return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
-	}
-
-	return true, baseLang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
+
+// UpdateCasbinByMenu menu的接口变动，则对应更新Casbin
+/*func (e *SysMenu) updateCasbinByMenu(menuId, currentId int64) (int, error) {
+	data, respCode, err := e.GetWithRoles(menuId)
+	if err != nil {
+		return respCode, err
+	}
+	if len(data.SysRole) > 0 {
+		for _, role := range data.SysRole {
+			roleService := NewSysRoleService(&e.Service)
+			req := dto.SysRoleUpdateReq{
+				Id:         role.Id,
+				CurrUserId: currentId,
+				RoleKey:    role.RoleKey,
+			}
+			roleService.Update()
+
+		}
+	}
+
+}*/
 
 // Delete admin-删除菜单管理
 func (e *SysMenu) Delete(ids []int64, p *middleware.DataPermission) (int, error) {

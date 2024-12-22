@@ -21,6 +21,7 @@ type SysMenu struct {
 	IsHidden    string     `json:"isHidden" gorm:"size:1;comment:1-是 2-否"`
 	IsFrame     string     `json:"isFrame" gorm:"size:1;comment:1-是 2-否"`
 	SysApi      []SysApi   `json:"sysApi" gorm:"many2many:admin_sys_menu_api_rule;foreignKey:id;joinForeignKey:admin_sys_menu_menu_id;references:Id;joinReferences:admin_sys_api_id;"`
+	SysRole     []SysRole  `json:"sysRole" gorm:"many2many:admin_sys_role_menu;foreignKey:id;joinForeignKey:menu_id;references:Id;joinReferences:role_id;"`
 	CreateBy    int64      `json:"createBy" gorm:"index;comment:创建者"`
 	UpdateBy    int64      `json:"updateBy" gorm:"index;comment:更新者"`
 	CreatedAt   *time.Time `json:"createdAt" gorm:"comment:创建时间"`
