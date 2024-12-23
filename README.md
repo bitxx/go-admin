@@ -125,11 +125,12 @@ cd ./web
 # 常规安装
 npm install
 
-# 上面不灵的话，加上--force
+# 上面不灵的话，加上--force 或者 --legacy-peer-deps
 npm install --force
+npm install --legacy-peer-deps
 
-# 在MacOS的arm环境下，我的加上sudu才行
-sudo npm install --force
+# 注：由于开源版新旧包依赖问题，导致依赖安装时，需要始终使用--legacy-peer-deps,比如安装md5：
+npm install --legacy-peer-deps md5
 ```
 2. 本地启动：
 ```shell
