@@ -5,10 +5,12 @@ import (
 	"go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
 	baseLang "go-admin/config/base/lang"
+	mycasbin "go-admin/core/casbin"
 	"go-admin/core/dto/api"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"go-admin/core/middleware/auth"
+	"go-admin/core/runtime"
 )
 
 type SysMenu struct {
@@ -105,7 +107,8 @@ func (e SysMenu) Update(c *gin.Context) {
 		return
 	}
 	req.CurrUserId = uid
-	b, respCode, err := s.Update(&req, p)
+	cb := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
+	b, respCode, err := s.Update(&req, p, cb)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
@@ -114,6 +117,7 @@ func (e SysMenu) Update(c *gin.Context) {
 		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
+	_, _ = mycasbin.LoadPolicy(c)
 	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 

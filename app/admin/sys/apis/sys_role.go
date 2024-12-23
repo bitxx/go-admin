@@ -3,7 +3,6 @@ package apis
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go-admin/app/admin/sys/models"
 	"go-admin/app/admin/sys/service"
 	"go-admin/app/admin/sys/service/dto"
 	baseLang "go-admin/config/base/lang"
@@ -137,9 +136,13 @@ func (e SysRole) Update(c *gin.Context) {
 	req.CurrUserId = uid
 
 	cb := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
-	respCode, err := s.Update(&req, cb)
+	b, respCode, err := s.Update(&req, cb)
 	if err != nil {
 		e.Error(respCode, err.Error())
+		return
+	}
+	if !b {
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
 		return
 	}
 	_, _ = mycasbin.LoadPolicy(c)
@@ -165,7 +168,7 @@ func (e SysRole) Delete(c *gin.Context) {
 		e.Error(respCode, err.Error())
 		return
 	}
-	_, _ = mycasbin.LoadPolicy(c)
+	_, _ = mycasbin.LoadPolicy(c) //把最新决策加载到内存
 	e.OK(req.Ids, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }
 
@@ -209,21 +212,21 @@ func (e SysRole) UpdateDataScope(c *gin.Context) {
 		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
-	data := &models.SysRole{
-		Id:        req.Id,
-		DataScope: req.DataScope,
-		DeptIds:   req.DeptIds,
-	}
 	uid, rCode, err := auth.Auth.GetUserId(c)
 	if err != nil {
 		e.Error(rCode, err.Error())
 		return
 	}
-	data.UpdateBy = uid
-	respCode, err := s.UpdateDataScope(&req)
+	req.CurrUserId = uid
+	b, respCode, err := s.UpdateDataScope(&req)
 	if err != nil {
 		e.Error(respCode, err.Error())
 		return
 	}
+	if !b {
+		e.OK(nil, lang.MsgByCode(baseLang.DataNotUpdateCode, e.Lang))
+		return
+	}
+	_, _ = mycasbin.LoadPolicy(c)
 	e.OK(nil, lang.MsgByCode(baseLang.SuccessCode, e.Lang))
 }

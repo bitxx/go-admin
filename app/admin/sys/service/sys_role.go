@@ -1,7 +1,9 @@
 package service
 
 import (
+	"fmt"
 	"go-admin/config/base/constant"
+	mycasbin "go-admin/core/casbin"
 
 	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
@@ -102,7 +104,7 @@ func (e *SysRole) QueryOne(queryCondition *dto.SysRoleQueryReq, p *middleware.Da
 		Scopes(
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 			middleware.Permission(data.TableName(), p),
-		).First(data).Error
+		).Preload("SysMenu").First(data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
@@ -185,34 +187,40 @@ func (e *SysRole) Insert(c *dto.SysRoleInsertReq, cb *casbin.SyncedEnforcer) (in
 	data.CreatedAt = &now
 	data.UpdatedAt = &now
 
-	e.Orm = e.Orm.Begin()
-	defer func() {
+	err = e.Orm.Transaction(func(tx *gorm.DB) error {
+		err = tx.Save(&data).Error
 		if err != nil {
-			e.Orm.Rollback()
-		} else {
-			e.Orm.Commit()
+			return err
 		}
-	}()
+		adapter, err := mycasbin.NewAdapterByDB(tx) // 使用事务对象
+		if err != nil {
+			return fmt.Errorf("failed to create Casbin adapter: %w", err)
+		}
+		enforcer, err := casbin.NewSyncedEnforcer(cb.GetModel(), adapter)
+		if err != nil {
+			return fmt.Errorf("failed to create Casbin enforcer: %w", err)
+		}
+		for _, menu := range sysMens {
+			for _, item := range menu.SysApi {
+				_, err = enforcer.AddNamedPolicy("p", data.RoleKey, item.Path, item.Method)
+				if err != nil {
+					return err
+				}
+			}
+		}
 
-	err = e.Orm.Save(&data).Error
+		return nil
+	})
 	if err != nil {
 		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
 	}
-
-	//casbin
-	for _, menu := range sysMens {
-		for _, api := range menu.SysApi {
-			_, err = cb.AddNamedPolicy("p", data.RoleKey, api.Path, api.Method)
-		}
-	}
-	_ = cb.SavePolicy()
 	return data.Id, baseLang.SuccessCode, nil
 }
 
 // Update admin-更新角色管理
-func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (int, error) {
+func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
+		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
 	var err error
 
@@ -221,63 +229,91 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) (in
 	req.RoleKey = c.RoleKey
 	role, respCode, err := e.QueryOne(&req, nil)
 	if err != nil && respCode != baseLang.DataNotFoundCode {
-		return respCode, err
+		return false, respCode, err
 	}
 	if respCode == baseLang.SuccessCode && role.Id != c.Id {
-		return baseLang.SysRoleKeyExistCode, lang.MsgErr(baseLang.SysRoleKeyExistCode, e.Lang)
+		return false, baseLang.SysRoleKeyExistCode, lang.MsgErr(baseLang.SysRoleKeyExistCode, e.Lang)
 	}
 	if role != nil && role.RoleKey == constant.RoleKeyAdmin {
-		return baseLang.SysRoleAdminNoOpCode, lang.MsgErr(baseLang.SysRoleAdminNoOpCode, e.Lang)
+		return false, baseLang.SysRoleAdminNoOpCode, lang.MsgErr(baseLang.SysRoleAdminNoOpCode, e.Lang)
 	}
 
-	e.Orm = e.Orm.Debug().Begin()
-	defer func() {
-		if err != nil {
-			e.Orm.Rollback()
-		} else {
-			e.Orm.Commit()
-		}
-	}()
-
-	//删除角色对应的菜单和api
 	var data = models.SysRole{}
-	var mlist = make([]models.SysMenu, 0)
-	e.Orm.Preload("SysMenu").First(&data, c.Id)
-	e.Orm.Preload("SysApi").Where("id in ?", c.MenuIds).Find(&mlist)
-	err = e.Orm.Model(&data).Association("SysMenu").Delete(data.SysMenu)
+	err = e.Orm.Preload("SysMenu").First(&data, c.Id).Error
 	if err != nil {
-		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
+		return false, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
+	//获取选中菜单的id对应的菜单完整信息
+	var mlist = make([]models.SysMenu, 0)
+	if err = e.Orm.Preload("SysApi").Where("id in ?", c.MenuIds).Find(&mlist).Error; err != nil {
+		return false, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+	}
+
+	roleUpdates := map[string]interface{}{}
 	//更新角色信息
 	now := time.Now()
-	data.RoleName = c.RoleName
-	data.Status = c.Status
-	data.RoleKey = c.RoleKey
-	data.RoleSort = c.RoleSort
-	data.Remark = c.Remark
-	data.DataScope = c.DataScope
-	data.SysDept = c.SysDept
-	data.SysMenu = &mlist
-	data.UpdatedAt = &now
-	data.UpdateBy = c.CurrUserId
-	err = e.Orm.Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&data).Error
-	if err != nil {
-		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+	if c.RoleName != "" && data.RoleName != c.RoleName {
+		roleUpdates["role_name"] = c.RoleName
+	}
+	if c.Status != "" && data.Status != c.Status {
+		roleUpdates["status"] = c.Status
+	}
+	if c.RoleKey != "" && data.RoleKey != c.RoleKey {
+		roleUpdates["role_key"] = c.RoleKey
+	}
+	if c.RoleSort >= 0 && data.RoleSort != c.RoleSort {
+		roleUpdates["role_sort"] = c.RoleSort
+	}
+	if c.Remark != "" && data.Remark != c.Remark {
+		roleUpdates["remark"] = c.Remark
 	}
 
-	//casbin
-	_, err = cb.RemoveFilteredPolicy(0, data.RoleKey)
-	if err != nil {
-		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
-	}
-	for _, menu := range mlist {
-		for _, api := range menu.SysApi {
-			_, err = cb.AddNamedPolicy("p", data.RoleKey, api.Path, api.Method)
+	needUpdate := false
+	err = e.Orm.Transaction(func(tx *gorm.DB) error {
+		if len(roleUpdates) > 0 {
+			data.UpdatedAt = &now
+			data.UpdateBy = c.CurrUserId
+			needUpdate = true
+			if err = tx.Model(&data).Where("id=?", data.Id).Updates(roleUpdates).Error; err != nil {
+				return err
+			}
 		}
+
+		needUpdateMenu := len(*data.SysMenu) != len(mlist)
+		if !needUpdateMenu {
+			menuMap := make(map[int64]bool) // 假设 SysApi 的主键 ID 类型是 int64
+			for _, api := range *data.SysMenu {
+				menuMap[api.Id] = true // 用 ID 作为键值存储 SysApi
+			}
+
+			// 遍历 alist，检查每个 SysApi 是否在 data.SysApi 中存在
+			for _, m := range mlist {
+				if _, exists := menuMap[m.Id]; !exists {
+					needUpdateMenu = true
+					break
+				}
+			}
+		}
+		if needUpdateMenu {
+			needUpdate = true
+			data.SysMenu = &mlist
+			if err = tx.Model(&data).Association("SysMenu").Replace(data.SysMenu); err != nil {
+				return err // 如果更新失败，事务将自动回滚
+			}
+			if _, err = e.UpdateCasbin(mlist, data.RoleKey, tx, cb); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
-	_ = cb.SavePolicy()
-	return baseLang.SuccessCode, nil
+	if needUpdate {
+		return true, baseLang.SuccessCode, nil
+	}
+	return false, baseLang.SuccessCode, nil
 }
 
 // Delete admin-删除角色管理
@@ -361,35 +397,68 @@ func (e *SysRole) GetDeptIdsByRole(roleId int64) ([]int64, int, error) {
 }
 
 // UpdateDataScope admin-更新角色管理数据权限
-func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (int, error) {
+func (e *SysRole) UpdateDataScope(c *dto.RoleDataScopeReq) (bool, int, error) {
 	var err error
-	e.Orm = e.Orm.Begin()
-	defer func() {
-		if err != nil {
-			e.Orm.Rollback()
-		} else {
-			e.Orm.Commit()
-		}
-	}()
+	//查找角色id所属部门
+	var data = models.SysRole{}
+	if err := e.Orm.Preload("SysDept").First(&data, c.Id).Error; err != nil {
+		return false, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+	}
+
 	var dlist = make([]models.SysDept, 0)
-	var model = models.SysRole{}
-	e.Orm.Preload("SysDept").First(&model, c.Id)                           //查找角色id所属部门
-	e.Orm.Where("id in ?", c.DeptIds).Find(&dlist)                         //查找所选部门id对应的部门信息
-	err = e.Orm.Model(&model).Association("SysDept").Delete(model.SysDept) //删除角色原有的部门信息
+	if err = e.Orm.Where("id in ?", c.DeptIds).Find(&dlist).Error; err != nil { //查找所选部门id对应的部门信息
+		return false, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+	}
+
+	dUpdates := map[string]interface{}{}
+	now := time.Now()
+	if c.DataScope != "" && data.DataScope != c.DataScope {
+		dUpdates["data_scope"] = c.DataScope
+	}
+
+	needUpdate := false
+	err = e.Orm.Transaction(func(tx *gorm.DB) error {
+		if len(dUpdates) > 0 {
+			data.UpdatedAt = &now
+			data.UpdateBy = c.CurrUserId
+			needUpdate = true
+			if err = tx.Model(&data).Where("id=?", data.Id).Updates(dUpdates).Error; err != nil {
+				return err
+			}
+		}
+
+		needUpdateDept := len(data.SysDept) != len(dlist)
+		if !needUpdateDept {
+			deptMap := make(map[int64]bool)
+			for _, item := range data.SysDept {
+				deptMap[item.Id] = true
+			}
+
+			// 遍历 alist，检查每个 SysApi 是否在 data.SysApi 中存在
+			for _, m := range dlist {
+				if _, exists := deptMap[m.Id]; !exists {
+					needUpdateDept = true
+					break
+				}
+			}
+		}
+		if needUpdateDept {
+			needUpdate = true
+			data.SysDept = dlist
+			if err = tx.Model(&data).Association("SysDept").Replace(data.SysDept); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+
 	if err != nil {
-		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
+		return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
 	}
-	if c.Id > 0 {
-		model.Id = c.Id
+	if needUpdate {
+		return true, baseLang.SuccessCode, nil
 	}
-	model.DataScope = c.DataScope
-	model.DeptIds = c.DeptIds
-	model.SysDept = dlist
-	err = e.Orm.Model(&model).Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&model).Error
-	if err != nil {
-		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
-	}
-	return baseLang.SuccessCode, nil
+	return false, baseLang.SuccessCode, nil
 }
 
 // UpdateStatus admin-更新角色管理状态
@@ -451,4 +520,29 @@ func (e *SysRole) GetPermissionsByRoleId(roleId int64) ([]string, int, error) {
 		permissions = append(permissions, l[i].Permission)
 	}
 	return permissions, baseLang.SuccessCode, nil
+}
+
+// UpdateCasbin 更新casbin
+func (e *SysRole) UpdateCasbin(mList []models.SysMenu, roleKey string, tx *gorm.DB, cb *casbin.SyncedEnforcer) (int, error) {
+	adapter, err := mycasbin.NewAdapterByDB(tx) // 使用事务对象
+	if err != nil {
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+	}
+	enforcer, err := casbin.NewSyncedEnforcer(cb.GetModel(), adapter)
+	if err != nil {
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+	}
+	_, err = enforcer.RemoveFilteredPolicy(0, roleKey)
+	if err != nil {
+		return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+	}
+	for _, menu := range mList {
+		for _, api := range menu.SysApi {
+			_, err = enforcer.AddNamedPolicy("p", roleKey, api.Path, api.Method)
+			if err != nil {
+				return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+			}
+		}
+	}
+	return baseLang.SuccessCode, nil
 }

@@ -41,17 +41,14 @@ type SysRoleInsertReq struct {
 }
 
 type SysRoleUpdateReq struct {
-	Id         int64            `uri:"id" json:"-" comment:"角色编码"` // 角色编码
-	RoleName   string           `form:"roleName" comment:"角色名称"`   // 角色名称
-	Status     string           `form:"status" comment:"状态"`       // 状态
-	RoleKey    string           `form:"roleKey" comment:"角色代码"`    // 角色代码
-	RoleSort   int              `form:"roleSort" comment:"角色排序"`   // 角色排序
-	Remark     string           `form:"remark" comment:"备注"`       // 备注
-	DataScope  string           `form:"dataScope"`
-	MenuIds    []int64          `form:"menuIds"`
-	SysDept    []models.SysDept `form:"sysDept"`
-	DeptIds    []int64          `form:"deptIds"`
-	CurrUserId int64            `json:"-" comment:""`
+	Id         int64   `uri:"id" json:"-" comment:"角色编码"` // 角色编码
+	RoleName   string  `form:"roleName" comment:"角色名称"`   // 角色名称
+	Status     string  `form:"status" comment:"状态"`       // 状态
+	RoleKey    string  `form:"roleKey" comment:"角色代码"`    // 角色代码
+	RoleSort   int     `form:"roleSort" comment:"角色排序"`   // 角色排序
+	Remark     string  `form:"remark" comment:"备注"`       // 备注
+	MenuIds    []int64 `form:"menuIds"`
+	CurrUserId int64   `json:"-" comment:""`
 }
 
 type UpdateStatusReq struct {
@@ -67,9 +64,10 @@ type SysRoleGetReq struct {
 
 // RoleDataScopeReq 角色数据权限修改
 type RoleDataScopeReq struct {
-	Id        int64   `json:"id"`
-	DataScope string  `json:"dataScope"`
-	DeptIds   []int64 `json:"deptIds"`
+	Id         int64   `json:"id"`
+	DataScope  string  `json:"dataScope"`
+	DeptIds    []int64 `json:"deptIds"`
+	CurrUserId int64   `json:"-" comment:""`
 }
 
 // SysRoleDeleteReq 功能删除请求参数

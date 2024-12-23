@@ -2,8 +2,8 @@ package service
 
 import (
 	"errors"
+	"github.com/casbin/casbin/v2"
 	"go-admin/config/base/constant"
-
 	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
@@ -81,7 +81,7 @@ func (e *SysMenu) GetWithRoles(id int64) (*models.SysMenu, int, error) {
 		return &models.SysMenu{Id: 0, ParentIds: ""}, baseLang.SuccessCode, nil
 	}
 	data := &models.SysMenu{}
-	err := e.Orm.Preload("SysMenu").First(data, id).Error
+	err := e.Orm.Preload("SysRole").First(data, id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
@@ -200,7 +200,7 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) (int64, int, error) {
 }
 
 // Update admin-更新菜单管理
-func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) (bool, int, error) {
+func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission, cb *casbin.SyncedEnforcer) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
 	}
@@ -225,6 +225,12 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 	m, respCode, err := e.Get(c.ParentId, p)
 	if err != nil {
 		return false, respCode, err
+	}
+
+	//获接口编号对应的接口详情
+	var alist = make([]models.SysApi, 0)
+	if err = e.Orm.Where("id in ?", c.Apis).Find(&alist).Error; err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return false, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
 	menuUpdates := map[string]interface{}{}
@@ -310,20 +316,12 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 			}
 		}
 		if c.MenuType == constant.MenuC || c.MenuType == constant.MenuF {
-			var alist = make([]models.SysApi, 0)
-			if err = tx.Where("id in ?", c.Apis).Find(&alist).Error; err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-				return err
-			}
-			needUpdateApi := false
-			if len(data.SysApi) != len(alist) {
-				data.SysApi = alist
-				needUpdateApi = true
-			} else {
-				apiMap := make(map[int64]bool) // 假设 SysApi 的主键 ID 类型是 int64
+			needUpdateApi := len(data.SysApi) != len(alist)
+			if !needUpdateApi {
+				apiMap := make(map[int64]bool)
 				for _, api := range data.SysApi {
-					apiMap[api.Id] = true // 用 ID 作为键值存储 SysApi
+					apiMap[api.Id] = true
 				}
-
 				// 遍历 alist，检查每个 SysApi 是否在 data.SysApi 中存在
 				for _, api := range alist {
 					if _, exists := apiMap[api.Id]; !exists {
@@ -334,14 +332,19 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 			}
 			if needUpdateApi {
 				needUpdate = true
+				data.SysApi = alist
 				// 清空旧的关联关系并添加新的关联关系
 				if err = tx.Model(&data).Association("SysApi").Replace(data.SysApi); err != nil {
-					return err // 如果更新失败，事务将自动回滚
+					return err
+				}
+				//接口数据需要更新，则casbin也需要更新
+				if _, err = e.updateCasbinByMenu(c.Id, tx, cb); err != nil {
+					return err
 				}
 			}
 		}
 
-		//其余所有包含cidsOld的菜单或者按钮，均替换为cidsNew
+		//其余所有包含cidsOld的菜单或者按钮，均替换为cidsNew。菜单上级变了，那对应的子节点的parentIds也得变
 		newCids := data.ParentIds + strconv.FormatInt(c.Id, 10) + ","
 		if oldCids != newCids {
 			needUpdate = true
@@ -363,25 +366,33 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission) 
 }
 
 // UpdateCasbinByMenu menu的接口变动，则对应更新Casbin
-/*func (e *SysMenu) updateCasbinByMenu(menuId, currentId int64) (int, error) {
+func (e *SysMenu) updateCasbinByMenu(menuId int64, tx *gorm.DB, cb *casbin.SyncedEnforcer) (int, error) {
 	data, respCode, err := e.GetWithRoles(menuId)
 	if err != nil {
 		return respCode, err
 	}
-	if len(data.SysRole) > 0 {
-		for _, role := range data.SysRole {
-			roleService := NewSysRoleService(&e.Service)
-			req := dto.SysRoleUpdateReq{
-				Id:         role.Id,
-				CurrUserId: currentId,
-				RoleKey:    role.RoleKey,
-			}
-			roleService.Update()
-
-		}
+	if len(data.SysRole) <= 0 {
+		return baseLang.SuccessCode, nil
 	}
 
-}*/
+	for _, role := range data.SysRole {
+		//根据角色获取到对应的菜单
+		roleService := NewSysRoleService(&e.Service)
+		menuIds, respCode, err := roleService.GetMenuIdsByRole(role.Id)
+		if err != nil {
+			return respCode, err
+		}
+
+		//根据菜单获取每个菜单对应的api，多对多
+		var mlist = make([]models.SysMenu, 0)
+		if err = tx.Preload("SysApi").Where("id in ?", menuIds).Find(&mlist).Error; err != nil {
+			return baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+		}
+		return roleService.UpdateCasbin(mlist, role.RoleKey, tx, cb)
+	}
+	return baseLang.SuccessCode, nil
+
+}
 
 // Delete admin-删除菜单管理
 func (e *SysMenu) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
@@ -458,6 +469,9 @@ func (e *SysMenu) GetList(c *dto.SysMenuQueryReq, withApi bool) ([]models.SysMen
 // GetMenuRole admin-根据角色获取菜单树使用
 func (e *SysMenu) GetMenuRole(roleKey string) ([]*models.SysMenu, int, error) {
 	menus, respCode, err := e.getByRoleKey(roleKey)
+	if err != nil {
+		return nil, respCode, err
+	}
 	return tree.GenTree(&menus,
 		func(item models.SysMenu) int64 { return item.Id },
 		func(item models.SysMenu) int64 { return item.ParentId },
