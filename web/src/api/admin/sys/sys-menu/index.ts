@@ -3,86 +3,86 @@ import { ReqPage } from "@/utils/request/interface";
 import { RouteObject } from "react-router-dom";
 
 export type RouteObjectType = Omit<RouteObject, "children"> & {
-	id?: number;
-	title?: string;
-	icon?: string;
+  id?: number;
+  title?: string;
+  icon?: string;
 	index?: false;
-	redirect?: string; //针对目录跳转，比如搜索出菜单
-	permission?: string;
-	parentIds?: string;
-	parentId?: number;
-	sort?: number;
-	menuType?: string;
-	isKeepAlive?: string;
-	isAffix?: string;
-	isHidden?: string;
-	isFrame?: string;
-	children?: RouteObjectType[];
+  redirect?: string; //针对目录跳转，比如搜索出菜单
+  permission?: string;
+  parentIds?: string;
+  parentId?: number;
+  sort?: number;
+  menuType?: string;
+  isKeepAlive?: string;
+  isAffix?: string;
+  isHidden?: string;
+  isFrame?: string;
+  children?: RouteObjectType[];
 };
 
 export interface MenuState {
-	totalMenuList: RouteObjectType[];
-	showMenuList: RouteObjectType[];
-	flatMenuList: RouteObjectType[];
+  totalMenuList: RouteObjectType[];
+  showMenuList: RouteObjectType[];
+  flatMenuList: RouteObjectType[];
 }
 
 export interface MenuModel {
-	createBy?: number;
-	createdAt?: Date;
-	element?: string;
-	icon?: string;
-	id?: number;
-	isAffix?: string;
-	isFrame?: string;
-	isHidden?: string;
-	isKeepAlive?: string;
-	menuType?: string;
-	parentId?: number;
-	parentIds?: string;
-	path?: string;
-	permission?: string;
-	redirect?: string;
-	sort?: number;
-	title?: string;
-	updateBy?: number;
-	updatedAt?: Date;
-	apis?: number[];
-	children?: MenuModel[];
+  createBy?: number;
+  createdAt?: Date;
+  element?: string;
+  icon?: string;
+  id?: number;
+  isAffix?: string;
+  isFrame?: string;
+  isHidden?: string;
+  isKeepAlive?: string;
+  menuType?: string;
+  parentId?: number;
+  parentIds?: string;
+  path?: string;
+  permission?: string;
+  redirect?: string;
+  sort?: number;
+  title?: string;
+  updateBy?: number;
+  updatedAt?: Date;
+  apis?: number[];
+  children?: MenuModel[];
 }
 
 export interface MenuTreeRole {
-	menus?: MenuModel[];
-	checkedKeys?: number[];
+  menus?: MenuModel[];
+  checkedKeys?: number[];
 }
 
 export const getMenuRoleApi = () => {
-	return request.get<MenuState["totalMenuList"]>(`/admin-api/v1/admin/sys/sys-menu/menu-role`);
+  return request.get<MenuState["totalMenuList"]>(`/admin-api/v1/admin/sys/sys-menu/menu-role`);
 };
 
 export const roleMenuTreeselectApi = (id: number) => {
-	return request.get<MenuTreeRole>(`/admin-api/v1/admin/sys/sys-menu/role-menu-tree-select/` + id);
+  return request.get<MenuTreeRole>(`/admin-api/v1/admin/sys/sys-menu/role-menu-tree-select/` + id);
 };
 
 export const getMenuListApi = (params: ReqPage) => {
-	return request.get<MenuModel[]>(`/admin-api/v1/admin/sys/sys-menu`, params);
+  return request.get<MenuModel[]>(`/admin-api/v1/admin/sys/sys-menu`, params);
 };
 
 export const getMenuApi = (id: number) => {
-	return request.get<MenuModel>(`/admin-api/v1/admin/sys/sys-menu/` + id);
+  return request.get<MenuModel>(`/admin-api/v1/admin/sys/sys-menu/` + id);
 };
 
 export const addMenuApi = (data: object) => {
-	return request.post<object>(`/admin-api/v1/admin/sys/sys-menu`, data);
+  return request.post<object>(`/admin-api/v1/admin/sys/sys-menu`, data);
 };
 
 export const updateMenuApi = (id: number, data: object) => {
-	return request.put<object>("/admin-api/v1/admin/sys/sys-menu/" + id, data);
+  return request.put<object>("/admin-api/v1/admin/sys/sys-menu/" + id, data);
 };
 
 export const delMenuApi = (params: number[]) => {
-	return request.delete<object>(`/admin-api/v1/admin/sys/sys-menu`, { ids: params });
+  return request.delete<object>(`/admin-api/v1/admin/sys/sys-menu`, { ids: params });
 };
 
 export const exportMenuApi = (query: object) => {
-	return request.download(`/admin-api/v1/admin/sys/sys-menu`, query);
+  return request.download(`/admin-api/v1/admin/sys/sys-menu`, query);
 };
