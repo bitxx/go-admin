@@ -2,10 +2,12 @@ package service
 
 import (
 	"fmt"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/xuri/excelize/v2"
 	"go-admin/app/plugins/content/models"
 	"go-admin/app/plugins/content/service/dto"
 	baseLang "go-admin/config/base/lang"
+
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
 	"go-admin/core/lang"
@@ -115,7 +117,7 @@ func (e *ContentAnnouncement) Insert(c *dto.ContentAnnouncementInsertReq) (int64
 	now := time.Now()
 	var data models.ContentAnnouncement
 	data.Title = c.Title
-	data.Content = c.Content
+	data.Content = bluemonday.UGCPolicy().Sanitize(c.Content)
 	data.Num = c.Num
 	data.Remark = c.Remark
 	data.Status = c.Status
@@ -164,7 +166,7 @@ func (e *ContentAnnouncement) Update(c *dto.ContentAnnouncementUpdateReq, p *mid
 		updates["title"] = c.Title
 	}
 	if c.Content != "" && data.Content != c.Content {
-		updates["content"] = c.Content
+		updates["content"] = bluemonday.UGCPolicy().Sanitize(c.Content)
 	}
 	if c.Num > 0 && data.Num != c.Num {
 		updates["num"] = c.Num
