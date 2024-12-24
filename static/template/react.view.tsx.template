@@ -3,7 +3,7 @@
 {{- if and (or (eq .IsList "1") (eq .IsQuery "1")) (ne .DictType "" ) }}{{ $hasDict = true }}{{- end }}
 {{- end }}
 {{- if eq $hasDict true }}
-import { getDictOptions, getDictsApi } from "@/api/admin/sys/dictdata";
+import { getDictOptions, getDictsApi } from "@/api/admin/sys/sys-dictdata";
 {{- end }}
 import HocAuth from "@/components/HocAuth";
 import { del{{.ClassName}}Api, {{.ClassName}}Model, export{{.ClassName}}Api, get{{.ClassName}}PageApi } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";

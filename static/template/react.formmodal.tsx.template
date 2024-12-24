@@ -15,7 +15,7 @@
 {{- end }}
 {{- end }}
 {{- if eq $hasDict true }}
-import { getDictOptions, getDictsApi } from "@/api/admin/sys/dictdata";
+import { getDictOptions, getDictsApi } from "@/api/admin/sys/sys-dictdata";
 {{- end }}
 import { add{{.ClassName}}Api, {{.ClassName}}Model, get{{.ClassName}}Api, update{{.ClassName}}Api } from "@/api/{{.PackageName}}/{{.BusinessName}}/{{.ModuleName}}";
 import LoadingButton from "@/components/LoadingButton";
