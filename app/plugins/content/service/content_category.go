@@ -156,7 +156,7 @@ func (e *ContentCategory) Update(c *dto.ContentCategoryUpdateReq, p *middleware.
 			return false, respCode, err
 		}
 		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
-			return false, baseLang.SysDictDataValueExistCode, lang.MsgErr(baseLang.SysDictDataValueExistCode, e.Lang)
+			return false, baseLang.PluginsCategoryNameHasUsedCode, lang.MsgErr(baseLang.PluginsCategoryNameHasUsedCode, e.Lang)
 		}
 		updates["name"] = c.Name
 	}

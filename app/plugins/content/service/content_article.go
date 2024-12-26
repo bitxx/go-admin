@@ -181,7 +181,7 @@ func (e *ContentArticle) Update(c *dto.ContentArticleUpdateReq, p *middleware.Da
 			return false, respCode, err
 		}
 		if respCode == baseLang.SuccessCode && resp.Id != data.Id {
-			return false, baseLang.SysDictDataValueExistCode, lang.MsgErr(baseLang.SysDictDataValueExistCode, e.Lang)
+			return false, baseLang.PluginsArticleNameHasUsedCode, lang.MsgErr(baseLang.PluginsArticleNameHasUsedCode, e.Lang)
 		}
 		updates["name"] = c.Name
 	}
