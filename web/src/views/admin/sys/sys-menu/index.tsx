@@ -171,7 +171,7 @@ const Menu: React.FC = () => {
   };
 
   const handleFormDrawerConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   const handleDelete = (id: number, done: () => void) => {
@@ -192,7 +192,7 @@ const Menu: React.FC = () => {
             message.error(msg);
             return;
           }
-          actionRef.current?.reload(true);
+          actionRef.current?.reload(false);
           message.success(msg);
         } finally {
           done();

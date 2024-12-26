@@ -183,11 +183,11 @@ const Role: React.FC = () => {
   };
 
   const handleFormModalConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   const handleDataScopeFormModalConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   const handleStatusChange = async (checked: boolean, record: RoleModel, action: any) => {
@@ -218,7 +218,7 @@ const Role: React.FC = () => {
             message.error(msg);
             return;
           }
-          actionRef.current?.reload(true);
+          actionRef.current?.reload(false);
           message.success(msg);
         } finally {
           done();

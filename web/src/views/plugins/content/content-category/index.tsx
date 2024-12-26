@@ -119,7 +119,7 @@ const ContentCategory: React.FC = () => {
   };
 
   const handleFormModalConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   const handleExport = (done: () => void) => {
@@ -163,7 +163,7 @@ const ContentCategory: React.FC = () => {
             message.error(msg);
             return;
           }
-          actionRef.current?.reload(true);
+          actionRef.current?.reload(false);
           message.success(msg);
         } finally {
           done();

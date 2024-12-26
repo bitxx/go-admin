@@ -155,7 +155,7 @@ const Post: React.FC = () => {
   };
 
   const handleFormModalConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   const handleExport = (done: () => void) => {
@@ -199,7 +199,7 @@ const Post: React.FC = () => {
             message.error(msg);
             return;
           }
-          actionRef.current?.reload(true);
+          actionRef.current?.reload(false);
           message.success(msg);
         } finally {
           done();

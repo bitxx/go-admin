@@ -210,7 +210,7 @@ const User: React.FC = () => {
   };
 
   const handleFormModalConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   const handleExport = (done: () => void) => {

@@ -29,7 +29,7 @@ const DictData: React.FC = () => {
   };
 
   const handleFormModalConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   // 定义列
@@ -149,7 +149,7 @@ const DictData: React.FC = () => {
             message.error(msg);
             return;
           }
-          actionRef.current?.reload(true);
+          actionRef.current?.reload(false);
           message.success(msg);
         } finally {
           done();

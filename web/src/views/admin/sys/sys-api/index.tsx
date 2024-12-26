@@ -210,7 +210,7 @@ const Api: React.FC = () => {
   };
 
   const handleFormModalConfirm = () => {
-    actionRef.current?.reload(true);
+    actionRef.current?.reload(false);
   };
 
   const handleExport = (done: () => void) => {
@@ -254,7 +254,7 @@ const Api: React.FC = () => {
             message.error(msg);
             return;
           }
-          actionRef.current?.reload(true);
+          actionRef.current?.reload(false);
           message.success(msg);
         } finally {
           done();
@@ -283,7 +283,7 @@ const Api: React.FC = () => {
             return;
           }
           message.success("同步完成！");
-          actionRef.current?.reload(true);
+          actionRef.current?.reload(false);
         } finally {
           done();
         }
