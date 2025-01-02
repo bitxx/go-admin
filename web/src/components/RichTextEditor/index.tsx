@@ -79,7 +79,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 					value={html}
 					onCreated={currentEditor => setEditor(currentEditor)} // 编辑器创建时保存实例
 					style={{
-						minHeight: "200px",
+						height: "325px", // 不得小于325px这高度，否则控制台会警告
 						border: "1px solid #ccc", // 边框，增强可见性
 						padding: "10px", // 增加内边距
 						...editorStyle
