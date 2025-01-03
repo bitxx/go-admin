@@ -45,22 +45,17 @@ const Menu: React.FC = () => {
       hideInSearch: true,
       valueType: "select",
       valueEnum: menuTypeOptions,
+      fieldProps: {
+        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
+      },
       width: 80,
       align: "left"
     },
     {
-      title: "权限标识",
-      dataIndex: "permission",
+      title: "排序",
+      dataIndex: "sort",
       hideInSearch: true,
-      width: 350,
-      align: "left"
-    },
-    {
-      title: "是否隐藏",
-      dataIndex: "isHidden",
-      valueType: "select",
-      valueEnum: isHiddenOptions,
-      width: 80,
+      width: 50,
       align: "left"
     },
     {
@@ -78,10 +73,21 @@ const Menu: React.FC = () => {
       align: "left"
     },
     {
-      title: "排序",
-      dataIndex: "sort",
+      title: "权限标识",
+      dataIndex: "permission",
       hideInSearch: true,
-      width: 50,
+      width: 350,
+      align: "left"
+    },
+    {
+      title: "是否隐藏",
+      dataIndex: "isHidden",
+      valueType: "select",
+      valueEnum: isHiddenOptions,
+      fieldProps: {
+        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
+      },
+      width: 80,
       align: "left"
     },
     {

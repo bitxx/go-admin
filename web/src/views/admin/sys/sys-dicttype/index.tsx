@@ -74,7 +74,11 @@ const DictType: React.FC = () => {
       dataIndex: "dictType",
       width: 220,
       render: text => (
-        <Tooltip title="点击查看详情">
+        <Tooltip
+          title="点击查看详情"
+          placement="top"
+          getPopupContainer={triggerNode => triggerNode.parentElement || document.body}
+        >
           <Button type="link" style={{ padding: 0 }}>
             {text}
           </Button>
@@ -104,7 +108,10 @@ const DictType: React.FC = () => {
       dataIndex: "createTime",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) }
+      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) },
+      fieldProps: {
+        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
+      }
     },
     {
       title: "操作",

@@ -92,7 +92,7 @@ const User: React.FC = () => {
     {
       title: "等级类型",
       dataIndex: "levelType",
-      valueType: "select", // 保证筛选框显示为下拉框
+      valueType: "select",
       width: 80,
       align: "left",
       hideInSearch: true,
@@ -139,6 +139,9 @@ const User: React.FC = () => {
       dataIndex: "status",
       valueType: "select",
       valueEnum: statusOptions,
+      fieldProps: {
+        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
+      },
       width: 80,
       align: "left"
     },
@@ -155,7 +158,10 @@ const User: React.FC = () => {
       dataIndex: "createdAt",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) }
+      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) },
+      fieldProps: {
+        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
+      }
     },
     {
       title: "操作",

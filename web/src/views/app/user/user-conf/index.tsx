@@ -74,6 +74,9 @@ const UserConf: React.FC = () => {
       dataIndex: "canLogin",
       valueType: "select",
       valueEnum: canLoginOptions,
+      fieldProps: {
+        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
+      },
       width: 120,
       align: "left"
     },
@@ -90,7 +93,10 @@ const UserConf: React.FC = () => {
       dataIndex: "createdAt",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) }
+      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) },
+      fieldProps: {
+        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
+      }
     },
     {
       title: "操作",
