@@ -66,9 +66,6 @@ const {{.ClassName}}: React.FC = () => {
       {{- if ne .DictType "" }}
       valueType: "select",
       valueEnum: {{.JsonField}}Options,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       {{- end }}
       {{- if eq .HtmlType "datetime"  }}
       width: 180,
@@ -86,10 +83,7 @@ const {{.ClassName}}: React.FC = () => {
       dataIndex: "{{.JsonField}}",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ begin{{.GoField}}: value[0], end{{.GoField}}: value[1] }) },
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
-      }
+      search: { transform: value => ({ begin{{.GoField}}: value[0], end{{.GoField}}: value[1] }) }
     },
     {{- end }}
     {{- end }}
