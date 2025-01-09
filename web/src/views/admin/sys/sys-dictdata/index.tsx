@@ -93,10 +93,7 @@ const DictData: React.FC = () => {
       dataIndex: "createTime",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) },
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
-      }
+      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) }
     },
     {
       title: "操作",

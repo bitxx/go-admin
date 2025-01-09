@@ -63,9 +63,6 @@ const UserLevelSelectModal = forwardRef<UserLevelSelectModalRef, ModalProps>(({ 
       dataIndex: "levelType",
       valueType: "select",
       valueEnum: levelTypeOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 120,
       align: "left"
     },

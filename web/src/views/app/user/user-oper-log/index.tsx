@@ -73,9 +73,6 @@ const UserOperLog: React.FC = () => {
       dataIndex: "actionType",
       valueType: "select",
       valueEnum: actionTypeOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 120,
       align: "left"
     },
@@ -84,9 +81,6 @@ const UserOperLog: React.FC = () => {
       dataIndex: "byType",
       valueType: "select",
       valueEnum: byTypeOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 120,
       align: "left"
     },
@@ -117,10 +111,7 @@ const UserOperLog: React.FC = () => {
       dataIndex: "createdAt",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) },
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
-      }
+      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) }
     },
     {
       title: "更新时间",

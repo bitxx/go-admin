@@ -77,9 +77,6 @@ const ContentArticle: React.FC = () => {
       hideInSearch: true,
       valueType: "select",
       valueEnum: statusOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 120,
       align: "left"
     },
@@ -96,10 +93,7 @@ const ContentArticle: React.FC = () => {
       dataIndex: "createdAt",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) },
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
-      }
+      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) }
     },
     {
       title: "操作",

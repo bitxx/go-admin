@@ -79,9 +79,6 @@ const Api: React.FC = () => {
       dataIndex: "method",
       valueType: "select",
       valueEnum: methodOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 110,
       align: "center"
     },
@@ -116,9 +113,6 @@ const Api: React.FC = () => {
       dataIndex: "apiType",
       valueType: "select",
       valueEnum: apiTypeOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 80,
       align: "center"
     },
@@ -149,10 +143,7 @@ const Api: React.FC = () => {
       dataIndex: "createdAt",
       valueType: "dateTimeRange",
       hideInTable: true,
-      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) },
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body // 确保弹出框在合适的容器中
-      }
+      search: { transform: value => ({ beginCreatedAt: value[0], endCreatedAt: value[1] }) }
     },
     {
       title: "操作",

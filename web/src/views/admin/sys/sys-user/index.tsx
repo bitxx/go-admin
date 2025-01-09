@@ -117,9 +117,6 @@ const User: React.FC = () => {
       dataIndex: "status",
       valueType: "select",
       valueEnum: statusOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 80,
       align: "left",
       render: (text, record, index, action) => (

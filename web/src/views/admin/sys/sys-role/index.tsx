@@ -72,9 +72,6 @@ const Role: React.FC = () => {
       dataIndex: "status",
       valueType: "select",
       valueEnum: statusOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 120,
       align: "left",
       render: (text, record, index, action) => (
@@ -94,9 +91,6 @@ const Role: React.FC = () => {
       hideInSearch: true,
       valueType: "select",
       valueEnum: dataScopeOptions,
-      fieldProps: {
-        getPopupContainer: (triggerNode: { parentElement: any }) => triggerNode.parentElement || document.body
-      },
       width: 180,
       align: "left"
     },
