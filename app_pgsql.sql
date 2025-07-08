@@ -12,7 +12,7 @@
  Target Server Version : 160001 (160001)
  File Encoding         : 65001
 
- Date: 08/07/2025 16:35:01
+ Date: 08/07/2025 17:42:08
 */
 
 
@@ -23,10 +23,22 @@ DROP SEQUENCE IF EXISTS "public"."admin_sys_api_id_seq";
 CREATE SEQUENCE "public"."admin_sys_api_id_seq"
 INCREMENT 1
 MINVALUE  1
-MAXVALUE 2147483647
+MAXVALUE 9223372036854775807
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_api_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_config_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_config_id_seq";
+CREATE SEQUENCE "public"."admin_sys_config_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_config_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for admin_sys_dept_id_seq
@@ -35,7 +47,7 @@ DROP SEQUENCE IF EXISTS "public"."admin_sys_dept_id_seq";
 CREATE SEQUENCE "public"."admin_sys_dept_id_seq"
 INCREMENT 1
 MINVALUE  1
-MAXVALUE 2147483647
+MAXVALUE 9223372036854775807
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_dept_id_seq" OWNER TO "postgres";
@@ -53,6 +65,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_dict_data_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for admin_sys_dict_data_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_dict_data_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_dict_data_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_dict_data_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for admin_sys_dict_type_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."admin_sys_dict_type_id_seq";
@@ -63,6 +87,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_dict_type_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_dict_type_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_dict_type_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_dict_type_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_dict_type_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for admin_sys_gen_column_id_seq
@@ -77,6 +113,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_gen_column_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for admin_sys_gen_column_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_gen_column_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_gen_column_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_gen_column_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for admin_sys_gen_table_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."admin_sys_gen_table_id_seq";
@@ -87,6 +135,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_gen_table_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_gen_table_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_gen_table_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_gen_table_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_gen_table_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for admin_sys_login_log_id_seq
@@ -101,6 +161,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_login_log_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for admin_sys_login_log_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_login_log_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_login_log_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_login_log_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for admin_sys_menu_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."admin_sys_menu_id_seq";
@@ -111,6 +183,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_menu_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_menu_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_menu_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_menu_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_menu_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for admin_sys_oper_log_id_seq
@@ -125,6 +209,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_oper_log_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for admin_sys_oper_log_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_oper_log_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_oper_log_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_oper_log_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for admin_sys_post_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."admin_sys_post_id_seq";
@@ -135,6 +231,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_post_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_post_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_post_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_post_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_post_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for admin_sys_role_id_seq
@@ -149,6 +257,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_role_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for admin_sys_role_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_role_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_role_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_role_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for admin_sys_user_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."admin_sys_user_id_seq";
@@ -159,6 +279,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."admin_sys_user_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_user_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_user_id_seq1";
+CREATE SEQUENCE "public"."admin_sys_user_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_user_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for app_user_account_log_id_seq
@@ -173,6 +305,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."app_user_account_log_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for app_user_account_log_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_account_log_id_seq1";
+CREATE SEQUENCE "public"."app_user_account_log_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_account_log_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for app_user_conf_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."app_user_conf_id_seq";
@@ -183,6 +327,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."app_user_conf_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_conf_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_conf_id_seq1";
+CREATE SEQUENCE "public"."app_user_conf_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_conf_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for app_user_country_code_id_seq
@@ -197,6 +353,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."app_user_country_code_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for app_user_country_code_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_country_code_id_seq1";
+CREATE SEQUENCE "public"."app_user_country_code_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_country_code_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for app_user_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."app_user_id_seq";
@@ -207,6 +375,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."app_user_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_id_seq1";
+CREATE SEQUENCE "public"."app_user_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for app_user_level_id_seq
@@ -221,6 +401,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."app_user_level_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for app_user_level_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_level_id_seq1";
+CREATE SEQUENCE "public"."app_user_level_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_level_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for app_user_oper_log_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."app_user_oper_log_id_seq";
@@ -231,6 +423,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."app_user_oper_log_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_oper_log_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_oper_log_id_seq1";
+CREATE SEQUENCE "public"."app_user_oper_log_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_oper_log_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for plugins_content_announcement_id_seq
@@ -245,6 +449,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."plugins_content_announcement_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for plugins_content_announcement_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_content_announcement_id_seq1";
+CREATE SEQUENCE "public"."plugins_content_announcement_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_content_announcement_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for plugins_content_article_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."plugins_content_article_id_seq";
@@ -255,6 +471,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."plugins_content_article_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for plugins_content_article_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_content_article_id_seq1";
+CREATE SEQUENCE "public"."plugins_content_article_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_content_article_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for plugins_content_category_id_seq
@@ -269,6 +497,18 @@ CACHE 1;
 ALTER SEQUENCE "public"."plugins_content_category_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for plugins_content_category_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_content_category_id_seq1";
+CREATE SEQUENCE "public"."plugins_content_category_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_content_category_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Sequence structure for plugins_filemgr_app_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."plugins_filemgr_app_id_seq";
@@ -279,6 +519,18 @@ MAXVALUE 2147483647
 START 1
 CACHE 1;
 ALTER SEQUENCE "public"."plugins_filemgr_app_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for plugins_filemgr_app_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_filemgr_app_id_seq1";
+CREATE SEQUENCE "public"."plugins_filemgr_app_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_filemgr_app_id_seq1" OWNER TO "postgres";
 
 -- ----------------------------
 -- Sequence structure for plugins_msg_code_id_seq
@@ -293,14 +545,26 @@ CACHE 1;
 ALTER SEQUENCE "public"."plugins_msg_code_id_seq" OWNER TO "postgres";
 
 -- ----------------------------
+-- Sequence structure for plugins_msg_code_id_seq1
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_msg_code_id_seq1";
+CREATE SEQUENCE "public"."plugins_msg_code_id_seq1"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_msg_code_id_seq1" OWNER TO "postgres";
+
+-- ----------------------------
 -- Table structure for admin_sys_api
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_api";
 CREATE TABLE "public"."admin_sys_api" (
-  "id" int4 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
 INCREMENT 1
 MINVALUE  1
-MAXVALUE 2147483647
+MAXVALUE 9223372036854775807
 START 1
 CACHE 1
 ),
@@ -310,8 +574,8 @@ CACHE 1
   "method" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "remark" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying
 )
 ;
@@ -514,15 +778,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_config";
 CREATE TABLE "public"."admin_sys_config" (
-  "id" int4 NOT NULL,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "config_name" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "config_key" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "config_value" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "config_type" varchar(64) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "is_frontend" char(1) COLLATE "pg_catalog"."default" DEFAULT NULL::bpchar,
   "remark" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(6),
   "updated_at" timestamp(6)
 )
@@ -563,14 +833,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_dept";
 CREATE TABLE "public"."admin_sys_dept" (
-  "id" int4 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
 INCREMENT 1
 MINVALUE  1
-MAXVALUE 2147483647
+MAXVALUE 9223372036854775807
 START 1
 CACHE 1
 ),
-  "parent_id" int4,
+  "parent_id" int8,
   "parent_ids" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "dept_name" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "sort" int4,
@@ -578,8 +848,8 @@ CACHE 1
   "phone" varchar(20) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "email" varchar(80) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "status" int2,
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(6),
   "updated_at" timestamp(6)
 )
@@ -608,8 +878,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_dict_data";
 CREATE TABLE "public"."admin_sys_dict_data" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_dict_data_id_seq'::regclass),
-  "dict_sort" int4,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "dict_sort" int8,
   "dict_label" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "dict_value" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "dict_type" varchar(64) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
@@ -619,8 +895,8 @@ CREATE TABLE "public"."admin_sys_dict_data" (
   "status" char(1) COLLATE "pg_catalog"."default" DEFAULT NULL::bpchar,
   "default" varchar(8) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "remark" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(6),
   "updated_at" timestamp(6)
 )
@@ -734,13 +1010,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_dict_type";
 CREATE TABLE "public"."admin_sys_dict_type" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_dict_type_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "dict_name" varchar(128) COLLATE "pg_catalog"."default",
   "dict_type" varchar(128) COLLATE "pg_catalog"."default",
   "status" char(1) COLLATE "pg_catalog"."default",
   "remark" varchar(255) COLLATE "pg_catalog"."default",
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(6),
   "updated_at" timestamp(6)
 )
@@ -792,8 +1074,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_gen_column";
 CREATE TABLE "public"."admin_sys_gen_column" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_gen_column_id_seq'::regclass),
-  "table_id" int4,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "table_id" int8,
   "column_name" varchar(128) COLLATE "pg_catalog"."default",
   "column_comment" varchar(128) COLLATE "pg_catalog"."default",
   "column_type" varchar(128) COLLATE "pg_catalog"."default",
@@ -811,8 +1099,8 @@ CREATE TABLE "public"."admin_sys_gen_column" (
   "remark" varchar(255) COLLATE "pg_catalog"."default",
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
-  "create_by" int4,
-  "update_by" int4
+  "create_by" int8,
+  "update_by" int8
 )
 ;
 ALTER TABLE "public"."admin_sys_gen_column" OWNER TO "postgres";
@@ -1122,7 +1410,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_gen_table";
 CREATE TABLE "public"."admin_sys_gen_table" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_gen_table_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "table_name" varchar(255) COLLATE "pg_catalog"."default",
   "table_comment" varchar(255) COLLATE "pg_catalog"."default",
   "class_name" varchar(255) COLLATE "pg_catalog"."default",
@@ -1189,8 +1483,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_login_log";
 CREATE TABLE "public"."admin_sys_login_log" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_login_log_id_seq'::regclass),
-  "user_id" int4,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "user_id" int8,
   "ipaddr" varchar(255) COLLATE "pg_catalog"."default",
   "login_location" varchar(255) COLLATE "pg_catalog"."default",
   "browser" varchar(255) COLLATE "pg_catalog"."default",
@@ -1202,8 +1502,8 @@ CREATE TABLE "public"."admin_sys_login_log" (
   "remark" varchar(255) COLLATE "pg_catalog"."default",
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
-  "create_by" int4,
-  "update_by" int4
+  "create_by" int8,
+  "update_by" int8
 )
 ;
 ALTER TABLE "public"."admin_sys_login_log" OWNER TO "postgres";
@@ -1236,7 +1536,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_menu";
 CREATE TABLE "public"."admin_sys_menu" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_menu_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "title" varchar(128) COLLATE "pg_catalog"."default",
   "icon" varchar(128) COLLATE "pg_catalog"."default",
   "path" varchar(255) COLLATE "pg_catalog"."default",
@@ -1244,15 +1550,15 @@ CREATE TABLE "public"."admin_sys_menu" (
   "redirect" varchar(255) COLLATE "pg_catalog"."default",
   "permission" varchar(255) COLLATE "pg_catalog"."default",
   "sort" int4,
-  "parent_id" int4,
+  "parent_id" int8,
   "parent_ids" varchar(255) COLLATE "pg_catalog"."default",
   "menu_type" char(1) COLLATE "pg_catalog"."default",
   "is_keep_alive" char(1) COLLATE "pg_catalog"."default",
   "is_affix" char(1) COLLATE "pg_catalog"."default",
   "is_hidden" char(1) COLLATE "pg_catalog"."default",
   "is_frame" char(1) COLLATE "pg_catalog"."default",
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(6),
   "updated_at" timestamp(6)
 )
@@ -1413,8 +1719,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_menu_api_rule";
 CREATE TABLE "public"."admin_sys_menu_api_rule" (
-  "admin_sys_menu_menu_id" int4 NOT NULL,
-  "admin_sys_api_id" int4 NOT NULL
+  "admin_sys_menu_menu_id" int8 NOT NULL,
+  "admin_sys_api_id" int8 NOT NULL
 )
 ;
 ALTER TABLE "public"."admin_sys_menu_api_rule" OWNER TO "postgres";
@@ -1570,9 +1876,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_oper_log";
 CREATE TABLE "public"."admin_sys_oper_log" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_oper_log_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "request_method" varchar(128) COLLATE "pg_catalog"."default",
-  "user_id" int4,
+  "user_id" int8,
   "oper_url" varchar(255) COLLATE "pg_catalog"."default",
   "oper_ip" varchar(128) COLLATE "pg_catalog"."default",
   "oper_location" varchar(128) COLLATE "pg_catalog"."default",
@@ -1584,8 +1896,8 @@ CREATE TABLE "public"."admin_sys_oper_log" (
   "user_agent" varchar(255) COLLATE "pg_catalog"."default",
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
-  "create_by" int4,
-  "update_by" int4
+  "create_by" int8,
+  "update_by" int8
 )
 ;
 ALTER TABLE "public"."admin_sys_oper_log" OWNER TO "postgres";
@@ -1627,14 +1939,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_post";
 CREATE TABLE "public"."admin_sys_post" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_post_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "post_name" varchar(128) COLLATE "pg_catalog"."default",
   "post_code" varchar(128) COLLATE "pg_catalog"."default",
   "sort" int2,
   "status" char(1) COLLATE "pg_catalog"."default",
   "remark" varchar(255) COLLATE "pg_catalog"."default",
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(6),
   "updated_at" timestamp(6)
 )
@@ -1666,15 +1984,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_role";
 CREATE TABLE "public"."admin_sys_role" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_role_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "role_name" varchar(128) COLLATE "pg_catalog"."default",
   "role_key" varchar(128) COLLATE "pg_catalog"."default",
-  "role_sort" int8,
+  "role_sort" int2,
   "remark" varchar(255) COLLATE "pg_catalog"."default",
   "data_scope" varchar(128) COLLATE "pg_catalog"."default",
   "status" char(1) COLLATE "pg_catalog"."default",
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(3),
   "updated_at" timestamp(3)
 )
@@ -1700,8 +2024,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_role_dept";
 CREATE TABLE "public"."admin_sys_role_dept" (
-  "role_id" int2 NOT NULL,
-  "dept_id" int2 NOT NULL
+  "role_id" int8 NOT NULL,
+  "dept_id" int8 NOT NULL
 )
 ;
 ALTER TABLE "public"."admin_sys_role_dept" OWNER TO "postgres";
@@ -1720,8 +2044,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_role_menu";
 CREATE TABLE "public"."admin_sys_role_menu" (
-  "role_id" int4 NOT NULL,
-  "menu_id" int4 NOT NULL
+  "role_id" int8 NOT NULL,
+  "menu_id" int8 NOT NULL
 )
 ;
 ALTER TABLE "public"."admin_sys_role_menu" OWNER TO "postgres";
@@ -1748,22 +2072,28 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."admin_sys_user";
 CREATE TABLE "public"."admin_sys_user" (
-  "id" int4 NOT NULL DEFAULT nextval('admin_sys_user_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "username" varchar(64) COLLATE "pg_catalog"."C",
   "password" varchar(128) COLLATE "pg_catalog"."C",
   "nick_name" varchar(128) COLLATE "pg_catalog"."C",
   "phone" varchar(11) COLLATE "pg_catalog"."C",
-  "role_id" int4,
+  "role_id" int8,
   "salt" varchar(255) COLLATE "pg_catalog"."C",
   "avatar" varchar(255) COLLATE "pg_catalog"."C",
   "sex" char(1) COLLATE "pg_catalog"."C",
   "email" varchar(128) COLLATE "pg_catalog"."C",
-  "dept_id" int4,
-  "post_id" int4,
+  "dept_id" int8,
+  "post_id" int8,
   "remark" varchar(255) COLLATE "pg_catalog"."C",
   "status" varchar(4) COLLATE "pg_catalog"."C",
-  "create_by" int4,
-  "update_by" int4,
+  "create_by" int8,
+  "update_by" int8,
   "created_at" timestamp(6),
   "updated_at" timestamp(6)
 )
@@ -1802,8 +2132,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."app_user";
 CREATE TABLE "public"."app_user" (
-  "id" int4 NOT NULL DEFAULT nextval('app_user_id_seq'::regclass),
-  "level_id" int4 NOT NULL DEFAULT 1,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "level_id" int8 NOT NULL DEFAULT 1,
   "user_name" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
   "true_name" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
   "money" numeric(30,18) NOT NULL DEFAULT 0,
@@ -1814,16 +2150,16 @@ CREATE TABLE "public"."app_user" (
   "pay_pwd" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
   "pwd" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
   "ref_code" varchar(255) COLLATE "pg_catalog"."C",
-  "parent_id" int4 NOT NULL DEFAULT 0,
+  "parent_id" int8 NOT NULL DEFAULT 0,
   "parent_ids" varchar(1000) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
-  "tree_sort" int4 NOT NULL DEFAULT 0,
+  "tree_sort" int2 NOT NULL DEFAULT 0,
   "tree_sorts" varchar(1000) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::character varying,
   "tree_leaf" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
-  "tree_level" int4 NOT NULL DEFAULT 0,
+  "tree_level" int2 NOT NULL DEFAULT 0,
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
   "remark" varchar(500) COLLATE "pg_catalog"."C",
-  "create_by" int4 NOT NULL DEFAULT 0,
-  "update_by" int4 NOT NULL DEFAULT 0,
+  "create_by" int8 NOT NULL DEFAULT 0,
+  "update_by" int8 NOT NULL DEFAULT 0,
   "created_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
@@ -1869,17 +2205,23 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."app_user_account_log";
 CREATE TABLE "public"."app_user_account_log" (
-  "id" int4 NOT NULL DEFAULT nextval('app_user_account_log_id_seq'::regclass),
-  "user_id" int4 NOT NULL,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "user_id" int8 NOT NULL,
   "change_money" numeric(10,2) NOT NULL DEFAULT 0.00,
   "before_money" numeric(30,18) NOT NULL DEFAULT 0.000000000000000000,
   "after_money" numeric(30,18) NOT NULL DEFAULT 0.000000000000000000,
   "money_type" char(10) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '1'::bpchar,
   "change_type" varchar(30) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '1'::character varying,
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL,
-  "create_by" int4 NOT NULL,
+  "create_by" int8 NOT NULL,
   "created_at" timestamp(6) NOT NULL,
-  "update_by" int4 NOT NULL,
+  "update_by" int8 NOT NULL,
   "updated_date" timestamp(6) NOT NULL,
   "remarks" varchar(500) COLLATE "pg_catalog"."C"
 )
@@ -1920,13 +2262,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."app_user_conf";
 CREATE TABLE "public"."app_user_conf" (
-  "id" int4 NOT NULL DEFAULT nextval('app_user_conf_id_seq'::regclass),
-  "user_id" int4 NOT NULL,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "user_id" int8 NOT NULL,
   "can_login" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
-  "create_by" int4 NOT NULL DEFAULT 0,
-  "update_by" int4 NOT NULL DEFAULT 0,
+  "create_by" int8 NOT NULL DEFAULT 0,
+  "update_by" int8 NOT NULL DEFAULT 0,
   "created_at" timestamp(6) NOT NULL,
   "updated_at" timestamp(6) NOT NULL
 )
@@ -1957,13 +2305,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."app_user_country_code";
 CREATE TABLE "public"."app_user_country_code" (
-  "id" int4 NOT NULL DEFAULT nextval('app_user_country_code_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "country" varchar(64) COLLATE "pg_catalog"."default" NOT NULL DEFAULT ''::character varying,
   "code" varchar(12) COLLATE "pg_catalog"."default" NOT NULL DEFAULT ''::character varying,
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
   "remark" varchar(500) COLLATE "pg_catalog"."C",
-  "create_by" int4 NOT NULL DEFAULT 0,
-  "update_by" int4 NOT NULL DEFAULT 0,
+  "create_by" int8 NOT NULL DEFAULT 0,
+  "update_by" int8 NOT NULL DEFAULT 0,
   "created_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
@@ -2003,14 +2357,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."app_user_level";
 CREATE TABLE "public"."app_user_level" (
-  "id" int4 NOT NULL DEFAULT nextval('app_user_level_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "level_type" varchar(10) COLLATE "pg_catalog"."default",
   "level" int4 NOT NULL,
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
   "remark" varchar(500) COLLATE "pg_catalog"."C",
-  "create_by" int4 NOT NULL DEFAULT 0,
-  "update_by" int4 NOT NULL DEFAULT 0,
+  "create_by" int8 NOT NULL DEFAULT 0,
+  "update_by" int8 NOT NULL DEFAULT 0,
   "created_at" timestamp(6) NOT NULL,
   "updated_at" timestamp(6) NOT NULL
 )
@@ -2041,13 +2401,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."app_user_oper_log";
 CREATE TABLE "public"."app_user_oper_log" (
-  "id" int4 NOT NULL DEFAULT nextval('app_user_oper_log_id_seq'::regclass),
-  "user_id" int4 NOT NULL DEFAULT 1,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "user_id" int8 NOT NULL DEFAULT 1,
   "action_type" char(2) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::bpchar,
   "by_type" char(2) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::bpchar,
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
-  "create_by" int4 NOT NULL DEFAULT 0,
-  "update_by" int4 NOT NULL DEFAULT 0,
+  "create_by" int8 NOT NULL DEFAULT 0,
+  "update_by" int8 NOT NULL DEFAULT 0,
   "created_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "remark" varchar(500) COLLATE "pg_catalog"."C"
@@ -2084,14 +2450,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."plugins_content_announcement";
 CREATE TABLE "public"."plugins_content_announcement" (
-  "id" int4 NOT NULL DEFAULT nextval('plugins_content_announcement_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "title" varchar(255) COLLATE "pg_catalog"."C",
   "content" text COLLATE "pg_catalog"."C",
-  "num" int4,
+  "num" int8,
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
-  "create_by" int4 NOT NULL,
-  "update_by" int4 NOT NULL,
+  "create_by" int8 NOT NULL,
+  "update_by" int8 NOT NULL,
   "updated_at" timestamp(6) NOT NULL,
   "created_at" timestamp(6) NOT NULL
 )
@@ -2122,14 +2494,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."plugins_content_article";
 CREATE TABLE "public"."plugins_content_article" (
-  "id" int4 NOT NULL DEFAULT nextval('plugins_content_article_id_seq'::regclass),
-  "cate_id" int4,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "cate_id" int8,
   "name" varchar(255) COLLATE "pg_catalog"."C",
   "content" text COLLATE "pg_catalog"."C",
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
-  "create_by" int4 NOT NULL,
-  "update_by" int4 NOT NULL,
+  "create_by" int8 NOT NULL,
+  "update_by" int8 NOT NULL,
   "updated_at" timestamp(6) NOT NULL,
   "created_at" timestamp(6) NOT NULL
 )
@@ -2159,12 +2537,18 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."plugins_content_category";
 CREATE TABLE "public"."plugins_content_category" (
-  "id" int4 NOT NULL DEFAULT nextval('plugins_content_category_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "name" varchar(255) COLLATE "pg_catalog"."C",
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
   "remark" varchar(500) COLLATE "pg_catalog"."C",
-  "create_by" int4 NOT NULL,
-  "update_by" int4 NOT NULL,
+  "create_by" int8 NOT NULL,
+  "update_by" int8 NOT NULL,
   "updated_at" timestamp(6) NOT NULL,
   "created_at" timestamp(6) NOT NULL
 )
@@ -2194,7 +2578,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."plugins_filemgr_app";
 CREATE TABLE "public"."plugins_filemgr_app" (
-  "id" int4 NOT NULL DEFAULT nextval('plugins_filemgr_app_id_seq'::regclass),
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
   "version" varchar(100) COLLATE "pg_catalog"."C",
   "platform" char(1) COLLATE "pg_catalog"."C",
   "app_type" char(1) COLLATE "pg_catalog"."C",
@@ -2203,9 +2593,9 @@ CREATE TABLE "public"."plugins_filemgr_app" (
   "download_url" varchar(255) COLLATE "pg_catalog"."C",
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL,
-  "create_by" int4 NOT NULL,
+  "create_by" int8 NOT NULL,
   "created_at" timestamp(6) NOT NULL,
-  "update_by" int4 NOT NULL,
+  "update_by" int8 NOT NULL,
   "updated_at" timestamp(6) NOT NULL
 )
 ;
@@ -2240,14 +2630,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."plugins_msg_code";
 CREATE TABLE "public"."plugins_msg_code" (
-  "id" int4 NOT NULL DEFAULT nextval('plugins_msg_code_id_seq'::regclass),
-  "user_id" int4 NOT NULL,
+  "id" int8 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1
+),
+  "user_id" int8 NOT NULL,
   "code" varchar(12) COLLATE "pg_catalog"."default" NOT NULL DEFAULT '0'::character varying,
   "code_type" char(1) COLLATE "pg_catalog"."default" NOT NULL DEFAULT '0'::bpchar,
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
-  "create_by" int4 NOT NULL DEFAULT 0,
-  "update_by" int4 NOT NULL DEFAULT 0,
+  "create_by" int8 NOT NULL DEFAULT 0,
+  "update_by" int8 NOT NULL DEFAULT 0,
   "created_at" timestamp(6) NOT NULL,
   "updated_at" timestamp(6) NOT NULL
 )
@@ -2281,6 +2677,13 @@ SELECT setval('"public"."admin_sys_api_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_config_id_seq"
+OWNED BY "public"."admin_sys_config"."id";
+SELECT setval('"public"."admin_sys_config_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."admin_sys_dept_id_seq"
 OWNED BY "public"."admin_sys_dept"."id";
 SELECT setval('"public"."admin_sys_dept_id_seq"', 1, false);
@@ -2295,9 +2698,23 @@ SELECT setval('"public"."admin_sys_dict_data_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_dict_data_id_seq1"
+OWNED BY "public"."admin_sys_dict_data"."id";
+SELECT setval('"public"."admin_sys_dict_data_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."admin_sys_dict_type_id_seq"
 OWNED BY "public"."admin_sys_dict_type"."id";
 SELECT setval('"public"."admin_sys_dict_type_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_dict_type_id_seq1"
+OWNED BY "public"."admin_sys_dict_type"."id";
+SELECT setval('"public"."admin_sys_dict_type_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2309,9 +2726,23 @@ SELECT setval('"public"."admin_sys_gen_column_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_gen_column_id_seq1"
+OWNED BY "public"."admin_sys_gen_column"."id";
+SELECT setval('"public"."admin_sys_gen_column_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."admin_sys_gen_table_id_seq"
 OWNED BY "public"."admin_sys_gen_table"."id";
 SELECT setval('"public"."admin_sys_gen_table_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_gen_table_id_seq1"
+OWNED BY "public"."admin_sys_gen_table"."id";
+SELECT setval('"public"."admin_sys_gen_table_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2323,9 +2754,23 @@ SELECT setval('"public"."admin_sys_login_log_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_login_log_id_seq1"
+OWNED BY "public"."admin_sys_login_log"."id";
+SELECT setval('"public"."admin_sys_login_log_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."admin_sys_menu_id_seq"
 OWNED BY "public"."admin_sys_menu"."id";
 SELECT setval('"public"."admin_sys_menu_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_menu_id_seq1"
+OWNED BY "public"."admin_sys_menu"."id";
+SELECT setval('"public"."admin_sys_menu_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2337,9 +2782,23 @@ SELECT setval('"public"."admin_sys_oper_log_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_oper_log_id_seq1"
+OWNED BY "public"."admin_sys_oper_log"."id";
+SELECT setval('"public"."admin_sys_oper_log_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."admin_sys_post_id_seq"
 OWNED BY "public"."admin_sys_post"."id";
 SELECT setval('"public"."admin_sys_post_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_post_id_seq1"
+OWNED BY "public"."admin_sys_post"."id";
+SELECT setval('"public"."admin_sys_post_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2351,9 +2810,23 @@ SELECT setval('"public"."admin_sys_role_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_role_id_seq1"
+OWNED BY "public"."admin_sys_role"."id";
+SELECT setval('"public"."admin_sys_role_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."admin_sys_user_id_seq"
 OWNED BY "public"."admin_sys_user"."id";
 SELECT setval('"public"."admin_sys_user_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_user_id_seq1"
+OWNED BY "public"."admin_sys_user"."id";
+SELECT setval('"public"."admin_sys_user_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2365,9 +2838,23 @@ SELECT setval('"public"."app_user_account_log_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."app_user_account_log_id_seq1"
+OWNED BY "public"."app_user_account_log"."id";
+SELECT setval('"public"."app_user_account_log_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."app_user_conf_id_seq"
 OWNED BY "public"."app_user_conf"."id";
 SELECT setval('"public"."app_user_conf_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_conf_id_seq1"
+OWNED BY "public"."app_user_conf"."id";
+SELECT setval('"public"."app_user_conf_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2379,9 +2866,23 @@ SELECT setval('"public"."app_user_country_code_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."app_user_country_code_id_seq1"
+OWNED BY "public"."app_user_country_code"."id";
+SELECT setval('"public"."app_user_country_code_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."app_user_id_seq"
 OWNED BY "public"."app_user"."id";
 SELECT setval('"public"."app_user_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_id_seq1"
+OWNED BY "public"."app_user"."id";
+SELECT setval('"public"."app_user_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2393,9 +2894,23 @@ SELECT setval('"public"."app_user_level_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."app_user_level_id_seq1"
+OWNED BY "public"."app_user_level"."id";
+SELECT setval('"public"."app_user_level_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."app_user_oper_log_id_seq"
 OWNED BY "public"."app_user_oper_log"."id";
 SELECT setval('"public"."app_user_oper_log_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_oper_log_id_seq1"
+OWNED BY "public"."app_user_oper_log"."id";
+SELECT setval('"public"."app_user_oper_log_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2407,9 +2922,23 @@ SELECT setval('"public"."plugins_content_announcement_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."plugins_content_announcement_id_seq1"
+OWNED BY "public"."plugins_content_announcement"."id";
+SELECT setval('"public"."plugins_content_announcement_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."plugins_content_article_id_seq"
 OWNED BY "public"."plugins_content_article"."id";
 SELECT setval('"public"."plugins_content_article_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."plugins_content_article_id_seq1"
+OWNED BY "public"."plugins_content_article"."id";
+SELECT setval('"public"."plugins_content_article_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -2421,6 +2950,13 @@ SELECT setval('"public"."plugins_content_category_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."plugins_content_category_id_seq1"
+OWNED BY "public"."plugins_content_category"."id";
+SELECT setval('"public"."plugins_content_category_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."plugins_filemgr_app_id_seq"
 OWNED BY "public"."plugins_filemgr_app"."id";
 SELECT setval('"public"."plugins_filemgr_app_id_seq"', 1, false);
@@ -2428,9 +2964,23 @@ SELECT setval('"public"."plugins_filemgr_app_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
+ALTER SEQUENCE "public"."plugins_filemgr_app_id_seq1"
+OWNED BY "public"."plugins_filemgr_app"."id";
+SELECT setval('"public"."plugins_filemgr_app_id_seq1"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
 ALTER SEQUENCE "public"."plugins_msg_code_id_seq"
 OWNED BY "public"."plugins_msg_code"."id";
 SELECT setval('"public"."plugins_msg_code_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."plugins_msg_code_id_seq1"
+OWNED BY "public"."plugins_msg_code"."id";
+SELECT setval('"public"."plugins_msg_code_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Auto increment value for admin_sys_api
@@ -2448,6 +2998,11 @@ ALTER TABLE "public"."admin_sys_api" ADD CONSTRAINT "admin_sys_api_pkey" PRIMARY
 ALTER TABLE "public"."admin_sys_casbin_rule" ADD CONSTRAINT "idx_admin_sys_casbin_rule" UNIQUE ("p_type", "v0", "v1", "v2", "v3", "v4", "v5");
 
 -- ----------------------------
+-- Auto increment value for admin_sys_config
+-- ----------------------------
+SELECT setval('"public"."admin_sys_config_id_seq"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table admin_sys_config
 -- ----------------------------
 ALTER TABLE "public"."admin_sys_config" ADD CONSTRAINT "admin_sys_config_pkey" PRIMARY KEY ("id");
@@ -2463,9 +3018,19 @@ SELECT setval('"public"."admin_sys_dept_id_seq"', 1, false);
 ALTER TABLE "public"."admin_sys_dept" ADD CONSTRAINT "admin_sys_dept_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for admin_sys_dict_data
+-- ----------------------------
+SELECT setval('"public"."admin_sys_dict_data_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table admin_sys_dict_data
 -- ----------------------------
 ALTER TABLE "public"."admin_sys_dict_data" ADD CONSTRAINT "admin_sys_dict_data_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for admin_sys_dict_type
+-- ----------------------------
+SELECT setval('"public"."admin_sys_dict_type_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table admin_sys_dict_type
@@ -2473,9 +3038,19 @@ ALTER TABLE "public"."admin_sys_dict_data" ADD CONSTRAINT "admin_sys_dict_data_p
 ALTER TABLE "public"."admin_sys_dict_type" ADD CONSTRAINT "admin_sys_dict_type_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for admin_sys_gen_column
+-- ----------------------------
+SELECT setval('"public"."admin_sys_gen_column_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table admin_sys_gen_column
 -- ----------------------------
 ALTER TABLE "public"."admin_sys_gen_column" ADD CONSTRAINT "admin_sys_gen_column_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for admin_sys_gen_table
+-- ----------------------------
+SELECT setval('"public"."admin_sys_gen_table_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table admin_sys_gen_table
@@ -2483,9 +3058,19 @@ ALTER TABLE "public"."admin_sys_gen_column" ADD CONSTRAINT "admin_sys_gen_column
 ALTER TABLE "public"."admin_sys_gen_table" ADD CONSTRAINT "admin_sys_gen_table_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for admin_sys_login_log
+-- ----------------------------
+SELECT setval('"public"."admin_sys_login_log_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table admin_sys_login_log
 -- ----------------------------
 ALTER TABLE "public"."admin_sys_login_log" ADD CONSTRAINT "admin_sys_login_log_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for admin_sys_menu
+-- ----------------------------
+SELECT setval('"public"."admin_sys_menu_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table admin_sys_menu
@@ -2498,14 +3083,29 @@ ALTER TABLE "public"."admin_sys_menu" ADD CONSTRAINT "admin_sys_menu_pkey" PRIMA
 ALTER TABLE "public"."admin_sys_menu_api_rule" ADD CONSTRAINT "admin_sys_menu_api_rule_pkey" PRIMARY KEY ("admin_sys_menu_menu_id", "admin_sys_api_id");
 
 -- ----------------------------
+-- Auto increment value for admin_sys_oper_log
+-- ----------------------------
+SELECT setval('"public"."admin_sys_oper_log_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table admin_sys_oper_log
 -- ----------------------------
 ALTER TABLE "public"."admin_sys_oper_log" ADD CONSTRAINT "admin_sys_oper_log_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for admin_sys_post
+-- ----------------------------
+SELECT setval('"public"."admin_sys_post_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table admin_sys_post
 -- ----------------------------
 ALTER TABLE "public"."admin_sys_post" ADD CONSTRAINT "admin_sys_post_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for admin_sys_role
+-- ----------------------------
+SELECT setval('"public"."admin_sys_role_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table admin_sys_role
@@ -2523,14 +3123,29 @@ ALTER TABLE "public"."admin_sys_role_dept" ADD CONSTRAINT "admin_sys_role_dept_p
 ALTER TABLE "public"."admin_sys_role_menu" ADD CONSTRAINT "admin_sys_role_menu_pkey" PRIMARY KEY ("role_id", "menu_id");
 
 -- ----------------------------
+-- Auto increment value for admin_sys_user
+-- ----------------------------
+SELECT setval('"public"."admin_sys_user_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table admin_sys_user
 -- ----------------------------
 ALTER TABLE "public"."admin_sys_user" ADD CONSTRAINT "admin_sys_user_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for app_user
+-- ----------------------------
+SELECT setval('"public"."app_user_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table app_user
 -- ----------------------------
 ALTER TABLE "public"."app_user" ADD CONSTRAINT "app_user_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for app_user_account_log
+-- ----------------------------
+SELECT setval('"public"."app_user_account_log_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Indexes structure for table app_user_account_log
@@ -2545,9 +3160,19 @@ CREATE INDEX "idx_qyc_user_status" ON "public"."app_user_account_log" USING btre
 ALTER TABLE "public"."app_user_account_log" ADD CONSTRAINT "app_user_account_log_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for app_user_conf
+-- ----------------------------
+SELECT setval('"public"."app_user_conf_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table app_user_conf
 -- ----------------------------
 ALTER TABLE "public"."app_user_conf" ADD CONSTRAINT "app_user_conf_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for app_user_country_code
+-- ----------------------------
+SELECT setval('"public"."app_user_country_code_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table app_user_country_code
@@ -2555,9 +3180,19 @@ ALTER TABLE "public"."app_user_conf" ADD CONSTRAINT "app_user_conf_pkey" PRIMARY
 ALTER TABLE "public"."app_user_country_code" ADD CONSTRAINT "app_user_country_code_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for app_user_level
+-- ----------------------------
+SELECT setval('"public"."app_user_level_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table app_user_level
 -- ----------------------------
 ALTER TABLE "public"."app_user_level" ADD CONSTRAINT "app_user_level_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for app_user_oper_log
+-- ----------------------------
+SELECT setval('"public"."app_user_oper_log_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table app_user_oper_log
@@ -2565,9 +3200,19 @@ ALTER TABLE "public"."app_user_level" ADD CONSTRAINT "app_user_level_pkey" PRIMA
 ALTER TABLE "public"."app_user_oper_log" ADD CONSTRAINT "app_user_oper_log_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for plugins_content_announcement
+-- ----------------------------
+SELECT setval('"public"."plugins_content_announcement_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table plugins_content_announcement
 -- ----------------------------
 ALTER TABLE "public"."plugins_content_announcement" ADD CONSTRAINT "plugins_content_announcement_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for plugins_content_article
+-- ----------------------------
+SELECT setval('"public"."plugins_content_article_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table plugins_content_article
@@ -2575,14 +3220,29 @@ ALTER TABLE "public"."plugins_content_announcement" ADD CONSTRAINT "plugins_cont
 ALTER TABLE "public"."plugins_content_article" ADD CONSTRAINT "plugins_content_article_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for plugins_content_category
+-- ----------------------------
+SELECT setval('"public"."plugins_content_category_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table plugins_content_category
 -- ----------------------------
 ALTER TABLE "public"."plugins_content_category" ADD CONSTRAINT "plugins_content_category_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Auto increment value for plugins_filemgr_app
+-- ----------------------------
+SELECT setval('"public"."plugins_filemgr_app_id_seq1"', 1, false);
+
+-- ----------------------------
 -- Primary Key structure for table plugins_filemgr_app
 -- ----------------------------
 ALTER TABLE "public"."plugins_filemgr_app" ADD CONSTRAINT "plugins_filemgr_app_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for plugins_msg_code
+-- ----------------------------
+SELECT setval('"public"."plugins_msg_code_id_seq1"', 1, false);
 
 -- ----------------------------
 -- Primary Key structure for table plugins_msg_code
