@@ -1,0 +1,2602 @@
+/*
+ Navicat Premium Dump SQL
+
+ Source Server         : my-server
+ Source Server Type    : PostgreSQL
+ Source Server Version : 160001 (160001)
+ Source Host           : 127.0.0.1:5432
+ Source Catalog        : go-admin
+ Source Schema         : public
+
+ Target Server Type    : PostgreSQL
+ Target Server Version : 160001 (160001)
+ File Encoding         : 65001
+
+ Date: 08/07/2025 16:35:01
+*/
+
+
+-- ----------------------------
+-- Sequence structure for admin_sys_api_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_api_id_seq";
+CREATE SEQUENCE "public"."admin_sys_api_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_api_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_dept_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_dept_id_seq";
+CREATE SEQUENCE "public"."admin_sys_dept_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_dept_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_dict_data_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_dict_data_id_seq";
+CREATE SEQUENCE "public"."admin_sys_dict_data_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_dict_data_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_dict_type_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_dict_type_id_seq";
+CREATE SEQUENCE "public"."admin_sys_dict_type_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_dict_type_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_gen_column_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_gen_column_id_seq";
+CREATE SEQUENCE "public"."admin_sys_gen_column_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_gen_column_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_gen_table_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_gen_table_id_seq";
+CREATE SEQUENCE "public"."admin_sys_gen_table_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_gen_table_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_login_log_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_login_log_id_seq";
+CREATE SEQUENCE "public"."admin_sys_login_log_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_login_log_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_menu_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_menu_id_seq";
+CREATE SEQUENCE "public"."admin_sys_menu_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_menu_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_oper_log_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_oper_log_id_seq";
+CREATE SEQUENCE "public"."admin_sys_oper_log_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_oper_log_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_post_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_post_id_seq";
+CREATE SEQUENCE "public"."admin_sys_post_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_post_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_role_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_role_id_seq";
+CREATE SEQUENCE "public"."admin_sys_role_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_role_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for admin_sys_user_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."admin_sys_user_id_seq";
+CREATE SEQUENCE "public"."admin_sys_user_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."admin_sys_user_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_account_log_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_account_log_id_seq";
+CREATE SEQUENCE "public"."app_user_account_log_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_account_log_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_conf_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_conf_id_seq";
+CREATE SEQUENCE "public"."app_user_conf_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_conf_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_country_code_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_country_code_id_seq";
+CREATE SEQUENCE "public"."app_user_country_code_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_country_code_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_id_seq";
+CREATE SEQUENCE "public"."app_user_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_level_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_level_id_seq";
+CREATE SEQUENCE "public"."app_user_level_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_level_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for app_user_oper_log_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."app_user_oper_log_id_seq";
+CREATE SEQUENCE "public"."app_user_oper_log_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."app_user_oper_log_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for plugins_content_announcement_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_content_announcement_id_seq";
+CREATE SEQUENCE "public"."plugins_content_announcement_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_content_announcement_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for plugins_content_article_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_content_article_id_seq";
+CREATE SEQUENCE "public"."plugins_content_article_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_content_article_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for plugins_content_category_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_content_category_id_seq";
+CREATE SEQUENCE "public"."plugins_content_category_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_content_category_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for plugins_filemgr_app_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_filemgr_app_id_seq";
+CREATE SEQUENCE "public"."plugins_filemgr_app_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_filemgr_app_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Sequence structure for plugins_msg_code_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."plugins_msg_code_id_seq";
+CREATE SEQUENCE "public"."plugins_msg_code_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+ALTER SEQUENCE "public"."plugins_msg_code_id_seq" OWNER TO "postgres";
+
+-- ----------------------------
+-- Table structure for admin_sys_api
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_api";
+CREATE TABLE "public"."admin_sys_api" (
+  "id" int4 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1
+),
+  "description" varchar(256) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "path" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "api_type" varchar(16) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "method" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6),
+  "create_by" int4,
+  "update_by" int4,
+  "remark" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying
+)
+;
+ALTER TABLE "public"."admin_sys_api" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_api"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."admin_sys_api"."description" IS '功能描述';
+COMMENT ON COLUMN "public"."admin_sys_api"."path" IS '地址';
+COMMENT ON COLUMN "public"."admin_sys_api"."api_type" IS '接口类型';
+COMMENT ON COLUMN "public"."admin_sys_api"."method" IS '请求类型';
+COMMENT ON COLUMN "public"."admin_sys_api"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_api"."updated_at" IS '最后更新时间';
+COMMENT ON COLUMN "public"."admin_sys_api"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_api"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_api"."remark" IS '备注';
+COMMENT ON TABLE "public"."admin_sys_api" IS '接口管理';
+
+-- ----------------------------
+-- Records of admin_sys_api
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (1, 'admin-获取字典类型分页列表', '/admin-api/v1/admin/sys/sys-dict/type', '1', 'GET', '2024-12-13 20:37:31', '2024-12-14 14:30:12', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (2, 'admin-获取字典类型全部列表', '/admin-api/v1/admin/sys/sys-dict/type/option-select', '1', 'GET', '2024-12-13 20:37:31', '2024-12-14 14:58:06', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (3, 'admin-导出字典类型', '/admin-api/v1/admin/sys/sys-dict/type/export', '1', 'GET', '2024-12-13 20:37:32', '2024-12-14 14:32:48', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (4, 'admin-获取字典类型详情', '/admin-api/v1/admin/sys/sys-dict/type/:id', '1', 'GET', '2024-12-13 20:37:32', '2024-12-14 14:32:25', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (5, 'admin-获取字典数据分页列表', '/admin-api/v1/admin/sys/sys-dict/data', '1', 'GET', '2024-12-13 20:37:32', '2024-12-14 14:36:52', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (6, 'admin-获取字典数据全部列表', '/admin-api/v1/admin/sys/sys-dict/data/select', '1', 'GET', '2024-12-13 20:37:32', '2024-12-15 22:40:03', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (7, 'admin-获取字典数据详情', '/admin-api/v1/admin/sys/sys-dict/data/:id', '1', 'GET', '2024-12-13 20:37:32', '2024-12-14 14:38:35', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (9, 'admin-获取部门管理树', '/admin-api/v1/admin/sys/sys-dept/dept-tree', '1', 'GET', '2024-12-13 20:37:33', '2024-12-14 14:18:07', 0, 1, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (10, 'admin-根据角色获取部门', '/admin-api/v1/admin/sys/sys-dept/role-dept-tree-select/:roleId', '1', 'GET', '2024-12-13 20:37:33', '2024-12-14 14:05:10', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (11, 'admin-获取部门管理详情', '/admin-api/v1/admin/sys/sys-dept/:id', '1', 'GET', '2024-12-13 20:37:33', '2024-12-14 14:18:07', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (12, 'admin-获取菜单管理树', '/admin-api/v1/admin/sys/sys-menu', '1', 'GET', '2024-12-13 20:37:33', '2024-12-14 14:13:21', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (13, 'admin-根据角色获取菜单', '/admin-api/v1/admin/sys/sys-menu/menu-role', '1', 'GET', '2024-12-13 20:37:33', '2024-12-15 22:39:47', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (14, 'admin-获取全部菜单以及选中的菜单编号', '/admin-api/v1/admin/sys/sys-menu/role-menu-tree-select/:roleId', '1', 'GET', '2024-12-13 20:37:33', '2024-12-14 14:00:05', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (15, 'admin-获取菜单管理详情', '/admin-api/v1/admin/sys/sys-menu/:id', '1', 'GET', '2024-12-13 20:37:34', '2024-12-14 14:12:33', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (16, 'admin-获取服务器信息', '/admin-api/v1/admin/sys/sys-monitor', '1', 'GET', '2024-12-13 20:37:34', '2024-12-14 15:12:52', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (17, 'admin-普罗米监控', '/admin-api/v1/admin/sys/sys-monitor/prom', '1', 'GET', '2024-12-13 20:37:34', '2024-12-15 22:38:58', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (18, 'admin-ping', '/admin-api/v1/admin/sys/sys-monitor/ping', '1', 'GET', '2024-12-13 20:37:34', '2024-12-15 22:39:10', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (20, 'admin-获取表管理分页列表', '/admin-api/v1/admin/sys/sys-table', '1', 'GET', '2024-12-13 20:37:35', '2024-12-13 21:45:39', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (21, 'admin-表管理下载代码', '/admin-api/v1/admin/sys/sys-table/gen/download/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-14 14:52:44', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (22, 'admin-表管理中生成菜单数据', '/admin-api/v1/admin/sys/sys-table/gen/db/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-14 14:53:37', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (23, 'admin-生成表管理的代码', '/admin-api/v1/admin/sys/sys-table/gen/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-14 14:52:39', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (24, 'admin-获取表管理的DB表分页列表', '/admin-api/v1/admin/sys/sys-table/db-tables', '1', 'GET', '2024-12-13 20:37:35', '2024-12-15 22:16:01', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (25, 'admin-预览表管理的代码页面', '/admin-api/v1/admin/sys/sys-table/preview/:id', '1', 'GET', '2024-12-13 20:37:35', '2024-12-14 14:47:12', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (26, 'admin-获取表管理详情', '/admin-api/v1/admin/sys/sys-table/:id', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 14:58:06', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (27, 'admin-获取接口管理分页列表', '/admin-api/v1/admin/sys/sys-api', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 13:06:50', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (28, 'admin-同步接口数据', '/admin-api/v1/admin/sys/sys-api/sync', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 13:10:41', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (30, 'admin-获取接口管理全部列表', '/admin-api/v1/admin/sys/sys-api/list', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 14:13:21', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (31, 'admin-导出接口管理', '/admin-api/v1/admin/sys/sys-api/export', '1', 'GET', '2024-12-13 20:37:36', '2024-12-14 14:22:31', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (32, 'admin-获取接口管理详情', '/admin-api/v1/admin/sys/sys-api/:id', '1', 'GET', '2024-12-13 20:37:37', '2024-12-14 13:07:22', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (33, 'admin-获取配置管理分页列表', '/admin-api/v1/admin/sys/sys-config', '1', 'GET', '2024-12-13 20:37:37', '2024-12-14 14:33:31', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (34, 'admin-导出配置管理', '/admin-api/v1/admin/sys/sys-config/export', '1', 'GET', '2024-12-13 20:37:37', '2024-12-14 14:34:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (36, 'admin-根据Key获取配置值', '/admin-api/v1/admin/sys/sys-config/key/:configKey', '1', 'GET', '2024-12-13 20:37:37', '2024-12-15 22:38:41', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (37, 'admin-获取配置管理详情', '/admin-api/v1/admin/sys/sys-config/:id', '1', 'GET', '2024-12-13 20:37:37', '2024-12-14 14:34:00', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (38, 'admin-获取岗位管理分页列表', '/admin-api/v1/admin/sys/sys-post', '1', 'GET', '2024-12-13 20:37:38', '2024-12-14 14:24:08', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (39, 'admin-获取岗位管理全部列表', '/admin-api/v1/admin/sys/sys-post/list', '1', 'GET', '2024-12-13 20:37:38', '2024-12-14 13:50:46', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (40, 'admin-导出岗位管理', '/admin-api/v1/admin/sys/sys-post/export', '1', 'GET', '2024-12-13 20:37:38', '2024-12-13 20:37:38', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (41, 'admin-获取岗位管理详情', '/admin-api/v1/admin/sys/sys-post/:id', '1', 'GET', '2024-12-13 20:37:38', '2024-12-14 14:28:12', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (42, 'admin-获取系统用户管理分页列表', '/admin-api/v1/admin/sys/sys-user', '1', 'GET', '2024-12-13 20:37:38', '2024-12-14 13:14:41', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (43, 'admin-退出系统', '/admin-api/v1/admin/sys/sys-user/logout', '1', 'GET', '2024-12-13 20:37:38', '2024-12-15 22:38:26', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (44, 'admin-获取系统登录用户信息', '/admin-api/v1/admin/sys/sys-user/profile', '1', 'GET', '2024-12-13 20:37:39', '2024-12-15 22:37:54', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (45, 'admin-获取系统用户管理详情', '/admin-api/v1/admin/sys/sys-user/:id', '1', 'GET', '2024-12-13 20:37:39', '2024-12-14 13:50:46', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (46, 'admin-获取登录日志分页列表', '/admin-api/v1/admin/sys/sys-login-log', '1', 'GET', '2024-12-13 20:37:39', '2024-12-14 14:35:28', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (47, 'admin-导出登录日志', '/admin-api/v1/admin/sys/sys-login-log/export', '1', 'GET', '2024-12-13 20:37:39', '2024-12-14 14:36:01', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (48, 'admin-获取登录日志详情', '/admin-api/v1/admin/sys/sys-login-log/:id', '1', 'GET', '2024-12-13 20:37:39', '2024-12-15 22:38:15', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (49, 'admin-获取操作日志分页列表', '/admin-api/v1/admin/sys/sys-oper-log', '1', 'GET', '2024-12-13 20:37:40', '2024-12-14 14:39:13', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (50, 'admin-导出操作日志', '/admin-api/v1/admin/sys/sys-oper-log/export', '1', 'GET', '2024-12-13 20:37:40', '2024-12-13 21:41:12', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (51, 'admin-获取操作日志详情', '/admin-api/v1/admin/sys/sys-oper-log/:id', '1', 'GET', '2024-12-13 20:37:40', '2024-12-15 22:37:36', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (52, 'admin-获取角色管理分页列表', '/admin-api/v1/admin/sys/sys-role', '1', 'GET', '2024-12-13 20:37:40', '2024-12-14 13:52:04', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (53, 'admin-获取角色管理全部列表', '/admin-api/v1/admin/sys/sys-role/list', '1', 'GET', '2024-12-13 20:37:40', '2024-12-14 13:50:46', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (54, 'admin-获取角色管理详情', '/admin-api/v1/admin/sys/sys-role/:id', '1', 'GET', '2024-12-13 20:37:40', '2024-12-14 14:05:10', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (55, 'app-获取用户管理分页列表', '/admin-api/v1/app/user/user', '3', 'GET', '2024-12-13 20:37:41', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (56, 'app-获取国家区号管理分页列表', '/admin-api/v1/app/user/user-country-code', '3', 'GET', '2024-12-13 20:37:41', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (57, 'app-导出国家区号管理', '/admin-api/v1/app/user/user-country-code/export', '3', 'GET', '2024-12-13 20:37:41', '2024-12-14 12:51:44', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (58, 'app-获取国家区号管理详情', '/admin-api/v1/app/user/user-country-code/:id', '3', 'GET', '2024-12-13 20:37:41', '2024-12-14 12:51:23', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (59, 'app-获取用户配置管理分页列表', '/admin-api/v1/app/user/user-conf', '3', 'GET', '2024-12-13 20:37:41', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (60, 'app-获取用户配置管理详情', '/admin-api/v1/app/user/user-conf/:id', '3', 'GET', '2024-12-13 20:37:41', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (61, 'app-获取账变记录分页列表', '/admin-api/v1/app/user/user-account-log', '3', 'GET', '2024-12-13 20:37:42', '2024-12-14 12:52:00', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (62, 'app-导出账变记录', '/admin-api/v1/app/user/user-account-log/export', '3', 'GET', '2024-12-13 20:37:42', '2024-12-14 12:52:11', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (63, 'app-获取账变记录详情', '/admin-api/v1/app/user/user-account-log/:id', '3', 'GET', '2024-12-13 20:37:42', '2024-12-15 22:37:25', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (64, 'app-获取用户等级管理分页列表', '/admin-api/v1/app/user/user-level', '3', 'GET', '2024-12-13 20:37:42', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (65, 'app-导出用户等级管理', '/admin-api/v1/app/user/user-level/export', '3', 'GET', '2024-12-13 20:37:42', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (66, 'app-获取用户等级管理详情', '/admin-api/v1/app/user/user-level/:id', '3', 'GET', '2024-12-13 20:37:42', '2024-12-14 12:49:29', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (67, 'app-获取用户操作日志分页列表', '/admin-api/v1/app/user/user-oper-log', '3', 'GET', '2024-12-13 20:37:43', '2024-12-14 12:50:33', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (68, 'app-导出用户操作日志', '/admin-api/v1/app/user/user-oper-log/export', '3', 'GET', '2024-12-13 20:37:43', '2024-12-14 12:50:48', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (69, 'app-获取用户操作日志详情', '/admin-api/v1/app/user/user-oper-log/:id', '3', 'GET', '2024-12-13 20:37:43', '2024-12-15 22:37:16', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (70, 'app-导出用户管理', '/admin-api/v1/app/user/user/export', '3', 'GET', '2024-12-13 20:37:43', '2024-12-13 20:56:34', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (71, 'app-获取用户管理详情', '/admin-api/v1/app/user/user/:id', '3', 'GET', '2024-12-13 20:37:43', '2024-12-14 12:48:02', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (72, 'plugins-获取公告管理分页列表', '/admin-api/v1/plugins/content/content-announcement', '2', 'GET', '2024-12-13 20:37:44', '2024-12-14 13:03:46', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (73, 'plugins-导出公告管理', '/admin-api/v1/plugins/content/content-announcement/export', '2', 'GET', '2024-12-13 20:37:44', '2024-12-13 21:06:33', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (74, 'plugins-获取公告管理详情', '/admin-api/v1/plugins/content/content-announcement/:id', '2', 'GET', '2024-12-13 20:37:44', '2024-12-14 13:04:08', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (75, 'plugins-获取文章管理分页列表', '/admin-api/v1/plugins/content/content-article', '2', 'GET', '2024-12-13 20:37:44', '2024-12-14 13:02:56', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (76, 'plugins-导出文章管理', '/admin-api/v1/plugins/content/content-article/export', '2', 'GET', '2024-12-13 20:37:44', '2024-12-13 21:04:27', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (77, 'plugins-获取文章管理详情', '/admin-api/v1/plugins/content/content-article/:id', '2', 'GET', '2024-12-13 20:37:44', '2024-12-14 13:03:18', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (78, 'plugins-获取内容分类管理分页列表', '/admin-api/v1/plugins/content/content-category', '2', 'GET', '2024-12-13 20:37:45', '2024-12-14 13:01:47', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (79, 'plugins-导出内容分类管理', '/admin-api/v1/plugins/content/content-category/export', '2', 'GET', '2024-12-13 20:37:45', '2024-12-14 13:02:34', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (80, 'plugins-获取内容分类管理详情', '/admin-api/v1/plugins/content/content-category/:id', '2', 'GET', '2024-12-13 20:37:45', '2024-12-14 13:02:14', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (81, 'plugins-获取APP管理分页列表', '/admin-api/v1/plugins/filemgr/filemgr-app', '2', 'GET', '2024-12-13 20:37:45', '2024-12-14 13:04:41', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (82, 'plugins-导出APP管理', '/admin-api/v1/plugins/filemgr/filemgr-app/export', '2', 'GET', '2024-12-13 20:37:45', '2024-12-13 21:08:56', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (83, 'plugins-获取APP管理详情', '/admin-api/v1/plugins/filemgr/filemgr-app/:id', '2', 'GET', '2024-12-13 20:37:45', '2024-12-15 22:15:04', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (84, 'plugins-获取验证码管理分页列表', '/admin-api/v1/plugins/msg/msg-code', '2', 'GET', '2024-12-13 20:37:46', '2024-12-14 13:05:37', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (85, 'plugins-获取验证码管理详情', '/admin-api/v1/plugins/msg/msg-code/:id', '2', 'GET', '2024-12-13 20:37:46', '2024-12-15 22:36:18', 0, 1, '未使用');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (86, 'admin-获取图形验证码', '/admin-api/v1/captcha', '1', 'GET', '2024-12-13 20:37:46', '2024-12-15 22:36:26', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (87, '静态文件', '/admin-api/files/*filepath', '1', 'GET', '2024-12-13 20:37:46', '2024-12-15 22:36:57', 0, 1, '静态路由，该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (88, '静态文件2', '/static/*filepath', '1', 'GET', '2024-12-13 20:37:46', '2024-12-15 22:37:05', 0, 1, '静态路由，该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (89, 'admin-新增字典数据', '/admin-api/v1/admin/sys/sys-dict/data', '1', 'POST', '2024-12-13 20:37:46', '2024-12-14 14:38:04', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (90, 'admin-新增字典类型', '/admin-api/v1/admin/sys/sys-dict/type', '1', 'POST', '2024-12-13 20:37:47', '2024-12-14 14:31:05', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (91, 'admin-添加部门管理', '/admin-api/v1/admin/sys/sys-dept', '1', 'POST', '2024-12-13 20:37:47', '2024-12-14 14:17:17', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (92, 'admin-新增系统用户管理', '/admin-api/v1/admin/sys/sys-user', '1', 'POST', '2024-12-13 20:37:47', '2024-12-14 13:43:52', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (93, 'admin-更新系统登录用户头像', '/admin-api/v1/admin/sys/sys-user/profile/avatar', '1', 'POST', '2024-12-13 20:37:47', '2024-12-15 22:35:54', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (94, 'admin-新增配置管理', '/admin-api/v1/admin/sys/sys-config', '1', 'POST', '2024-12-13 20:37:47', '2024-12-14 14:33:44', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (95, 'admin-新增表管理', '/admin-api/v1/admin/sys/sys-table', '1', 'POST', '2024-12-13 20:37:48', '2024-12-15 22:16:01', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (96, 'admin-新增菜单管理', '/admin-api/v1/admin/sys/sys-menu', '1', 'POST', '2024-12-13 20:37:48', '2024-12-14 14:13:21', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (97, 'admin-新增岗位管理', '/admin-api/v1/admin/sys/sys-post', '1', 'POST', '2024-12-13 20:37:48', '2024-12-14 14:27:41', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (98, 'admin-新增角色管理', '/admin-api/v1/admin/sys/sys-role', '1', 'POST', '2024-12-13 20:37:48', '2024-12-14 13:56:24', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (99, 'app-新增用户管理', '/admin-api/v1/app/user/user', '3', 'POST', '2024-12-13 20:37:48', '2024-12-14 12:47:50', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (100, 'app-新增国家区号管理', '/admin-api/v1/app/user/user-country-code', '3', 'POST', '2024-12-13 20:37:48', '2024-12-14 12:51:13', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (101, 'app-新增用户等级管理', '/admin-api/v1/app/user/user-level', '3', 'POST', '2024-12-13 20:37:49', '2024-12-14 12:49:18', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (102, 'plugins-新增公告管理', '/admin-api/v1/plugins/content/content-announcement', '2', 'POST', '2024-12-13 20:37:49', '2024-12-14 13:03:58', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (103, 'plugins-新增文章管理', '/admin-api/v1/plugins/content/content-article', '2', 'POST', '2024-12-13 20:37:49', '2024-12-14 13:03:09', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (104, 'plugins-新增内容分类管理详情', '/admin-api/v1/plugins/content/content-category', '2', 'POST', '2024-12-13 20:37:49', '2024-12-14 13:02:03', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (105, 'plugins-新增APP管理', '/admin-api/v1/plugins/filemgr/filemgr-app', '2', 'POST', '2024-12-13 20:37:49', '2024-12-15 22:14:53', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (106, 'plugins-上传APP', '/admin-api/v1/plugins/filemgr/filemgr-app/upload', '2', 'POST', '2024-12-13 20:37:49', '2024-12-15 22:15:04', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (107, 'admin-登录系统', '/admin-api/v1/login', '1', 'POST', '2024-12-13 20:37:50', '2024-12-15 22:35:12', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (108, 'admin-更新系统登录用户信息', '/admin-api/v1/admin/sys/sys-user/profile', '1', 'PUT', '2024-12-13 20:37:50', '2024-12-15 22:35:35', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (109, 'admin-更新系统登录用户密码', '/admin-api/v1/admin/sys/sys-user/profile/pwd', '1', 'PUT', '2024-12-13 20:37:50', '2024-12-15 22:35:39', 0, 1, '该接口无需角色校验');
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (110, 'admin-重置系统用户密码', '/admin-api/v1/admin/sys/sys-user/pwd-reset', '1', 'PUT', '2024-12-13 20:37:50', '2024-12-14 13:46:43', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (111, 'admin-更新系统用户状态', '/admin-api/v1/admin/sys/sys-user/update-status', '1', 'PUT', '2024-12-13 20:37:50', '2024-12-14 13:50:46', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (112, 'admin-更新系统用户管理', '/admin-api/v1/admin/sys/sys-user/:id', '1', 'PUT', '2024-12-13 20:37:50', '2024-12-14 13:50:46', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (113, 'admin-更新字典数据', '/admin-api/v1/admin/sys/sys-dict/data/:id', '1', 'PUT', '2024-12-13 20:37:51', '2024-12-14 14:38:35', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (114, 'admin-更新字典类型', '/admin-api/v1/admin/sys/sys-dict/type/:id', '1', 'PUT', '2024-12-13 20:37:51', '2024-12-14 14:32:25', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (115, 'admin-更新部门管理', '/admin-api/v1/admin/sys/sys-dept/:id', '1', 'PUT', '2024-12-13 20:37:51', '2024-12-14 14:18:07', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (116, 'admin-更新角色管理状态', '/admin-api/v1/admin/sys/sys-role/role-status', '1', 'PUT', '2024-12-13 20:37:51', '2024-12-14 14:00:05', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (117, 'admin-更新角色管理数据权限', '/admin-api/v1/admin/sys/sys-role/role-data-scope', '1', 'PUT', '2024-12-13 20:37:51', '2024-12-14 14:05:10', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (118, 'admin-更新角色管理', '/admin-api/v1/admin/sys/sys-role/:id', '1', 'PUT', '2024-12-13 20:37:51', '2024-12-14 14:00:05', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (119, 'admin-更新接口管理', '/admin-api/v1/admin/sys/sys-api/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-14 13:07:22', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (120, 'admin-更新配置管理', '/admin-api/v1/admin/sys/sys-config/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-14 14:34:00', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (121, 'admin-更新表管理', '/admin-api/v1/admin/sys/sys-table/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-14 14:58:06', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (122, 'admin-更新菜单管理', '/admin-api/v1/admin/sys/sys-menu/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-14 14:12:33', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (123, 'admin-更新岗位管理', '/admin-api/v1/admin/sys/sys-post/:id', '1', 'PUT', '2024-12-13 20:37:52', '2024-12-14 14:28:12', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (124, 'app-更新用户配置管理', '/admin-api/v1/app/user/user-conf/:id', '3', 'PUT', '2024-12-13 20:37:52', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (125, 'app-更新国家区号管理', '/admin-api/v1/app/user/user-country-code/:id', '3', 'PUT', '2024-12-13 20:37:53', '2024-12-14 12:51:23', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (126, 'app-更新用户等级管理', '/admin-api/v1/app/user/user-level/:id', '3', 'PUT', '2024-12-13 20:37:53', '2024-12-14 12:49:29', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (127, 'app-更新用户管理', '/admin-api/v1/app/user/user/:id', '3', 'PUT', '2024-12-13 20:37:53', '2024-12-14 12:48:02', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (128, 'plugins-更新公告管理', '/admin-api/v1/plugins/content/content-announcement/:id', '2', 'PUT', '2024-12-13 20:37:53', '2024-12-14 13:04:08', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (129, 'plugins-更新文章管理', '/admin-api/v1/plugins/content/content-article/:id', '2', 'PUT', '2024-12-13 20:37:53', '2024-12-14 13:03:18', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (130, 'plugins-更新内容分类管理', '/admin-api/v1/plugins/content/content-category/:id', '2', 'PUT', '2024-12-13 20:37:54', '2024-12-14 13:02:14', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (131, 'plugins-更新APP管理', '/admin-api/v1/plugins/filemgr/filemgr-app/:id', '2', 'PUT', '2024-12-13 20:37:54', '2024-12-15 22:15:04', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (132, 'admin-删除字典数据', '/admin-api/v1/admin/sys/sys-dict/data', '1', 'DELETE', '2024-12-13 20:37:54', '2024-12-14 14:38:51', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (133, 'admin-删除字典类型', '/admin-api/v1/admin/sys/sys-dict/type', '1', 'DELETE', '2024-12-13 20:37:54', '2024-12-14 14:32:36', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (134, 'admin-删除部门管理', '/admin-api/v1/admin/sys/sys-dept', '1', 'DELETE', '2024-12-13 20:37:54', '2024-12-14 14:18:35', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (135, 'admin-删除接口管理', '/admin-api/v1/admin/sys/sys-api', '1', 'DELETE', '2024-12-13 20:37:54', '2024-12-14 13:07:36', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (136, 'admin-删除配置管理', '/admin-api/v1/admin/sys/sys-config', '1', 'DELETE', '2024-12-13 20:37:55', '2024-12-14 14:34:11', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (137, 'admin-删除表管理', '/admin-api/v1/admin/sys/sys-table', '1', 'DELETE', '2024-12-13 20:37:55', '2024-12-14 14:53:10', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (138, 'admin-删除登录日志', '/admin-api/v1/admin/sys/sys-login-log', '1', 'DELETE', '2024-12-13 20:37:55', '2024-12-13 21:38:09', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (139, 'admin-删除菜单管理', '/admin-api/v1/admin/sys/sys-menu', '1', 'DELETE', '2024-12-13 20:37:55', '2024-12-14 14:12:48', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (140, 'admin-删除操作日志', '/admin-api/v1/admin/sys/sys-oper-log', '1', 'DELETE', '2024-12-13 20:37:55', '2024-12-14 14:40:07', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (141, 'admin-删除岗位管理', '/admin-api/v1/admin/sys/sys-post', '1', 'DELETE', '2024-12-13 20:37:55', '2024-12-13 21:32:47', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (142, 'admin-删除角色管理', '/admin-api/v1/admin/sys/sys-role', '1', 'DELETE', '2024-12-13 20:37:56', '2024-12-14 14:00:31', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (143, 'admin-删除系统用户管理', '/admin-api/v1/admin/sys/sys-user', '1', 'DELETE', '2024-12-13 20:37:56', '2024-12-14 13:50:52', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (144, 'app-删除国家区号管理', '/admin-api/v1/app/user/user-country-code', '3', 'DELETE', '2024-12-13 20:37:56', '2024-12-14 15:16:20', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (145, 'app-删除用户等级管理', '/admin-api/v1/app/user/user-level', '3', 'DELETE', '2024-12-13 20:37:56', '2024-12-14 12:49:38', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (146, 'plugins-删除公告管理', '/admin-api/v1/plugins/content/content-announcement', '2', 'DELETE', '2024-12-13 20:37:56', '2024-12-13 21:06:13', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (147, 'plugins-删除文章管理', '/admin-api/v1/plugins/content/content-article', '2', 'DELETE', '2024-12-13 20:37:56', '2024-12-14 13:03:29', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (148, 'plugins-删除内容分类管理', '/admin-api/v1/plugins/content/content-category', '2', 'DELETE', '2024-12-13 20:37:57', '2024-12-14 13:02:24', 0, 0, NULL);
+INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "method", "created_at", "updated_at", "create_by", "update_by", "remark") VALUES (149, 'plugins-删除APP管理', '/admin-api/v1/plugins/filemgr/filemgr-app', '2', 'DELETE', '2024-12-13 20:37:57', '2024-12-13 21:08:39', 0, 0, NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_casbin_rule
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_casbin_rule";
+CREATE TABLE "public"."admin_sys_casbin_rule" (
+  "p_type" varchar(100) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "v0" varchar(100) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "v1" varchar(100) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "v2" varchar(100) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "v3" varchar(100) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "v4" varchar(100) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "v5" varchar(100) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying
+)
+;
+ALTER TABLE "public"."admin_sys_casbin_rule" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of admin_sys_casbin_rule
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user', 'GET', '', '', '');
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user-conf', 'GET', '', '', '');
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user-conf/:id', 'GET', '', '', '');
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user-conf/:id', 'PUT', '', '', '');
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user-country-code', 'DELETE', '', '', '');
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user-country-code', 'GET', '', '', '');
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user-level', 'GET', '', '', '');
+INSERT INTO "public"."admin_sys_casbin_rule" ("p_type", "v0", "v1", "v2", "v3", "v4", "v5") VALUES ('p', 'test', '/admin-api/v1/app/user/user-level/export', 'GET', '', '', '');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_config
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_config";
+CREATE TABLE "public"."admin_sys_config" (
+  "id" int4 NOT NULL,
+  "config_name" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "config_key" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "config_value" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "config_type" varchar(64) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "is_frontend" char(1) COLLATE "pg_catalog"."default" DEFAULT NULL::bpchar,
+  "remark" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6)
+)
+;
+ALTER TABLE "public"."admin_sys_config" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_config"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."admin_sys_config"."config_name" IS 'ConfigName';
+COMMENT ON COLUMN "public"."admin_sys_config"."config_key" IS 'ConfigKey';
+COMMENT ON COLUMN "public"."admin_sys_config"."config_value" IS 'ConfigValue';
+COMMENT ON COLUMN "public"."admin_sys_config"."config_type" IS 'ConfigType';
+COMMENT ON COLUMN "public"."admin_sys_config"."is_frontend" IS '是否前台';
+COMMENT ON COLUMN "public"."admin_sys_config"."remark" IS 'Remark';
+COMMENT ON COLUMN "public"."admin_sys_config"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_config"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_config"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_config"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_config" IS '配置管理';
+
+-- ----------------------------
+-- Records of admin_sys_config
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (1, '管理-皮肤样式', 'admin_sys_index_skinName', 'skin-green', '1', '1', '主框架页-默认皮肤样式名称:蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:16:02');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (3, '管理-侧栏主题', 'admin_sys_index_sideTheme', 'theme-dark', '1', '1', '主框架页-侧边栏主题:深色主题theme-dark，浅色主题theme-light', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:16:06');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (4, '管理-系统名称', 'admin_sys_app_name', 'go-admin后台管理系统', '1', '1', '', 1, 1, '2021-03-17 08:52:06', '2023-03-11 23:16:19');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (5, '管理-系统logo', 'admin_sys_app_logo', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '1', '1', '', 1, 1, '2021-03-17 08:53:19', '2023-03-11 23:16:15');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (6, '管理-单次excel导出数据量', 'admin_sys_max_export_size', '10000', '1', '1', '', 0, 1, '2021-07-28 16:53:48', '2023-03-11 23:15:56');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (7, '插件-文件管理-App OSS Bucket', 'plugin_filemgr_app_oss_bucket', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:36:23', '2023-03-11 23:14:45');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (8, '插件-文件管理-App OSS AccessKeyId', 'plugin_filemgr_app_oss_access_key_id', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:37:15', '2023-03-11 23:14:41');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (9, '插件-文件管理-App OSS AccessKeySecret', 'plugin_filemgr_app_oss_access_key_secret', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:38:00', '2023-03-11 23:14:33');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (10, '插件-文件管理-App OSS Endpoint', 'plugin_filemgr_app_oss_endpoint', '请自行配置', '2', '2', '', 0, 1, '2021-08-13 14:38:50', '2023-03-11 23:14:28');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (11, '插件-文件管理-App OSS 根目录', 'plugin_filemgr_app_oss_root_path', 'testfile/', '2', '2', '', 0, 1, '2021-08-13 14:39:31', '2023-03-11 23:14:22');
+INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "config_value", "config_type", "is_frontend", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (12, '管理-用户-默认头像', 'admin_sys_user_default_avatar', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '3', '2', '', 1, 1, '2023-03-10 18:07:03', '2023-03-10 18:07:03');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_dept
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_dept";
+CREATE TABLE "public"."admin_sys_dept" (
+  "id" int4 NOT NULL GENERATED BY DEFAULT AS IDENTITY (
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1
+),
+  "parent_id" int4,
+  "parent_ids" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "dept_name" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "sort" int4,
+  "leader" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "phone" varchar(20) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "email" varchar(80) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "status" int2,
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6)
+)
+;
+ALTER TABLE "public"."admin_sys_dept" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_dept"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_dept"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_dept"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_dept"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_dept" IS '部门管理';
+
+-- ----------------------------
+-- Records of admin_sys_dept
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_dept" ("id", "parent_id", "parent_ids", "dept_name", "sort", "leader", "phone", "email", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (1, 0, '0,', 'Admin', 0, 'admin', '', '', 1, 1, 1, '2021-05-13 19:56:38', '2022-05-14 11:20:25');
+INSERT INTO "public"."admin_sys_dept" ("id", "parent_id", "parent_ids", "dept_name", "sort", "leader", "phone", "email", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (2, 1, '0,1,', '研发部', 1, 'admin', '', '', 1, 1, 1, '2021-05-13 19:56:38', '2023-03-04 13:17:45');
+INSERT INTO "public"."admin_sys_dept" ("id", "parent_id", "parent_ids", "dept_name", "sort", "leader", "phone", "email", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (3, 1, '0,1,', '运维部', 1, 'admin', '', '', 1, 1, 1, '2021-05-13 19:56:38', '2024-12-13 20:17:47');
+INSERT INTO "public"."admin_sys_dept" ("id", "parent_id", "parent_ids", "dept_name", "sort", "leader", "phone", "email", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (4, 1, '0,1,', '客服部', 0, 'admin', '', '', 1, 1, 1, '2021-05-13 19:56:38', '2024-12-13 20:17:47');
+INSERT INTO "public"."admin_sys_dept" ("id", "parent_id", "parent_ids", "dept_name", "sort", "leader", "phone", "email", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (5, 1, '0,1,', '人力资源', 3, 'admin', '', '', 1, 1, 1, '2021-05-13 19:56:38', '2022-05-14 11:20:53');
+INSERT INTO "public"."admin_sys_dept" ("id", "parent_id", "parent_ids", "dept_name", "sort", "leader", "phone", "email", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (6, 1, '0,1,', '市场', 10, 'admin', '', '', 1, 1, 1, '2021-12-02 10:13:38', '2021-12-02 10:13:38');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_dict_data
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_dict_data";
+CREATE TABLE "public"."admin_sys_dict_data" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_dict_data_id_seq'::regclass),
+  "dict_sort" int4,
+  "dict_label" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "dict_value" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "dict_type" varchar(64) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "css_class" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "list_class" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "is_default" varchar(8) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "status" char(1) COLLATE "pg_catalog"."default" DEFAULT NULL::bpchar,
+  "default" varchar(8) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "remark" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6)
+)
+;
+ALTER TABLE "public"."admin_sys_dict_data" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_dict_data"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_dict_data"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_dict_data"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_dict_data"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_dict_data" IS '字典数据管理';
+
+-- ----------------------------
+-- Records of admin_sys_dict_data
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (1, 0, '正常', '2', 'admin_sys_normal_disable', '', '', '', '0', '', '系统正常', 1, 1, '2021-05-13 19:56:38', '2022-04-25 00:42:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (2, 0, '停用', '1', 'admin_sys_normal_disable', '', '', '', '0', '', '系统停用', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (3, 0, '男', '1', 'admin_sys_user_sex', '', '', '', '0', '', '性别男', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (4, 0, '女', '2', 'admin_sys_user_sex', '', '', '', '0', '', '性别女', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (5, 0, '未知', '3', 'admin_sys_user_sex', '', '', '', '0', '', '性别未知', 1, 1, '2021-05-13 19:56:38', '2023-03-05 12:03:33');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (6, 0, '显示', '2', 'admin_sys_menu_show_hide', '', '', '', '0', '', '显示菜单', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (7, 0, '隐藏', '1', 'admin_sys_menu_show_hide', '', '', '', '0', '', '隐藏菜单', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (8, 0, '是', '1', 'admin_sys_yes_no', '', '', '', '0', '', '系统默认是', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (9, 0, '否', '2', 'admin_sys_yes_no', '', '', '', '0', '', '系统默认否', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (10, 0, '通知', '1', 'admin_sys_notice_type', '', '', '', '0', '', '通知', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (11, 0, '公告', '2', 'admin_sys_notice_type', '', '', '', '0', '', '公告', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (12, 0, '正常', '2', 'admin_sys_common_status', '', '', '', '0', '', '正常状态', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (13, 0, '关闭', '1', 'admin_sys_common_status', '', '', '', '0', '', '关闭状态', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (14, 0, '新增', '1', 'admin_sys_oper_type', '', '', '', '0', '', '新增操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (15, 0, '修改', '2', 'admin_sys_oper_type', '', '', '', '0', '', '修改操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (16, 0, '删除', '3', 'admin_sys_oper_type', '', '', '', '0', '', '删除操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (17, 0, '授权', '4', 'admin_sys_oper_type', '', '', '', '0', '', '授权操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (18, 0, '导出', '5', 'admin_sys_oper_type', '', '', '', '0', '', '导出操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (19, 0, '导入', '6', 'admin_sys_oper_type', '', '', '', '0', '', '导入操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (20, 0, '强退', '7', 'admin_sys_oper_type', '', '', '', '0', '', '强退操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (21, 0, '生成代码', '8', 'admin_sys_oper_type', '', '', '', '0', '', '生成操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (22, 0, '清空数据', '9', 'admin_sys_oper_type', '', '', '', '0', '', '清空操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (23, 0, '成功', '1', 'admin_sys_notice_status', '', '', '', '0', '', '成功状态', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (24, 0, '失败', '2', 'admin_sys_notice_status', '', '', '', '0', '', '失败状态', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (25, 0, '登录', '10', 'admin_sys_oper_type', '', '', '', '0', '', '登录操作', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (26, 0, '退出', '11', 'admin_sys_oper_type', '', '', '', '0', '', '', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (27, 0, '获取验证码', '12', 'admin_sys_oper_type', '', '', '', '0', '', '获取验证码', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (28, 0, '正常', '1', 'admin_sys_status', '', '', '', '0', '', '', 0, 0, '2021-07-09 11:40:01', '2021-07-09 11:40:01');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (29, 0, '停用', '2', 'admin_sys_status', '', '', '', '0', '', '', 0, 0, '2021-07-09 11:40:14', '2021-07-09 11:40:14');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (30, 0, '安卓', '1', 'plugin_filemgr_app_platform', '', '', '', '2', '', '', 0, 0, '2021-08-13 13:35:39', '2021-08-13 13:35:39');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (31, 0, 'IOS', '2', 'plugin_filemgr_app_platform', '', '', '', '2', '', '', 0, 0, '2021-08-13 13:35:51', '2021-08-13 13:35:51');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (32, 0, '类型1', '1', 'plugin_filemgr_app_type', '', '', '', '2', '', '', 0, 0, '2021-08-13 13:37:07', '2021-08-13 13:37:07');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (33, 0, '类型2', '2', 'plugin_filemgr_app_type', '', '', '', '2', '', '', 0, 0, '2021-08-13 13:37:19', '2021-08-13 13:37:19');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (34, 0, '类型3', '3', 'plugin_filemgr_app_type', '', '', '', '2', '', '', 0, 0, '2021-08-13 13:37:39', '2021-08-13 13:37:39');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (35, 0, '本地', '1', 'plugin_filemgr_app_download_type', '', '', '', '2', '', '', 0, 0, '2021-08-13 14:02:44', '2021-08-13 14:02:44');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (36, 0, '外链', '2', 'plugin_filemgr_app_download_type', '', '', '', '2', '', '', 0, 0, '2021-08-13 14:02:44', '2021-08-13 14:02:44');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (37, 0, 'OSS', '3', 'plugin_filemgr_app_download_type', '', '', '', '2', '', '', 0, 0, '2021-08-13 14:02:33', '2021-08-13 14:02:33');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (38, 0, '已发布', '2', 'plugin_filemgr_app_publish_status', '', '', '', '2', '', '', 0, 0, '2021-12-09 12:42:47', '2021-12-09 12:42:47');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (39, 0, '待发布', '1', 'plugin_filemgr_app_publish_status', '', '', '', '2', '', '', 0, 0, '2021-12-09 12:42:54', '2021-12-09 12:42:54');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (42, 0, 'GET', 'GET', 'admin_sys_api_method', '', '', '', '0', '', '', 1, 1, '2022-04-26 00:03:26', '2022-04-26 00:03:26');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (43, 0, 'POST', 'POST', 'admin_sys_api_method', '', '', '', '0', '', '', 1, 1, '2022-04-26 00:03:40', '2022-04-26 00:03:40');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (44, 0, 'DELETE', 'DELETE', 'admin_sys_api_method', '', '', '', '0', '', '', 1, 1, '2022-04-26 00:03:49', '2022-04-26 00:03:49');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (45, 0, 'PUT', 'PUT', 'admin_sys_api_method', '', '', '', '0', '', '', 1, 1, '2022-04-26 00:04:06', '2022-04-26 00:04:06');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (46, 0, 'HEAD', 'HEAD', 'admin_sys_api_method', '', '', '', '0', '', '', 1, 1, '2022-04-26 00:07:02', '2022-04-26 00:07:02');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (47, 0, '管理', '1', 'admin_sys_config_type', '', '', '', '1', '', '', 1, 1, '2023-03-01 11:05:23', '2024-12-13 20:11:07');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (48, 0, '插件', '2', 'admin_sys_config_type', '', '', '', '1', '', '', 1, 1, '2023-03-01 11:05:32', '2023-03-01 11:05:32');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (49, 0, '应用', '3', 'admin_sys_config_type', '', '', '', '1', '', '', 1, 1, '2023-03-01 11:05:42', '2023-03-01 11:05:42');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (50, 0, '展示', '1', 'admin_sys_config_is_frontend', '', '', '', '1', '', '', 1, 1, '2023-03-01 11:07:49', '2023-03-01 11:07:49');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (51, 0, '隐藏', '2', 'admin_sys_config_is_frontend', '', '', '', '1', '', '', 1, 1, '2023-03-01 11:07:56', '2023-03-01 11:07:56');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (52, 0, '登录', '1', 'admin_sys_loginlog_status', '', '', '', '1', '', '', 1, 1, '2023-03-01 14:43:04', '2023-03-01 14:43:04');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (53, 0, '退出', '2', 'admin_sys_loginlog_status', '', '', '', '1', '', '', 1, 1, '2023-03-01 14:43:10', '2023-03-01 14:43:10');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (55, 0, '全部数据权限', '1', 'admin_sys_role_data_scope', '', '', '', '1', '', '', 1, 1, '2023-03-04 13:29:36', '2023-03-04 13:29:36');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (56, 0, '自定数据权限', '2', 'admin_sys_role_data_scope', '', '', '', '1', '', '', 1, 1, '2023-03-04 13:29:43', '2023-03-04 13:29:43');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (57, 0, '本部门数据权限', '3', 'admin_sys_role_data_scope', '', '', '', '1', '', '', 1, 1, '2023-03-04 13:29:49', '2023-03-04 13:29:49');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (58, 0, '本部门及以下数据权限', '4', 'admin_sys_role_data_scope', '', '', '', '1', '', '', 1, 1, '2023-03-04 13:29:56', '2023-03-04 13:29:56');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (59, 0, '仅本人数据权限', '5', 'admin_sys_role_data_scope', '', '', '', '1', '', '', 1, 1, '2023-03-04 13:30:04', '2023-03-04 13:30:04');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (60, 0, 'int64', 'int64', 'admin_sys_gen_go_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:08:26', '2023-03-07 10:08:26');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (61, 0, 'int', 'int', 'admin_sys_gen_go_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:12:42', '2023-03-07 10:12:42');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (62, 0, 'string', 'string', 'admin_sys_gen_go_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:13:05', '2023-03-07 10:13:05');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (63, 0, 'decimal', 'decimal.Decimal', 'admin_sys_gen_go_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:13:16', '2023-03-07 10:13:29');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (64, 0, 'time', '*time.Time', 'admin_sys_gen_go_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:13:43', '2023-03-07 10:13:43');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (65, 0, '=', 'EQ', 'admin_sys_gen_query_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:20:53', '2023-03-07 10:20:53');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (66, 0, '!=', 'NE', 'admin_sys_gen_query_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:21:06', '2023-03-07 10:21:06');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (67, 0, '>', 'GT', 'admin_sys_gen_query_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:21:20', '2023-03-07 10:21:20');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (68, 0, '>=', 'GTE', 'admin_sys_gen_query_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:21:33', '2023-03-07 10:21:33');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (69, 0, '<', 'LT', 'admin_sys_gen_query_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:21:45', '2023-03-07 10:21:45');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (70, 0, '<=', 'LTE', 'admin_sys_gen_query_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:21:57', '2023-03-07 10:21:57');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (71, 0, 'LIKE', 'LIKE', 'admin_sys_gen_query_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:22:08', '2023-03-07 10:22:08');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (72, 0, '文本框', 'input', 'admin_sys_gen_html_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:23:39', '2023-03-07 10:23:39');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (73, 0, '下拉框', 'select', 'admin_sys_gen_html_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:23:49', '2023-03-07 10:23:49');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (74, 0, '单选框', 'radio', 'admin_sys_gen_html_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:23:59', '2023-03-07 10:23:59');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (75, 0, '文本域', 'textarea', 'admin_sys_gen_html_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:24:08', '2023-03-07 10:24:08');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (76, 0, '目录', '1', 'admin_sys_menu_type', '', '', '', '1', '', '', 1, 1, '2023-03-08 10:42:00', '2023-03-08 10:42:14');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (77, 0, '菜单', '2', 'admin_sys_menu_type', '', '', '', '1', '', '', 1, 1, '2023-03-08 10:42:10', '2023-03-08 10:42:10');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (78, 0, '按钮', '3', 'admin_sys_menu_type', '', '', '', '1', '', '', 1, 1, '2023-03-08 10:42:22', '2023-03-08 10:42:22');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (79, 0, '类型1', '1', 'app_user_level_type', '', '', '', '1', '', '', 1, 1, '2023-03-08 11:55:57', '2023-03-08 11:55:57');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (80, 0, '类型2', '2', 'app_user_level_type', '', '', '', '1', '', '', 1, 1, '2023-03-08 11:56:02', '2023-03-08 11:56:02');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (81, 0, '数字文本框', 'numInput', 'admin_sys_gen_html_type', '', '', '', '1', '', '', 1, 1, '2023-03-09 20:12:33', '2023-03-09 20:12:33');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (82, 0, 'CNY', '1', 'app_money_type', '', '', '', '1', '', '', 1, 1, '2023-03-09 20:24:26', '2023-03-09 20:24:26');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (83, 0, '类型1', '1', 'app_account_change_type', '', '', '', '1', '', '', 1, 1, '2023-03-09 20:27:45', '2023-03-09 20:27:45');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (84, 0, '允许用户登录', '1', 'app_user_action_type', '', '', '', '1', '', '', 1, 1, '2023-03-11 14:08:01', '2023-03-11 14:08:01');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (85, 0, '禁止用户登录', '2', 'app_user_action_type', '', '', '', '1', '', '', 1, 1, '2023-03-11 14:08:10', '2023-03-11 14:08:10');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (86, 0, '后台用户', '1', 'app_user_by_type', '', '', '', '1', '', '', 1, 1, '2023-03-11 14:14:41', '2023-03-11 14:14:41');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (87, 0, '前台用户', '2', 'app_user_by_type', '', '', '', '1', '', '', 1, 1, '2023-03-11 14:14:59', '2023-03-11 14:14:59');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (88, 0, '发送成功', '1', 'plugin_msg_sendstatus', '', '', '', '1', '', '', 1, 1, '2023-09-26 10:42:22', '2023-09-26 10:42:22');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (89, 0, '发送失败', '2', 'plugin_msg_sendstatus', '', '', '', '1', '', '', 1, 1, '2023-09-26 10:42:31', '2023-09-26 10:42:31');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (90, 0, '邮箱', '1', 'plugin_msg_code_type', '', '', '', '1', '', '', 1, 1, '2023-09-26 10:42:58', '2023-09-26 10:42:58');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (91, 0, '短信', '2', 'plugin_msg_code_type', '', '', '', '1', '', '', 1, 1, '2023-09-26 10:43:04', '2023-09-26 10:43:04');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (92, 0, '待发布', '1', 'plugin_filemgr_publish_status', '', '', '', '1', '', '', 1, 1, '2024-12-01 23:20:36', '2024-12-01 23:20:36');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (93, 0, '已发布', '2', 'plugin_filemgr_publish_status', '', '', '', '1', '', '', 1, 1, '2024-12-01 23:20:45', '2024-12-01 23:20:45');
+INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "dict_value", "dict_type", "css_class", "list_class", "is_default", "status", "default", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (94, 0, '数字文本框', 'numInput', 'admin_sys_gen_html_type', '', '', '', '1', '', '', 1, 1, '2023-03-07 10:23:39', '2023-03-07 10:23:39');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_dict_type
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_dict_type";
+CREATE TABLE "public"."admin_sys_dict_type" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_dict_type_id_seq'::regclass),
+  "dict_name" varchar(128) COLLATE "pg_catalog"."default",
+  "dict_type" varchar(128) COLLATE "pg_catalog"."default",
+  "status" char(1) COLLATE "pg_catalog"."default",
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6)
+)
+;
+ALTER TABLE "public"."admin_sys_dict_type" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_dict_type"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_dict_type"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_dict_type"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_dict_type"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_dict_type" IS '字典类型管理';
+
+-- ----------------------------
+-- Records of admin_sys_dict_type
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (1, '管理-开关', 'admin_sys_normal_disable', '0', '系统开关列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:20:35');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (2, '管理-用户性别', 'admin_sys_user_sex', '0', '用户性别列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:21:06');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (3, '管理-菜单状态', 'admin_sys_menu_show_hide', '0', '菜单状态列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:21:02');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (4, '管理-是否', 'admin_sys_yes_no', '0', '系统是否列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:20:58');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (7, '管理-通知类型', 'admin_sys_notice_type', '0', '通知类型列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:20:53');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (8, '管理-状态', 'admin_sys_common_status', '0', '登录状态列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:20:49');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (9, '管理-操作类型', 'admin_sys_oper_type', '0', '操作类型列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:20:42');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (10, '管理-通知状态', 'admin_sys_notice_status', '0', '通知状态列表', 1, 1, '2021-05-13 19:56:38', '2023-03-11 23:20:39');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (11, '管理-基本状态', 'admin_sys_status', '0', '基本通用状态', 1, 1, '2021-07-09 11:39:21', '2023-03-11 23:21:23');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (12, '插件-文件管理-App发布状态', 'plugin_filemgr_publish_status', '2', '', 1, 1, '2021-12-09 12:42:31', '2023-03-11 23:20:01');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (13, '插件-文件管理-App系统平台', 'plugin_filemgr_app_platform', '0', 'App系统平台', 1, 1, '2021-08-13 13:36:40', '2023-03-11 23:20:17');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (14, '插件-文件管理-App类型', 'plugin_filemgr_app_type', '0', 'app属性', 1, 1, '2021-08-13 13:36:40', '2023-03-11 23:20:13');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (15, '插件-文件管理-App下载类型', 'plugin_filemgr_app_download_type', '0', '', 1, 1, '2021-08-13 14:02:03', '2023-03-11 23:20:06');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (17, '管理-接口-请求方法', 'admin_sys_api_method', '0', '', 1, 1, '2022-04-26 00:03:11', '2023-03-01 21:56:41');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (18, '管理-配置-类型', 'admin_sys_config_type', '1', '1-管理 2-插件 3-应用', 1, 1, '2023-03-01 11:04:56', '2024-12-13 20:10:17');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (19, '管理-配置-是否前台展示', 'admin_sys_config_is_frontend', '1', '1-展示 2-隐藏', 1, 1, '2023-03-01 11:06:28', '2023-03-01 11:08:07');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (20, '管理-登录日志-日志状态', 'admin_sys_loginlog_status', '1', '1-登录 2-退出', 1, 1, '2023-03-01 14:42:56', '2023-03-01 14:42:56');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (21, '管理-角色-数据范围', 'admin_sys_role_data_scope', '1', '1-全部数据权限 2- 自定义数据权限 3-本部门数据权限 4-本部门及以下数据权限 5-仅本人数据权限', 1, 1, '2023-03-04 13:29:21', '2023-03-04 13:29:21');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (22, '管理-模板-go类型', 'admin_sys_gen_go_type', '1', '', 1, 1, '2023-03-07 10:08:07', '2023-03-07 10:08:07');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (23, '管理-模板-查询类型', 'admin_sys_gen_query_type', '1', '', 1, 1, '2023-03-07 10:20:19', '2023-03-07 10:20:19');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (24, '管理-模板-显示类型', 'admin_sys_gen_html_type', '1', '', 1, 1, '2023-03-07 10:23:23', '2023-03-07 10:23:23');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (25, '管理-菜单-类型', 'admin_sys_menu_type', '1', '', 1, 1, '2023-03-08 10:33:32', '2023-03-08 10:33:32');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (26, '应用-用户-等级', 'app_user_level_type', '1', '', 1, 1, '2023-03-08 11:44:48', '2023-03-08 11:44:48');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (27, '应用-用户-资产-资金类型', 'app_money_type', '1', '1-CNY', 1, 1, '2023-03-09 20:24:17', '2023-03-11 14:06:46');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (28, '应用-用户-资产-账变类型', 'app_account_change_type', '1', '1-类型1', 1, 1, '2023-03-09 20:27:33', '2023-03-11 14:06:38');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (29, '应用-用户-行为类型', 'app_user_action_type', '1', '', 1, 1, '2023-03-11 14:06:29', '2023-03-11 14:06:29');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (30, '应用-用户-用户更新类型', 'app_user_by_type', '1', '', 1, 1, '2023-03-11 14:14:06', '2023-03-11 14:14:27');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (31, '插件-消息-验证码类型', 'plugin_msg_code_type', '1', '1-邮箱 2-短信', 1, 1, '2023-03-12 12:12:30', '2023-03-12 12:15:20');
+INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (32, '插件-消息-验证码发送状态', 'plugin_msg_sendstatus', '1', '', 1, 1, '2023-03-12 12:14:56', '2023-03-12 13:23:37');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_gen_column
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_gen_column";
+CREATE TABLE "public"."admin_sys_gen_column" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_gen_column_id_seq'::regclass),
+  "table_id" int4,
+  "column_name" varchar(128) COLLATE "pg_catalog"."default",
+  "column_comment" varchar(128) COLLATE "pg_catalog"."default",
+  "column_type" varchar(128) COLLATE "pg_catalog"."default",
+  "go_type" varchar(128) COLLATE "pg_catalog"."default",
+  "go_field" varchar(128) COLLATE "pg_catalog"."default",
+  "json_field" varchar(128) COLLATE "pg_catalog"."default",
+  "is_pk" char(1) COLLATE "pg_catalog"."default",
+  "is_required" char(1) COLLATE "pg_catalog"."default",
+  "is_list" char(1) COLLATE "pg_catalog"."default",
+  "is_query" char(1) COLLATE "pg_catalog"."default",
+  "query_type" varchar(128) COLLATE "pg_catalog"."default",
+  "html_type" varchar(128) COLLATE "pg_catalog"."default",
+  "dict_type" varchar(128) COLLATE "pg_catalog"."default",
+  "sort" int8,
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6),
+  "create_by" int4,
+  "update_by" int4
+)
+;
+ALTER TABLE "public"."admin_sys_gen_column" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_gen_column"."is_required" IS '该值是否参与新增或者编辑';
+COMMENT ON COLUMN "public"."admin_sys_gen_column"."is_list" IS '列表';
+COMMENT ON COLUMN "public"."admin_sys_gen_column"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_gen_column"."updated_at" IS '最后更新时间';
+COMMENT ON COLUMN "public"."admin_sys_gen_column"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_gen_column"."update_by" IS '更新者';
+COMMENT ON TABLE "public"."admin_sys_gen_column" IS 'db字段管理';
+
+-- ----------------------------
+-- Records of admin_sys_gen_column
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (1, 1, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (2, 1, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (3, 1, 'id', '主键编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (4, 1, 'json_result', '返回数据', 'varchar(255)', 'string', 'JsonResult', 'jsonResult', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (5, 1, 'latency_time', '耗时', 'varchar(128)', 'string', 'LatencyTime', 'latencyTime', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (6, 1, 'oper_ip', '客户端ip', 'varchar(128)', 'string', 'OperIp', 'operIp', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (7, 1, 'oper_location', '访问位置', 'varchar(128)', 'string', 'OperLocation', 'operLocation', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (8, 1, 'oper_time', '操作时间', 'timestamp', '*time.Time', 'OperTime', 'operTime', '2', '1', '2', '2', 'EQ', 'datetime', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (9, 1, 'oper_url', '访问地址', 'varchar(255)', 'string', 'OperUrl', 'operUrl', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (10, 1, 'remark', '备注', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (11, 1, 'request_method', '请求方式', 'varchar(128)', 'string', 'RequestMethod', 'requestMethod', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (12, 1, 'status', '操作状态', 'varchar(4)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (13, 1, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (14, 1, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 14, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (15, 1, 'user_agent', 'ua', 'varchar(255)', 'string', 'UserAgent', 'userAgent', '2', '2', '2', '2', 'EQ', 'input', '', 15, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (16, 1, 'user_id', '操作者', 'int', 'int64', 'UserId', 'userId', '2', '2', '2', '2', 'EQ', 'input', '', 16, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (17, 2, 'avatar', '头像路径', 'varchar(1000)', 'string', 'Avatar', 'avatar', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (18, 2, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (19, 2, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (20, 2, 'email', '电子邮箱', 'varchar(300)', 'string', 'Email', 'email', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (21, 2, 'id', '用户编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (22, 2, 'level_id', '用户等级编号', 'int', 'int64', 'LevelId', 'levelId', '2', '1', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (23, 2, 'mobile', '手机号码', 'varchar(100)', 'string', 'Mobile', 'mobile', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (24, 2, 'mobile_title', '用户手机号国家前缀', 'varchar(255)', 'string', 'MobileTitle', 'mobileTitle', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (25, 2, 'money', '余额', 'decimal(30,18)', 'decimal.Decimal', 'Money', 'money', '2', '1', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (26, 2, 'parent_id', '父级编号', 'int', 'int64', 'ParentId', 'parentId', '2', '1', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (27, 2, 'parent_ids', '所有父级编号', 'varchar(1000)', 'string', 'ParentIds', 'parentIds', '2', '1', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (28, 2, 'pay_pwd', '提现密码', 'varchar(100)', 'string', 'PayPwd', 'payPwd', '2', '1', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (29, 2, 'pwd', '登录密码', 'varchar(100)', 'string', 'Pwd', 'pwd', '2', '1', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (30, 2, 'ref_code', '推荐码', 'varchar(255)', 'string', 'RefCode', 'refCode', '2', '2', '2', '2', 'EQ', 'input', '', 14, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (31, 2, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 15, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (32, 2, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 16, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (33, 2, 'tree_leaf', '是否最末级', 'char(1)', 'string', 'TreeLeaf', 'treeLeaf', '2', '1', '2', '2', 'EQ', 'input', '', 17, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (34, 2, 'tree_level', '层次级别', 'int', 'int64', 'TreeLevel', 'treeLevel', '2', '1', '2', '2', 'EQ', 'input', '', 18, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (35, 2, 'tree_sort', '本级排序号（升序）', 'int', 'int64', 'TreeSort', 'treeSort', '2', '1', '2', '2', 'EQ', 'input', '', 19, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (36, 2, 'tree_sorts', '所有级别排序号', 'varchar(1000)', 'string', 'TreeSorts', 'treeSorts', '2', '1', '2', '2', 'EQ', 'input', '', 20, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (37, 2, 'true_name', '真实姓名', 'varchar(100)', 'string', 'TrueName', 'trueName', '2', '1', '2', '2', 'EQ', 'input', '', 21, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (38, 2, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 22, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (39, 2, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 23, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (40, 2, 'user_name', '用户昵称', 'varchar(100)', 'string', 'UserName', 'userName', '2', '1', '2', '2', 'EQ', 'input', '', 24, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (41, 3, 'after_money', '账变后金额', 'decimal(30,18)', 'decimal.Decimal', 'AfterMoney', 'afterMoney', '2', '1', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (42, 3, 'before_money', '账变前金额', 'decimal(30,18)', 'decimal.Decimal', 'BeforeMoney', 'beforeMoney', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (43, 3, 'change_money', '账变金额', 'decimal(10,2)', 'decimal.Decimal', 'ChangeMoney', 'changeMoney', '2', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (44, 3, 'change_type', '帐变类型(1-类型1)', 'varchar(30)', 'string', 'ChangeType', 'changeType', '2', '1', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (45, 3, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (46, 3, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (47, 3, 'id', '账变编号', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (48, 3, 'money_type', '金额类型 1:余额 ', 'char(10)', 'string', 'MoneyType', 'moneyType', '2', '1', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (49, 3, 'remarks', '备注信息', 'varchar(500)', 'string', 'Remarks', 'remarks', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (50, 3, 'status', '状态（1正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (51, 3, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (52, 3, 'updated_date', '更新时间', 'datetime', '*time.Time', 'UpdatedDate', 'updatedDate', '2', '1', '2', '2', 'EQ', 'datetime', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (53, 3, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '1', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (54, 4, 'can_login', '1-允许登陆；2-不允许登陆', 'char(1)', 'string', 'CanLogin', 'canLogin', '2', '1', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (55, 4, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (56, 4, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (57, 4, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (58, 4, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (59, 4, 'status', '状态（1-正常 2-异常）n', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (60, 4, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (61, 4, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (62, 4, 'user_id', '用户id', 'int', 'int64', 'UserId', 'userId', '2', '1', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (63, 5, 'code', '区号', 'varchar(12)', 'string', 'Code', 'code', '2', '1', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (64, 5, 'country', '国家或地区', 'varchar(64)', 'string', 'Country', 'country', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (65, 5, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (66, 5, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (67, 5, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (68, 5, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (69, 5, 'status', '状态(1-可用 2-停用)', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (70, 5, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (71, 5, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (72, 6, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (73, 6, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (74, 6, 'id', '主键', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (75, 6, 'level', '等级', 'int', 'int64', 'Level', 'level', '2', '1', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (76, 6, 'level_type', '等级类型', 'varchar(10)', 'string', 'LevelType', 'levelType', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (77, 6, 'name', '等级名称', 'varchar(255)', 'string', 'Name', 'name', '2', '1', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (78, 6, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (79, 6, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (80, 6, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (81, 6, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (82, 7, 'action_type', '用户行为类型', 'char(2)', 'string', 'ActionType', 'actionType', '2', '1', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (83, 7, 'by_type', '更新用户类型 1-app用户 2-后台用户', 'char(2)', 'string', 'ByType', 'byType', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (84, 7, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (85, 7, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (86, 7, 'id', '日志编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (87, 7, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (88, 7, 'status', '状态(1-正常 2-异常)', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (89, 7, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (90, 7, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (91, 7, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '1', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (92, 8, 'content', '内容', 'text', 'string', 'Content', 'content', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (93, 8, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (94, 8, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (95, 8, 'id', '主键编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (96, 8, 'num', '阅读次数', 'int', 'int64', 'Num', 'num', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (97, 8, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (98, 8, 'status', '状态（0正常 1删除 2停用 3冻结）', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (99, 8, 'title', '标题', 'varchar(255)', 'string', 'Title', 'title', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (100, 8, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (101, 8, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (102, 9, 'cate_id', '分类编号', 'int', 'int64', 'CateId', 'cateId', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (103, 9, 'content', '内容', 'text', 'string', 'Content', 'content', '2', '2', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (104, 9, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (105, 9, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (106, 9, 'id', '主键编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (107, 9, 'name', '名称', 'varchar(255)', 'string', 'Name', 'name', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (108, 9, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (109, 9, 'status', '状态（1-正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (110, 9, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (111, 9, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (112, 10, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (113, 10, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (114, 10, 'id', '主键编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (115, 10, 'name', '名称', 'varchar(255)', 'string', 'Name', 'name', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (116, 10, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (117, 10, 'status', '状态（1-正常 2-异常）', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (118, 10, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (119, 10, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (120, 11, 'app_type', '版本(1-默认)', 'char(1)', 'string', 'AppType', 'appType', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (121, 11, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (122, 11, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (123, 11, 'download_type', '下载类型(1-本地 2-外链 3-oss )', 'char(1)', 'string', 'DownloadType', 'downloadType', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (124, 11, 'download_url', '下载地址(download_type=1使用)', 'varchar(255)', 'string', 'DownloadUrl', 'downloadUrl', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (125, 11, 'id', '主键', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (126, 11, 'local_address', '本地地址', 'varchar(255)', 'string', 'LocalAddress', 'localAddress', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (127, 11, 'platform', '平台 (1-安卓 2-苹果)', 'char(1)', 'string', 'Platform', 'platform', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (128, 11, 'remark', '备注信息', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (129, 11, 'status', '状态（1-已发布 2-待发布）n', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (130, 11, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (131, 11, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (132, 11, 'version', '版本号', 'varchar(100)', 'string', 'Version', 'version', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (133, 12, 'code', '验证码', 'varchar(12)', 'string', 'Code', 'code', '2', '1', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (134, 12, 'code_type', '验证码类型 1-邮箱；2-短信', 'char(1)', 'string', 'CodeType', 'codeType', '2', '1', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (135, 12, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (136, 12, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (137, 12, 'id', '验证码编号', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (138, 12, 'remark', '备注异常', 'varchar(500)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (139, 12, 'status', '验证码状态 1-发送成功 2-发送失败', 'char(1)', 'string', 'Status', 'status', '2', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (140, 12, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '1', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (141, 12, 'updated_at', '更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '1', '2', '2', 'EQ', 'datetime', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (142, 12, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '1', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (143, 13, 'api_type', '接口类型', 'varchar(16)', 'string', 'ApiType', 'apiType', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (144, 13, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (145, 13, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (146, 13, 'description', '功能描述', 'varchar(256)', 'string', 'Description', 'description', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (147, 13, 'id', '主键编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (148, 13, 'method', '请求类型', 'varchar(32)', 'string', 'Method', 'method', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (149, 13, 'path', '地址', 'varchar(128)', 'string', 'Path', 'path', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (150, 13, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (151, 13, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (152, 14, 'config_key', 'ConfigKey', 'varchar(128)', 'string', 'ConfigKey', 'configKey', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (153, 14, 'config_name', 'ConfigName', 'varchar(128)', 'string', 'ConfigName', 'configName', '2', '2', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (154, 14, 'config_type', 'ConfigType', 'varchar(64)', 'string', 'ConfigType', 'configType', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (155, 14, 'config_value', 'ConfigValue', 'varchar(255)', 'string', 'ConfigValue', 'configValue', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (156, 14, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (157, 14, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (158, 14, 'id', '主键编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (159, 14, 'is_frontend', '是否前台', 'char(1)', 'string', 'IsFrontend', 'isFrontend', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (160, 14, 'remark', 'Remark', 'varchar(128)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (161, 14, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (162, 14, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (163, 15, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (164, 15, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (165, 15, 'dept_name', '', 'varchar(128)', 'string', 'DeptName', 'deptName', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (166, 15, 'email', '', 'varchar(80)', 'string', 'Email', 'email', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (167, 15, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (168, 15, 'leader', '', 'varchar(128)', 'string', 'Leader', 'leader', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (169, 15, 'parent_id', '', 'int', 'int64', 'ParentId', 'parentId', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (170, 15, 'parent_ids', '', 'varchar(255)', 'string', 'ParentIds', 'parentIds', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (171, 15, 'phone', '', 'varchar(20)', 'string', 'Phone', 'phone', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (172, 15, 'sort', '', 'int', 'int64', 'Sort', 'sort', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (173, 15, 'status', '', 'tinyint', 'int64', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (174, 15, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (175, 15, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (176, 16, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (177, 16, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (178, 16, 'css_class', '', 'varchar(128)', 'string', 'CssClass', 'cssClass', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (179, 16, 'default', '', 'varchar(8)', 'string', 'Default', 'default', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (180, 16, 'dict_label', '', 'varchar(128)', 'string', 'DictLabel', 'dictLabel', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (181, 16, 'dict_sort', '', 'int', 'int64', 'DictSort', 'dictSort', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (182, 16, 'dict_type', '', 'varchar(64)', 'string', 'DictType', 'dictType', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (183, 16, 'dict_value', '', 'varchar(255)', 'string', 'DictValue', 'dictValue', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (184, 16, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (185, 16, 'is_default', '', 'varchar(8)', 'string', 'IsDefault', 'isDefault', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (186, 16, 'list_class', '', 'varchar(128)', 'string', 'ListClass', 'listClass', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (187, 16, 'remark', '', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (188, 16, 'status', '', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (189, 16, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 14, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (190, 16, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 15, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (191, 17, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (192, 17, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (193, 17, 'dict_name', '', 'varchar(128)', 'string', 'DictName', 'dictName', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (194, 17, 'dict_type', '', 'varchar(128)', 'string', 'DictType', 'dictType', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (195, 17, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (196, 17, 'remark', '', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (197, 17, 'status', '', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (198, 17, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (199, 17, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (200, 18, 'business_name', '业务名', 'varchar(255)', 'string', 'BusinessName', 'businessName', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (201, 18, 'class_name', '类名', 'varchar(255)', 'string', 'ClassName', 'className', '2', '2', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (202, 18, 'create_by', '创建者', 'bigint', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (203, 18, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (204, 18, 'function_author', '作者', 'varchar(255)', 'string', 'FunctionAuthor', 'functionAuthor', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (205, 18, 'function_name', '功能描述', 'varchar(255)', 'string', 'FunctionName', 'functionName', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (206, 18, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (207, 18, 'is_plugin', '是否插件 1-是 2-否', 'char(1)', 'string', 'IsPlugin', 'isPlugin', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (208, 18, 'module_name', '接口名', 'varchar(255)', 'string', 'ModuleName', 'moduleName', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (209, 18, 'package_name', '应用名', 'varchar(255)', 'string', 'PackageName', 'packageName', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (210, 18, 'remark', '', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (211, 18, 'table_comment', '表描述', 'varchar(255)', 'string', 'TableComment', 'tableComment', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (212, 18, 'table_name', '表名', 'varchar(255)', 'string', 'TableName', 'tableName', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (213, 18, 'update_by', '更新者', 'bigint', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 14, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (214, 18, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 15, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (215, 19, 'agent', '代理', 'varchar(255)', 'string', 'Agent', 'agent', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (216, 19, 'browser', '浏览器', 'varchar(255)', 'string', 'Browser', 'browser', '2', '2', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (217, 19, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (218, 19, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (219, 19, 'id', '主键编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (220, 19, 'ipaddr', 'ip地址', 'varchar(255)', 'string', 'Ipaddr', 'ipaddr', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (221, 19, 'login_location', '归属地', 'varchar(255)', 'string', 'LoginLocation', 'loginLocation', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (222, 19, 'login_time', '登录时间', 'timestamp', '*time.Time', 'LoginTime', 'loginTime', '2', '1', '2', '2', 'EQ', 'datetime', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (223, 19, 'os', '系统', 'varchar(255)', 'string', 'Os', 'os', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (224, 19, 'platform', '固件', 'varchar(255)', 'string', 'Platform', 'platform', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (225, 19, 'remark', '备注', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (226, 19, 'status', '状态 1-登录 2-退出', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (227, 19, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (228, 19, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 14, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (229, 19, 'user_id', '用户编号', 'int', 'int64', 'UserId', 'userId', '2', '2', '2', '2', 'EQ', 'input', '', 15, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (230, 20, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (231, 20, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (232, 20, 'element', '', 'varchar(255)', 'string', 'Element', 'element', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (233, 20, 'icon', '', 'varchar(128)', 'string', 'Icon', 'icon', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (234, 20, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (235, 20, 'is_affix', '是否固定 1-是 2-否', 'char(1)', 'string', 'IsAffix', 'isAffix', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (236, 20, 'is_frame', '是否内嵌 1-是 2-否', 'char(1)', 'string', 'IsFrame', 'isFrame', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (237, 20, 'is_hidden', '是否隐藏 1-是 2-否', 'char(1)', 'string', 'IsHidden', 'isHidden', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (238, 20, 'is_keep_alive', '是否缓存 1-是 2-否', 'char(1)', 'string', 'IsKeepAlive', 'isKeepAlive', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (239, 20, 'menu_type', '', 'char(1)', 'string', 'MenuType', 'menuType', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (240, 20, 'parent_id', '上级菜单id', 'int', 'int64', 'ParentId', 'parentId', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (241, 20, 'parent_ids', '上级菜单id集合', 'varchar(255)', 'string', 'ParentIds', 'parentIds', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (242, 20, 'path', '', 'varchar(255)', 'string', 'Path', 'path', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (243, 20, 'permission', '', 'varchar(255)', 'string', 'Permission', 'permission', '2', '2', '2', '2', 'EQ', 'input', '', 14, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (244, 20, 'redirect', '', 'varchar(255)', 'string', 'Redirect', 'redirect', '2', '2', '2', '2', 'EQ', 'input', '', 15, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (245, 20, 'sort', '', 'int', 'int64', 'Sort', 'sort', '2', '2', '2', '2', 'EQ', 'input', '', 16, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (246, 20, 'title', '', 'varchar(128)', 'string', 'Title', 'title', '2', '2', '2', '2', 'EQ', 'input', '', 17, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (247, 20, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 18, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (248, 20, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 19, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (249, 21, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (250, 21, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (251, 21, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (252, 21, 'post_code', '', 'varchar(128)', 'string', 'PostCode', 'postCode', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (253, 21, 'post_name', '', 'varchar(128)', 'string', 'PostName', 'postName', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (254, 21, 'remark', '', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (255, 21, 'sort', '', 'tinyint', 'int64', 'Sort', 'sort', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (256, 21, 'status', '', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (257, 21, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (258, 21, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (259, 22, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (260, 22, 'created_at', '创建时间', 'datetime(3)', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (261, 22, 'data_scope', '', 'varchar(128)', 'string', 'DataScope', 'dataScope', '2', '2', '2', '2', 'EQ', 'input', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (262, 22, 'id', '', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (263, 22, 'remark', '', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (264, 22, 'role_key', '', 'varchar(128)', 'string', 'RoleKey', 'roleKey', '2', '2', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (265, 22, 'role_name', '', 'varchar(128)', 'string', 'RoleName', 'roleName', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (266, 22, 'role_sort', '', 'bigint', 'int64', 'RoleSort', 'roleSort', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (267, 22, 'status', '状态 1-正常 2-停用', 'char(1)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (268, 22, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (269, 22, 'updated_at', '最后更新时间', 'datetime(3)', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (270, 23, 'avatar', '头像', 'varchar(255)', 'string', 'Avatar', 'avatar', '2', '2', '2', '2', 'EQ', 'input', '', 1, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (271, 23, 'create_by', '创建者', 'int', 'int64', 'CreateBy', 'createBy', '2', '2', '2', '2', 'EQ', 'input', '', 2, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (272, 23, 'created_at', '创建时间', 'datetime', '*time.Time', 'CreatedAt', 'createdAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 3, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (273, 23, 'dept_id', '部门', 'int', 'int64', 'DeptId', 'deptId', '2', '2', '2', '2', 'EQ', 'input', '', 4, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (274, 23, 'email', '邮箱', 'varchar(128)', 'string', 'Email', 'email', '2', '2', '2', '2', 'EQ', 'input', '', 5, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (275, 23, 'id', '编码', 'int', 'int64', 'Id', 'id', '1', '1', '2', '2', 'EQ', 'input', '', 6, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (276, 23, 'nick_name', '昵称', 'varchar(128)', 'string', 'NickName', 'nickName', '2', '2', '2', '2', 'EQ', 'input', '', 7, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (277, 23, 'password', '密码', 'varchar(128)', 'string', 'Password', 'password', '2', '2', '2', '2', 'EQ', 'input', '', 8, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (278, 23, 'phone', '手机号', 'varchar(11)', 'string', 'Phone', 'phone', '2', '2', '2', '2', 'EQ', 'input', '', 9, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (279, 23, 'post_id', '岗位', 'int', 'int64', 'PostId', 'postId', '2', '2', '2', '2', 'EQ', 'input', '', 10, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (280, 23, 'remark', '备注', 'varchar(255)', 'string', 'Remark', 'remark', '2', '2', '2', '2', 'EQ', 'input', '', 11, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (281, 23, 'role_id', '角色ID', 'int', 'int64', 'RoleId', 'roleId', '2', '2', '2', '2', 'EQ', 'input', '', 12, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (282, 23, 'salt', '加盐', 'varchar(255)', 'string', 'Salt', 'salt', '2', '2', '2', '2', 'EQ', 'input', '', 13, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (283, 23, 'sex', '性别', 'char(1)', 'string', 'Sex', 'sex', '2', '2', '2', '2', 'EQ', 'input', '', 14, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (284, 23, 'status', '状态', 'varchar(4)', 'string', 'Status', 'status', '2', '2', '2', '2', 'EQ', 'input', '', 15, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (285, 23, 'update_by', '更新者', 'int', 'int64', 'UpdateBy', 'updateBy', '2', '2', '2', '2', 'EQ', 'input', '', 16, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (286, 23, 'updated_at', '最后更新时间', 'datetime', '*time.Time', 'UpdatedAt', 'updatedAt', '2', '2', '2', '2', 'EQ', 'datetime', '', 17, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "column_comment", "column_type", "go_type", "go_field", "json_field", "is_pk", "is_required", "is_list", "is_query", "query_type", "html_type", "dict_type", "sort", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (287, 23, 'username', '用户名', 'varchar(64)', 'string', 'Username', 'username', '2', '2', '2', '2', 'EQ', 'input', '', 18, '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_gen_table
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_gen_table";
+CREATE TABLE "public"."admin_sys_gen_table" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_gen_table_id_seq'::regclass),
+  "table_name" varchar(255) COLLATE "pg_catalog"."default",
+  "table_comment" varchar(255) COLLATE "pg_catalog"."default",
+  "class_name" varchar(255) COLLATE "pg_catalog"."default",
+  "package_name" varchar(255) COLLATE "pg_catalog"."default",
+  "module_name" varchar(255) COLLATE "pg_catalog"."default",
+  "function_name" varchar(255) COLLATE "pg_catalog"."default",
+  "function_author" varchar(255) COLLATE "pg_catalog"."default",
+  "business_name" varchar(255) COLLATE "pg_catalog"."default",
+  "is_plugin" char(1) COLLATE "pg_catalog"."default" DEFAULT '1'::bpchar,
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6),
+  "create_by" int8,
+  "update_by" int8
+)
+;
+ALTER TABLE "public"."admin_sys_gen_table" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."table_name" IS '表名';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."table_comment" IS '表描述';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."class_name" IS '类名';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."package_name" IS '应用名';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."module_name" IS '接口名';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."function_name" IS '功能描述';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."function_author" IS '作者';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."business_name" IS '业务名';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."is_plugin" IS '是否插件 1-是 2-否';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."updated_at" IS '最后更新时间';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_gen_table"."update_by" IS '更新者';
+COMMENT ON TABLE "public"."admin_sys_gen_table" IS '表管理';
+
+-- ----------------------------
+-- Records of admin_sys_gen_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (1, 'admin_sys_oper_log', '操作日志', 'SysOperLog', 'admin', 'sys-oper-log', '操作日志', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (2, 'app_user', '用户管理', 'User', 'app', 'user', '用户管理', 'Jason', 'user', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (3, 'app_user_account_log', '账变记录', 'UserAccountLog', 'app', 'user-account-log', '账变记录', 'Jason', 'user', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (4, 'app_user_conf', '用户配置', 'UserConf', 'app', 'user-conf', '用户配置', 'Jason', 'user', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (5, 'app_user_country_code', '国家区号', 'UserCountryCode', 'app', 'user-country-code', '国家区号', 'Jason', 'user', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (6, 'app_user_level', '用户等级', 'UserLevel', 'app', 'user-level', '用户等级', 'Jason', 'user', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (7, 'app_user_oper_log', '用户关键行为日志表', 'UserOperLog', 'app', 'user-oper-log', '用户关键行为日志表', 'Jason', 'user', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (8, 'plugins_content_announcement', '公告管理', 'ContentAnnouncement', 'plugins', 'content-announcement', '公告管理', 'Jason', 'content', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (9, 'plugins_content_article', '文章管理', 'ContentArticle', 'plugins', 'content-article', '文章管理', 'Jason', 'content', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (10, 'plugins_content_category', '文章分类管理', 'ContentCategory', 'plugins', 'content-category', '文章分类管理', 'Jason', 'content', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (11, 'plugins_filemgr_app', 'app升级管理', 'FilemgrApp', 'plugins', 'filemgr-app', 'app升级管理', 'Jason', 'filemgr', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (12, 'plugins_msg_code', '验证码记录', 'MsgCode', 'plugins', 'msg-code', '验证码记录', 'Jason', 'msg', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (13, 'admin_sys_api', '接口管理', 'SysApi', 'admin', 'sys-api', '接口管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (14, 'admin_sys_config', '配置管理', 'SysConfig', 'admin', 'sys-config', '配置管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (15, 'admin_sys_dept', '部门管理', 'SysDept', 'admin', 'sys-dept', '部门管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (16, 'admin_sys_dict_data', '字典数据管理', 'SysDictData', 'admin', 'sys-dict-data', '字典数据管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (17, 'admin_sys_dict_type', '字典类型管理', 'SysDictType', 'admin', 'sys-dict-type', '字典类型管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (18, 'admin_sys_gen_table', '表管理', 'SysGenTable', 'admin', 'sys-gen-table', '表管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (19, 'admin_sys_login_log', '登录日志', 'SysLoginLog', 'admin', 'sys-login-log', '登录日志', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (20, 'admin_sys_menu', '菜单管理', 'SysMenu', 'admin', 'sys-menu', '菜单管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (21, 'admin_sys_post', '岗位管理', 'SysPost', 'admin', 'sys-post', '岗位管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (22, 'admin_sys_role', '角色管理', 'SysRole', 'admin', 'sys-role', '角色管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment", "class_name", "package_name", "module_name", "function_name", "function_author", "business_name", "is_plugin", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (23, 'admin_sys_user', '系统用户管理', 'SysUser', 'admin', 'sys-user', '系统用户管理', 'Jason', 'sys', '1', '', '2024-12-13 19:56:40', '2024-12-13 19:56:40', 0, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_login_log";
+CREATE TABLE "public"."admin_sys_login_log" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_login_log_id_seq'::regclass),
+  "user_id" int4,
+  "ipaddr" varchar(255) COLLATE "pg_catalog"."default",
+  "login_location" varchar(255) COLLATE "pg_catalog"."default",
+  "browser" varchar(255) COLLATE "pg_catalog"."default",
+  "os" varchar(255) COLLATE "pg_catalog"."default",
+  "agent" varchar(255) COLLATE "pg_catalog"."default",
+  "platform" varchar(255) COLLATE "pg_catalog"."default",
+  "login_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "status" char(1) COLLATE "pg_catalog"."default",
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6),
+  "create_by" int4,
+  "update_by" int4
+)
+;
+ALTER TABLE "public"."admin_sys_login_log" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_login_log"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."user_id" IS '用户编号';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."ipaddr" IS 'ip地址';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."login_location" IS '归属地';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."browser" IS '浏览器';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."os" IS '系统';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."agent" IS '代理';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."platform" IS '固件';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."login_time" IS '登录时间';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."status" IS '状态 1-登录 2-退出';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."remark" IS '备注';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."updated_at" IS '最后更新时间';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_login_log"."update_by" IS '更新者';
+COMMENT ON TABLE "public"."admin_sys_login_log" IS '登录日志';
+
+-- ----------------------------
+-- Records of admin_sys_login_log
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_login_log" ("id", "user_id", "ipaddr", "login_location", "browser", "os", "agent", "platform", "login_time", "status", "remark", "created_at", "updated_at", "create_by", "update_by") VALUES (1, 1, '::1', '----', 'Edge 131.0.0.0', 'Intel Mac OS X 10_15_7', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'Macintosh', '2024-12-13 19:58:24', '1', '登录操作', '2024-12-13 19:58:24', '2024-12-13 19:58:24', 0, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_menu
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_menu";
+CREATE TABLE "public"."admin_sys_menu" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_menu_id_seq'::regclass),
+  "title" varchar(128) COLLATE "pg_catalog"."default",
+  "icon" varchar(128) COLLATE "pg_catalog"."default",
+  "path" varchar(255) COLLATE "pg_catalog"."default",
+  "element" varchar(255) COLLATE "pg_catalog"."default",
+  "redirect" varchar(255) COLLATE "pg_catalog"."default",
+  "permission" varchar(255) COLLATE "pg_catalog"."default",
+  "sort" int4,
+  "parent_id" int4,
+  "parent_ids" varchar(255) COLLATE "pg_catalog"."default",
+  "menu_type" char(1) COLLATE "pg_catalog"."default",
+  "is_keep_alive" char(1) COLLATE "pg_catalog"."default",
+  "is_affix" char(1) COLLATE "pg_catalog"."default",
+  "is_hidden" char(1) COLLATE "pg_catalog"."default",
+  "is_frame" char(1) COLLATE "pg_catalog"."default",
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6)
+)
+;
+ALTER TABLE "public"."admin_sys_menu" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_menu"."parent_id" IS '上级菜单id';
+COMMENT ON COLUMN "public"."admin_sys_menu"."parent_ids" IS '上级菜单id集合';
+COMMENT ON COLUMN "public"."admin_sys_menu"."is_keep_alive" IS '是否缓存 1-是 2-否';
+COMMENT ON COLUMN "public"."admin_sys_menu"."is_affix" IS '是否固定 1-是 2-否';
+COMMENT ON COLUMN "public"."admin_sys_menu"."is_hidden" IS '是否隐藏 1-是 2-否';
+COMMENT ON COLUMN "public"."admin_sys_menu"."is_frame" IS '是否内嵌 1-是 2-否';
+COMMENT ON COLUMN "public"."admin_sys_menu"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_menu"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_menu"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_menu"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_menu" IS '菜单管理';
+
+-- ----------------------------
+-- Records of admin_sys_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (1, '系统管理', 'SettingFilled', '/admin/sys', '', '/admin/sys/sys-api', '', 300, 0, '0,', '1', ' ', ' ', '2', ' ', 1, 1, '2021-05-20 21:58:46', '2024-12-14 15:04:42');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (2, '用户管理', 'HeartFilled', '/admin/sys/sys-user', '/admin/sys/sys-user/index', '', '', 10, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:10:12');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (3, '新增系统用户管理', 'AppstoreOutlined', '', '', '', 'admin:sys-user:add', 1, 2, '0,22,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 13:43:52');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (4, '获取系统用户管理分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-user:query', 0, 2, '0,22,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 13:14:41');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (5, '更新系统用户管理', 'AppstoreOutlined', '', '', '', 'admin:sys-user:edit', 2, 2, '0,22,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 13:50:46');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (6, '删除系统用户管理', 'AppstoreOutlined', '', '', '', 'admin:sys-user:del', 3, 2, '0,22,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 13:50:52');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (7, '菜单管理', 'BookFilled', '/admin/sys/sys-menu', '/admin/sys/sys-menu/index', '', '', 30, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:10:42');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (8, '角色管理', 'FlagFilled', '/admin/sys/sys-role', '/admin/sys/sys-role/index', '', '', 20, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:10:26');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (9, '部门管理', 'BuildFilled', '/admin/sys/sys-dept', '/admin/sys/sys-dept/index', '', '', 40, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:10:54');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (10, '岗位管理', 'DribbbleCircleFilled', '/admin/sys/sys-post', '/admin/sys/sys-post/index', '', '', 50, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:11:12');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (11, '字典管理', 'ContainerFilled', '/admin/sys/sys-dicttype', '/admin/sys/sys-dicttype/index', '', '', 60, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:11:27');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (12, '字典数据', 'ControlFilled', '/admin/sys/sys-dictdata', '/admin/sys/sys-dictdata/index', '', '', 100, 1, '0,1,', '2', '2', '2', '1', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:12:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (13, '参数管理', 'GoldenFilled', '/admin/sys/sys-config', '/admin/sys/sys-config/index', '', '', 70, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:11:54');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (14, '登录日志', 'FileTextFilled', '/admin/sys/sys-loginlog', '/admin/sys/sys-loginlog/index', '', '', 90, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:12:07');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (15, '操作日志', 'BugFilled', '/admin/sys/sys-operalog', '/admin/sys/sys-operlog/index', '', '', 120, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:12:31');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (16, '新增菜单管理', 'AppstoreOutlined', '', '', '', 'admin:sys-menu:add', 1, 7, '0,1,7,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:13:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (17, '更新菜单管理', 'AppstoreOutlined', '', '', '', 'admin:sys-menu:edit', 1, 7, '0,1,7,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:12:33');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (18, '查询菜单管理列表', 'AppstoreOutlined', '', '', '', 'admin:sys-menu:query', 0, 7, '0,1,7,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:02:45');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (19, '删除菜单管理', 'AppstoreOutlined', '', '', '', 'admin:sys-menu:del', 1, 7, '0,1,7,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:12:48');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (20, '新增角色管理', 'AppstoreOutlined', '', '', '', 'admin:sys-role:add', 1, 8, '0,1,8,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 13:56:24');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (21, '获取角色管理全部列表', 'AppstoreOutlined', '', '', '', 'admin:sys-role:query', 0, 8, '0,1,8,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 13:52:04');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (22, '更新角色管理', 'AppstoreOutlined', '', '', '', 'admin:sys-role:edit', 1, 8, '0,1,8,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:00:05');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (23, '删除角色管理', 'AppstoreOutlined', '', '', '', 'admin:sys-role:del', 1, 8, '0,1,8,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:00:31');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (24, '获取部门管理列表', 'AppstoreOutlined', '', '', '', 'admin:sys-dept:query', 0, 9, '0,1,9,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 14:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (25, '新增部门管理', 'AppstoreOutlined', '', '', '', 'admin:sys-dept:add', 1, 9, '0,1,9,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 14:17:17');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (26, '更新部门管理', 'AppstoreOutlined', '', '', '', 'admin:sys-dept:edit', 2, 9, '0,1,9,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 14:18:07');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (27, '删除部门管理', 'AppstoreOutlined', '', '', '', 'admin:sys-dept:del', 3, 9, '0,1,9,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 14:18:35');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (28, '获取岗位管理分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-post:query', 0, 10, '0,1,10,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:24:08');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (29, '新增岗位管理', 'AppstoreOutlined', '', '', '', 'admin:sys-post:add', 0, 10, '0,1,10,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:27:41');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (30, '修改岗位管理', 'AppstoreOutlined', '', '', '', 'admin:sys-post:edit', 0, 10, '0,1,10,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:28:12');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (31, '删除岗位', 'AppstoreOutlined', '', '', '', 'admin:sys-post:del', 0, 10, '0,1,10,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:32:47');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (32, '获取字典类型分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-type:query', 0, 11, '0,1,11,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:30:12');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (33, '新增字典类型', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-type:add', 0, 11, '0,1,11,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:31:05');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (34, '更新字典类型', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-type:edit', 0, 11, '0,1,11,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:32:25');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (35, '删除字典类型', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-type:del', 0, 11, '0,1,11,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:32:36');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (36, '获取字典数据分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-data:query', 0, 12, '0,1,12,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:36:52');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (37, '新增字典数据', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-data:add', 0, 12, '0,1,12,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:38:04');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (38, '更新字典数据', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-data:edit', 0, 12, '0,1,12,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:38:35');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (39, '删除字典数据', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-data:del', 0, 12, '0,1,12,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:38:50');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (40, '获取配置管理分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-config:query', 0, 13, '0,1,13,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:33:31');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (41, '新增配置管理', 'AppstoreOutlined', '', '', '', 'admin:sys-config:add', 0, 13, '0,1,13,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:33:44');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (42, '更新配置管理', 'AppstoreOutlined', '', '', '', 'admin:sys-config:edit', 0, 13, '0,1,13,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:34:00');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (43, '删除配置管理', 'AppstoreOutlined', '', '', '', 'admin:sys-config:del', 0, 13, '0,1,13,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:34:11');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (44, '获取登录日志分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-login-log:query', 0, 14, '0,1,14,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:35:28');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (45, '删除登录日志', 'AppstoreOutlined', '', '', '', 'admin:sys-login-log:del', 0, 14, '0,1,14,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-13 21:38:09');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (46, '获取操作日志分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-oper-log:query', 0, 15, '0,1,15,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:39:13');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (47, '删除操作日志', 'AppstoreOutlined', '', '', '', 'admin:sys-oper-log:del', 0, 15, '0,1,15,', '3', ' ', ' ', ' ', ' ', 1, 1, '2020-04-11 15:52:48', '2024-12-14 14:40:07');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (48, '代码生成', 'BugFilled', '/admin/sys/sys-tools/sys-gen', '/admin/sys/sys-tools/sys-gen/index', '', '', 20, 54, '0,1,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (49, '代码生成修改', 'ClockCircleFilled', '/admin/sys/sys-tools/sys-gen/edit', '/admin/sys/sys-tools/sys-gen/edit/index', '', '', 100, 54, '0,1,54,', '2', '2', '2', '1', '1', 1, 1, '2020-04-11 15:52:48', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (50, '服务监控', 'ExclamationCircleFilled', '/admin/sys/sys-tools/sys-monitor', '/admin/sys/sys-tools/sys-monitor/index', '', '', 0, 54, '0,1,54,', '2', '2', '2', '2', '1', 1, 1, '2020-04-14 00:28:19', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (51, '接口管理', 'ThunderboltFilled', '/admin/sys/sys-api', '/admin/sys/sys-api/index', '', '', 0, 1, '0,1,', '2', '2', '2', '2', '1', 1, 1, '2021-05-20 22:08:45', '2024-12-14 15:09:44');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (52, '获取接口管理分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-api:query', 0, 51, '0,1,51,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 13:06:50');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (53, '更新接口管理', 'AppstoreOutlined', '', '', '', 'admin:sys-api:edit', 0, 51, '0,1,51,', '3', ' ', ' ', ' ', ' ', 1, 1, '2021-05-20 22:08:45', '2024-12-14 13:07:22');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (54, '系统工具', 'ToolFilled', '/admin/sys/sys-tools', '', '/admin/sys/sys-tools/sys-monitor', '', 330, 1, '0,1,', '1', ' ', ' ', '2', ' ', 1, 1, '2021-05-21 11:13:32', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (55, '文件管理', 'FolderFilled', '/plugins/filemgr', '', '/plugins/filemgr/filemgr-app', '', 90, 57, '0,57,', '1', ' ', ' ', '2', ' ', 1, 1, '2021-08-13 14:19:11', '2024-12-14 15:08:17');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (56, '内容管理', 'FileWordFilled', '/plugins/content', '', '/plugins/content/content-category', '', 60, 57, '0,57,', '1', ' ', ' ', '2', ' ', 1, 1, '2021-08-16 18:01:20', '2024-12-14 15:07:28');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (57, '插件管理', 'ApiFilled', '/plugins', '', '/plugins/content/content-category', '', 270, 0, '0,', '1', ' ', ' ', '2', ' ', 1, 1, '2023-03-07 10:37:37', '2024-12-14 15:03:16');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (58, 'App应用', 'FolderOpenFilled', '/app', '', '/app/user/user', '', 30, 0, '0,', '1', ' ', ' ', '2', ' ', 1, 1, '2023-03-08 09:27:36', '2024-12-14 15:01:02');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (59, '用户列表', 'MehFilled', '/app/user', '', '/app/user/user', '', 30, 58, '0,58,', '1', ' ', ' ', '2', ' ', 1, 1, '2023-03-09 14:24:25', '2024-12-14 15:06:26');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (61, '用户等级', 'LayoutFilled', '/app/user/user-level', '/app/user/user-level/index', NULL, '', 60, 59, '0,58,59,', '2', '1', '2', '2', '1', 1, 1, '2023-03-09 21:33:49', '2023-03-09 23:05:34');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (62, '获取用户等级管理分页列表', 'AppstoreOutlined', '', '', '', 'app:user-level:query', 0, 61, '0,58,59,61,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 21:33:49', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (63, '新增用户等级管理', 'AppstoreOutlined', '', '', '', 'app:user-level:add', 0, 61, '0,58,59,61,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 21:33:49', '2024-12-14 12:49:18');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (64, '更新用户等级管理', 'AppstoreOutlined', '', '', '', 'app:user-level:edit', 0, 61, '0,58,59,61,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 21:33:49', '2024-12-14 12:49:28');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (65, '删除用户等级管理', 'AppstoreOutlined', '', '', '', 'app:user-level:del', 0, 61, '0,58,59,61,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 21:33:49', '2024-12-14 12:49:38');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (66, '导出用户等级管理', 'AppstoreOutlined', '', '', '', 'app:user-level:export', 0, 61, '0,58,59,61,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 21:33:49', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (67, '账变记录', 'LayoutFilled', '/app/user/user-account-log', '/app/user/user-account-log/index', NULL, '', 150, 59, '0,58,59,', '2', '1', '2', '2', '1', 1, 1, '2023-03-09 21:33:51', '2024-12-23 22:05:53');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (68, '获取账变记录分页列表', 'AppstoreOutlined', '', '', '', 'app:user-account-log:query', 0, 67, '0,58,59,67,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 21:33:51', '2024-12-23 22:02:18');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (69, '导出账变记录', 'AppstoreOutlined', '', '', '', 'app:user-account-log:export', 0, 67, '0,58,59,67,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 21:33:51', '2024-12-23 22:02:18');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (70, '用户配置', 'LayoutFilled', '/app/user/user-conf', '/app/user/user-conf/index', '', '', 90, 59, '0,58,59,', '2', '1', '2', '2', '1', 1, 1, '2023-03-09 23:04:40', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (71, '获取用户配置管理分页列表', 'AppstoreOutlined', '', '', '', 'app:user-conf:query', 0, 70, '0,58,59,70,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 23:04:40', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (72, '更新用户配置管理', 'AppstoreOutlined', '', '', '', 'app:user-conf:edit', 0, 70, '0,58,59,70,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 23:04:40', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (73, '用户管理', 'LayoutFilled', '/app/user/user', '/app/user/user/index', '', '', 30, 59, '0,58,59,', '2', '1', '2', '2', '1', 1, 1, '2023-03-09 23:18:49', '2024-12-13 20:14:34');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (74, '获取用户管理分页列表', 'AppstoreOutlined', '', '', '', 'app:user:query', 0, 73, '0,58,59,73,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 23:18:49', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (75, '新增用户管理', 'AppstoreOutlined', '', '', '', 'app:user:add', 0, 73, '0,58,59,73,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 23:18:49', '2024-12-14 12:47:50');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (76, '更新用户管理', 'AppstoreOutlined', '', '', '', 'app:user:edit', 0, 73, '0,58,59,73,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 23:18:49', '2024-12-14 12:48:01');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (77, '导出用户管理', 'AppstoreOutlined', '', '', '', 'app:user:export', 0, 73, '0,58,59,73,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-09 23:18:49', '2024-12-13 20:56:34');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (78, '用户行为记录', 'LayoutFilled', '/app/user/user-oper-log', '/app/user/user-oper-log/index', NULL, '', 120, 59, '0,58,59,', '2', '1', '2', '2', '1', 1, 1, '2023-03-11 15:00:06', '2023-03-11 15:02:42');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (79, '获取用户操作日志分页列表', 'AppstoreOutlined', '', '', '', 'app:user-oper-log:query', 0, 78, '0,58,59,78,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-11 15:00:06', '2024-12-14 12:50:33');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (80, '导出用户操作日志', 'AppstoreOutlined', '', '', '', 'app:user-oper-log:export', 0, 78, '0,58,59,78,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-11 15:00:06', '2024-12-14 12:50:48');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (81, '消息管理', 'BellFilled', '/plugins/msg', '', '/plugins/msg/msg-code', '', 120, 57, '0,57,', '1', ' ', ' ', '2', ' ', 1, 1, '2023-03-12 13:27:59', '2024-12-14 15:13:49');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (82, '验证码记录', 'LayoutFilled', '/plugins/msg/msg-code', '/plugins/msg/msg-code/index', NULL, '', 0, 81, '0,57,81,', '2', '1', '2', '2', '1', 1, 1, '2023-03-12 21:54:02', '2023-03-12 21:54:32');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (83, '获取验证码管理分页列表', 'AppstoreOutlined', '', '', '', 'plugins:msg-code:query', 0, 82, '0,57,81,82,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 21:54:02', '2024-12-14 13:05:37');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (84, '公告管理', 'LayoutFilled', '/plugins/content/content-announcement', '/plugins/content/content-announcement/index', NULL, '', 90, 56, '0,57,56,', '2', '1', '2', '2', '1', 1, 1, '2023-03-12 22:47:11', '2023-03-12 22:48:08');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (85, '获取公告管理分页列表', 'AppstoreOutlined', '', '', '', 'plugins:content-announcement:query', 0, 84, '0,57,56,84,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 22:47:11', '2024-12-14 13:03:46');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (86, '新增公告管理', 'AppstoreOutlined', '', '', '', 'plugins:content-announcement:add', 0, 84, '0,57,56,84,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 22:47:11', '2024-12-14 13:03:58');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (87, '更新公告管理', 'AppstoreOutlined', '', '', '', 'plugins:content-announcement:edit', 0, 84, '0,57,56,84,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 22:47:11', '2024-12-14 13:04:08');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (88, '删除公告管理', 'AppstoreOutlined', '', '', '', 'plugins:content-announcement:del', 0, 84, '0,57,56,84,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 22:47:11', '2024-12-13 21:06:13');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (89, '导出公告管理', 'AppstoreOutlined', '', '', '', 'plugins:content-announcement:export', 0, 84, '0,57,56,84,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 22:47:11', '2024-12-13 21:06:33');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (90, '内容分类', 'LayoutFilled', '/plugins/content/content-category', '/plugins/content/content-category/index', NULL, '', 0, 56, '0,57,56,', '2', '1', '2', '2', '1', 1, 1, '2023-03-12 23:17:44', '2023-03-12 23:20:35');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (91, '获取内容分类管理分页列表', 'AppstoreOutlined', '', '', '', 'plugins:content-category:query', 0, 90, '0,57,56,90,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:17:44', '2024-12-14 13:01:47');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (92, '新增内容分类管理详情', 'AppstoreOutlined', '', '', '', 'plugins:content-category:add', 0, 90, '0,57,56,90,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:17:44', '2024-12-14 13:02:02');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (93, '更新内容分类管理', 'AppstoreOutlined', '', '', '', 'plugins:content-category:edit', 0, 90, '0,57,56,90,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:17:44', '2024-12-14 13:02:14');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (94, '删除内容分类管理', 'AppstoreOutlined', '', '', '', 'plugins:content-category:del', 0, 90, '0,57,56,90,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:17:45', '2024-12-14 13:02:24');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (95, '导出内容分类管理', 'AppstoreOutlined', '', '', '', 'plugins:content-category:export', 0, 90, '0,57,56,90,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:17:45', '2024-12-14 13:02:34');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (96, '文章管理', 'LayoutFilled', '/plugins/content/content-article', '/plugins/content/content-article/index', NULL, '', 60, 56, '0,57,56,', '2', '1', '2', '2', '1', 1, 1, '2023-03-12 23:52:45', '2023-03-12 23:53:12');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (97, '获取文章管理分页列表', 'AppstoreOutlined', '', '', '', 'plugins:content-article:query', 0, 96, '0,57,56,96,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:52:45', '2024-12-14 13:02:56');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (98, '新增文章管理', 'AppstoreOutlined', '', '', '', 'plugins:content-article:add', 0, 96, '0,57,56,96,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:52:45', '2024-12-14 13:03:09');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (99, '更新文章管理', 'AppstoreOutlined', '', '', '', 'plugins:content-article:edit', 0, 96, '0,57,56,96,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:52:45', '2024-12-14 13:03:18');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (100, '删除文章管理', 'AppstoreOutlined', '', '', '', 'plugins:content-article:del', 0, 96, '0,57,56,96,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:52:45', '2024-12-14 13:03:28');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (101, '导出文章管理', 'AppstoreOutlined', '', '', '', 'plugins:content-article:export', 0, 96, '0,57,56,96,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-12 23:52:46', '2024-12-13 21:04:27');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (102, 'App管理', 'LayoutFilled', '/plugins/filemgr/filemgr-app', '/plugins/filemgr/filemgr-app/index', NULL, '', 0, 55, '0,57,55,', '2', '1', '2', '2', '1', 1, 1, '2023-03-13 00:55:02', '2023-03-13 00:55:52');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (103, '获取APP管理分页列表', 'AppstoreOutlined', '', '', '', 'plugins:filemgr-app:query', 0, 102, '0,57,55,102,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-13 00:55:02', '2024-12-14 13:04:41');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (104, '新增APP管理', 'AppstoreOutlined', '', '', '', 'plugins:filemgr-app:add', 0, 102, '0,57,55,102,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-13 00:55:02', '2024-12-15 22:14:53');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (105, '更新APP管理', 'AppstoreOutlined', '', '', '', 'plugins:filemgr-app:edit', 0, 102, '0,57,55,102,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-13 00:55:02', '2024-12-15 22:15:04');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (106, '删除App管理', 'AppstoreOutlined', '', '', '', 'plugins:filemgr-app:del', 0, 102, '0,57,55,102,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-13 00:55:02', '2024-12-13 21:08:39');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (107, '导出App管理', 'AppstoreOutlined', '', '', '', 'plugins:filemgr-app:export', 0, 102, '0,57,55,102,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-13 00:55:02', '2024-12-13 21:08:56');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (108, '国家区号', 'LayoutFilled', '/app/user/user-country-code', '/app/user/user-country-code/index', NULL, '', 180, 59, '0,58,59,', '2', '1', '2', '2', '1', 1, 1, '2023-03-14 17:47:44', '2024-12-23 22:02:47');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (109, '获取国家区号管理分页列表', 'AppstoreOutlined', '', '', '', 'app:user-country-code:query', 0, 108, '0,58,59,108,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-14 17:47:44', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (110, '新增国家区号管理', 'AppstoreOutlined', '', '', '', 'app:user-country-code:add', 0, 108, '0,58,59,108,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-14 17:47:44', '2024-12-14 12:51:13');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (111, '更新国家区号管理', 'AppstoreOutlined', '', '', '', 'app:user-country-code:edit', 0, 108, '0,58,59,108,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-14 17:47:44', '2024-12-14 12:51:23');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (112, '删除国家区号管理', 'AppstoreOutlined', '', '', '', 'app:user-country-code:del', 0, 108, '0,58,59,108,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-14 17:47:45', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (113, '导出国家区号管理', 'AppstoreOutlined', '', '', '', 'app:user-country-code:export', 0, 108, '0,58,59,108,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-03-14 17:47:45', '2024-12-14 12:51:44');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (114, '导出操作日志', 'AppstoreOutlined', '', '', '', 'admin:sys-oper-log:export', 0, 15, '0,1,15,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-05-09 11:02:50', '2024-12-13 21:41:12');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (115, '导出登录日志', 'AppstoreOutlined', '', '', '', 'admin:sys-login-log:export', 0, 14, '0,1,14,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-05-09 11:04:20', '2024-12-14 14:36:00');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (117, '导出字典类型', 'AppstoreOutlined', '', '', '', 'admin:sys-dict-type:export', 0, 11, '0,1,11,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-05-09 11:16:13', '2024-12-14 14:32:48');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (118, '导出配置管理', 'AppstoreOutlined', '', '', '', 'content:sys-config:export', 0, 13, '0,1,13,', '3', ' ', ' ', ' ', ' ', 1, 1, '2023-05-09 11:34:20', '2024-12-14 14:34:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (119, '首页', 'HomeFilled', '/home', '/admin/sys/home/index', '', '', 0, 0, '0,', '2', '2', '1', '2', '1', 1, 1, '2024-11-22 11:34:20', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (120, '个人中心', 'ProfileFilled', '/profile', '/admin/sys/profile/index', '', '', 0, 0, '0,', '2', '2', '2', '1', '1', 1, 1, '2024-11-23 08:20:24', '2024-12-14 15:16:20');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (121, '导出接口管理', 'AppstoreOutlined', '', '', '', 'admin:sys-api:export', 0, 51, '0,1,51,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-09 14:59:51', '2024-12-14 14:22:31');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (122, '重置系统用户密码', 'AppstoreOutlined', '', '', '', 'admin:sys-user:edit-pwd', 0, 2, '0,22,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-09 15:15:05', '2024-12-14 13:46:43');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (123, '更新角色管理数据权限', 'AppstoreOutlined', '', '', '', 'admin:sys-role:datascope', 0, 8, '0,1,8,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-09 15:19:53', '2024-12-14 14:05:10');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (124, '删除接口管理', 'AppstoreOutlined', '', '', '', 'admin:sys-api:del', 0, 51, '0,1,51,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-09 15:37:48', '2024-12-14 13:07:36');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (125, '同步接口管理', 'AppstoreOutlined', '', '', '', 'admin:sys-api:sync', 0, 51, '0,1,51,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-13 21:12:34', '2024-12-14 13:10:41');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (126, '更新表管理', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:edit', 2, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-13 22:04:00', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (127, '预览', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:preview', 3, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-14 03:36:14', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (128, '获取表管理分页列表', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:query', 0, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-14 03:39:04', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (129, '生成代码', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:gen-code', 4, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-14 03:40:26', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (130, '下载代码', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:download-code', 5, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-14 03:41:22', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (131, '配置导入', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:import-config', 6, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-14 03:43:36', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (132, '表管理删除', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:del', 7, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-14 03:44:46', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (133, '新增表管理', 'AppstoreOutlined', '', '', '', 'admin:sys-gen:import-table', 1, 48, '0,1,54,48,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-14 14:50:46', '2024-12-23 22:07:21');
+INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element", "redirect", "permission", "sort", "parent_id", "parent_ids", "menu_type", "is_keep_alive", "is_affix", "is_hidden", "is_frame", "create_by", "update_by", "created_at", "updated_at") VALUES (134, '导出岗位管理', 'AppstoreOutlined', '', '', '', 'admin:sys-post:export', 0, 10, '0,1,10,', '3', ' ', ' ', ' ', ' ', 1, 1, '2024-12-15 22:23:26', '2024-12-15 22:23:26');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_menu_api_rule
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_menu_api_rule";
+CREATE TABLE "public"."admin_sys_menu_api_rule" (
+  "admin_sys_menu_menu_id" int4 NOT NULL,
+  "admin_sys_api_id" int4 NOT NULL
+)
+;
+ALTER TABLE "public"."admin_sys_menu_api_rule" OWNER TO "postgres";
+COMMENT ON TABLE "public"."admin_sys_menu_api_rule" IS '菜单和角色关联';
+
+-- ----------------------------
+-- Records of admin_sys_menu_api_rule
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (32, 1);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (126, 2);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (117, 3);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (34, 4);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (36, 5);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (38, 7);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (3, 9);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (4, 9);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (5, 9);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (24, 9);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (25, 9);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (26, 9);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (123, 10);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (26, 11);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (16, 12);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (17, 12);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (18, 12);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (20, 14);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (22, 14);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (17, 15);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (50, 16);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (128, 20);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (130, 21);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (131, 22);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (129, 23);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (133, 24);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (127, 25);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (126, 26);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (52, 27);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (125, 28);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (16, 30);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (17, 30);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (121, 31);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (53, 32);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (40, 33);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (118, 34);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (42, 37);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (28, 38);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (3, 39);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (5, 39);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (134, 40);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (30, 41);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (4, 42);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (5, 45);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (44, 46);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (115, 47);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (46, 49);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (114, 50);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (21, 52);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (3, 53);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (5, 53);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (22, 54);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (123, 54);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (74, 55);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (109, 56);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (113, 57);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (111, 58);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (71, 59);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (72, 60);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (68, 61);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (69, 62);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (62, 64);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (66, 65);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (64, 66);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (79, 67);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (80, 68);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (77, 70);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (76, 71);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (85, 72);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (89, 73);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (87, 74);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (97, 75);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (101, 76);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (99, 77);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (91, 78);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (95, 79);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (93, 80);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (103, 81);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (107, 82);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (105, 83);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (83, 84);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (37, 89);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (33, 90);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (25, 91);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (3, 92);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (41, 94);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (133, 95);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (16, 96);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (29, 97);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (20, 98);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (75, 99);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (110, 100);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (63, 101);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (86, 102);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (98, 103);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (92, 104);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (104, 105);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (104, 106);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (105, 106);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (122, 110);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (5, 111);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (5, 112);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (38, 113);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (34, 114);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (26, 115);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (22, 116);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (123, 117);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (22, 118);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (53, 119);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (42, 120);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (126, 121);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (17, 122);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (30, 123);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (72, 124);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (111, 125);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (64, 126);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (76, 127);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (87, 128);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (99, 129);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (93, 130);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (105, 131);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (39, 132);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (35, 133);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (27, 134);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (124, 135);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (43, 136);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (132, 137);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (45, 138);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (19, 139);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (47, 140);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (31, 141);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (23, 142);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (6, 143);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (112, 144);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (65, 145);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (88, 146);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (100, 147);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (94, 148);
+INSERT INTO "public"."admin_sys_menu_api_rule" ("admin_sys_menu_menu_id", "admin_sys_api_id") VALUES (106, 149);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_oper_log
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_oper_log";
+CREATE TABLE "public"."admin_sys_oper_log" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_oper_log_id_seq'::regclass),
+  "request_method" varchar(128) COLLATE "pg_catalog"."default",
+  "user_id" int4,
+  "oper_url" varchar(255) COLLATE "pg_catalog"."default",
+  "oper_ip" varchar(128) COLLATE "pg_catalog"."default",
+  "oper_location" varchar(128) COLLATE "pg_catalog"."default",
+  "status" varchar(4) COLLATE "pg_catalog"."default",
+  "oper_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "json_result" varchar(255) COLLATE "pg_catalog"."default",
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "latency_time" varchar(128) COLLATE "pg_catalog"."default",
+  "user_agent" varchar(255) COLLATE "pg_catalog"."default",
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6),
+  "create_by" int4,
+  "update_by" int4
+)
+;
+ALTER TABLE "public"."admin_sys_oper_log" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."request_method" IS '请求方式';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."user_id" IS '操作者';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_url" IS '访问地址';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_ip" IS '客户端ip';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_location" IS '访问位置';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."status" IS '操作状态';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_time" IS '操作时间';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."json_result" IS '返回数据';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."remark" IS '备注';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."latency_time" IS '耗时';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."user_agent" IS 'ua';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."updated_at" IS '最后更新时间';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."update_by" IS '更新者';
+COMMENT ON TABLE "public"."admin_sys_oper_log" IS '操作日志';
+
+-- ----------------------------
+-- Records of admin_sys_oper_log
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (1, 'GET', 0, '/admin-api/v1/admin/sys/sys-dict/data/select?dictType=sys_loginlog_status', '::1', '----', '0', '2024-12-13 19:58:21', '', '', '103.691µs', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:21', '2024-12-13 19:58:21', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (2, 'GET', 0, '/admin-api/v1/admin/sys/sys-login-log?current=1&pageSize=10&pageIndex=1', '::1', '----', '0', '2024-12-13 19:58:21', '', '', '77.727µs', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:21', '2024-12-13 19:58:21', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (3, 'GET', 0, '/admin-api/v1/captcha', '::1', '----', '200', '2024-12-13 19:58:21', '{"requestId":"0c3c60bf-821d-4319-b2d0-12b73820f7c8","code":200,"msg":"操作成功","data":{"data":"', '', '6.544784ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:22', '2024-12-13 19:58:22', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (4, 'POST', 0, '/admin-api/v1/login', '::1', '----', '0', '2024-12-13 19:58:24', '', '', '542.303289ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:24', '2024-12-13 19:58:24', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (5, 'GET', 1, '/admin-api/v1/admin/sys/sys-menu/menu-role', '::1', '----', '200', '2024-12-13 19:58:25', '{"requestId":"26faed14-3368-4659-ae32-ef52b4c147bb","code":200,"msg":"操作成功","data":[{"id":12', '', '258.360931ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:25', '2024-12-13 19:58:25', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (6, 'GET', 1, '/admin-api/v1/admin/sys/sys-user/profile', '::1', '----', '200', '2024-12-13 19:58:25', '{"requestId":"be0a364a-29ef-4b3d-92e4-7fb273c14b22","code":200,"msg":"操作成功","data":{"id":1,"', '', '335.553575ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:25', '2024-12-13 19:58:25', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (7, 'GET', 1, '/admin-api/v1/admin/sys/sys-dict/data/select?dictType=sys_loginlog_status', '::1', '----', '200', '2024-12-13 19:58:29', '{"requestId":"8bc97d55-3a07-4090-9c8f-beeccf652221","code":200,"msg":"操作成功","data":[{"id":52', '', '91.293486ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:29', '2024-12-13 19:58:29', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (8, 'GET', 1, '/admin-api/v1/admin/sys/sys-login-log?current=1&pageSize=10&pageIndex=1', '::1', '----', '200', '2024-12-13 19:58:29', '{"requestId":"0b118004-4e96-40c9-b85a-9f33eaf224bd","code":200,"msg":"操作成功","data":{"count":', '', '83.075227ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:30', '2024-12-13 19:58:30', 0, 0);
+INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "oper_url", "oper_ip", "oper_location", "status", "oper_time", "json_result", "remark", "latency_time", "user_agent", "created_at", "updated_at", "create_by", "update_by") VALUES (9, 'GET', 1, '/admin-api/v1/admin/sys/sys-oper-log?current=1&pageSize=10&pageIndex=1', '::1', '----', '200', '2024-12-13 19:58:31', '{"requestId":"238ac974-ddda-4e48-acb8-3c51ebc960a0","code":200,"msg":"操作成功","data":{"count":', '', '84.911552ms', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-13 19:58:31', '2024-12-13 19:58:31', 0, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_post
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_post";
+CREATE TABLE "public"."admin_sys_post" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_post_id_seq'::regclass),
+  "post_name" varchar(128) COLLATE "pg_catalog"."default",
+  "post_code" varchar(128) COLLATE "pg_catalog"."default",
+  "sort" int2,
+  "status" char(1) COLLATE "pg_catalog"."default",
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6)
+)
+;
+ALTER TABLE "public"."admin_sys_post" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_post"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."admin_sys_post"."post_name" IS '岗位名称';
+COMMENT ON COLUMN "public"."admin_sys_post"."post_code" IS '岗位编码';
+COMMENT ON COLUMN "public"."admin_sys_post"."sort" IS '排序';
+COMMENT ON COLUMN "public"."admin_sys_post"."status" IS '状态';
+COMMENT ON COLUMN "public"."admin_sys_post"."remark" IS '备注';
+COMMENT ON COLUMN "public"."admin_sys_post"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_post"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_post"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_post"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_post" IS '岗位管理';
+
+-- ----------------------------
+-- Records of admin_sys_post
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_post" ("id", "post_name", "post_code", "sort", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (1, '首席执行官', 'CEO', 0, '1', '首席执行官', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_post" ("id", "post_name", "post_code", "sort", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (2, '首席技术执行官', 'CTO', 2, '1', '首席技术执行官', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+INSERT INTO "public"."admin_sys_post" ("id", "post_name", "post_code", "sort", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (3, '首席运营官', 'COO', 3, '1', '测试工程师', 1, 1, '2021-05-13 19:56:38', '2021-05-13 19:56:38');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_role
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_role";
+CREATE TABLE "public"."admin_sys_role" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_role_id_seq'::regclass),
+  "role_name" varchar(128) COLLATE "pg_catalog"."default",
+  "role_key" varchar(128) COLLATE "pg_catalog"."default",
+  "role_sort" int8,
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "data_scope" varchar(128) COLLATE "pg_catalog"."default",
+  "status" char(1) COLLATE "pg_catalog"."default",
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(3),
+  "updated_at" timestamp(3)
+)
+;
+ALTER TABLE "public"."admin_sys_role" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_role"."status" IS '状态 1-正常 2-停用';
+COMMENT ON COLUMN "public"."admin_sys_role"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_role"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_role"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_role"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_role" IS '角色管理';
+
+-- ----------------------------
+-- Records of admin_sys_role
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_role" ("id", "role_name", "role_key", "role_sort", "remark", "data_scope", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (1, '系统管理员', 'admin', 1, '', '', '1', 1, 1, '2021-05-13 19:56:37.913', '2023-03-03 01:04:03.641');
+INSERT INTO "public"."admin_sys_role" ("id", "role_name", "role_key", "role_sort", "remark", "data_scope", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (2, 'test', 'test', 0, '', '', '1', 1, 1, '2023-04-27 14:33:47.437', '2024-12-14 15:16:20.11');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_role_dept
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_role_dept";
+CREATE TABLE "public"."admin_sys_role_dept" (
+  "role_id" int2 NOT NULL,
+  "dept_id" int2 NOT NULL
+)
+;
+ALTER TABLE "public"."admin_sys_role_dept" OWNER TO "postgres";
+COMMENT ON TABLE "public"."admin_sys_role_dept" IS '角色部门关联';
+
+-- ----------------------------
+-- Records of admin_sys_role_dept
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_role_dept" ("role_id", "dept_id") VALUES (2, 3);
+INSERT INTO "public"."admin_sys_role_dept" ("role_id", "dept_id") VALUES (2, 4);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_role_menu";
+CREATE TABLE "public"."admin_sys_role_menu" (
+  "role_id" int4 NOT NULL,
+  "menu_id" int4 NOT NULL
+)
+;
+ALTER TABLE "public"."admin_sys_role_menu" OWNER TO "postgres";
+COMMENT ON TABLE "public"."admin_sys_role_menu" IS '角色菜单关联';
+
+-- ----------------------------
+-- Records of admin_sys_role_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 62);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 66);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 70);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 71);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 72);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 74);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 109);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 112);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 119);
+INSERT INTO "public"."admin_sys_role_menu" ("role_id", "menu_id") VALUES (2, 120);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for admin_sys_user
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."admin_sys_user";
+CREATE TABLE "public"."admin_sys_user" (
+  "id" int4 NOT NULL DEFAULT nextval('admin_sys_user_id_seq'::regclass),
+  "username" varchar(64) COLLATE "pg_catalog"."C",
+  "password" varchar(128) COLLATE "pg_catalog"."C",
+  "nick_name" varchar(128) COLLATE "pg_catalog"."C",
+  "phone" varchar(11) COLLATE "pg_catalog"."C",
+  "role_id" int4,
+  "salt" varchar(255) COLLATE "pg_catalog"."C",
+  "avatar" varchar(255) COLLATE "pg_catalog"."C",
+  "sex" char(1) COLLATE "pg_catalog"."C",
+  "email" varchar(128) COLLATE "pg_catalog"."C",
+  "dept_id" int4,
+  "post_id" int4,
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
+  "status" varchar(4) COLLATE "pg_catalog"."C",
+  "create_by" int4,
+  "update_by" int4,
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6)
+)
+;
+ALTER TABLE "public"."admin_sys_user" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."admin_sys_user"."id" IS '编码';
+COMMENT ON COLUMN "public"."admin_sys_user"."username" IS '用户名';
+COMMENT ON COLUMN "public"."admin_sys_user"."password" IS '密码';
+COMMENT ON COLUMN "public"."admin_sys_user"."nick_name" IS '昵称';
+COMMENT ON COLUMN "public"."admin_sys_user"."phone" IS '手机号';
+COMMENT ON COLUMN "public"."admin_sys_user"."role_id" IS '角色ID';
+COMMENT ON COLUMN "public"."admin_sys_user"."salt" IS '加盐';
+COMMENT ON COLUMN "public"."admin_sys_user"."avatar" IS '头像';
+COMMENT ON COLUMN "public"."admin_sys_user"."sex" IS '性别';
+COMMENT ON COLUMN "public"."admin_sys_user"."email" IS '邮箱';
+COMMENT ON COLUMN "public"."admin_sys_user"."dept_id" IS '部门';
+COMMENT ON COLUMN "public"."admin_sys_user"."post_id" IS '岗位';
+COMMENT ON COLUMN "public"."admin_sys_user"."remark" IS '备注';
+COMMENT ON COLUMN "public"."admin_sys_user"."status" IS '状态';
+COMMENT ON COLUMN "public"."admin_sys_user"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."admin_sys_user"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."admin_sys_user"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."admin_sys_user"."updated_at" IS '最后更新时间';
+COMMENT ON TABLE "public"."admin_sys_user" IS '系统用户管理';
+
+-- ----------------------------
+-- Records of admin_sys_user
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."admin_sys_user" ("id", "username", "password", "nick_name", "phone", "role_id", "salt", "avatar", "sex", "email", "dept_id", "post_id", "remark", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (1, 'admin', '$2a$10$40Xa1HapSFE0kJdHV46LPebz6itTy60qfnXc3kFwTPV.qELEJ9k5q', 'admin', '13700000000', 1, '', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '1', 'admin@admin.com', 1, 1, '', '1', 1, 1, '2021-05-13 19:56:38', '2023-03-14 09:27:36');
+INSERT INTO "public"."admin_sys_user" ("id", "username", "password", "nick_name", "phone", "role_id", "salt", "avatar", "sex", "email", "dept_id", "post_id", "remark", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (2, 'test', '$2a$10$7RrDlHPBnnIpmjFEk9l4BusOVxqPrzk3mcxOX2h9EzI.YAmkzHTB6', 'test', '13711111111', 2, '', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '1', '13711111111@qq.com', 2, 2, '', '1', 1, 1, '2023-04-27 14:34:57', '2024-12-13 20:15:25');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for app_user
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."app_user";
+CREATE TABLE "public"."app_user" (
+  "id" int4 NOT NULL DEFAULT nextval('app_user_id_seq'::regclass),
+  "level_id" int4 NOT NULL DEFAULT 1,
+  "user_name" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
+  "true_name" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
+  "money" numeric(30,18) NOT NULL DEFAULT 0,
+  "email" varchar(300) COLLATE "pg_catalog"."C",
+  "mobile_title" varchar(255) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '+86'::character varying,
+  "mobile" varchar(100) COLLATE "pg_catalog"."C",
+  "avatar" varchar(1000) COLLATE "pg_catalog"."C",
+  "pay_pwd" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
+  "pwd" varchar(100) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
+  "ref_code" varchar(255) COLLATE "pg_catalog"."C",
+  "parent_id" int4 NOT NULL DEFAULT 0,
+  "parent_ids" varchar(1000) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::character varying,
+  "tree_sort" int4 NOT NULL DEFAULT 0,
+  "tree_sorts" varchar(1000) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::character varying,
+  "tree_leaf" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
+  "tree_level" int4 NOT NULL DEFAULT 0,
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "create_by" int4 NOT NULL DEFAULT 0,
+  "update_by" int4 NOT NULL DEFAULT 0,
+  "created_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+;
+ALTER TABLE "public"."app_user" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."app_user"."id" IS '用户编码';
+COMMENT ON COLUMN "public"."app_user"."level_id" IS '用户等级编号';
+COMMENT ON COLUMN "public"."app_user"."user_name" IS '用户昵称';
+COMMENT ON COLUMN "public"."app_user"."true_name" IS '真实姓名';
+COMMENT ON COLUMN "public"."app_user"."money" IS '余额';
+COMMENT ON COLUMN "public"."app_user"."email" IS '电子邮箱';
+COMMENT ON COLUMN "public"."app_user"."mobile_title" IS '用户手机号国家前缀';
+COMMENT ON COLUMN "public"."app_user"."mobile" IS '手机号码';
+COMMENT ON COLUMN "public"."app_user"."avatar" IS '头像路径';
+COMMENT ON COLUMN "public"."app_user"."pay_pwd" IS '提现密码';
+COMMENT ON COLUMN "public"."app_user"."pwd" IS '登录密码';
+COMMENT ON COLUMN "public"."app_user"."ref_code" IS '推荐码';
+COMMENT ON COLUMN "public"."app_user"."parent_id" IS '父级编号';
+COMMENT ON COLUMN "public"."app_user"."parent_ids" IS '所有父级编号';
+COMMENT ON COLUMN "public"."app_user"."tree_sort" IS '本级排序号（升序）';
+COMMENT ON COLUMN "public"."app_user"."tree_sorts" IS '所有级别排序号';
+COMMENT ON COLUMN "public"."app_user"."tree_leaf" IS '是否最末级';
+COMMENT ON COLUMN "public"."app_user"."tree_level" IS '层次级别';
+COMMENT ON COLUMN "public"."app_user"."status" IS '状态(1-正常 2-异常)';
+COMMENT ON COLUMN "public"."app_user"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."app_user"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."app_user"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."app_user"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."app_user"."updated_at" IS '更新时间';
+COMMENT ON TABLE "public"."app_user" IS '用户管理';
+
+-- ----------------------------
+-- Records of app_user
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."app_user" ("id", "level_id", "user_name", "true_name", "money", "email", "mobile_title", "mobile", "avatar", "pay_pwd", "pwd", "ref_code", "parent_id", "parent_ids", "tree_sort", "tree_sorts", "tree_leaf", "tree_level", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (1, 1, '- -', '- -', 1.000000000000000000, 'fb0cc809bbed1743bd7d2d8f444e2bae099e69819f4e072f7057bb1e4249bf3d', '86', '6d84b6afd68a5c7188779114f16c46e9', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'akIiWm', 0, '0,', 1, '1,', '2', 1, '1', '', 0, 1, '2023-04-03 21:09:13', '2023-10-19 14:03:37');
+INSERT INTO "public"."app_user" ("id", "level_id", "user_name", "true_name", "money", "email", "mobile_title", "mobile", "avatar", "pay_pwd", "pwd", "ref_code", "parent_id", "parent_ids", "tree_sort", "tree_sorts", "tree_leaf", "tree_level", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (2, 2, '- -', '- -', 0.000000000000000000, 'dca887a13d1225ccd447dc52a712861c099e69819f4e072f7057bb1e4249bf3d', '86', '84ace68f39f53a315d8114c61413505d', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'GQFz6v', 1, '0,1,', 1, '1,1,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:34', '2023-10-19 14:06:49');
+INSERT INTO "public"."app_user" ("id", "level_id", "user_name", "true_name", "money", "email", "mobile_title", "mobile", "avatar", "pay_pwd", "pwd", "ref_code", "parent_id", "parent_ids", "tree_sort", "tree_sorts", "tree_leaf", "tree_level", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (3, 1, '- -', '- -', 0.000000000000000000, '4884f3537b62e668d33c6af76ddf6670099e69819f4e072f7057bb1e4249bf3d', '86', 'ff4273c3b1372055923122f9881b651b', 'http://www.bitxx.top/images/my_head-touch-icon-next.png', '', '', 'tT1Fbk', 1, '0,1,', 2, '1,2,', '1', 2, '1', '', 0, 1, '2023-04-03 21:29:35', '2023-10-19 14:06:37');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for app_user_account_log
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."app_user_account_log";
+CREATE TABLE "public"."app_user_account_log" (
+  "id" int4 NOT NULL DEFAULT nextval('app_user_account_log_id_seq'::regclass),
+  "user_id" int4 NOT NULL,
+  "change_money" numeric(10,2) NOT NULL DEFAULT 0.00,
+  "before_money" numeric(30,18) NOT NULL DEFAULT 0.000000000000000000,
+  "after_money" numeric(30,18) NOT NULL DEFAULT 0.000000000000000000,
+  "money_type" char(10) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '1'::bpchar,
+  "change_type" varchar(30) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '1'::character varying,
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL,
+  "create_by" int4 NOT NULL,
+  "created_at" timestamp(6) NOT NULL,
+  "update_by" int4 NOT NULL,
+  "updated_date" timestamp(6) NOT NULL,
+  "remarks" varchar(500) COLLATE "pg_catalog"."C"
+)
+;
+ALTER TABLE "public"."app_user_account_log" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."app_user_account_log"."id" IS '账变编号';
+COMMENT ON COLUMN "public"."app_user_account_log"."user_id" IS '用户编号';
+COMMENT ON COLUMN "public"."app_user_account_log"."change_money" IS '账变金额';
+COMMENT ON COLUMN "public"."app_user_account_log"."before_money" IS '账变前金额';
+COMMENT ON COLUMN "public"."app_user_account_log"."after_money" IS '账变后金额';
+COMMENT ON COLUMN "public"."app_user_account_log"."money_type" IS '金额类型 1:余额';
+COMMENT ON COLUMN "public"."app_user_account_log"."change_type" IS '帐变类型(1-类型1)';
+COMMENT ON COLUMN "public"."app_user_account_log"."status" IS '状态（1正常 2-异常）';
+COMMENT ON COLUMN "public"."app_user_account_log"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."app_user_account_log"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."app_user_account_log"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."app_user_account_log"."updated_date" IS '更新时间';
+COMMENT ON COLUMN "public"."app_user_account_log"."remarks" IS '备注信息';
+COMMENT ON TABLE "public"."app_user_account_log" IS '账变记录';
+
+-- ----------------------------
+-- Records of app_user_account_log
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (1, 1, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (2, 2, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (3, 1, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (4, 3, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (5, 1, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (6, 2, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (7, 1, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (8, 3, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "before_money", "after_money", "money_type", "change_type", "status", "create_by", "created_at", "update_by", "updated_date", "remarks") VALUES (9, 1, 10.00, 0.000000000000010000, 20.000000000000000000, '1         ', '1', '1', 1, '2023-03-09 22:55:48', 1, '2023-03-09 22:55:51', NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for app_user_conf
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."app_user_conf";
+CREATE TABLE "public"."app_user_conf" (
+  "id" int4 NOT NULL DEFAULT nextval('app_user_conf_id_seq'::regclass),
+  "user_id" int4 NOT NULL,
+  "can_login" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
+  "create_by" int4 NOT NULL DEFAULT 0,
+  "update_by" int4 NOT NULL DEFAULT 0,
+  "created_at" timestamp(6) NOT NULL,
+  "updated_at" timestamp(6) NOT NULL
+)
+;
+ALTER TABLE "public"."app_user_conf" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."app_user_conf"."id" IS '主键';
+COMMENT ON COLUMN "public"."app_user_conf"."user_id" IS '用户id';
+COMMENT ON COLUMN "public"."app_user_conf"."can_login" IS '1-允许登陆；2-不允许登陆';
+COMMENT ON COLUMN "public"."app_user_conf"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."app_user_conf"."status" IS '状态（1-正常 2-异常）';
+COMMENT ON COLUMN "public"."app_user_conf"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."app_user_conf"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."app_user_conf"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."app_user_conf"."updated_at" IS '更新时间';
+COMMENT ON TABLE "public"."app_user_conf" IS '用户配置';
+
+-- ----------------------------
+-- Records of app_user_conf
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."app_user_conf" ("id", "user_id", "can_login", "remark", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (1, 1, '1', '', '1', 198, 198, '2023-04-03 21:09:13', '2023-04-03 21:09:13');
+INSERT INTO "public"."app_user_conf" ("id", "user_id", "can_login", "remark", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (2, 2, '1', '', '1', 200, 200, '2023-04-03 21:29:34', '2023-04-03 21:29:34');
+INSERT INTO "public"."app_user_conf" ("id", "user_id", "can_login", "remark", "status", "create_by", "update_by", "created_at", "updated_at") VALUES (3, 3, '1', '', '1', 201, 201, '2023-04-03 21:29:35', '2023-04-03 21:29:35');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for app_user_country_code
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."app_user_country_code";
+CREATE TABLE "public"."app_user_country_code" (
+  "id" int4 NOT NULL DEFAULT nextval('app_user_country_code_id_seq'::regclass),
+  "country" varchar(64) COLLATE "pg_catalog"."default" NOT NULL DEFAULT ''::character varying,
+  "code" varchar(12) COLLATE "pg_catalog"."default" NOT NULL DEFAULT ''::character varying,
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "create_by" int4 NOT NULL DEFAULT 0,
+  "update_by" int4 NOT NULL DEFAULT 0,
+  "created_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+;
+ALTER TABLE "public"."app_user_country_code" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."app_user_country_code"."country" IS '国家或地区';
+COMMENT ON COLUMN "public"."app_user_country_code"."code" IS '区号';
+COMMENT ON COLUMN "public"."app_user_country_code"."status" IS '状态(1-可用 2-停用)';
+COMMENT ON COLUMN "public"."app_user_country_code"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."app_user_country_code"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."app_user_country_code"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."app_user_country_code"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."app_user_country_code"."updated_at" IS '更新时间';
+COMMENT ON TABLE "public"."app_user_country_code" IS '国家区号';
+
+-- ----------------------------
+-- Records of app_user_country_code
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (1, '新加坡', '65', '2', '', 1, 1, '2021-06-29 14:10:00', '2021-06-29 14:10:00');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (2, '加拿大', '1', '2', '', 1, 1, '2021-06-29 14:10:21', '2021-06-29 14:10:21');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (3, '韩国', '82', '2', '', 1, 1, '2021-06-29 14:10:36', '2021-06-29 14:10:36');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (4, '日本', '81', '2', '', 1, 1, '2021-06-29 14:10:49', '2021-06-29 14:10:49');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (5, '中国香港', '852', '2', '', 1, 1, '2021-06-29 14:11:02', '2021-06-29 14:11:02');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (6, '中国澳门', '853', '2', '', 1, 1, '2021-06-29 14:11:15', '2021-06-29 14:11:15');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (7, '中国台湾', '886', '2', '', 1, 1, '2021-06-29 14:11:25', '2021-06-29 14:11:25');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (8, '泰国', '66', '2', '', 1, 1, '2021-06-29 14:11:36', '2021-06-29 14:11:36');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (9, '缅甸', '95', '2', '', 1, 1, '2021-06-29 14:11:45', '2021-06-29 14:11:45');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (10, '老挝', '856', '1', '', 1, 1, '2021-06-29 14:11:59', '2023-03-14 21:11:18');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (11, '澳大利亚', '61', '2', '', 1, 1, '2021-06-29 14:12:14', '2021-06-29 14:12:14');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (12, '俄罗斯', '7', '1', '', 1, 1, '2021-06-29 14:12:32', '2023-03-14 21:11:08');
+INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (13, '中国大陆', '86', '1', '', 1, 1, '2021-06-29 14:16:22', '2023-03-14 21:11:03');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for app_user_level
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."app_user_level";
+CREATE TABLE "public"."app_user_level" (
+  "id" int4 NOT NULL DEFAULT nextval('app_user_level_id_seq'::regclass),
+  "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "level_type" varchar(10) COLLATE "pg_catalog"."default",
+  "level" int4 NOT NULL,
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "create_by" int4 NOT NULL DEFAULT 0,
+  "update_by" int4 NOT NULL DEFAULT 0,
+  "created_at" timestamp(6) NOT NULL,
+  "updated_at" timestamp(6) NOT NULL
+)
+;
+ALTER TABLE "public"."app_user_level" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."app_user_level"."id" IS '主键';
+COMMENT ON COLUMN "public"."app_user_level"."name" IS '等级名称';
+COMMENT ON COLUMN "public"."app_user_level"."level_type" IS '等级类型';
+COMMENT ON COLUMN "public"."app_user_level"."level" IS '等级';
+COMMENT ON COLUMN "public"."app_user_level"."status" IS '状态(1-正常 2-异常)';
+COMMENT ON COLUMN "public"."app_user_level"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."app_user_level"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."app_user_level"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."app_user_level"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."app_user_level"."updated_at" IS '更新时间';
+COMMENT ON TABLE "public"."app_user_level" IS '用户等级';
+
+-- ----------------------------
+-- Records of app_user_level
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."app_user_level" ("id", "name", "level_type", "level", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (1, 'test3', '2', 2, '1', '', 1, 1, '2023-03-09 17:05:24', '2023-03-09 17:05:24');
+INSERT INTO "public"."app_user_level" ("id", "name", "level_type", "level", "status", "remark", "create_by", "update_by", "created_at", "updated_at") VALUES (2, 'test34', '1', 1, '1', '', 1, 1, '2023-03-09 17:05:37', '2023-03-09 20:19:19');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for app_user_oper_log
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."app_user_oper_log";
+CREATE TABLE "public"."app_user_oper_log" (
+  "id" int4 NOT NULL DEFAULT nextval('app_user_oper_log_id_seq'::regclass),
+  "user_id" int4 NOT NULL DEFAULT 1,
+  "action_type" char(2) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::bpchar,
+  "by_type" char(2) COLLATE "pg_catalog"."C" NOT NULL DEFAULT ''::bpchar,
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
+  "create_by" int4 NOT NULL DEFAULT 0,
+  "update_by" int4 NOT NULL DEFAULT 0,
+  "created_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "remark" varchar(500) COLLATE "pg_catalog"."C"
+)
+;
+ALTER TABLE "public"."app_user_oper_log" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."app_user_oper_log"."id" IS '日志编码';
+COMMENT ON COLUMN "public"."app_user_oper_log"."user_id" IS '用户编号';
+COMMENT ON COLUMN "public"."app_user_oper_log"."action_type" IS '用户行为类型';
+COMMENT ON COLUMN "public"."app_user_oper_log"."by_type" IS '更新用户类型 1-app用户 2-后台用户';
+COMMENT ON COLUMN "public"."app_user_oper_log"."status" IS '状态(1-正常 2-异常)';
+COMMENT ON COLUMN "public"."app_user_oper_log"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."app_user_oper_log"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."app_user_oper_log"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."app_user_oper_log"."updated_at" IS '更新时间';
+COMMENT ON COLUMN "public"."app_user_oper_log"."remark" IS '备注信息';
+COMMENT ON TABLE "public"."app_user_oper_log" IS '用户关键行为日志表';
+
+-- ----------------------------
+-- Records of app_user_oper_log
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_type", "status", "create_by", "update_by", "created_at", "updated_at", "remark") VALUES (1, 1, '  ', '2 ', '1', 1, 1, '2023-03-11 15:39:31', '2023-03-11 15:39:31', '');
+INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_type", "status", "create_by", "update_by", "created_at", "updated_at", "remark") VALUES (2, 2, '  ', '2 ', '1', 1, 1, '2023-03-11 15:41:16', '2023-03-11 15:41:16', '');
+INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_type", "status", "create_by", "update_by", "created_at", "updated_at", "remark") VALUES (3, 3, '  ', '1 ', '1', 1, 1, '2023-03-11 15:45:44', '2023-03-11 15:45:44', '');
+INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_type", "status", "create_by", "update_by", "created_at", "updated_at", "remark") VALUES (4, 1, '  ', '1 ', '1', 1, 1, '2023-03-11 15:46:13', '2023-03-11 15:46:13', '');
+INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_type", "status", "create_by", "update_by", "created_at", "updated_at", "remark") VALUES (5, 3, '2 ', '1 ', '1', 1, 1, '2023-03-11 15:54:05', '2023-03-11 15:54:05', '');
+INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_type", "status", "create_by", "update_by", "created_at", "updated_at", "remark") VALUES (6, 2, '1 ', '1 ', '1', 1, 1, '2023-03-11 15:56:36', '2023-03-11 15:56:36', '');
+INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_type", "status", "create_by", "update_by", "created_at", "updated_at", "remark") VALUES (7, 1, '2 ', '1 ', '1', 1, 1, '2023-03-11 16:03:35', '2023-03-11 16:03:35', '');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for plugins_content_announcement
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."plugins_content_announcement";
+CREATE TABLE "public"."plugins_content_announcement" (
+  "id" int4 NOT NULL DEFAULT nextval('plugins_content_announcement_id_seq'::regclass),
+  "title" varchar(255) COLLATE "pg_catalog"."C",
+  "content" text COLLATE "pg_catalog"."C",
+  "num" int4,
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
+  "create_by" int4 NOT NULL,
+  "update_by" int4 NOT NULL,
+  "updated_at" timestamp(6) NOT NULL,
+  "created_at" timestamp(6) NOT NULL
+)
+;
+ALTER TABLE "public"."plugins_content_announcement" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."plugins_content_announcement"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."title" IS '标题';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."content" IS '内容';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."num" IS '阅读次数';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."status" IS '状态（0正常 1删除 2停用 3冻结）';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."updated_at" IS '更新时间';
+COMMENT ON COLUMN "public"."plugins_content_announcement"."created_at" IS '创建时间';
+COMMENT ON TABLE "public"."plugins_content_announcement" IS '公告管理';
+
+-- ----------------------------
+-- Records of plugins_content_announcement
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."plugins_content_announcement" ("id", "title", "content", "num", "remark", "status", "create_by", "update_by", "updated_at", "created_at") VALUES (1, 'test', '<p>tes</p>', 4, 'test', '1', 1, 1, '2023-02-27 12:36:52', '2023-02-27 11:50:56');
+INSERT INTO "public"."plugins_content_announcement" ("id", "title", "content", "num", "remark", "status", "create_by", "update_by", "updated_at", "created_at") VALUES (2, 'test2', '<p>test</p>', 1, 'test', '1', 1, 1, '2023-02-27 23:49:05', '2023-02-27 23:49:05');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for plugins_content_article
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."plugins_content_article";
+CREATE TABLE "public"."plugins_content_article" (
+  "id" int4 NOT NULL DEFAULT nextval('plugins_content_article_id_seq'::regclass),
+  "cate_id" int4,
+  "name" varchar(255) COLLATE "pg_catalog"."C",
+  "content" text COLLATE "pg_catalog"."C",
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
+  "create_by" int4 NOT NULL,
+  "update_by" int4 NOT NULL,
+  "updated_at" timestamp(6) NOT NULL,
+  "created_at" timestamp(6) NOT NULL
+)
+;
+ALTER TABLE "public"."plugins_content_article" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."plugins_content_article"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."plugins_content_article"."cate_id" IS '分类编号';
+COMMENT ON COLUMN "public"."plugins_content_article"."name" IS '名称';
+COMMENT ON COLUMN "public"."plugins_content_article"."content" IS '内容';
+COMMENT ON COLUMN "public"."plugins_content_article"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."plugins_content_article"."status" IS '状态（1-正常 2-异常）';
+COMMENT ON COLUMN "public"."plugins_content_article"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."plugins_content_article"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."plugins_content_article"."updated_at" IS '更新时间';
+COMMENT ON COLUMN "public"."plugins_content_article"."created_at" IS '创建时间';
+COMMENT ON TABLE "public"."plugins_content_article" IS '文章管理';
+
+-- ----------------------------
+-- Records of plugins_content_article
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."plugins_content_article" ("id", "cate_id", "name", "content", "remark", "status", "create_by", "update_by", "updated_at", "created_at") VALUES (1, 1, 'test', '<p>test</p>', '111', '1', 1, 1, '2023-03-13 00:04:40', '2023-03-13 00:04:40');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for plugins_content_category
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."plugins_content_category";
+CREATE TABLE "public"."plugins_content_category" (
+  "id" int4 NOT NULL DEFAULT nextval('plugins_content_category_id_seq'::regclass),
+  "name" varchar(255) COLLATE "pg_catalog"."C",
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "create_by" int4 NOT NULL,
+  "update_by" int4 NOT NULL,
+  "updated_at" timestamp(6) NOT NULL,
+  "created_at" timestamp(6) NOT NULL
+)
+;
+ALTER TABLE "public"."plugins_content_category" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."plugins_content_category"."id" IS '主键编码';
+COMMENT ON COLUMN "public"."plugins_content_category"."name" IS '名称';
+COMMENT ON COLUMN "public"."plugins_content_category"."status" IS '状态（1-正常 2-异常）';
+COMMENT ON COLUMN "public"."plugins_content_category"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."plugins_content_category"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."plugins_content_category"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."plugins_content_category"."updated_at" IS '更新时间';
+COMMENT ON COLUMN "public"."plugins_content_category"."created_at" IS '创建时间';
+COMMENT ON TABLE "public"."plugins_content_category" IS '文章分类管理';
+
+-- ----------------------------
+-- Records of plugins_content_category
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."plugins_content_category" ("id", "name", "status", "remark", "create_by", "update_by", "updated_at", "created_at") VALUES (1, 'test', '1', '', 1, 1, '2023-02-27 23:21:29', '2023-02-27 23:21:29');
+INSERT INTO "public"."plugins_content_category" ("id", "name", "status", "remark", "create_by", "update_by", "updated_at", "created_at") VALUES (2, 'test2', '1', '', 1, 1, '2023-02-27 23:22:00', '2023-02-27 23:22:00');
+INSERT INTO "public"."plugins_content_category" ("id", "name", "status", "remark", "create_by", "update_by", "updated_at", "created_at") VALUES (3, 'test23', '1', '', 1, 1, '2023-02-27 23:42:01', '2023-02-27 23:42:01');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for plugins_filemgr_app
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."plugins_filemgr_app";
+CREATE TABLE "public"."plugins_filemgr_app" (
+  "id" int4 NOT NULL DEFAULT nextval('plugins_filemgr_app_id_seq'::regclass),
+  "version" varchar(100) COLLATE "pg_catalog"."C",
+  "platform" char(1) COLLATE "pg_catalog"."C",
+  "app_type" char(1) COLLATE "pg_catalog"."C",
+  "local_address" varchar(255) COLLATE "pg_catalog"."C",
+  "download_type" char(1) COLLATE "pg_catalog"."C",
+  "download_url" varchar(255) COLLATE "pg_catalog"."C",
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL,
+  "create_by" int4 NOT NULL,
+  "created_at" timestamp(6) NOT NULL,
+  "update_by" int4 NOT NULL,
+  "updated_at" timestamp(6) NOT NULL
+)
+;
+ALTER TABLE "public"."plugins_filemgr_app" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."id" IS '主键';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."version" IS '版本号';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."platform" IS '平台 (1-安卓 2-苹果)';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."app_type" IS '版本(1-默认)';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."local_address" IS '本地地址';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."download_type" IS '下载类型(1-本地 2-外链 3-oss )';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."download_url" IS '下载地址(download_type=1使用)';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."remark" IS '备注信息';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."status" IS '状态（1-已发布 2-待发布）';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."plugins_filemgr_app"."updated_at" IS '更新时间';
+COMMENT ON TABLE "public"."plugins_filemgr_app" IS 'app升级管理';
+
+-- ----------------------------
+-- Records of plugins_filemgr_app
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."plugins_filemgr_app" ("id", "version", "platform", "app_type", "local_address", "download_type", "download_url", "remark", "status", "create_by", "created_at", "update_by", "updated_at") VALUES (1, '1.0.1', '1', '1', 'files/app/4b6ea3c0-d7fa-49f1-9d50-f9d73caad45f.apk', '3', '', 'test', '1', 1, '2023-03-12 11:34:54', 1, '2023-03-13 01:00:30');
+INSERT INTO "public"."plugins_filemgr_app" ("id", "version", "platform", "app_type", "local_address", "download_type", "download_url", "remark", "status", "create_by", "created_at", "update_by", "updated_at") VALUES (2, '1.0.0', '1', '1', 'files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', '1', 'http://localhost:9999/files/app/ba7b81c0-e6d2-42ee-82e4-2dcbec720c23.apk', 'test', '1', 1, '2023-03-13 01:06:21', 1, '2023-03-13 01:06:21');
+INSERT INTO "public"."plugins_filemgr_app" ("id", "version", "platform", "app_type", "local_address", "download_type", "download_url", "remark", "status", "create_by", "created_at", "update_by", "updated_at") VALUES (3, '1.0.2', '1', '1', '', '2', 'http://localhost:9999/test.apk', 'test2', '1', 1, '2023-03-13 01:07:00', 1, '2023-03-13 01:07:00');
+INSERT INTO "public"."plugins_filemgr_app" ("id", "version", "platform", "app_type", "local_address", "download_type", "download_url", "remark", "status", "create_by", "created_at", "update_by", "updated_at") VALUES (4, '1.0.3', '1', '1', 'files/app/962bebc9-fdb6-41b5-b62b-b184ee2fd1c0.apk', '3', '', 'test2', '1', 1, '2023-03-13 01:07:24', 1, '2023-03-13 01:07:24');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for plugins_msg_code
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."plugins_msg_code";
+CREATE TABLE "public"."plugins_msg_code" (
+  "id" int4 NOT NULL DEFAULT nextval('plugins_msg_code_id_seq'::regclass),
+  "user_id" int4 NOT NULL,
+  "code" varchar(12) COLLATE "pg_catalog"."default" NOT NULL DEFAULT '0'::character varying,
+  "code_type" char(1) COLLATE "pg_catalog"."default" NOT NULL DEFAULT '0'::bpchar,
+  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
+  "create_by" int4 NOT NULL DEFAULT 0,
+  "update_by" int4 NOT NULL DEFAULT 0,
+  "created_at" timestamp(6) NOT NULL,
+  "updated_at" timestamp(6) NOT NULL
+)
+;
+ALTER TABLE "public"."plugins_msg_code" OWNER TO "postgres";
+COMMENT ON COLUMN "public"."plugins_msg_code"."id" IS '验证码编号';
+COMMENT ON COLUMN "public"."plugins_msg_code"."user_id" IS '用户编号';
+COMMENT ON COLUMN "public"."plugins_msg_code"."code" IS '验证码';
+COMMENT ON COLUMN "public"."plugins_msg_code"."code_type" IS '验证码类型 1-邮箱；2-短信';
+COMMENT ON COLUMN "public"."plugins_msg_code"."remark" IS '备注异常';
+COMMENT ON COLUMN "public"."plugins_msg_code"."status" IS '验证码状态 1-发送成功 2-发送失败';
+COMMENT ON COLUMN "public"."plugins_msg_code"."create_by" IS '创建者';
+COMMENT ON COLUMN "public"."plugins_msg_code"."update_by" IS '更新者';
+COMMENT ON COLUMN "public"."plugins_msg_code"."created_at" IS '创建时间';
+COMMENT ON COLUMN "public"."plugins_msg_code"."updated_at" IS '更新时间';
+COMMENT ON TABLE "public"."plugins_msg_code" IS '验证码记录';
+
+-- ----------------------------
+-- Records of plugins_msg_code
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_api_id_seq"
+OWNED BY "public"."admin_sys_api"."id";
+SELECT setval('"public"."admin_sys_api_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_dept_id_seq"
+OWNED BY "public"."admin_sys_dept"."id";
+SELECT setval('"public"."admin_sys_dept_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_dict_data_id_seq"
+OWNED BY "public"."admin_sys_dict_data"."id";
+SELECT setval('"public"."admin_sys_dict_data_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_dict_type_id_seq"
+OWNED BY "public"."admin_sys_dict_type"."id";
+SELECT setval('"public"."admin_sys_dict_type_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_gen_column_id_seq"
+OWNED BY "public"."admin_sys_gen_column"."id";
+SELECT setval('"public"."admin_sys_gen_column_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_gen_table_id_seq"
+OWNED BY "public"."admin_sys_gen_table"."id";
+SELECT setval('"public"."admin_sys_gen_table_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_login_log_id_seq"
+OWNED BY "public"."admin_sys_login_log"."id";
+SELECT setval('"public"."admin_sys_login_log_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_menu_id_seq"
+OWNED BY "public"."admin_sys_menu"."id";
+SELECT setval('"public"."admin_sys_menu_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_oper_log_id_seq"
+OWNED BY "public"."admin_sys_oper_log"."id";
+SELECT setval('"public"."admin_sys_oper_log_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_post_id_seq"
+OWNED BY "public"."admin_sys_post"."id";
+SELECT setval('"public"."admin_sys_post_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_role_id_seq"
+OWNED BY "public"."admin_sys_role"."id";
+SELECT setval('"public"."admin_sys_role_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."admin_sys_user_id_seq"
+OWNED BY "public"."admin_sys_user"."id";
+SELECT setval('"public"."admin_sys_user_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_account_log_id_seq"
+OWNED BY "public"."app_user_account_log"."id";
+SELECT setval('"public"."app_user_account_log_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_conf_id_seq"
+OWNED BY "public"."app_user_conf"."id";
+SELECT setval('"public"."app_user_conf_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_country_code_id_seq"
+OWNED BY "public"."app_user_country_code"."id";
+SELECT setval('"public"."app_user_country_code_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_id_seq"
+OWNED BY "public"."app_user"."id";
+SELECT setval('"public"."app_user_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_level_id_seq"
+OWNED BY "public"."app_user_level"."id";
+SELECT setval('"public"."app_user_level_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."app_user_oper_log_id_seq"
+OWNED BY "public"."app_user_oper_log"."id";
+SELECT setval('"public"."app_user_oper_log_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."plugins_content_announcement_id_seq"
+OWNED BY "public"."plugins_content_announcement"."id";
+SELECT setval('"public"."plugins_content_announcement_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."plugins_content_article_id_seq"
+OWNED BY "public"."plugins_content_article"."id";
+SELECT setval('"public"."plugins_content_article_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."plugins_content_category_id_seq"
+OWNED BY "public"."plugins_content_category"."id";
+SELECT setval('"public"."plugins_content_category_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."plugins_filemgr_app_id_seq"
+OWNED BY "public"."plugins_filemgr_app"."id";
+SELECT setval('"public"."plugins_filemgr_app_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."plugins_msg_code_id_seq"
+OWNED BY "public"."plugins_msg_code"."id";
+SELECT setval('"public"."plugins_msg_code_id_seq"', 1, false);
+
+-- ----------------------------
+-- Auto increment value for admin_sys_api
+-- ----------------------------
+SELECT setval('"public"."admin_sys_api_id_seq"', 1, false);
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_api
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_api" ADD CONSTRAINT "admin_sys_api_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Uniques structure for table admin_sys_casbin_rule
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_casbin_rule" ADD CONSTRAINT "idx_admin_sys_casbin_rule" UNIQUE ("p_type", "v0", "v1", "v2", "v3", "v4", "v5");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_config
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_config" ADD CONSTRAINT "admin_sys_config_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Auto increment value for admin_sys_dept
+-- ----------------------------
+SELECT setval('"public"."admin_sys_dept_id_seq"', 1, false);
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_dept
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_dept" ADD CONSTRAINT "admin_sys_dept_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_dict_data
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_dict_data" ADD CONSTRAINT "admin_sys_dict_data_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_dict_type
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_dict_type" ADD CONSTRAINT "admin_sys_dict_type_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_gen_column
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_gen_column" ADD CONSTRAINT "admin_sys_gen_column_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_gen_table
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_gen_table" ADD CONSTRAINT "admin_sys_gen_table_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_login_log
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_login_log" ADD CONSTRAINT "admin_sys_login_log_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_menu
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_menu" ADD CONSTRAINT "admin_sys_menu_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_menu_api_rule
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_menu_api_rule" ADD CONSTRAINT "admin_sys_menu_api_rule_pkey" PRIMARY KEY ("admin_sys_menu_menu_id", "admin_sys_api_id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_oper_log
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_oper_log" ADD CONSTRAINT "admin_sys_oper_log_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_post
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_post" ADD CONSTRAINT "admin_sys_post_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_role
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_role" ADD CONSTRAINT "admin_sys_role_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_role_dept
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_role_dept" ADD CONSTRAINT "admin_sys_role_dept_pkey" PRIMARY KEY ("role_id", "dept_id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_role_menu
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_role_menu" ADD CONSTRAINT "admin_sys_role_menu_pkey" PRIMARY KEY ("role_id", "menu_id");
+
+-- ----------------------------
+-- Primary Key structure for table admin_sys_user
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_user" ADD CONSTRAINT "admin_sys_user_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table app_user
+-- ----------------------------
+ALTER TABLE "public"."app_user" ADD CONSTRAINT "app_user_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Indexes structure for table app_user_account_log
+-- ----------------------------
+CREATE INDEX "idx_qyc_user_status" ON "public"."app_user_account_log" USING btree (
+  "status" COLLATE "pg_catalog"."C" "pg_catalog"."bpchar_ops" ASC NULLS LAST
+);
+
+-- ----------------------------
+-- Primary Key structure for table app_user_account_log
+-- ----------------------------
+ALTER TABLE "public"."app_user_account_log" ADD CONSTRAINT "app_user_account_log_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table app_user_conf
+-- ----------------------------
+ALTER TABLE "public"."app_user_conf" ADD CONSTRAINT "app_user_conf_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table app_user_country_code
+-- ----------------------------
+ALTER TABLE "public"."app_user_country_code" ADD CONSTRAINT "app_user_country_code_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table app_user_level
+-- ----------------------------
+ALTER TABLE "public"."app_user_level" ADD CONSTRAINT "app_user_level_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table app_user_oper_log
+-- ----------------------------
+ALTER TABLE "public"."app_user_oper_log" ADD CONSTRAINT "app_user_oper_log_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table plugins_content_announcement
+-- ----------------------------
+ALTER TABLE "public"."plugins_content_announcement" ADD CONSTRAINT "plugins_content_announcement_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table plugins_content_article
+-- ----------------------------
+ALTER TABLE "public"."plugins_content_article" ADD CONSTRAINT "plugins_content_article_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table plugins_content_category
+-- ----------------------------
+ALTER TABLE "public"."plugins_content_category" ADD CONSTRAINT "plugins_content_category_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table plugins_filemgr_app
+-- ----------------------------
+ALTER TABLE "public"."plugins_filemgr_app" ADD CONSTRAINT "plugins_filemgr_app_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table plugins_msg_code
+-- ----------------------------
+ALTER TABLE "public"."plugins_msg_code" ADD CONSTRAINT "plugins_msg_code_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Foreign Keys structure for table admin_sys_menu_api_rule
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_menu_api_rule" ADD CONSTRAINT "fk_admin_sys_menu_api_rule_admin_sys_api" FOREIGN KEY ("admin_sys_api_id") REFERENCES "public"."admin_sys_api" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."admin_sys_menu_api_rule" ADD CONSTRAINT "fk_admin_sys_menu_api_rule_admin_sys_menu" FOREIGN KEY ("admin_sys_menu_menu_id") REFERENCES "public"."admin_sys_menu" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table admin_sys_role_menu
+-- ----------------------------
+ALTER TABLE "public"."admin_sys_role_menu" ADD CONSTRAINT "fk_admin_sys_role_menu_admin_sys_menu" FOREIGN KEY ("menu_id") REFERENCES "public"."admin_sys_menu" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."admin_sys_role_menu" ADD CONSTRAINT "fk_admin_sys_role_menu_admin_sys_role" FOREIGN KEY ("role_id") REFERENCES "public"."admin_sys_role" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
