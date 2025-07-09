@@ -445,7 +445,7 @@ func (e SysUser) GenCaptcha(c *gin.Context) {
 		e.Error(baseLang.DataDecodeCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.DataDecodeCode, baseLang.DataDecodeLogCode, err).Error())
 		return
 	}
-	id, b64s, err := captchautils.DriverDigitFunc()
+	id, b64s, _, err := captchautils.DriverDigitFunc()
 	if err != nil {
 		e.Error(baseLang.SysUseGenCaptchaErrLogCode, lang.MsgLogErrf(e.Logger, e.Lang, baseLang.SysUseGenCaptchaErrCode, baseLang.SysUseGenCaptchaErrLogCode, err).Error())
 		return
