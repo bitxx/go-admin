@@ -41,10 +41,12 @@ settings:
     # token 密钥，包括aes密钥共用，生产环境需修改，为确保兼容，长度需要为16、24、32字节
     secret: admin-api-20231019-jason
   database:
-    # 目前支持：mysql
+    # 目前支持：mysql postgres
     driver: mysql
-    # 数据库连接字符串
+    # mysql 数据库连接dns
     source: 账号:密码@tcp(ip:端口号)/数据库名?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    # postgres 数据库连接dns
+    # source: host=ip port=端口 user=账号 dbname=数据库名 password=密码 sslmode=disable TimeZone=Asia/Shanghai default_query_exec_mode=simple_protocol
   #  多db服务，下方配置未完善，待定，先占位
   #  databases:
   #    'locaohost:8888':
