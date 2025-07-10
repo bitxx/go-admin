@@ -15,307 +15,6 @@
  Date: 10/07/2025 14:24:45
 */
 
-
--- ----------------------------
--- Sequence structure for admin_sys_api_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_api_id_seq";
-CREATE SEQUENCE "public"."admin_sys_api_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_api_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_api_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_api_id_seq";
-CREATE SEQUENCE "public"."admin_sys_api_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_api_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_config_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_config_id_seq";
-CREATE SEQUENCE "public"."admin_sys_config_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_config_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_dept_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_dept_id_seq";
-CREATE SEQUENCE "public"."admin_sys_dept_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_dept_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_dict_data_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_dict_data_id_seq";
-CREATE SEQUENCE "public"."admin_sys_dict_data_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_dict_data_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_dict_type_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_dict_type_id_seq";
-CREATE SEQUENCE "public"."admin_sys_dict_type_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_dict_type_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_gen_column_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_gen_column_id_seq";
-CREATE SEQUENCE "public"."admin_sys_gen_column_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_gen_column_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_gen_table_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_gen_table_id_seq";
-CREATE SEQUENCE "public"."admin_sys_gen_table_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_gen_table_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_login_log_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_login_log_id_seq";
-CREATE SEQUENCE "public"."admin_sys_login_log_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_login_log_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_menu_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_menu_id_seq";
-CREATE SEQUENCE "public"."admin_sys_menu_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_menu_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_oper_log_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_oper_log_id_seq";
-CREATE SEQUENCE "public"."admin_sys_oper_log_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_oper_log_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_post_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_post_id_seq";
-CREATE SEQUENCE "public"."admin_sys_post_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_post_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_role_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_role_id_seq";
-CREATE SEQUENCE "public"."admin_sys_role_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_role_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for admin_sys_user_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."admin_sys_user_id_seq";
-CREATE SEQUENCE "public"."admin_sys_user_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."admin_sys_user_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for app_user_account_log_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."app_user_account_log_id_seq";
-CREATE SEQUENCE "public"."app_user_account_log_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."app_user_account_log_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for app_user_conf_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."app_user_conf_id_seq";
-CREATE SEQUENCE "public"."app_user_conf_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."app_user_conf_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for app_user_country_code_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."app_user_country_code_id_seq";
-CREATE SEQUENCE "public"."app_user_country_code_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."app_user_country_code_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for app_user_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."app_user_id_seq";
-CREATE SEQUENCE "public"."app_user_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."app_user_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for app_user_level_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."app_user_level_id_seq";
-CREATE SEQUENCE "public"."app_user_level_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."app_user_level_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for app_user_oper_log_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."app_user_oper_log_id_seq";
-CREATE SEQUENCE "public"."app_user_oper_log_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."app_user_oper_log_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for plugins_content_announcement_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."plugins_content_announcement_id_seq";
-CREATE SEQUENCE "public"."plugins_content_announcement_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."plugins_content_announcement_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for plugins_content_article_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."plugins_content_article_id_seq";
-CREATE SEQUENCE "public"."plugins_content_article_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."plugins_content_article_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for plugins_content_category_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."plugins_content_category_id_seq";
-CREATE SEQUENCE "public"."plugins_content_category_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."plugins_content_category_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for plugins_filemgr_app_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."plugins_filemgr_app_id_seq";
-CREATE SEQUENCE "public"."plugins_filemgr_app_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."plugins_filemgr_app_id_seq" OWNER TO "postgres";
-
--- ----------------------------
--- Sequence structure for plugins_msg_code_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."plugins_msg_code_id_seq";
-CREATE SEQUENCE "public"."plugins_msg_code_id_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 2147483647
-START 1
-CACHE 1;
-ALTER SEQUENCE "public"."plugins_msg_code_id_seq" OWNER TO "postgres";
-
 -- ----------------------------
 -- Table structure for admin_sys_api
 -- ----------------------------
@@ -332,8 +31,8 @@ CACHE 1
   "path" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "api_type" varchar(16) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "method" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" int8,
   "update_by" int8,
   "remark" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying
@@ -504,10 +203,9 @@ INSERT INTO "public"."admin_sys_api" ("id", "description", "path", "api_type", "
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_api_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_api', 'id') AS seq_name;
-SELECT setval('public.admin_sys_api_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_api), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_api', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_api),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_casbin_rule
@@ -559,8 +257,8 @@ CACHE 1
   "remark" varchar(128) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_config" OWNER TO "postgres";
@@ -595,10 +293,9 @@ INSERT INTO "public"."admin_sys_config" ("id", "config_name", "config_key", "con
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_config_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_config', 'id') AS seq_name;
-SELECT setval('public.admin_sys_config_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_config), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_config', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_config),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_dept
@@ -622,8 +319,8 @@ CACHE 1
   "status" int2,
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_dept" OWNER TO "postgres";
@@ -646,10 +343,9 @@ INSERT INTO "public"."admin_sys_dept" ("id", "parent_id", "parent_ids", "dept_na
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_dept_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_dept', 'id') AS seq_name;
-SELECT setval('public.admin_sys_dept_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_dept), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_dept', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_dept),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_dict_data
@@ -675,8 +371,8 @@ CACHE 1
   "remark" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_dict_data" OWNER TO "postgres";
@@ -784,10 +480,9 @@ INSERT INTO "public"."admin_sys_dict_data" ("id", "dict_sort", "dict_label", "di
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_dict_data_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_dict_data', 'id') AS seq_name;
-SELECT setval('public.admin_sys_dict_data_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_dict_data), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_dict_data', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_dict_data),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_dict_type
@@ -807,8 +502,8 @@ CACHE 1
   "remark" varchar(255) COLLATE "pg_catalog"."default",
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_dict_type" OWNER TO "postgres";
@@ -854,10 +549,9 @@ INSERT INTO "public"."admin_sys_dict_type" ("id", "dict_name", "dict_type", "sta
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_dict_type_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_dict_type', 'id') AS seq_name;
-SELECT setval('public.admin_sys_dict_type_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_dict_type), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_dict_type', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_dict_type),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_gen_column
@@ -887,8 +581,8 @@ CACHE 1
   "dict_type" varchar(128) COLLATE "pg_catalog"."default",
   "sort" int8,
   "remark" varchar(255) COLLATE "pg_catalog"."default",
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" int8,
   "update_by" int8
 )
@@ -1196,10 +890,9 @@ INSERT INTO "public"."admin_sys_gen_column" ("id", "table_id", "column_name", "c
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_gen_column_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_gen_column', 'id') AS seq_name;
-SELECT setval('public.admin_sys_gen_column_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_gen_column), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_gen_column', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_gen_column),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_gen_table
@@ -1223,8 +916,8 @@ CACHE 1
   "business_name" varchar(255) COLLATE "pg_catalog"."default",
   "is_plugin" char(1) COLLATE "pg_catalog"."default" DEFAULT '1'::bpchar,
   "remark" varchar(255) COLLATE "pg_catalog"."default",
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" int8,
   "update_by" int8
 )
@@ -1275,10 +968,10 @@ INSERT INTO "public"."admin_sys_gen_table" ("id", "table_name", "table_comment",
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_gen_table_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_gen_table', 'id') AS seq_name;
-SELECT setval('public.admin_sys_gen_table_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_gen_table), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_gen_table', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_gen_table),true);
+
 
 -- ----------------------------
 -- Table structure for admin_sys_login_log
@@ -1302,8 +995,8 @@ CACHE 1
   "login_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "status" char(1) COLLATE "pg_catalog"."default",
   "remark" varchar(255) COLLATE "pg_catalog"."default",
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" int8,
   "update_by" int8
 )
@@ -1334,10 +1027,9 @@ INSERT INTO "public"."admin_sys_login_log" ("id", "user_id", "ipaddr", "login_lo
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_login_log_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_login_log', 'id') AS seq_name;
-SELECT setval('public.admin_sys_login_log_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_login_log), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_login_log', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_login_log),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_menu
@@ -1367,8 +1059,8 @@ CACHE 1
   "is_frame" char(1) COLLATE "pg_catalog"."default",
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_menu" OWNER TO "postgres";
@@ -1523,10 +1215,9 @@ INSERT INTO "public"."admin_sys_menu" ("id", "title", "icon", "path", "element",
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_menu_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_menu', 'id') AS seq_name;
-SELECT setval('public.admin_sys_menu_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_menu), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_menu', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_menu),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_menu_api_rule
@@ -1708,8 +1399,8 @@ CACHE 1
   "remark" varchar(255) COLLATE "pg_catalog"."default",
   "latency_time" varchar(128) COLLATE "pg_catalog"."default",
   "user_agent" varchar(255) COLLATE "pg_catalog"."default",
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" int8,
   "update_by" int8
 )
@@ -1749,10 +1440,9 @@ INSERT INTO "public"."admin_sys_oper_log" ("id", "request_method", "user_id", "o
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_oper_log_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_oper_log', 'id') AS seq_name;
-SELECT setval('public.admin_sys_oper_log_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_oper_log), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_oper_log', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_oper_log),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_post
@@ -1773,8 +1463,8 @@ CACHE 1
   "remark" varchar(255) COLLATE "pg_catalog"."default",
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_post" OWNER TO "postgres";
@@ -1800,10 +1490,9 @@ INSERT INTO "public"."admin_sys_post" ("id", "post_name", "post_code", "sort", "
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_post_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_post', 'id') AS seq_name;
-SELECT setval('public.admin_sys_post_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_post), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_post', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_post),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_role
@@ -1825,8 +1514,8 @@ CACHE 1
   "status" char(1) COLLATE "pg_catalog"."default",
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_role" OWNER TO "postgres";
@@ -1846,10 +1535,9 @@ INSERT INTO "public"."admin_sys_role" ("id", "role_name", "role_key", "role_sort
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_role_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_role', 'id') AS seq_name;
-SELECT setval('public.admin_sys_role_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_role), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_role', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_role),true);
 
 -- ----------------------------
 -- Table structure for admin_sys_role_dept
@@ -1926,8 +1614,8 @@ CACHE 1
   "status" varchar(4) COLLATE "pg_catalog"."C",
   "create_by" int8,
   "update_by" int8,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_user" OWNER TO "postgres";
@@ -1960,10 +1648,9 @@ INSERT INTO "public"."admin_sys_user" ("id", "username", "password", "nick_name"
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for admin_sys_user_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.admin_sys_user', 'id') AS seq_name;
-SELECT setval('public.admin_sys_user_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_user), true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_user', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.admin_sys_user),true);
 
 -- ----------------------------
 -- Table structure for app_user
@@ -1998,8 +1685,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" int8 NOT NULL DEFAULT 0,
   "update_by" int8 NOT NULL DEFAULT 0,
-  "created_at" timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updated_at" timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 ALTER TABLE "public"."app_user" OWNER TO "postgres";
@@ -2039,10 +1726,9 @@ INSERT INTO "public"."app_user" ("id", "level_id", "user_name", "true_name", "mo
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for app_user_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.app_user', 'id') AS seq_name;
-SELECT setval('public.app_user_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.app_user), true);
+SELECT setval(pg_get_serial_sequence('public.app_user', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.app_user),true);
 
 -- ----------------------------
 -- Table structure for app_user_account_log
@@ -2064,9 +1750,9 @@ CACHE 1
   "change_type" varchar(30) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '1'::character varying,
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL,
   "create_by" int8 NOT NULL,
-  "created_at" timestamp(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL,
   "update_by" int8 NOT NULL,
-  "updated_at" timestamp(0) NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL,
   "remarks" varchar(500) COLLATE "pg_catalog"."C"
 )
 ;
@@ -2102,10 +1788,9 @@ INSERT INTO "public"."app_user_account_log" ("id", "user_id", "change_money", "b
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for app_user_account_log_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.app_user_account_log', 'id') AS seq_name;
-SELECT setval('public.app_user_account_log_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.app_user_account_log), true);
+SELECT setval(pg_get_serial_sequence('public.app_user_account_log', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.app_user_account_log),true);
 
 -- ----------------------------
 -- Table structure for app_user_conf
@@ -2125,8 +1810,8 @@ CACHE 1
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
   "create_by" int8 NOT NULL DEFAULT 0,
   "update_by" int8 NOT NULL DEFAULT 0,
-  "created_at" timestamp(0) NOT NULL,
-  "updated_at" timestamp(0) NOT NULL
+  "created_at" timestamptz(0) NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."app_user_conf" OWNER TO "postgres";
@@ -2151,10 +1836,9 @@ INSERT INTO "public"."app_user_conf" ("id", "user_id", "can_login", "remark", "s
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for app_user_conf_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.app_user_conf', 'id') AS seq_name;
-SELECT setval('public.app_user_conf_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.app_user_conf), true);
+SELECT setval(pg_get_serial_sequence('public.app_user_conf', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.app_user_conf),true);
 
 -- ----------------------------
 -- Table structure for app_user_country_code
@@ -2174,8 +1858,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" int8 NOT NULL DEFAULT 0,
   "update_by" int8 NOT NULL DEFAULT 0,
-  "created_at" timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updated_at" timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 ALTER TABLE "public"."app_user_country_code" OWNER TO "postgres";
@@ -2209,10 +1893,9 @@ INSERT INTO "public"."app_user_country_code" ("id", "country", "code", "status",
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for app_user_country_code_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.app_user_country_code', 'id') AS seq_name;
-SELECT setval('public.app_user_country_code_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.app_user_country_code), true);
+SELECT setval(pg_get_serial_sequence('public.app_user_country_code', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.app_user_country_code),true);
 
 -- ----------------------------
 -- Table structure for app_user_level
@@ -2233,8 +1916,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" int8 NOT NULL DEFAULT 0,
   "update_by" int8 NOT NULL DEFAULT 0,
-  "created_at" timestamp(0) NOT NULL,
-  "updated_at" timestamp(0) NOT NULL
+  "created_at" timestamptz(0) NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."app_user_level" OWNER TO "postgres";
@@ -2259,10 +1942,9 @@ INSERT INTO "public"."app_user_level" ("id", "name", "level_type", "level", "sta
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for app_user_level_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.app_user_level', 'id') AS seq_name;
-SELECT setval('public.app_user_level_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.app_user_level), true);
+SELECT setval(pg_get_serial_sequence('public.app_user_level', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.app_user_level),true);
 
 -- ----------------------------
 -- Table structure for app_user_oper_log
@@ -2282,8 +1964,8 @@ CACHE 1
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
   "create_by" int8 NOT NULL DEFAULT 0,
   "update_by" int8 NOT NULL DEFAULT 0,
-  "created_at" timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updated_at" timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "remark" varchar(500) COLLATE "pg_catalog"."C"
 )
 ;
@@ -2314,10 +1996,9 @@ INSERT INTO "public"."app_user_oper_log" ("id", "user_id", "action_type", "by_ty
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for app_user_oper_log_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.app_user_oper_log', 'id') AS seq_name;
-SELECT setval('public.app_user_oper_log_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.app_user_oper_log), true);
+SELECT setval(pg_get_serial_sequence('public.app_user_oper_log', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.app_user_oper_log),true);
 
 -- ----------------------------
 -- Table structure for plugins_content_announcement
@@ -2338,8 +2019,8 @@ CACHE 1
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
   "create_by" int8 NOT NULL,
   "update_by" int8 NOT NULL,
-  "updated_at" timestamp(0) NOT NULL,
-  "created_at" timestamp(0) NOT NULL
+  "updated_at" timestamptz(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_content_announcement" OWNER TO "postgres";
@@ -2364,10 +2045,9 @@ INSERT INTO "public"."plugins_content_announcement" ("id", "title", "content", "
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for plugins_content_announcement_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.plugins_content_announcement', 'id') AS seq_name;
-SELECT setval('public.plugins_content_announcement_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.plugins_content_announcement), true);
+SELECT setval(pg_get_serial_sequence('public.plugins_content_announcement', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.plugins_content_announcement),true);
 
 -- ----------------------------
 -- Table structure for plugins_content_article
@@ -2388,8 +2068,8 @@ CACHE 1
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
   "create_by" int8 NOT NULL,
   "update_by" int8 NOT NULL,
-  "updated_at" timestamp(0) NOT NULL,
-  "created_at" timestamp(0) NOT NULL
+  "updated_at" timestamptz(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_content_article" OWNER TO "postgres";
@@ -2413,10 +2093,9 @@ INSERT INTO "public"."plugins_content_article" ("id", "cate_id", "name", "conten
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for plugins_content_article_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.plugins_content_article', 'id') AS seq_name;
-SELECT setval('plugins_content_article_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.plugins_content_article), true);
+SELECT setval(pg_get_serial_sequence('public.plugins_content_article', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.plugins_content_article),true);
 
 -- ----------------------------
 -- Table structure for plugins_content_category
@@ -2435,8 +2114,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" int8 NOT NULL,
   "update_by" int8 NOT NULL,
-  "updated_at" timestamp(0) NOT NULL,
-  "created_at" timestamp(0) NOT NULL
+  "updated_at" timestamptz(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_content_category" OWNER TO "postgres";
@@ -2460,10 +2139,9 @@ INSERT INTO "public"."plugins_content_category" ("id", "name", "status", "remark
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for plugins_content_category_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.plugins_content_category', 'id') AS seq_name;
-SELECT setval('plugins_content_category_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.plugins_content_category), true);
+SELECT setval(pg_get_serial_sequence('public.plugins_content_category', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.plugins_content_category),true);
 
 -- ----------------------------
 -- Table structure for plugins_filemgr_app
@@ -2486,9 +2164,9 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL,
   "create_by" int8 NOT NULL,
-  "created_at" timestamp(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL,
   "update_by" int8 NOT NULL,
-  "updated_at" timestamp(0) NOT NULL
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_filemgr_app" OWNER TO "postgres";
@@ -2518,10 +2196,9 @@ INSERT INTO "public"."plugins_filemgr_app" ("id", "version", "platform", "app_ty
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for plugins_filemgr_app_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.plugins_filemgr_app', 'id') AS seq_name;
-SELECT setval('plugins_filemgr_app_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.plugins_filemgr_app), true);
+SELECT setval(pg_get_serial_sequence('public.plugins_filemgr_app', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.plugins_filemgr_app),true);
 
 -- ----------------------------
 -- Table structure for plugins_msg_code
@@ -2542,8 +2219,8 @@ CACHE 1
   "status" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '2'::bpchar,
   "create_by" int8 NOT NULL DEFAULT 0,
   "update_by" int8 NOT NULL DEFAULT 0,
-  "created_at" timestamp(0) NOT NULL,
-  "updated_at" timestamp(0) NOT NULL
+  "created_at" timestamptz(0) NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_msg_code" OWNER TO "postgres";
@@ -2566,10 +2243,9 @@ BEGIN;
 COMMIT;
 
 -- ----------------------------
--- Sequence structure for plugins_msg_code_id_seq
+-- Sequence structure
 -- ----------------------------
-SELECT pg_get_serial_sequence('public.plugins_msg_code', 'id') AS seq_name;
-SELECT setval('plugins_msg_code_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.plugins_msg_code), true);
+SELECT setval(pg_get_serial_sequence('public.plugins_msg_code', 'id'),(SELECT COALESCE(MAX(id), 1) FROM public.plugins_msg_code),true);
 
 -- ----------------------------
 -- Uniques structure for table admin_sys_casbin_rule

@@ -158,7 +158,7 @@ SELECT
 	data_type,
 	character_maximum_length,
 	NULL AS character_set_name,
-	NULL AS column_type,
+	udt_name AS column_type,
 	NULL AS column_key,
 	NULL AS extra,
 	col_description(format('%s.%s', table_schema, table_name)::regclass::oid, ordinal_position) AS column_comment

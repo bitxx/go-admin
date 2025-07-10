@@ -328,6 +328,7 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 	}
 
 	var sysTables []models.SysGenTable
+	now := time.Now()
 	for _, table := range dbTables {
 		sysTable := models.SysGenTable{}
 
@@ -403,7 +404,24 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 					sysColumn.JsonField += strings.ToUpper(strStart) + strend
 				}
 			}
-			if strings.Contains(column.ColumnKey, "PR") {
+			//must cmp pk at first
+			if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+				var isPK bool
+				sql := `
+						SELECT EXISTS (
+							SELECT 1
+							FROM pg_index i
+							JOIN pg_attribute a ON a.attrelid = i.indrelid AND a.attnum = ANY(i.indkey)
+							WHERE i.indrelid = ?::regclass
+							  AND i.indisprimary
+							  AND a.attname = ?
+						) AS is_primary_key;
+    					`
+				_ = e.Orm.Raw(sql, table.TBName, column.ColumnName).Scan(&isPK).Error
+				if isPK {
+					sysColumn.IsPk = global.SysStatusOk
+				}
+			} else if strings.Contains(column.ColumnKey, "PR") {
 				sysColumn.IsPk = global.SysStatusOk
 			}
 			sysColumn.IsRequired = global.SysStatusNotOk
@@ -416,18 +434,20 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 			} else if strings.Contains(column.ColumnType, "decimal") {
 				sysColumn.GoType = "decimal.Decimal"
 				sysColumn.HtmlType = "input"
-			} else if strings.Contains(column.ColumnType, "timestamp") {
-				sysColumn.GoType = "*time.Time"
-				sysColumn.HtmlType = "datetime"
-			} else if strings.Contains(column.ColumnType, "datetime") {
+			} else if strings.Contains(column.ColumnType, "timestamp") || strings.Contains(column.ColumnType, "datetime") {
 				sysColumn.GoType = "*time.Time"
 				sysColumn.HtmlType = "datetime"
 			} else {
 				sysColumn.GoType = "string"
 				sysColumn.HtmlType = "input"
 			}
+			sysColumn.CreatedAt = &now
+			sysColumn.UpdatedAt = &now
 			sysTable.SysGenColumns = append(sysTable.SysGenColumns, sysColumn)
 		}
+
+		sysTable.CreatedAt = &now
+		sysTable.UpdatedAt = &now
 		sysTables = append(sysTables, sysTable)
 	}
 	return sysTables, baseLang.SuccessCode, nil
