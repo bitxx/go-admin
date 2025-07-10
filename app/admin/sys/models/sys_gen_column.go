@@ -21,7 +21,7 @@ type SysGenColumn struct {
 	Sort          int        `gorm:"column:sort;" json:"sort"`
 	Remark        string     `gorm:"column:remark;size:255;" json:"remark"`
 	CreateBy      int64      `gorm:"column:create_by;size:11;" json:"createBy"`
-	UpdateBy      int64      `gorm:"column:update_By;size:11;" json:"updateBy"`
+	UpdateBy      int64      `gorm:"column:update_by;size:11;" json:"updateBy"`
 	CreatedAt     *time.Time `json:"createdAt" gorm:"comment:创建时间"`
 	UpdatedAt     *time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
 }
@@ -31,18 +31,18 @@ func (SysGenColumn) TableName() string {
 }
 
 type DBColumn struct {
-	TableSchema            string `gorm:"column:TABLE_SCHEMA" json:"tableSchema"`
-	TBName                 string `gorm:"column:TABLE_NAME" json:"tableName"`
-	ColumnName             string `gorm:"column:COLUMN_NAME" json:"columnName"`
-	ColumnDefault          string `gorm:"column:COLUMN_DEFAULT" json:"columnDefault"`
-	IsNullable             string `gorm:"column:IS_NULLABLE" json:"isNullable"`
-	DataType               string `gorm:"column:DATA_TYPE" json:"dataType"`
-	CharacterMaximumLength string `gorm:"column:CHARACTER_MAXIMUM_LENGTH" json:"characterMaximumLength"`
-	CharacterSetName       string `gorm:"column:CHARACTER_SET_NAME" json:"characterSetName"`
-	ColumnType             string `gorm:"column:COLUMN_TYPE" json:"columnType"`
-	ColumnKey              string `gorm:"column:COLUMN_KEY" json:"columnKey"`
-	Extra                  string `gorm:"column:EXTRA" json:"extra"`
-	ColumnComment          string `gorm:"column:COLUMN_COMMENT" json:"columnComment"`
+	TableSchema            string `gorm:"column:table_schema" json:"tableSchema"`
+	TBName                 string `gorm:"column:table_name" json:"tableName"`
+	ColumnName             string `gorm:"column:column_name" json:"columnName"`
+	ColumnDefault          string `gorm:"column:column_default" json:"columnDefault"`
+	IsNullable             string `gorm:"column:is_nullable" json:"isNullable"`
+	DataType               string `gorm:"column:data_type" json:"dataType"`
+	CharacterMaximumLength string `gorm:"column:character_maximum_length" json:"characterMaximumLength"`
+	CharacterSetName       string `gorm:"column:character_set_name" json:"characterSetName"`
+	ColumnType             string `gorm:"column:column_type" json:"columnType"`
+	ColumnKey              string `gorm:"column:column_key" json:"columnKey"`
+	Extra                  string `gorm:"column:extra" json:"extra"`
+	ColumnComment          string `gorm:"column:column_comment" json:"columnComment"`
 }
 
 func (DBColumn) TableName() string {

@@ -3,6 +3,7 @@ package service
 import (
 	"archive/zip"
 	"bytes"
+	"fmt"
 	"go-admin/config/base/constant"
 
 	"go-admin/app/admin/sys/models"
@@ -237,30 +238,82 @@ func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, er
 // GetDBTablePage admin-获取表管理的DB表分页列表
 func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, int64, int, error) {
 	var list []models.DBTable
-	var data models.DBTable
 	var count int64
+	pageSize := c.GetPageSize()
+	pageIndex := c.GetPageIndex()
 
-	err := e.Orm.Model(&data).
-		Scopes(
-			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
-		).
-		//Where("table_name not like 'admin_sys_%'").
-		Where("table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
-		Where("table_name not in (select table_name from admin_sys_gen_table)").
-		Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase()).
-		Find(&list).Limit(-1).Offset(-1).Count(&count).Error
-	if err != nil {
+	// 公共部分
+	excludeTables := []interface{}{
+		"admin_sys_role_menu", "admin_sys_role_dept", "admin_sys_menu_api_rule",
+		"admin_sys_gen_column", "admin_sys_casbin_rule",
+	}
+	limitOffset := []interface{}{pageSize, (pageIndex - 1) * pageSize}
+
+	var querySql, countSql string
+	var args, countArgs []interface{}
+
+	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+		querySql = `
+SELECT 
+	tablename AS "table_name",
+	obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS "table_comment",
+	NULL::timestamp AS "create_time"
+FROM pg_tables 
+WHERE schemaname = 'public'
+  AND tablename NOT IN (?, ?, ?, ?, ?)
+  AND tablename NOT IN (SELECT table_name FROM admin_sys_gen_table)
+LIMIT ? OFFSET ?
+`
+		countSql = `
+SELECT COUNT(*) FROM pg_tables 
+WHERE schemaname = 'public'
+  AND tablename NOT IN (?, ?, ?, ?, ?)
+  AND tablename NOT IN (SELECT table_name FROM admin_sys_gen_table)
+`
+		args = append(excludeTables, limitOffset...)
+		countArgs = excludeTables
+	} else {
+		db := e.Orm.Migrator().CurrentDatabase()
+		querySql = `
+SELECT 
+	table_name as table_name,
+	table_comment as table_comment,
+	create_time as create_time
+FROM information_schema.tables 
+WHERE table_schema = ?
+  AND table_name NOT IN (?, ?, ?, ?, ?)
+  AND table_name NOT IN (SELECT table_name FROM admin_sys_gen_table)
+LIMIT ? OFFSET ?
+`
+		countSql = `
+SELECT COUNT(*) FROM information_schema.tables 
+WHERE table_schema = ?
+  AND table_name NOT IN (?, ?, ?, ?, ?)
+  AND table_name NOT IN (SELECT table_name FROM admin_sys_gen_table)
+`
+		args = append([]interface{}{db}, excludeTables...)
+		args = append(args, limitOffset...)
+		countArgs = append([]interface{}{db}, excludeTables...)
+	}
+
+	// 查询数据
+	if err := e.Orm.Raw(querySql, args...).Scan(&list).Error; err != nil {
 		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	var respList []dto.DBTableResp
-	for _, item := range list {
-		dbTableResp := dto.DBTableResp{}
-		dbTableResp.CreatedAt = dateutils.ConvertToStrByPrt(item.CreateTime, -1)
-		dbTableResp.TableName = item.TBName
-		dbTableResp.TableComment = item.TableComment
-		respList = append(respList, dbTableResp)
+	if err := e.Orm.Raw(countSql, countArgs...).Scan(&count).Error; err != nil {
+		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
+
+	// 构造响应
+	respList := make([]dto.DBTableResp, 0, len(list))
+	for _, item := range list {
+		respList = append(respList, dto.DBTableResp{
+			TableName:    item.TBName,
+			TableComment: item.TableComment,
+			CreatedAt:    dateutils.ConvertToStrByPrt(item.CreateTime, -1),
+		})
+	}
+
 	return respList, count, baseLang.SuccessCode, nil
 }
 
@@ -382,18 +435,49 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 
 // getDBTableList admin-从数据库中获取表指定表的完整结构
 func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int, error) {
-	if len(tableNames) <= 0 {
+	if len(tableNames) == 0 {
 		return nil, baseLang.SysGenTableSelectCode, lang.MsgErr(baseLang.SysGenTableSelectCode, e.Lang)
 	}
-	var data []models.DBTable
-	err := e.Orm.Where("TABLE_NAME in (?)", tableNames).Find(&data).Error
+
+	var list []models.DBTable
+	var sql string
+	var args []interface{}
+
+	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+		placeholders := make([]string, len(tableNames))
+		for i := range tableNames {
+			placeholders[i] = fmt.Sprintf("$%d", i+1)
+			args = append(args, tableNames[i])
+		}
+		sql = fmt.Sprintf(`
+SELECT 
+	tablename AS "table_name",
+	obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS "table_comment",
+	NULL::text AS "create_time"
+FROM pg_tables
+WHERE schemaname = 'public'
+  AND tablename IN (%s)`, strings.Join(placeholders, ", "))
+	} else {
+		sql = `
+SELECT 
+	table_name as table_name,
+	table_comment as table_comment,
+	create_time as create_time
+FROM information_schema.tables
+WHERE table_schema = ?
+  AND table_name IN (?)`
+		args = append([]interface{}{e.Orm.Migrator().CurrentDatabase()}, tableNames)
+	}
+
+	err := e.Orm.Raw(sql, args...).Scan(&list).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 	if err == gorm.ErrRecordNotFound {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
-	return data, baseLang.SuccessCode, nil
+
+	return list, baseLang.SuccessCode, nil
 }
 
 // Preview admin-预览表管理的代码页面

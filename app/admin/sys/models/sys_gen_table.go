@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"go-admin/core/config"
+	"go-admin/core/global"
+	"time"
+)
 
 type SysGenTable struct {
 	Id             int64          `gorm:"primaryKey;autoIncrement" json:"id"`           //表编码
@@ -25,15 +29,18 @@ func (SysGenTable) TableName() string {
 }
 
 type DBTable struct {
-	TBName         string     `gorm:"column:TABLE_NAME" json:"tableName"`
-	Engine         string     `gorm:"column:ENGINE" json:"engine"`
-	TableRows      string     `gorm:"column:TABLE_ROWS" json:"tableRows"`
-	TableCollation string     `gorm:"column:TABLE_COLLATION" json:"tableCollation"`
-	CreateTime     *time.Time `gorm:"column:CREATE_TIME" json:"createTime"`
-	UpdateTime     *time.Time `gorm:"column:UPDATE_TIME" json:"updateTime"`
-	TableComment   string     `gorm:"column:TABLE_COMMENT" json:"tableComment"`
+	TBName         string     `gorm:"column:table_name" json:"tableName"`
+	Engine         string     `gorm:"column:engine" json:"engine"`
+	TableRows      string     `gorm:"column:table_rows" json:"tableRows"`
+	TableCollation string     `gorm:"column:table_collation" json:"tableCollation"`
+	CreateTime     *time.Time `gorm:"column:create_time" json:"createTime"`
+	UpdateTime     *time.Time `gorm:"column:update_time" json:"updateTime"`
+	TableComment   string     `gorm:"column:table_comment" json:"tableComment"`
 }
 
 func (DBTable) TableName() string {
+	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+		return "pg_catalog.pg_tables"
+	}
 	return "information_schema.tables"
 }

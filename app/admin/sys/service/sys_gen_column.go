@@ -4,8 +4,10 @@ import (
 	"go-admin/app/admin/sys/models"
 	"go-admin/app/admin/sys/service/dto"
 	baseLang "go-admin/config/base/lang"
+	"go-admin/core/config"
 	cDto "go-admin/core/dto"
 	"go-admin/core/dto/service"
+	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
 	"gorm.io/gorm"
@@ -136,12 +138,57 @@ func (e *SysGenColumn) Update(c *dto.SysGenColumnUpdateReq, p *middleware.DataPe
 }
 
 // GetDBColumnList admin-从数据库表中获取表字段列表
-func (e *SysGenColumn) GetDBColumnList(dbTableName string) ([]models.DBColumn, int, error) {
-	if len(dbTableName) <= 0 {
+func (e *SysGenColumn) GetDBColumnList(tableName string) ([]models.DBColumn, int, error) {
+	if tableName == "" {
 		return nil, baseLang.SysGenTableSelectCode, lang.MsgErr(baseLang.SysGenTableSelectCode, e.Lang)
 	}
+
 	var data []models.DBColumn
-	err := e.Orm.Where("TABLE_NAME in (?)", dbTableName).Find(&data).Error
+	var sql string
+	var args []interface{}
+
+	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+		sql = `
+SELECT 
+	table_schema,
+	table_name,
+	column_name,
+	column_default,
+	is_nullable,
+	data_type,
+	character_maximum_length,
+	NULL AS character_set_name,
+	NULL AS column_type,
+	NULL AS column_key,
+	NULL AS extra,
+	col_description(format('%s.%s', table_schema, table_name)::regclass::oid, ordinal_position) AS column_comment
+FROM information_schema.columns
+WHERE table_name = $1
+ORDER BY ordinal_position`
+		args = append(args, tableName)
+	} else {
+		// MySQL字段名大写，用别名映射成小写，和结构体tag对应
+		sql = `
+SELECT
+	TABLE_SCHEMA as table_schema,
+	TABLE_NAME as table_name,
+	COLUMN_NAME as column_name,
+	COLUMN_DEFAULT as column_default,
+	IS_NULLABLE as is_nullable,
+	DATA_TYPE as data_type,
+	CHARACTER_MAXIMUM_LENGTH as character_maximum_length,
+	CHARACTER_SET_NAME as character_set_name,
+	COLUMN_TYPE as column_type,
+	COLUMN_KEY as column_key,
+	EXTRA as extra,
+	COLUMN_COMMENT as column_comment
+FROM information_schema.COLUMNS
+WHERE TABLE_NAME = ?
+ORDER BY ORDINAL_POSITION`
+		args = append(args, tableName)
+	}
+
+	err := e.Orm.Raw(sql, args...).Scan(&data).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
