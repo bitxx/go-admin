@@ -14,7 +14,7 @@ export interface UserAccountLogModel {
   createBy?: number;
   createdAt?: Date;
   updateBy?: number;
-  updatedDate?: Date;
+  updatedAt?: Date;
   remarks?: string;
   user?: UserModel;
 }

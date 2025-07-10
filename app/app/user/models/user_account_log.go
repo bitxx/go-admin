@@ -17,7 +17,7 @@ type UserAccountLog struct {
 	CreateBy    int64           `json:"createBy" gorm:"column:create_by;type:int;comment:创建者"`
 	CreatedAt   *time.Time      `json:"createdAt" gorm:"column:created_at;type:datetime;comment:创建时间"`
 	UpdateBy    int64           `json:"updateBy" gorm:"column:update_by;type:int;comment:更新者"`
-	UpdatedDate *time.Time      `json:"updatedDate" gorm:"column:updated_date;type:datetime;comment:更新时间"`
+	UpdatedAt   *time.Time      `json:"updatedAt" gorm:"column:updated_at;type:datetime;comment:更新时间"`
 	Remarks     string          `json:"remarks" gorm:"column:remarks;type:varchar(500);comment:备注信息"`
 	User        *User           `json:"user" gorm:"foreignkey:user_id"`
 }

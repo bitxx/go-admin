@@ -31,7 +31,7 @@ type UserAccountLogOrder struct {
 	CreateByOrder    int64           `form:"createByOrder"  search:"type:order;column:create_by;table:app_user_account_log"`
 	CreatedAtOrder   *time.Time      `form:"createdAtOrder"  search:"type:order;column:created_at;table:app_user_account_log"`
 	UpdateByOrder    int64           `form:"updateByOrder"  search:"type:order;column:update_by;table:app_user_account_log"`
-	UpdatedDateOrder *time.Time      `form:"updatedDateOrder"  search:"type:order;column:updated_date;table:app_user_account_log"`
+	UpdatedAtOrder   *time.Time      `form:"updatedAtOrder"  search:"type:order;column:updated_at;table:app_user_account_log"`
 	RemarksOrder     string          `form:"remarksOrder"  search:"type:order;column:remarks;table:app_user_account_log"`
 }
 
