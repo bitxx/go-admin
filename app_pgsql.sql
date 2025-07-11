@@ -31,8 +31,8 @@ CACHE 1
   "path" varchar(128) DEFAULT NULL::character varying,
   "api_type" varchar(16) DEFAULT NULL::character varying,
   "method" varchar(32) DEFAULT NULL::character varying,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now(),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" BIGINT,
   "update_by" BIGINT,
   "remark" varchar(128) DEFAULT NULL::character varying
@@ -257,8 +257,8 @@ CACHE 1
   "remark" varchar(128) DEFAULT NULL::character varying,
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_config" OWNER TO "postgres";
@@ -319,8 +319,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_dept" OWNER TO "postgres";
@@ -372,8 +372,8 @@ CACHE 1
   "remark" varchar(255) DEFAULT NULL::character varying,
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_dict_data" OWNER TO "postgres";
@@ -504,8 +504,8 @@ CACHE 1
   "remark" varchar(255),
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_dict_type" OWNER TO "postgres";
@@ -583,8 +583,8 @@ CACHE 1
   "dict_type" varchar(128),
   "sort" BIGINT,
   "remark" varchar(255),
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now(),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" BIGINT,
   "update_by" BIGINT
 )
@@ -918,8 +918,8 @@ CACHE 1
   "business_name" varchar(255),
   "is_plugin" char(1) DEFAULT '1'::bpchar,
   "remark" varchar(255),
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now(),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" BIGINT,
   "update_by" BIGINT
 )
@@ -997,8 +997,8 @@ CACHE 1
   "login_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "status" CHAR(1),
   "remark" varchar(255),
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now(),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" BIGINT,
   "update_by" BIGINT
 )
@@ -1061,8 +1061,8 @@ CACHE 1
   "is_frame" char(1),
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_menu" OWNER TO "postgres";
@@ -1395,14 +1395,14 @@ CACHE 1
   "oper_url" varchar(255),
   "oper_ip" varchar(128),
   "oper_location" varchar(128),
-  "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
+  "status" varchar(10) NOT NULL DEFAULT '1'::bpchar,
   "oper_time" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "json_result" varchar(255),
   "remark" varchar(255),
   "latency_time" varchar(128),
   "user_agent" varchar(255),
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now(),
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0),
   "create_by" BIGINT,
   "update_by" BIGINT
 )
@@ -1414,7 +1414,7 @@ COMMENT ON COLUMN "public"."admin_sys_oper_log"."user_id" IS '操作者';
 COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_url" IS '访问地址';
 COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_ip" IS '客户端ip';
 COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_location" IS '访问位置';
-COMMENT ON COLUMN "public"."admin_sys_oper_log"."status" IS '操作状态';
+COMMENT ON COLUMN "public"."admin_sys_oper_log"."status" IS '状态码';
 COMMENT ON COLUMN "public"."admin_sys_oper_log"."oper_time" IS '操作时间';
 COMMENT ON COLUMN "public"."admin_sys_oper_log"."json_result" IS '返回数据';
 COMMENT ON COLUMN "public"."admin_sys_oper_log"."remark" IS '备注';
@@ -1465,8 +1465,8 @@ CACHE 1
   "remark" varchar(255),
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_post" OWNER TO "postgres";
@@ -1474,7 +1474,7 @@ COMMENT ON COLUMN "public"."admin_sys_post"."id" IS '主键编码';
 COMMENT ON COLUMN "public"."admin_sys_post"."post_name" IS '岗位名称';
 COMMENT ON COLUMN "public"."admin_sys_post"."post_code" IS '岗位编码';
 COMMENT ON COLUMN "public"."admin_sys_post"."sort" IS '排序';
-COMMENT ON COLUMN "public"."app_user"."status" IS '状态 1-正常 2-异常';
+COMMENT ON COLUMN "public"."admin_sys_post"."status" IS '状态 1-正常 2-异常';
 COMMENT ON COLUMN "public"."admin_sys_post"."remark" IS '备注';
 COMMENT ON COLUMN "public"."admin_sys_post"."create_by" IS '创建者';
 COMMENT ON COLUMN "public"."admin_sys_post"."update_by" IS '更新者';
@@ -1516,8 +1516,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_role" OWNER TO "postgres";
@@ -1616,8 +1616,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "created_at" timestamptz(0) DEFAULT now(),
-  "updated_at" timestamptz(0) DEFAULT now()
+  "created_at" timestamptz(0),
+  "updated_at" timestamptz(0)
 )
 ;
 ALTER TABLE "public"."admin_sys_user" OWNER TO "postgres";
@@ -1634,7 +1634,7 @@ COMMENT ON COLUMN "public"."admin_sys_user"."email" IS '邮箱';
 COMMENT ON COLUMN "public"."admin_sys_user"."dept_id" IS '部门';
 COMMENT ON COLUMN "public"."admin_sys_user"."post_id" IS '岗位';
 COMMENT ON COLUMN "public"."admin_sys_user"."remark" IS '备注';
-COMMENT ON COLUMN "public"."app_user"."status" IS '状态 1-正常 2-异常';
+COMMENT ON COLUMN "public"."admin_sys_user"."status" IS '状态 1-正常 2-异常';
 COMMENT ON COLUMN "public"."admin_sys_user"."create_by" IS '创建者';
 COMMENT ON COLUMN "public"."admin_sys_user"."update_by" IS '更新者';
 COMMENT ON COLUMN "public"."admin_sys_user"."created_at" IS '创建时间';
@@ -1687,8 +1687,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 ALTER TABLE "public"."app_user" OWNER TO "postgres";
@@ -1752,9 +1752,9 @@ CACHE 1
   "change_type" varchar(30) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '1'::character varying,
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL,
+  "created_at" timestamptz(0) NOT NULL,
   "update_by" BIGINT NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL,
   "remarks" varchar(500) COLLATE "pg_catalog"."C"
 )
 ;
@@ -1812,8 +1812,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL
+  "created_at" timestamptz(0) NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."app_user_conf" OWNER TO "postgres";
@@ -1860,8 +1860,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
 ALTER TABLE "public"."app_user_country_code" OWNER TO "postgres";
@@ -1918,8 +1918,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL
+  "created_at" timestamptz(0) NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."app_user_level" OWNER TO "postgres";
@@ -1966,8 +1966,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "remark" varchar(500) COLLATE "pg_catalog"."C"
 )
 ;
@@ -2021,8 +2021,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL,
   "update_by" BIGINT NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL
+  "updated_at" timestamptz(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_content_announcement" OWNER TO "postgres";
@@ -2070,8 +2070,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL,
   "update_by" BIGINT NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL
+  "updated_at" timestamptz(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_content_article" OWNER TO "postgres";
@@ -2116,8 +2116,8 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL,
   "update_by" BIGINT NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL
+  "updated_at" timestamptz(0) NOT NULL,
+  "created_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_content_category" OWNER TO "postgres";
@@ -2166,9 +2166,9 @@ CACHE 1
   "remark" varchar(500) COLLATE "pg_catalog"."C",
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL,
+  "created_at" timestamptz(0) NOT NULL,
   "update_by" BIGINT NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_filemgr_app" OWNER TO "postgres";
@@ -2221,8 +2221,8 @@ CACHE 1
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
-  "created_at" timestamptz(0) DEFAULT now() NOT NULL,
-  "updated_at" timestamptz(0) DEFAULT now() NOT NULL
+  "created_at" timestamptz(0) NOT NULL,
+  "updated_at" timestamptz(0) NOT NULL
 )
 ;
 ALTER TABLE "public"."plugins_msg_code" OWNER TO "postgres";
