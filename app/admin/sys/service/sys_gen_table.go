@@ -428,7 +428,7 @@ func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, in
 			if strings.Contains(column.IsNullable, "NO") {
 				sysColumn.IsRequired = global.SysStatusOk
 			}
-			if strings.Contains(column.ColumnType, "int") {
+			if strings.Contains(column.ColumnType, "int") || strings.Contains(column.ColumnType, "BIGINT") {
 				sysColumn.GoType = "int64"
 				sysColumn.HtmlType = "numInput"
 			} else if strings.Contains(column.ColumnType, "decimal") {
