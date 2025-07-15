@@ -4,7 +4,7 @@
  Source Server         : my-pgsql
  Source Server Type    : PostgreSQL
  Source Server Version : 160001 (160001)
- Source Host           : 120.48.157.250:8991
+ Source Host           : 127.0.0.1:5432
  Source Catalog        : bitxxadmin
  Source Schema         : public
 
