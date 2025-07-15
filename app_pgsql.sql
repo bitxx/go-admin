@@ -35,7 +35,7 @@ CACHE 1
   "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "create_by" BIGINT,
   "update_by" BIGINT,
-  "remark" varchar(128) DEFAULT NULL::character varying
+  "remark" varchar(255) DEFAULT NULL::character varying
 )
 ;
 ALTER TABLE "public"."admin_sys_api" OWNER TO "postgres";
@@ -254,7 +254,7 @@ CACHE 1
   "config_value" varchar(255) DEFAULT NULL::character varying,
   "config_type" varchar(64) DEFAULT NULL::character varying,
   "is_frontend" char(1) DEFAULT NULL::bpchar,
-  "remark" varchar(128) DEFAULT NULL::character varying,
+  "remark" varchar(255) DEFAULT NULL::character varying,
   "create_by" BIGINT,
   "update_by" BIGINT,
   "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1684,7 +1684,7 @@ CACHE 1
   "tree_leaf" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
   "tree_level" int2 NOT NULL DEFAULT 0,
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
   "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1808,7 +1808,7 @@ CACHE 1
 ),
   "user_id" BIGINT NOT NULL,
   "can_login" char(1) COLLATE "pg_catalog"."C" NOT NULL DEFAULT '0'::bpchar,
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
@@ -1857,7 +1857,7 @@ CACHE 1
   "country" varchar(64) NOT NULL DEFAULT ''::character varying,
   "code" varchar(12) NOT NULL DEFAULT ''::character varying,
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
   "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1915,7 +1915,7 @@ CACHE 1
   "level_type" varchar(10),
   "level" int4 NOT NULL,
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
   "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1968,7 +1968,7 @@ CACHE 1
   "update_by" BIGINT NOT NULL DEFAULT 0,
   "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "remark" varchar(500) COLLATE "pg_catalog"."C"
+  "remark" varchar(255) COLLATE "pg_catalog"."C"
 )
 ;
 ALTER TABLE "public"."app_user_oper_log" OWNER TO "postgres";
@@ -2017,7 +2017,7 @@ CACHE 1
   "title" varchar(255) COLLATE "pg_catalog"."C",
   "content" text COLLATE "pg_catalog"."C",
   "num" BIGINT,
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL,
   "update_by" BIGINT NOT NULL,
@@ -2066,7 +2066,7 @@ CACHE 1
   "cate_id" BIGINT,
   "name" varchar(255) COLLATE "pg_catalog"."C",
   "content" text COLLATE "pg_catalog"."C",
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL,
   "update_by" BIGINT NOT NULL,
@@ -2113,7 +2113,7 @@ CACHE 1
 ),
   "name" varchar(255) COLLATE "pg_catalog"."C",
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "create_by" BIGINT NOT NULL,
   "update_by" BIGINT NOT NULL,
   "updated_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -2163,7 +2163,7 @@ CACHE 1
   "local_address" varchar(255) COLLATE "pg_catalog"."C",
   "download_type" char(1) COLLATE "pg_catalog"."C",
   "download_url" varchar(255) COLLATE "pg_catalog"."C",
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL,
   "created_at" timestamptz(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -2217,7 +2217,7 @@ CACHE 1
   "user_id" BIGINT NOT NULL,
   "code" varchar(12) NOT NULL DEFAULT '0'::character varying,
   "code_type" char(1) NOT NULL DEFAULT '0'::bpchar,
-  "remark" varchar(500) COLLATE "pg_catalog"."C",
+  "remark" varchar(255) COLLATE "pg_catalog"."C",
   "status" CHAR(1) NOT NULL DEFAULT '1'::bpchar,
   "create_by" BIGINT NOT NULL DEFAULT 0,
   "update_by" BIGINT NOT NULL DEFAULT 0,
