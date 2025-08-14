@@ -26,8 +26,8 @@ import React, { useRef{{ if eq $hasDict true }}, useEffect, useState{{ end }} } 
 import FormModal, { FormModalRef } from "./components/FormModal";
 
 const {{.ClassName}}: React.FC = () => {
-  const actionRef = React.useRef<ActionType>();
-  const tableFormRef = React.useRef<ProFormInstance>();
+  const actionRef = React.useRef<ActionType>(undefined);
+  const tableFormRef = React.useRef<ProFormInstance>(undefined);
   const formModalRef = useRef<FormModalRef>(null);
 
   {{- range .SysGenColumns }}
