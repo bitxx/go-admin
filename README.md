@@ -120,7 +120,11 @@ go generate && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o go-admin-api
 ```
 
 ### 4.3 web页面编译和部署
-1. 依赖安装：
+1. 为了避免隐式依赖问题，要禁止依赖自动安装
+```shell
+npm config set legacy-peer-deps true
+```
+2. 依赖安装：
 ```shell
 cd ./web
 # 常规安装
@@ -133,13 +137,13 @@ npm install --legacy-peer-deps
 # 注：由于开源版新旧包依赖问题，导致依赖安装时，需要始终使用--legacy-peer-deps,比如安装md5：
 npm install --legacy-peer-deps md5
 ```
-2. 本地启动：
+3. 本地启动：
 ```shell
 npm run dev
 ```
 浏览器打开：http://127.0.0.1:1688
 
-3. 生产编译：
+4. 生产编译：
 ```shell
 npm run build:prod
 ```
