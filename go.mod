@@ -8,7 +8,7 @@ require (
 	github.com/bitxx/logger v1.6.2
 	github.com/bsm/redislock v0.9.4
 	github.com/bytedance/go-tagexpr/v2 v2.9.11
-	github.com/casbin/casbin/v2 v2.120.0
+	github.com/casbin/casbin/v2 v2.121.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.10.1
 	github.com/google/uuid v1.6.0
@@ -26,7 +26,7 @@ require (
 	github.com/shopspring/decimal v1.4.0
 	github.com/spf13/cast v1.9.2
 	github.com/spf13/cobra v1.9.1
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	github.com/xuri/excelize/v2 v2.9.1
 	golang.org/x/crypto v0.41.0
 	gorm.io/driver/mysql v1.6.0
