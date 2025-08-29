@@ -48,7 +48,7 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 		}
 	}
 
-	err = e.Orm.Preload("User").Order("created_at desc").Model(&data).
+	err = e.Orm.Joins("User").Order("created_at desc").Model(&data).
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),

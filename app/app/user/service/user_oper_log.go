@@ -53,7 +53,7 @@ func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPerm
 	var list []models.UserOperLog
 	var count int64
 
-	err = e.Orm.Preload("User").Order("created_at desc").Model(&data).
+	err = e.Orm.Joins("User").Order("created_at desc").Model(&data).
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
