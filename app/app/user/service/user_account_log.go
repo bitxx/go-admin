@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"fmt"
 	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/sys/service"
@@ -58,28 +59,38 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
-	for index, item := range list {
-		if item.User != nil && item.User.Mobile != "" {
-			mobile, err := encrypt.AesDecrypt(item.User.Mobile, []byte(config.AuthConfig.Secret))
+	cacheUsers := map[int64]*models.User{}
+	for _, u := range list {
+		if u.User == nil || cacheUsers[u.User.Id] != nil {
+			continue
+		}
+		cacheUsers[u.User.Id] = u.User
+		if u.User.Mobile != "" {
+			mobile, err := encrypt.AesDecrypt(u.User.Mobile, []byte(config.AuthConfig.Secret))
 			if err == nil {
 				if c.ShowInfo {
-					list[index].User.Mobile = mobile
+					cacheUsers[u.User.Id].Mobile = mobile
 				} else {
-					list[index].User.Mobile = strutils.HidePartStr(mobile, 3)
+					cacheUsers[u.User.Id].Mobile = strutils.HidePartStr(mobile, 3)
 				}
 			}
 		}
 
-		if item.User != nil && item.User.Email != "" {
-			email, err := encrypt.AesDecrypt(item.User.Email, []byte(config.AuthConfig.Secret))
+		if u.User.Email != "" {
+			email, err := encrypt.AesDecrypt(u.User.Email, []byte(config.AuthConfig.Secret))
 			if err == nil {
 				if c.ShowInfo {
-					list[index].User.Email = email
+					cacheUsers[u.User.Id].Email = email
 				} else {
-					list[index].User.Email = strutils.HidePartStr(email, 5)
+					cacheUsers[u.User.Id].Email = strutils.HidePartStr(email, 5)
 				}
 			}
 		}
+	}
+
+	for index, item := range list {
+		list[index].User.Mobile = cacheUsers[item.User.Id].Mobile
+		list[index].User.Email = cacheUsers[item.User.Id].Email
 	}
 	return list, count, baseLang.SuccessCode, nil
 }
@@ -93,10 +104,10 @@ func (e *UserAccountLog) Get(id int64, p *middleware.DataPermission) (*models.Us
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -109,10 +120,10 @@ func (e *UserAccountLog) QueryOne(queryCondition *dto.UserAccountLogQueryReq, p 
 		cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -126,10 +137,10 @@ func (e *UserAccountLog) Count(queryCondition *dto.UserAccountLogQueryReq) (int6
 		Scopes(
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return count, baseLang.SuccessCode, nil
