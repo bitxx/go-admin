@@ -89,6 +89,9 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 	}
 
 	for index, item := range list {
+		if item.User == nil || cacheUsers[item.User.Id] == nil {
+			continue
+		}
 		list[index].User.Mobile = cacheUsers[item.User.Id].Mobile
 		list[index].User.Email = cacheUsers[item.User.Id].Email
 	}

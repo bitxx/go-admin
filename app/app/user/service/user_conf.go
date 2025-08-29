@@ -89,6 +89,9 @@ func (e *UserConf) GetPage(c *dto.UserConfQueryReq, p *middleware.DataPermission
 	}
 
 	for index, item := range list {
+		if item.User == nil || cacheUsers[item.User.Id] == nil {
+			continue
+		}
 		list[index].User.Mobile = cacheUsers[item.User.Id].Mobile
 		list[index].User.Email = cacheUsers[item.User.Id].Email
 	}
