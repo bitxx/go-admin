@@ -199,7 +199,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_api', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_api),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_api', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_api),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_casbin_rule
@@ -288,7 +288,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_config', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_config),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_config', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_config),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_dept
@@ -333,7 +333,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_dept', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_dept),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_dept', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_dept),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_dict_data
@@ -465,7 +465,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_dict_data', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_dict_data),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_dict_data', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_dict_data),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_dict_type
@@ -528,7 +528,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_dict_type', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_dict_type),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_dict_type', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_dict_type),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_gen_column
@@ -863,7 +863,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_gen_column', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_gen_column),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_gen_column', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_gen_column),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_gen_table
@@ -935,7 +935,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_gen_table', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_gen_table),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_gen_table', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_gen_table),false);
 
 
 -- ----------------------------
@@ -988,7 +988,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_login_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_login_log),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_login_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_login_log),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_menu
@@ -1170,7 +1170,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_menu', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_menu),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_menu', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_menu),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_menu_api_rule
@@ -1395,7 +1395,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_oper_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_oper_log),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_oper_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_oper_log),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_post
@@ -1439,7 +1439,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_post', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_post),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_post', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_post),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_role
@@ -1478,7 +1478,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_role', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_role),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_role', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_role),false);
 
 -- ----------------------------
 -- Table structure for admin_sys_role_dept
@@ -1591,7 +1591,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.admin_sys_user', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_user),true);
+SELECT setval(pg_get_serial_sequence('public.admin_sys_user', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.admin_sys_user),false);
 
 -- ----------------------------
 -- Table structure for app_user
@@ -1663,7 +1663,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.app_user', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user),true);
+SELECT setval(pg_get_serial_sequence('public.app_user', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user),false);
 
 -- ----------------------------
 -- Table structure for app_user_account_log
@@ -1719,7 +1719,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.app_user_account_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_account_log),true);
+SELECT setval(pg_get_serial_sequence('public.app_user_account_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_account_log),false);
 
 -- ----------------------------
 -- Indexes structure for table app_user_account_log
@@ -1768,7 +1768,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.app_user_conf', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_conf),true);
+SELECT setval(pg_get_serial_sequence('public.app_user_conf', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_conf),false);
 
 -- ----------------------------
 -- Table structure for app_user_country_code
@@ -1819,7 +1819,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.app_user_country_code', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_country_code),true);
+SELECT setval(pg_get_serial_sequence('public.app_user_country_code', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_country_code),false);
 
 -- ----------------------------
 -- Table structure for app_user_level
@@ -1862,7 +1862,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.app_user_level', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_level),true);
+SELECT setval(pg_get_serial_sequence('public.app_user_level', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_level),false);
 
 -- ----------------------------
 -- Table structure for app_user_oper_log
@@ -1910,7 +1910,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.app_user_oper_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_oper_log),true);
+SELECT setval(pg_get_serial_sequence('public.app_user_oper_log', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.app_user_oper_log),false);
 
 -- ----------------------------
 -- Table structure for plugins_content_announcement
@@ -1953,7 +1953,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.plugins_content_announcement', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_content_announcement),true);
+SELECT setval(pg_get_serial_sequence('public.plugins_content_announcement', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_content_announcement),false);
 
 -- ----------------------------
 -- Table structure for plugins_content_article
@@ -1995,7 +1995,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.plugins_content_article', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_content_article),true);
+SELECT setval(pg_get_serial_sequence('public.plugins_content_article', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_content_article),false);
 
 -- ----------------------------
 -- Table structure for plugins_content_category
@@ -2035,7 +2035,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.plugins_content_category', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_content_category),true);
+SELECT setval(pg_get_serial_sequence('public.plugins_content_category', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_content_category),false);
 
 -- ----------------------------
 -- Table structure for plugins_filemgr_app
@@ -2086,7 +2086,7 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.plugins_filemgr_app', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_filemgr_app),true);
+SELECT setval(pg_get_serial_sequence('public.plugins_filemgr_app', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_filemgr_app),false);
 
 -- ----------------------------
 -- Table structure for plugins_msg_code
@@ -2127,4 +2127,4 @@ COMMIT;
 -- ----------------------------
 -- Sequence structure
 -- ----------------------------
-SELECT setval(pg_get_serial_sequence('public.plugins_msg_code', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_msg_code),true);
+SELECT setval(pg_get_serial_sequence('public.plugins_msg_code', 'id'),(SELECT COALESCE(MAX(id), 0) + 1 FROM public.plugins_msg_code),false);
