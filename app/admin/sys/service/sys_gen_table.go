@@ -4,7 +4,6 @@ import (
 	"archive/zip"
 	"bytes"
 	"errors"
-	"fmt"
 	"go-admin/config/base/constant"
 
 	"go-admin/app/admin/sys/models"
@@ -240,68 +239,41 @@ func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, er
 func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, int64, int, error) {
 	var list []models.DBTable
 	var count int64
-	pageSize := c.GetPageSize()
-	pageIndex := c.GetPageIndex()
-
-	// 公共部分
-	excludeTables := []interface{}{
-		"admin_sys_role_menu", "admin_sys_role_dept", "admin_sys_menu_api_rule",
-		"admin_sys_gen_column", "admin_sys_casbin_rule",
-	}
-	limitOffset := []interface{}{pageSize, (pageIndex - 1) * pageSize}
-
-	var querySql, countSql string
-	var args, countArgs []interface{}
-
+	var err error
 	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
-		querySql = `
-SELECT 
-	tablename AS "table_name",
-	obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS "table_comment",
-	NULL::timestamp AS "create_time"
-FROM pg_tables 
-WHERE schemaname = 'public'
-  AND tablename NOT IN (?, ?, ?, ?, ?)
-  AND tablename NOT IN (SELECT table_name FROM admin_sys_gen_table)
-LIMIT ? OFFSET ?
-`
-		countSql = `
-SELECT COUNT(*) FROM pg_tables 
-WHERE schemaname = 'public'
-  AND tablename NOT IN (?, ?, ?, ?, ?)
-  AND tablename NOT IN (SELECT table_name FROM admin_sys_gen_table)
-`
-		args = append(excludeTables, limitOffset...)
-		countArgs = excludeTables
-	} else {
-		db := e.Orm.Migrator().CurrentDatabase()
-		querySql = `
-SELECT 
-	table_name as table_name,
-	table_comment as table_comment,
-	create_time as create_time
-FROM information_schema.tables 
-WHERE table_schema = ?
-  AND table_name NOT IN (?, ?, ?, ?, ?)
-  AND table_name NOT IN (SELECT table_name FROM admin_sys_gen_table)
-LIMIT ? OFFSET ?
-`
-		countSql = `
-SELECT COUNT(*) FROM information_schema.tables 
-WHERE table_schema = ?
-  AND table_name NOT IN (?, ?, ?, ?, ?)
-  AND table_name NOT IN (SELECT table_name FROM admin_sys_gen_table)
-`
-		args = append([]interface{}{db}, excludeTables...)
-		args = append(args, limitOffset...)
-		countArgs = append([]interface{}{db}, excludeTables...)
-	}
+		subQuery := e.Orm.Model(&models.DBTable{}).
+			Select(`tablename AS table_name,
+            obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS table_comment,
+            NULL::text AS create_time`).
+			Where("schemaname = 'public'")
 
-	// 查询数据
-	if err := e.Orm.Raw(querySql, args...).Scan(&list).Error; err != nil {
-		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+		err = e.Orm.Table("(?) as tables", subQuery).
+			Scopes(
+				cDto.MakeCondition(c.GetNeedSearch()),
+				cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			).
+			Where("tables.table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
+			Where("tables.table_name not in (select table_name from admin_sys_gen_table)").
+			Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+	} else if config.DatabaseConfig.Driver == global.DBDriverMysql {
+		err = e.Orm.Model(&models.DBTable{}).
+			Select("TABLE_NAME as table_name,"+
+				"ENGINE as engine,TABLE_ROWS as table_rows,"+
+				"TABLE_COLLATION as table_collation,"+
+				"CREATE_TIME as create_time,"+
+				"UPDATE_TIME as update_time,"+
+				"TABLE_COMMENT as table_comment").
+			Scopes(
+				cDto.MakeCondition(c.GetNeedSearch()),
+				cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			).
+			//Where("table_name not like 'admin_sys_%'").
+			Where("table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
+			Where("table_name not in (select table_name from 'admin_sys_gen_table')").
+			Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase()).
+			Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	}
-	if err := e.Orm.Raw(countSql, countArgs...).Scan(&count).Error; err != nil {
+	if err != nil {
 		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
@@ -461,36 +433,25 @@ func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int
 	}
 
 	var list []models.DBTable
-	var sql string
-	var args []interface{}
+	var err error
 
 	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
-		placeholders := make([]string, len(tableNames))
-		for i := range tableNames {
-			placeholders[i] = fmt.Sprintf("$%d", i+1)
-			args = append(args, tableNames[i])
-		}
-		sql = fmt.Sprintf(`
-SELECT 
-	tablename AS "table_name",
-	obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS "table_comment",
-	NULL::text AS "create_time"
-FROM pg_tables
-WHERE schemaname = 'public'
-  AND tablename IN (%s)`, strings.Join(placeholders, ", "))
-	} else {
-		sql = `
-SELECT 
-	table_name as table_name,
-	table_comment as table_comment,
-	create_time as create_time
-FROM information_schema.tables
-WHERE table_schema = ?
-  AND table_name IN (?)`
-		args = append([]interface{}{e.Orm.Migrator().CurrentDatabase()}, tableNames)
+		err = e.Orm.Select(`tablename AS table_name,
+            obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS table_comment,
+            NULL::text AS create_time`).
+			Where("schemaname = 'public'").
+			Where("tablename IN (?)", tableNames).
+			Find(&list).Error
+	} else if config.DatabaseConfig.Driver == global.DBDriverMysql {
+		err = e.Orm.Select("TABLE_NAME as table_name,"+
+			"ENGINE as engine,TABLE_ROWS as table_rows,"+
+			"TABLE_COLLATION as table_collation,"+
+			"CREATE_TIME as create_time,"+
+			"UPDATE_TIME as update_time,"+
+			"TABLE_COMMENT as table_comment").
+			Where("TABLE_NAME in (?)", tableNames).Find(&list).Error
 	}
 
-	err := e.Orm.Raw(sql, args...).Scan(&list).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
