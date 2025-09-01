@@ -284,9 +284,6 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq, p *middleware.DataPermission, 
 	if c.MenuType != "" && data.MenuType != c.MenuType {
 		menuUpdates["menu_type"] = c.MenuType
 	}
-	if c.MenuType != "" && data.MenuType != c.MenuType {
-		menuUpdates["menu_type"] = c.MenuType
-	}
 	if c.ParentId >= 0 && data.ParentId != c.ParentId {
 		menuUpdates["parent_id"] = c.ParentId
 	}
