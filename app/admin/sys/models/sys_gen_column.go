@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"go-admin/core/config"
+	"go-admin/core/global"
+	"time"
+)
 
 type SysGenColumn struct {
 	Id            int64      `gorm:"primaryKey;autoIncrement" json:"id"`
@@ -46,5 +50,8 @@ type DBColumn struct {
 }
 
 func (DBColumn) TableName() string {
-	return "information_schema.columns"
+	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+		return "information_schema.columns"
+	}
+	return "information_schema.COLUMNS"
 }

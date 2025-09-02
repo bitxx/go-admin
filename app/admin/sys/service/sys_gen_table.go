@@ -256,21 +256,23 @@ func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, 
 			Where("tables.table_name not in (select table_name from admin_sys_gen_table)").
 			Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	} else if config.DatabaseConfig.Driver == global.DBDriverMysql {
-		err = e.Orm.Model(&models.DBTable{}).
+		subQuery := e.Orm.Model(&models.DBTable{}).
 			Select("TABLE_NAME as table_name,"+
 				"ENGINE as engine,TABLE_ROWS as table_rows,"+
 				"TABLE_COLLATION as table_collation,"+
 				"CREATE_TIME as create_time,"+
 				"UPDATE_TIME as update_time,"+
 				"TABLE_COMMENT as table_comment").
+			Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase())
+
+		err = e.Orm.Table("(?) as tables", subQuery).
 			Scopes(
 				cDto.MakeCondition(c.GetNeedSearch()),
 				cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
 			).
 			//Where("table_name not like 'admin_sys_%'").
-			Where("table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
-			Where("table_name not in (select table_name from 'admin_sys_gen_table')").
-			Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase()).
+			Where("tables.table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
+			Where("tables.table_name not in (select table_name from admin_sys_gen_table)").
 			Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	}
 	if err != nil {
@@ -449,6 +451,7 @@ func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int
 			"CREATE_TIME as create_time,"+
 			"UPDATE_TIME as update_time,"+
 			"TABLE_COMMENT as table_comment").
+			Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase()).
 			Where("TABLE_NAME in (?)", tableNames).Find(&list).Error
 	}
 
