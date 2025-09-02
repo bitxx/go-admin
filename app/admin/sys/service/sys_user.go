@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/mssola/user_agent"
 	"go-admin/config/base/constant"
@@ -62,10 +63,10 @@ func (e *SysUser) Get(id int64, p *middleware.DataPermission) (*models.SysUser, 
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -79,10 +80,10 @@ func (e *SysUser) QueryOne(queryCondition *dto.SysUserQueryReq, p *middleware.Da
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 			middleware.Permission(data.TableName(), p),
 		).First(data).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -97,10 +98,10 @@ func (e *SysUser) Count(c *dto.SysUserQueryReq) (int64, int, error) {
 			cDto.MakeCondition(c.GetNeedSearch()),
 		).Limit(-1).Offset(-1).
 		Count(&count).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return count, baseLang.SuccessCode, nil
@@ -413,10 +414,10 @@ func (e *SysUser) GetProfile(userId int64) (*dto.SysUserResp, int, error) {
 	}
 	user := &models.SysUser{}
 	err := e.Orm.Preload("Dept").Preload("Post").Preload("Role").First(user, userId).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err != nil && err == gorm.ErrRecordNotFound {
+	if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.SysUserNoExistCode, lang.MsgErr(baseLang.SysUserNoExistCode, e.Lang)
 	}
 
@@ -529,10 +530,10 @@ func (e *SysUser) LoginVerify(login *dto.LoginReq) (*models.SysUser, int, error)
 		status = []string{global.SysStatusOk, global.SysStatusNotOk}
 	}
 	err := e.Orm.Preload("Dept").Preload("Post").Preload("Role").Where("username = ? and status in (?)", login.Username, status).First(user).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err != nil && err == gorm.ErrRecordNotFound {
+	if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.SysUserNoExistCode, lang.MsgErr(baseLang.SysUserNoExistCode, e.Lang)
 	}
 	if !strutils.CompareHashAndPassword(user.Password, login.Password) {

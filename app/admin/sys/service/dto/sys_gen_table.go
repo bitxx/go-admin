@@ -61,8 +61,8 @@ type SysGenTableGenCodeReq struct {
 // ------------------ DBTable ---------------
 type DBTableQueryReq struct {
 	dto.Pagination `search:"-"`
-	TableName      string `form:"tableName" search:"type:contains;column:TABLE_NAME;table:tables"`
-	TableComment   string `form:"tableComment" search:"type:contains;column:TABLE_COMMENT;table:tables"`
+	TableName      string `form:"tableName" search:"type:contains;column:table_name;table:tables"`
+	TableComment   string `form:"tableComment" search:"type:contains;column:table_comment;table:tables"`
 }
 
 func (m *DBTableQueryReq) GetNeedSearch() interface{} {

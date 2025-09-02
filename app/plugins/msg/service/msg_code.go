@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"go-admin/app/plugins/msg/models"
 	"go-admin/app/plugins/msg/service/dto"
 	baseLang "go-admin/config/base/lang"
@@ -50,10 +51,10 @@ func (e *MsgCode) Get(id int64, p *middleware.DataPermission) (*models.MsgCode, 
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -66,10 +67,10 @@ func (e *MsgCode) QueryOne(queryCondition *dto.MsgCodeQueryReq, p *middleware.Da
 		cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -83,10 +84,10 @@ func (e *MsgCode) Count(queryCondition *dto.MsgCodeQueryReq) (int64, int, error)
 		Scopes(
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return count, baseLang.SuccessCode, nil

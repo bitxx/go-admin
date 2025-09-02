@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"fmt"
 	"github.com/xuri/excelize/v2"
 	"go-admin/app/admin/sys/models"
@@ -53,10 +54,10 @@ func (e *SysLoginLog) Get(id int64, p *middleware.DataPermission) (*models.SysLo
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil

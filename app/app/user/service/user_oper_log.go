@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"fmt"
 	"github.com/xuri/excelize/v2"
 	adminService "go-admin/app/admin/sys/service"
@@ -63,29 +64,41 @@ func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPerm
 		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
 
+	cacheUsers := map[int64]*models.User{}
+	for _, u := range list {
+		if u.User == nil || cacheUsers[u.User.Id] != nil {
+			continue
+		}
+		cacheUsers[u.User.Id] = u.User
+		if u.User.Mobile != "" {
+			mobile, err := encrypt.AesDecrypt(u.User.Mobile, []byte(config.AuthConfig.Secret))
+			if err == nil {
+				if c.ShowInfo {
+					cacheUsers[u.User.Id].Mobile = mobile
+				} else {
+					cacheUsers[u.User.Id].Mobile = strutils.HidePartStr(mobile, 3)
+				}
+			}
+		}
+
+		if u.User.Email != "" {
+			email, err := encrypt.AesDecrypt(u.User.Email, []byte(config.AuthConfig.Secret))
+			if err == nil {
+				if c.ShowInfo {
+					cacheUsers[u.User.Id].Email = email
+				} else {
+					cacheUsers[u.User.Id].Email = strutils.HidePartStr(email, 5)
+				}
+			}
+		}
+	}
+
 	for index, item := range list {
-		if item.User != nil && item.User.Mobile != "" {
-			mobile, err := encrypt.AesDecrypt(item.User.Mobile, []byte(config.AuthConfig.Secret))
-
-			if err == nil {
-				if c.ShowInfo {
-					list[index].User.Mobile = mobile
-				} else {
-					list[index].User.Mobile = strutils.HidePartStr(mobile, 3)
-				}
-			}
+		if item.User == nil || cacheUsers[item.User.Id] == nil {
+			continue
 		}
-		if item.User != nil && item.User.Email != "" {
-			email, err := encrypt.AesDecrypt(item.User.Email, []byte(config.AuthConfig.Secret))
-			if err == nil {
-				if c.ShowInfo {
-					list[index].User.Email = email
-				} else {
-					list[index].User.Email = strutils.HidePartStr(email, 5)
-				}
-
-			}
-		}
+		list[index].User.Mobile = cacheUsers[item.User.Id].Mobile
+		list[index].User.Email = cacheUsers[item.User.Id].Email
 	}
 	return list, count, baseLang.SuccessCode, nil
 }
@@ -99,10 +112,10 @@ func (e *UserOperLog) Get(id int64, p *middleware.DataPermission) (*models.UserO
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).First(data, id).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -115,10 +128,10 @@ func (e *UserOperLog) QueryOne(queryCondition *dto.UserOperLogQueryReq, p *middl
 		cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return data, baseLang.SuccessCode, nil
@@ -132,10 +145,10 @@ func (e *UserOperLog) Count(queryCondition *dto.UserOperLogQueryReq) (int64, int
 		Scopes(
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
 	}
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
 	}
 	return count, baseLang.SuccessCode, nil
