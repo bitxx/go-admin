@@ -11,7 +11,6 @@ type UserQueryReq struct {
 	dto.Pagination    `search:"-"`
 	BeginCreatedAt    string   `form:"beginCreatedAt" search:"type:gte;column:created_at;table:app_user" comment:"创建时间"`
 	EndCreatedAt      string   `form:"endCreatedAt" search:"type:lte;column:created_at;table:app_user" comment:"创建时间"`
-	Id                int64    `form:"id"  search:"type:exact;column:id;table:app_user" comment:"用户编号"`
 	LevelId           int64    `form:"levelId"  search:"type:exact;column:level_id;table:app_user" comment:"用户等级编号"`
 	LevelIds          []int64  `form:"levelId"  search:"type:exact;column:level_id;table:app_user" comment:"用户等级编号"`
 	UserName          string   `form:"userName"  search:"type:exact;column:user_name;table:app_user" comment:"用户昵称"`

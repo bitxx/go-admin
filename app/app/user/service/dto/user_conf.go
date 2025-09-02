@@ -8,7 +8,6 @@ import (
 
 type UserConfQueryReq struct {
 	dto.Pagination   `search:"-"`
-	UserId           int64  `form:"userId"  search:"type:exact;column:user_id;table:app_user_conf" comment:"用户编号"`
 	CanLogin         string `form:"canLogin"  search:"type:exact;column:can_login;table:app_user_conf" comment:"1-允许登陆；2-不允许登陆"`
 	BeginCreatedAt   string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:app_user_conf" comment:"创建时间"`
 	EndCreatedAt     string `form:"endCreatedAt" search:"type:lte;column:created_at;table:app_user_conf" comment:"创建时间"`

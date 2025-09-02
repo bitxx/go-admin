@@ -9,7 +9,6 @@ import (
 
 type UserAccountLogQueryReq struct {
 	dto.Pagination   `search:"-"`
-	UserId           int64  `form:"userId"  search:"type:exact;column:user_id;table:app_user_account_log" comment:"用户编号"`
 	MoneyType        string `form:"moneyType"  search:"type:exact;column:money_type;table:app_user_account_log" comment:"金额类型 1:余额 "`
 	ChangeType       string `form:"changeType"  search:"type:exact;column:change_type;table:app_user_account_log" comment:"帐变类型(1-类型1)"`
 	BeginCreatedAt   string `form:"beginCreatedAt" search:"type:gte;column:created_at;table:app_user_account_log" comment:"创建时间"`
