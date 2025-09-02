@@ -59,7 +59,7 @@ func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]mod
 		if err != nil {
 			return nil, 0, respCode, err
 		}
-		c.ParentId = m.ParentId
+		c.ParentId = m.Id
 	}
 
 	err := e.Orm.Preload("UserLevel").Order("created_at desc").Model(&data).
