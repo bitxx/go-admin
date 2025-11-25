@@ -312,8 +312,8 @@ func InterfaceToBool(value interface{}) bool {
 	return false
 }
 
-// getStringFromMap 安全的获取嵌套map值的辅助函数
-func getStringFromMap(m map[string]interface{}, keys ...string) string {
+// GetStringFromMap 安全的获取嵌套map值的辅助函数
+func GetStringFromMap(m map[string]interface{}, keys ...string) string {
 	if len(keys) == 0 {
 		return ""
 	}
