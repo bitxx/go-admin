@@ -270,3 +270,70 @@ func StructToJsonStr(e interface{}) (string, error) {
 		return "", err
 	}
 }
+
+// InterfaceToInt64 辅助函数
+func InterfaceToInt64(value interface{}) int64 {
+	switch v := value.(type) {
+	case float64:
+		return int64(v)
+	case string:
+		var result int64
+		fmt.Sscanf(v, "%d", &result)
+		return result
+	default:
+		return 0
+	}
+}
+
+func InterfaceToFloat(value interface{}) float64 {
+	switch v := value.(type) {
+	case float64:
+		return v
+	case string:
+		var result float64
+		fmt.Sscanf(v, "%f", &result)
+		return result
+	default:
+		return 0
+	}
+}
+
+func InterfaceToString(value interface{}) string {
+	if str, ok := value.(string); ok {
+		return str
+	}
+	return ""
+}
+
+func InterfaceToBool(value interface{}) bool {
+	if v, ok := value.(bool); ok {
+		return v
+	}
+	return false
+}
+
+// getStringFromMap 安全的获取嵌套map值的辅助函数
+func getStringFromMap(m map[string]interface{}, keys ...string) string {
+	if len(keys) == 0 {
+		return ""
+	}
+
+	current := m
+	for i, key := range keys {
+		if i == len(keys)-1 {
+			// 最后一个key，返回字符串
+			if val, ok := current[key].(string); ok {
+				return val
+			}
+			return ""
+		}
+
+		// 中间key，继续深入
+		if next, ok := current[key].(map[string]interface{}); ok {
+			current = next
+		} else {
+			return ""
+		}
+	}
+	return ""
+}
