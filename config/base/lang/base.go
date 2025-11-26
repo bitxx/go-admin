@@ -23,7 +23,7 @@ const (
 	DataDeleteCode    = 1009
 	DataDeleteLogCode = 1010
 	DataNotFoundCode  = 1011
-	DataErrLogCode    = 1012
+	ServerErrLogCode  = 1012
 )
 
 func init() {
@@ -47,5 +47,5 @@ func init() {
 	lang.MsgInfo[DataDeleteCode] = "数据删除失败"
 	lang.MsgInfo[DataDeleteLogCode] = "数据删除失败：%s"
 	lang.MsgInfo[DataNotFoundCode] = "数据不存在"
-	lang.MsgInfo[DataErrLogCode] = "内部错误：%s"
+	lang.MsgInfo[ServerErrLogCode] = "内部错误：%s"
 }
