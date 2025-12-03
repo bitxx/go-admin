@@ -26,8 +26,6 @@
 在线体验：  
 [go-admin react开源版入口](http://120.48.157.250:22222/)
 
-[go-admin vue2.0版入口(不再更新)](http://120.48.157.250:60000/)
-
 内置两个默认账户：  
 账户：admin 密码：123456  顶级账户    
 账户：test  密码：123456  菜单权限受限的账户
@@ -97,7 +95,7 @@
 3. 建好数据库后，直接把我根目录的sql脚本 mysql=>`app_mysql.sql`(由Navicat Lite导出) 或者 postgresql=>`app_pgsql.sql`(自行整理)导入即可
 
 ### 4.2 后台接口部署与启动
-1. 环境：golang版本-1.24.5
+1. 环境：golang版本-1.25.4
 2. 编译项目，项目根目录执行如下：
 ```shell
 go mod tidy

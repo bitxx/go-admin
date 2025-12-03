@@ -1,7 +1,6 @@
 package database
 
 import (
-	"go-admin/core/casbin"
 	"go-admin/core/config"
 	"go-admin/core/config/database"
 	"go-admin/core/runtime"
@@ -52,8 +51,5 @@ func setupSimpleDatabase(host string, c *config.Database) {
 		log.Info(textutils.Green(c.Driver + " connect success !"))
 	}
 
-	e := mycasbin.Setup(db, "admin_sys_")
-
 	runtime.RuntimeConfig.SetDb(host, db)
-	runtime.RuntimeConfig.SetCasbin(host, e)
 }

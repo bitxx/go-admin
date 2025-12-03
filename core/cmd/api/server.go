@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/bitxx/load-config/source/file"
 	"go-admin/app"
+	mycasbin "go-admin/core/casbin"
 	"go-admin/core/config"
 	"go-admin/core/lang"
 	"go-admin/core/middleware/auth"
@@ -63,13 +64,21 @@ func init() {
 }
 
 func setup() {
-	//1. 读取配置
+	// 1. 读取配置
 	config.Setup(
 		file.NewSource(file.WithPath(configPath)),
 		database.Setup,
 		cache.Setup,
 	)
-	//注册监听函数
+
+	// 2.casbin设置
+	for host := range config.DatabasesConfig {
+		db := runtime.RuntimeConfig.GetDbByKey(host)
+		e := mycasbin.Setup(db, "admin_sys_")
+		runtime.RuntimeConfig.SetCasbin(host, e)
+	}
+
+	// 3. 注册监听函数
 	queue := runtime.RuntimeConfig.GetMemoryQueue("")
 	queue.Register(global.LoginLog, models.SaveLoginLog)
 	queue.Register(global.OperateLog, models.SaveOperLog)

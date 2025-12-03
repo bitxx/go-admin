@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/core/global"
 	"go-admin/core/utils/strutils"
+	"go-admin/core/utils/textutils"
 )
 
 var logHelper *logbase.Helper
@@ -34,7 +35,7 @@ func Info(args ...interface{}) {
 }
 
 func Infof(template string, args ...interface{}) {
-	logHelper.Infof(template, args...)
+	logHelper.Infof(textutils.Green(template), args...)
 }
 
 func Trace(args ...interface{}) {
@@ -42,7 +43,7 @@ func Trace(args ...interface{}) {
 }
 
 func Tracef(template string, args ...interface{}) {
-	logHelper.Tracef(template, args...)
+	logHelper.Tracef(textutils.Blue(template), args...)
 }
 
 func Debug(args ...interface{}) {
@@ -50,7 +51,7 @@ func Debug(args ...interface{}) {
 }
 
 func Debugf(template string, args ...interface{}) {
-	logHelper.Debugf(template, args...)
+	logHelper.Debugf(textutils.Magenta(template), args...)
 }
 
 func Warn(args ...interface{}) {
@@ -58,7 +59,7 @@ func Warn(args ...interface{}) {
 }
 
 func Warnf(template string, args ...interface{}) {
-	logHelper.Warnf(template, args...)
+	logHelper.Warnf(textutils.Yellow(template), args...)
 }
 
 func Error(args ...interface{}) {
@@ -66,7 +67,7 @@ func Error(args ...interface{}) {
 }
 
 func Errorf(template string, args ...interface{}) {
-	logHelper.Errorf(template, args...)
+	logHelper.Errorf(textutils.Red(template), args...)
 }
 
 func Fatal(args ...interface{}) {
@@ -74,7 +75,7 @@ func Fatal(args ...interface{}) {
 }
 
 func Fatalf(template string, args ...interface{}) {
-	logHelper.Fatalf(template, args...)
+	logHelper.Fatalf(textutils.Red(template), args...)
 }
 
 func WithError(err error) *logbase.Helper {
