@@ -1,0 +1,19 @@
+# Copyright 2025 bitxx. All rights reserved.
+# Use of this source code is governed by a MIT style
+# license that can be found in the LICENSE file.
+
+majorPattern: "(?m)^BREAKING CHANGE:.*$"
+minorPattern: "^feat(?:\(.+\))?:.*"
+bumpStrategies:
+- branchesPattern: "^(master|release/.*)$"
+  strategy: "AUTO"
+  preRelease: false
+  preReleaseTemplate:
+  preReleaseOverwrite: false
+  buildMetadataTemplate:
+- branchesPattern: ".*"
+  strategy: "AUTO"
+  preRelease: false
+  preReleaseTemplate:
+  preReleaseOverwrite: false
+  buildMetadataTemplate: "{{Commits | len}}.{{(.Commits | first).Hash.Short}}"
