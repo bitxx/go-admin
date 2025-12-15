@@ -181,6 +181,22 @@ npm run build:prod
 
 这里只是大概讲了下基本情况，具体更多内容，还是需要大家在使用中一点点去发现。
 
+## 10. 工具使用
+1. ### gsemver
+```shell
+# 安装
+go install github.com/arnaud-deprez/gsemver@latest
+
+# 验证
+gsemver version
+
+# 配置.gsemver.yaml
+
+# 命令使用
+## 分析自上一个标签以来的提交，根据配置建议新版本号。
+gsemver bump
+
+```
 ## 感谢
 > [go-admin-team](https://github.com/go-admin-team)  
 > [flipped-aurora](https://github.com/flipped-aurora)  
