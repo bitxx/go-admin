@@ -8,7 +8,7 @@
 package queue
 
 import (
-	json "github.com/json-iterator/go"
+	"encoding/json"
 	"github.com/nsqio/go-nsq"
 	"go-admin/core/utils/storage"
 )
