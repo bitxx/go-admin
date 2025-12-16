@@ -12,6 +12,8 @@ import (
 	"go-admin/core/runtime"
 	"go-admin/core/storage/cache"
 	"go-admin/core/storage/database"
+	"go-admin/core/storage/locker"
+	queueSetup "go-admin/core/storage/queue"
 	"go-admin/core/utils/iputils"
 	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
@@ -69,6 +71,8 @@ func setup() {
 		file.NewSource(file.WithPath(configPath)),
 		database.Setup,
 		cache.Setup,
+		queueSetup.Setup,
+		locker.Setup,
 	)
 
 	// 2.casbin设置
