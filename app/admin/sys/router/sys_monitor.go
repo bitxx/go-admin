@@ -16,7 +16,6 @@ func registerSysMonitorRouter(v1 *gin.RouterGroup) {
 	r := v1.Group("/admin/sys/sys-monitor").Use(middleware.Auth()).Use(middleware.AuthCheckRole())
 	{
 		r.GET("", api.GetMonitor)
-		r.GET("/prom", api.Prom)
 		r.GET("/ping", api.Ping)
 	}
 

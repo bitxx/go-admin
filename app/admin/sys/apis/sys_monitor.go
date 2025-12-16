@@ -2,7 +2,6 @@ package apis
 
 import (
 	"fmt"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/shirou/gopsutil/v4/host"
 	baseLang "go-admin/config/base/lang"
 	"go-admin/core/dto/api"
@@ -106,9 +105,4 @@ func (e Monitor) GetMonitor(c *gin.Context) {
 // Ping admin-ping测试
 func (e Monitor) Ping(c *gin.Context) {
 	c.Status(http.StatusOK)
-}
-
-// Prom admin-获取Prom信息
-func (e Monitor) Prom(c *gin.Context) {
-	promhttp.Handler().ServeHTTP(c.Writer, c.Request)
 }
