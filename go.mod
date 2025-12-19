@@ -5,7 +5,7 @@ go 1.25.4
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
 	github.com/bitxx/load-config v1.6.0
-	github.com/bitxx/logger v1.6.2
+	github.com/bitxx/logger v1.6.3
 	github.com/bsm/redislock v0.9.4
 	github.com/bytedance/go-tagexpr/v2 v2.9.11
 	github.com/casbin/casbin/v2 v2.135.0
