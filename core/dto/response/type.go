@@ -8,7 +8,7 @@
 package response
 
 type Responses interface {
-	SetCode(int32)
+	SetCode(int)
 	SetTraceID(string)
 	SetMsg(string)
 	SetData(interface{})

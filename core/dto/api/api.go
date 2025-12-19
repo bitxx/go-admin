@@ -115,27 +115,28 @@ func (e *Api) DownloadZip(fileName string, data []byte) {
 	response.Download(e.Context, data, fileName, "application/zip")
 }
 
-func (e *Api) OKByCode(data interface{}, code int, msg string) {
-	response.OKByCode(e.Context, data, code, msg)
-}
-
-// OK 通常成功数据处理
+// OK 通常成功数据处理，使用默认成功码
 func (e *Api) OK(data interface{}, msg string) {
-	response.OK(e.Context, data, msg)
+	response.OK(e.Context, data, http.StatusOK, msg)
 }
 
-// PageOK 分页数据处理
-func (e *Api) PageOK(result, extend interface{}, count int64, pageIndex int, pageSize int, msg string) {
-	response.PageOK(e.Context, result, extend, count, pageIndex, pageSize, msg)
+// PageOK 分页数据处理，使用默认成功码
+func (e *Api) PageOK(result, extend interface{}, count int64, pageIndex, pageSize int, msg string) {
+	response.PageOK(e.Context, result, extend, count, pageIndex, pageSize, http.StatusOK, msg)
+}
+
+// OKWithCode 通常成功数据处理，使用自定义成功码
+func (e *Api) OKWithCode(data interface{}, code int, msg string) {
+	response.OK(e.Context, data, code, msg)
+}
+
+// PageOKWithCode 分页数据处理，使用自定义成功码
+func (e *Api) PageOKWithCode(result, extend interface{}, count int64, pageIndex, pageSize, code int, msg string) {
+	response.PageOK(e.Context, result, extend, count, pageIndex, pageSize, code, msg)
 }
 
 func (e *Api) DownloadExcel(fileName string, data []byte) {
 	response.Download(e.Context, data, fileName, "application/vnd.ms-excel")
-}
-
-// Custom 兼容函数
-func (e *Api) Custom(data gin.H) {
-	response.Custum(e.Context, data)
 }
 
 // getAcceptLanguage 获取当前语言

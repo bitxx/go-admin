@@ -3,12 +3,13 @@ package lang
 import "go-admin/core/lang"
 
 const (
-	//600（包含600）以下必须符合http规则，否则接口会异常
-	SuccessCode       = 200
-	RequestErr        = 400
-	AuthErr           = 401
-	ForbitErr         = 403
-	ServerErr         = 500
+	SuccessCode = 200
+	RequestErr  = 400
+	AuthErr     = 401
+	ForbitErr   = 403
+	NotFoundErr = 404
+	ServerErr   = 500
+
 	ParamErrCode      = 1001
 	OpErrCode         = 1002
 	DataDecodeCode    = 1013
@@ -32,6 +33,7 @@ func init() {
 	lang.MsgInfo[RequestErr] = "请求失败"
 	lang.MsgInfo[AuthErr] = "状态失效，请重新登录"
 	lang.MsgInfo[ForbitErr] = "对不起，您权限不足，操作异常，请联系管理员"
+	lang.MsgInfo[NotFoundErr] = "对不起，资源未找到"
 	lang.MsgInfo[ServerErr] = "内部错误"
 	lang.MsgInfo[ParamErrCode] = "参数错误"
 	lang.MsgInfo[OpErrCode] = "操作异常，请检查"
