@@ -16,7 +16,6 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/mojocn/base64Captcha v1.3.8
 	github.com/mssola/user_agent v0.6.0
-	github.com/nsqio/go-nsq v1.1.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/redis/go-redis/v9 v9.17.2
 	github.com/shirou/gopsutil/v4 v4.25.11
@@ -61,7 +60,6 @@ require (
 	github.com/goccy/go-yaml v1.19.0 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/golang/snappy v1.0.0 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect

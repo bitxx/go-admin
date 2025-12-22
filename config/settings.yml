@@ -88,7 +88,6 @@ settings:
 #        concurrency: 10
 #        blockingTimeout: 5
 #        reclaimInterval: 1
-#    nsq: 自行根据代码配置 config/option_nsg.go
 #  主要是redis锁服务，下方配置未完善，待定，先占位
 #  locker:
 #    redis:
