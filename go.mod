@@ -18,7 +18,6 @@ require (
 	github.com/mssola/user_agent v0.6.0
 	github.com/nsqio/go-nsq v1.1.0
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/openzipkin/zipkin-go v0.4.3
 	github.com/redis/go-redis/v9 v9.17.2
 	github.com/shirou/gopsutil/v4 v4.25.11
 	github.com/shopspring/decimal v1.4.0
