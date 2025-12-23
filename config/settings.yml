@@ -40,6 +40,14 @@ settings:
     timeout: 604800
     # token 密钥，包括aes密钥共用，生产环境需修改，为确保兼容，长度需要为16、24、32字节
     secret: admin-api-20231019-jason
+    # 是否进行设备检查
+    deviceCheck: true
+    # 是否开启黑名单
+    tokenBlacklist: true
+    # 是否允许多设备登录，需deviceCheck开启
+    allowMultiDevices: true
+    # 最多允许几台设备登录，需deviceCheck开启
+    maxDevicesPerUser: 1
   database:
     # 目前支持：mysql postgres
     driver: mysql

@@ -24,16 +24,11 @@ type JwtAuth struct{}
 
 func (j *JwtAuth) Init() {
 	timeout := time.Hour
-	if config.ApplicationConfig.Mode == "dev" {
-		timeout = time.Duration(876010) * time.Hour
-	} else {
-		if config.AuthConfig.Timeout != 0 {
-			timeout = time.Duration(config.AuthConfig.Timeout) * time.Second
-		}
+	if config.AuthConfig.Timeout != 0 {
+		timeout = time.Duration(config.AuthConfig.Timeout) * time.Second
 	}
 	var err error
 	jwtAuthMiddleware, err = New(&GinJWTMiddleware{
-		Realm:           config.ApplicationConfig.Name,
 		Key:             []byte(config.AuthConfig.Secret),
 		Timeout:         timeout,
 		MaxRefresh:      time.Hour,
@@ -42,9 +37,15 @@ func (j *JwtAuth) Init() {
 		Authenticator:   Authenticator,
 		Authorizator:    Authorizator,
 		Unauthorized:    Unauthorized,
-		TokenLookup:     "header: Authorization, query: token, cookie: jwt",
+		TokenLookup:     "header: Authorization, query: token",
 		TokenHeadName:   authdto.HeaderTokenName,
 		TimeFunc:        time.Now,
+		SecurityConfig: SecurityConfig{
+			DeviceCheckEnabled: config.AuthConfig.DeviceCheck,
+			TokenBlacklist:     config.AuthConfig.TokenBlacklist,
+			AllowMultiDevices:  config.AuthConfig.AllowMultiDevices,
+			MaxDevicesPerUser:  config.AuthConfig.MaxDevicesPerUser,
+		},
 	}) //TokenHeadName必须有，不能为空，否则权限识别异常
 	if err != nil {
 		log.Errorf(fmt.Sprintf("JWT Init Error, %s", err.Error()))
@@ -56,7 +57,12 @@ func (j *JwtAuth) Login(c *gin.Context) {
 }
 
 func (j *JwtAuth) Logout(c *gin.Context) {
-
+	err := jwtAuthMiddleware.RevokeToken(c)
+	if err != nil {
+		response.Error(c, http.StatusUnauthorized, "")
+		return
+	}
+	c.JSON(http.StatusOK, nil)
 }
 
 func (j *JwtAuth) Get(c *gin.Context, key string) (interface{}, int, error) {
@@ -237,7 +243,7 @@ func Authorizator(data interface{}, c *gin.Context) bool {
 			c.Set(authdto.RoleId, int64(roleId.(float64))) //这里一定要用string保存userId，以防取出Interface转换复杂
 		}
 		deptId, _ := v[authdto.DeptId]
-		if roleId != nil {
+		if deptId != nil {
 			c.Set(authdto.DeptId, int64(deptId.(float64))) //这里一定要用string保存userId，以防取出Interface转换复杂
 		}
 		userName, _ := v[authdto.UserName]
