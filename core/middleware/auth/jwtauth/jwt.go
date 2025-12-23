@@ -31,11 +31,9 @@ const LoginIP = "login_ip"
 const ClientInfo = "client_info"
 const TokenID = "jti"
 
-type MapClaims map[string]interface{}
 type SecurityConfig struct {
 	DeviceCheckEnabled bool // 设备检查
 	TokenBlacklist     bool // Token黑名单
-	AllowMultiDevices  bool // 允许多设备登录
 	MaxDevicesPerUser  int  // 每个用户最大设备数
 }
 
@@ -78,7 +76,7 @@ type GinJWTMiddleware struct {
 	// Note that the payload is not encrypted.
 	// The attributes mentioned on jwt.io can't be used as keys for the map.
 	// Optional, by default no additional data will be set.
-	PayloadFunc func(data interface{}) MapClaims
+	PayloadFunc func(data interface{}) jwt.MapClaims
 
 	// User can define own Unauthorized func.
 	Unauthorized func(*gin.Context, int, string)
@@ -319,16 +317,12 @@ func (mw *GinJWTMiddleware) MiddlewareFunc() gin.HandlerFunc {
 }
 
 // GetClaimsFromJWT get claims from JWT token
-func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) {
+func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, error) {
 	token, tokenStr, err := mw.parseToken(c)
 	if err != nil {
 		return nil, err
 	}
-
-	claims := MapClaims{}
-	for key, value := range token.Claims.(jwt.MapClaims) {
-		claims[key] = value
-	}
+	claims := token.Claims.(jwt.MapClaims)
 
 	// get user id
 	userID, ok := claims[authdto.LoginUserId].(float64)
@@ -338,8 +332,10 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) 
 	userIDStr := strconv.FormatInt(int64(userID), 10)
 
 	if config.ApplicationConfig.IsSingleLogin {
-		saveTokenStr := mw.getCacheString(JWTLoginPrefix, userIDStr)
-		if saveTokenStr != tokenStr {
+		// 从缓存获取该用户最新的token
+		savedToken := mw.getCacheString(JWTLoginPrefix, userIDStr)
+		if savedToken != tokenStr {
+			// 当前token不是最新的，说明用户在其他地方登录了
 			mw.logSecurityEvent(c, "single_login_violation", userID)
 			return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
 		}
@@ -360,22 +356,16 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) 
 	// 4. device check
 	if mw.SecurityConfig.DeviceCheckEnabled {
 		currentDeviceFP := mw.extractDeviceFingerprint(c)
-
-		// 必须要有设备指纹
-		if currentDeviceFP == "" {
-			mw.logSecurityEvent(c, "missing_current_device_fingerprint", userID)
+		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
+		if currentDeviceFP == "" || savedDeviceFP == "" || !ok || currentDeviceFP != savedDeviceFP {
+			mw.logSecurityEvent(c, "device_fingerprint_err", userID)
 			return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
 		}
 
 		// 获取设备列表
 		devices := mw.getCacheString(JWTDevicesPrefix, userIDStr)
-		if devices == "" {
-			// 没有设备记录，拒绝访问
-			mw.logSecurityEvent(c, "no_device_record", userID)
-			return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
-		}
 
-		// 1. 检查当前设备是否在允许的设备列表中
+		// 1). 检查当前设备是否在允许的设备列表中
 		deviceExists := false
 		deviceList := strings.Split(devices, ",")
 		for _, d := range deviceList {
@@ -385,57 +375,34 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) 
 			}
 		}
 
-		// 2. 如果不允许多设备，当前设备必须在列表中
-		if !mw.SecurityConfig.AllowMultiDevices {
-			if !deviceExists {
-				// 设备不在列表中，拒绝
-				mw.logSecurityEvent(c, "device_not_in_list_single_device", userID)
-				return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
-			}
-			// 单设备模式，设备在列表中，允许访问
-		} else {
-			// 3. 允许多设备，检查设备数限制
-			if !deviceExists {
-				// 新设备
-				if devices == "" {
-					// 第一个设备，直接添加
-					deviceList = []string{currentDeviceFP}
-					runtime.RuntimeConfig.GetCacheAdapter().Set(
-						JWTDevicesPrefix,
-						userIDStr,
-						currentDeviceFP,
-						config.AuthConfig.Timeout,
-					)
-				} else {
-					// 已有设备，检查设备数
-					if len(deviceList) >= mw.SecurityConfig.MaxDevicesPerUser {
-						// 设备数已达上限
-						mw.logSecurityEvent(c, "too_many_devices", userID)
-						return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
-					}
-
-					// 添加新设备到列表
-					deviceList = append(deviceList, currentDeviceFP)
-					runtime.RuntimeConfig.GetCacheAdapter().Set(
-						JWTDevicesPrefix,
-						userIDStr,
-						strings.Join(deviceList, ","),
-						config.AuthConfig.Timeout,
-					)
+		// 2). 允许多设备登录，但设备列表中不存在当前设备，则判断是否增加设备
+		if !deviceExists {
+			// 检查设备数量
+			if devices == "" {
+				// 无设备，直接添加
+				deviceList = []string{currentDeviceFP}
+			} else {
+				// 有设备，则判断数量
+				if len(deviceList) >= mw.SecurityConfig.MaxDevicesPerUser {
+					// 设备数已达上限
+					mw.logSecurityEvent(c, "too_many_devices", userID)
+					return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
 				}
+				// 添加新设备到列表
+				deviceList = append(deviceList, currentDeviceFP)
 			}
-			// 设备已在列表中，允许访问
-		}
+			runtime.RuntimeConfig.GetCacheAdapter().Set(
+				JWTDevicesPrefix,
+				userIDStr,
+				strings.Join(deviceList, ","),
+				config.AuthConfig.Timeout,
+			)
 
-		// 4. 可选：记录token中的设备指纹（用于审计）
-		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
-		if ok && savedDeviceFP != "" && currentDeviceFP != savedDeviceFP {
-			// 设备指纹不匹配，记录安全事件（但不拒绝）
-			mw.logSecurityEvent(c, "token_device_mismatch_audit", userID)
 		}
+		// 设备已在列表中，允许访问
 	}
 
-	// 5. 更新最后活动时间
+	// 4. 更新最后活动时间
 	mw.updateLastActivity(userIDStr)
 
 	return claims, nil
@@ -451,10 +418,20 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 	}
 
 	data, err := mw.Authenticator(c)
-
 	if err != nil {
 		mw.unauthorized(c, http.StatusBadRequest, mw.HTTPStatusMessageFunc(err, c))
 		return
+	}
+
+	userID, ok := data.(map[string]interface{})[authdto.LoginUserId].(int64)
+	if !ok {
+		mw.unauthorized(c, http.StatusBadRequest, mw.HTTPStatusMessageFunc(err, c))
+		return
+	}
+	userIDStr := strconv.FormatInt(userID, 10)
+
+	if config.ApplicationConfig.IsSingleLogin {
+		runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userIDStr)
 	}
 
 	// Create the token
@@ -481,33 +458,27 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 		claims[ClientInfo] = c.Request.UserAgent()
 
 		// 记录设备
-		userID, ok := data.(map[string]interface{})[authdto.LoginUserId].(int64)
-		if ok {
-			mw.recordDevice(userID, deviceFP)
-		}
+		mw.recordDevice(userID, deviceFP)
 	}
 
 	tokenString, err := mw.signedString(token)
-
 	if err != nil {
 		mw.unauthorized(c, http.StatusInternalServerError, mw.HTTPStatusMessageFunc(ErrFailedTokenCreation, c))
 		return
 	}
 
 	// set
-	userID, ok := data.(map[string]interface{})[authdto.LoginUserId].(int64)
-	if ok {
-		err = runtime.RuntimeConfig.GetCacheAdapter().Set(
-			JWTLoginPrefix,
-			strconv.FormatInt(userID, 10),
-			tokenString,
-			config.AuthConfig.Timeout,
-		)
-		if err != nil {
-			mw.unauthorized(c, http.StatusInternalServerError, mw.HTTPStatusMessageFunc(err, c))
-			return
-		}
+	err = runtime.RuntimeConfig.GetCacheAdapter().Set(
+		JWTLoginPrefix,
+		userIDStr,
+		tokenString,
+		config.AuthConfig.Timeout,
+	)
+	if err != nil {
+		mw.unauthorized(c, http.StatusInternalServerError, mw.HTTPStatusMessageFunc(err, c))
+		return
 	}
+
 	mw.LoginResponse(c, http.StatusOK, tokenString, expire)
 }
 
@@ -526,31 +497,42 @@ func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 
 // RefreshToken refresh token and check if token is expired
 func (mw *GinJWTMiddleware) RefreshToken(c *gin.Context) (string, time.Time, error) {
+	// 获取当前请求的token字符串
+	_, tokenStr, parseErr := mw.parseToken(c)
+	if parseErr != nil {
+		return "", time.Now(), parseErr
+	}
 	claims, err := mw.CheckIfTokenExpire(c)
 	if err != nil {
 		return "", time.Now(), err
+	}
+
+	// 在刷新token时也需要检查单点登录
+	if config.ApplicationConfig.IsSingleLogin {
+		userID, ok := claims[authdto.LoginUserId].(float64)
+		if ok {
+			userIDStr := strconv.FormatInt(int64(userID), 10)
+			savedToken := mw.getCacheString(JWTLoginPrefix, userIDStr)
+			if savedToken != tokenStr {
+				// token已失效（被新登录踢掉）
+				return "", time.Now(), lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+			}
+		}
 	}
 
 	// 刷新时检查设备
 	if mw.SecurityConfig.DeviceCheckEnabled {
 		currentDeviceFP := mw.extractDeviceFingerprint(c)
 		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
-
-		if ok && currentDeviceFP != "" && currentDeviceFP != savedDeviceFP {
-			if savedDeviceFP == "" {
-				// 老token可能没有设备信息，更新claims
-				claims[DeviceFingerprint] = currentDeviceFP
-			} else if currentDeviceFP != "" && currentDeviceFP != savedDeviceFP {
-				// 设备不匹配
-				mw.logSecurityEvent(c, "refresh_device_mismatch", claims[authdto.LoginUserId])
-				return "", time.Now(), lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
-			}
+		if currentDeviceFP == "" || savedDeviceFP == "" || !ok || currentDeviceFP != savedDeviceFP {
+			mw.logSecurityEvent(c, "device_fingerprint_err", "")
+			return "", time.Now(), lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
 		}
 	}
 
 	// Create the token
 	newToken := jwt.New(jwt.GetSigningMethod(mw.SigningAlgorithm))
-	newClaims := newToken.Claims.(jwt.MapClaims)
+	newClaims := jwt.MapClaims{}
 
 	// 复制原有claims但排除exp和orig_iat
 	for key, value := range claims {
@@ -863,27 +845,22 @@ func (mw *GinJWTMiddleware) RevokeToken(c *gin.Context) error {
 }
 
 // ExtractClaims help to extract the JWT claims
-func ExtractClaims(c *gin.Context) MapClaims {
+func ExtractClaims(c *gin.Context) jwt.MapClaims {
 	claims, exists := c.Get(JwtPayloadKey)
 	if !exists {
-		return make(MapClaims)
+		return make(jwt.MapClaims)
 	}
 
-	return claims.(MapClaims)
+	return claims.(jwt.MapClaims)
 }
 
 // ExtractClaimsFromToken help to extract the JWT claims from token
-func ExtractClaimsFromToken(token *jwt.Token) MapClaims {
+func ExtractClaimsFromToken(token *jwt.Token) jwt.MapClaims {
 	if token == nil {
-		return make(MapClaims)
+		return make(jwt.MapClaims)
 	}
 
-	claims := MapClaims{}
-	for key, value := range token.Claims.(jwt.MapClaims) {
-		claims[key] = value
-	}
-
-	return claims
+	return token.Claims.(jwt.MapClaims)
 }
 
 // GetToken help to get the JWT token string

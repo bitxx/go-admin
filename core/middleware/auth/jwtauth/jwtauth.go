@@ -3,6 +3,7 @@ package jwtauth
 import (
 	"fmt"
 	"github.com/casbin/casbin/v2/util"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"go-admin/config/base/constant"
 	baseLang "go-admin/config/base/lang"
@@ -43,7 +44,6 @@ func (j *JwtAuth) Init() {
 		SecurityConfig: SecurityConfig{
 			DeviceCheckEnabled: config.AuthConfig.DeviceCheck,
 			TokenBlacklist:     config.AuthConfig.TokenBlacklist,
-			AllowMultiDevices:  config.AuthConfig.AllowMultiDevices,
 			MaxDevicesPerUser:  config.AuthConfig.MaxDevicesPerUser,
 		},
 	}) //TokenHeadName必须有，不能为空，否则权限识别异常
@@ -129,7 +129,7 @@ func (j *JwtAuth) AuthMiddlewareFunc() gin.HandlerFunc {
 func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data, _ := c.Get(JwtPayloadKey)
-		v := data.(MapClaims)
+		v := data.(jwt.MapClaims)
 		roleKey := v[authdto.RoleKey]
 
 		rLog := log.GetRequestLogger(c)
@@ -172,7 +172,7 @@ func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 	}
 }
 
-func PayloadFunc(data interface{}) MapClaims {
+func PayloadFunc(data interface{}) jwt.MapClaims {
 	if v, ok := data.(map[string]interface{}); ok {
 		userId, _ := v[authdto.LoginUserId]
 		roleKey, _ := v[authdto.RoleKey]
@@ -181,7 +181,7 @@ func PayloadFunc(data interface{}) MapClaims {
 		roleId, _ := v[authdto.RoleId]
 		deptId, _ := v[authdto.DeptId]
 
-		return MapClaims{
+		return jwt.MapClaims{
 			authdto.LoginUserId: userId,
 			authdto.RoleKey:     roleKey,
 			authdto.UserName:    userName,
@@ -190,7 +190,7 @@ func PayloadFunc(data interface{}) MapClaims {
 			authdto.DeptId:      deptId,
 		}
 	}
-	return MapClaims{}
+	return jwt.MapClaims{}
 }
 
 func IdentityHandler(c *gin.Context) interface{} {

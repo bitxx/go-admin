@@ -6,7 +6,6 @@ type Auth struct {
 	Secret            string
 	DeviceCheck       bool
 	TokenBlacklist    bool
-	AllowMultiDevices bool
 	MaxDevicesPerUser int
 }
 
