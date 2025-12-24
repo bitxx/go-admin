@@ -40,8 +40,8 @@ func (j *JwtAuth) Init() {
 		Unauthorized:    Unauthorized,
 		LoginResponse:   LoginResponse,
 		RefreshResponse: RefreshResponse,
-		TokenLookup:     "header: Authorization, query: token",
-		TokenHeadName:   authdto.HeaderTokenName,
+		TokenLookup:     "query: token, header: " + HeaderAuthorization,
+		TokenHeadName:   HeaderTokenName,
 		TimeFunc:        time.Now,
 		SecurityConfig: SecurityConfig{
 			DeviceCheckEnabled: config.AuthConfig.DeviceCheck,

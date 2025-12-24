@@ -21,6 +21,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const HeaderTokenName = "Bearer"
+const HeaderAuthorization = "Authorization"
+
 const JwtPayloadKey = "JWT_PAYLOAD"
 const JWTLoginPrefix = "admin:jwt"
 const JWTBlacklistPrefix = "admin:jwt:blacklist"
@@ -216,7 +219,7 @@ func New(m *GinJWTMiddleware) (*GinJWTMiddleware, error) {
 func (mw *GinJWTMiddleware) MiddlewareInit() error {
 
 	if mw.TokenLookup == "" {
-		mw.TokenLookup = "header:Authorization"
+		mw.TokenLookup = "header:" + HeaderAuthorization
 	}
 
 	if mw.SigningAlgorithm == "" {
@@ -229,7 +232,7 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 
 	mw.TokenHeadName = strings.TrimSpace(mw.TokenHeadName)
 	if len(mw.TokenHeadName) == 0 {
-		mw.TokenHeadName = authdto.HeaderTokenName
+		mw.TokenHeadName = HeaderTokenName
 	}
 
 	if mw.Authorizator == nil {
