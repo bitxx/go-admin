@@ -11,6 +11,16 @@ var Default = &response{}
 
 // Error 失败数据处理
 func Error(c *gin.Context, code int, msg string) {
+	httpCode := http.StatusBadRequest
+	if code <= 600 {
+		httpCode = code
+	}
+	ErrorByHttpCode(c, httpCode, code, msg)
+
+}
+
+// ErrorByHttpCode 自定义httpCode
+func ErrorByHttpCode(c *gin.Context, httpCode, code int, msg string) {
 	res := Default.Clone()
 	if msg != "" {
 		res.SetMsg(msg)
@@ -18,9 +28,8 @@ func Error(c *gin.Context, code int, msg string) {
 	res.SetTraceID(strutils.GenerateMsgIDFromContext(c))
 	res.SetCode(code)
 	res.SetSuccess(false)
-	httpCode := http.StatusBadRequest
-	if code <= 600 {
-		httpCode = code
+	if httpCode > 600 {
+		httpCode = http.StatusBadRequest
 	}
 	c.AbortWithStatusJSON(httpCode, res)
 }

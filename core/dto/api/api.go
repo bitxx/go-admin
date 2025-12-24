@@ -111,6 +111,11 @@ func (e *Api) Error(code int, msg string) {
 	response.Error(e.Context, code, msg)
 }
 
+// ErrorByHttpCode 通常错误数据处理
+func (e *Api) ErrorByHttpCode(httpCode, code int, msg string) {
+	response.ErrorByHttpCode(e.Context, httpCode, code, msg)
+}
+
 func (e *Api) DownloadZip(fileName string, data []byte) {
 	response.Download(e.Context, data, fileName, "application/zip")
 }
