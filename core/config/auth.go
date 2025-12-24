@@ -1,7 +1,6 @@
 package config
 
 type Auth struct {
-	Use               string
 	Timeout           int
 	Secret            string
 	DeviceCheck       bool

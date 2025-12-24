@@ -2,14 +2,7 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/core/config"
 	"go-admin/core/middleware/auth/jwtauth"
-	"go-admin/core/middleware/auth/sessionauth"
-)
-
-const (
-	AuthTypeJwt     = "jwt"
-	AuthTypeSession = "session"
 )
 
 var Auth AuthInter
@@ -31,14 +24,6 @@ type AuthInter interface {
 // InitAuth
 // @Description: 初始化
 func InitAuth() {
-	if config.AuthConfig.Use == AuthTypeJwt {
-		Auth = &jwtauth.JwtAuth{}
-		Auth.Init()
-		return
-	} else {
-		//默认使用session
-		Auth = &sessionauth.SessionAuth{}
-		Auth.Init()
-		return
-	}
+	Auth = &jwtauth.JwtAuth{}
+	Auth.Init()
 }
