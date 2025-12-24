@@ -40,7 +40,7 @@ class RequestHttp {
 				const token: string = store.getState().global.token;
 
 				if (config.headers && typeof config.headers.set === "function" && token !== undefined) {
-					config.headers.set("Authorization", token);
+					config.headers.set("Authorization", "Bearer " + token);
 				}
 				return config;
 			},
