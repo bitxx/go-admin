@@ -33,11 +33,13 @@ func (j *JwtAuth) Init() {
 		Key:             []byte(config.AuthConfig.Secret),
 		Timeout:         timeout,
 		MaxRefresh:      time.Hour,
-		PayloadFunc:     PayloadFunc,
+		Payload:         PayloadFunc,
 		IdentityHandler: IdentityHandler,
 		Authenticator:   Authenticator,
 		Authorizator:    Authorizator,
 		Unauthorized:    Unauthorized,
+		LoginResponse:   LoginResponse,
+		RefreshResponse: RefreshResponse,
 		TokenLookup:     "header: Authorization, query: token",
 		TokenHeadName:   authdto.HeaderTokenName,
 		TimeFunc:        time.Now,
@@ -57,12 +59,7 @@ func (j *JwtAuth) Login(c *gin.Context) {
 }
 
 func (j *JwtAuth) Logout(c *gin.Context) {
-	err := jwtAuthMiddleware.RevokeToken(c)
-	if err != nil {
-		response.Error(c, http.StatusUnauthorized, "")
-		return
-	}
-	c.JSON(http.StatusOK, nil)
+	jwtAuthMiddleware.LogoutHandler(c, http.StatusOK, baseLang.SuccessCode, lang.MsgByCode(baseLang.SuccessCode, lang.GetAcceptLanguage(c)))
 }
 
 func (j *JwtAuth) Get(c *gin.Context, key string) (interface{}, int, error) {
@@ -236,7 +233,8 @@ func Authorizator(data interface{}, c *gin.Context) bool {
 		}
 		roleKey, _ := v[authdto.RoleKey]
 		if roleKey != nil {
-			c.Set(authdto.RoleKey, roleKey)
+			c.Set(authdto.RoleKey,
+				roleKey)
 		}
 		roleId, _ := v[authdto.RoleId]
 		if roleId != nil {
@@ -259,10 +257,34 @@ func Authorizator(data interface{}, c *gin.Context) bool {
 	return false
 }
 
-func Unauthorized(c *gin.Context, code int, message string) {
-	resp := &authdto.Resp{
-		Msg:  message,
-		Code: code,
-	}
-	c.JSON(http.StatusOK, resp)
+func LoginResponse(c *gin.Context, code int, token string, expire time.Time) {
+	userName, _ := c.Get(authdto.UserName)
+	c.JSON(http.StatusOK, gin.H{
+		"requestId": strutils.GenerateMsgIDFromContext(c),
+		"msg":       "",
+		"code":      code,
+		"data": gin.H{
+			"token":    token,
+			"username": userName.(string),
+			"expire":   expire.Format(time.RFC3339),
+			//"userInfo": userInfo,
+		},
+	})
+}
+
+func RefreshResponse(c *gin.Context, code int, token string, expire time.Time) {
+	c.JSON(http.StatusOK, gin.H{
+		"requestId": strutils.GenerateMsgIDFromContext(c),
+		"msg":       "",
+		"code":      code,
+		"data": gin.H{
+			"token":  token,
+			"expire": expire.Format(time.RFC3339),
+		},
+	})
+}
+
+func Unauthorized(c *gin.Context, httpCode, errCode int, message string) {
+	_ = jwtAuthMiddleware.RevokeToken(c)
+	response.ErrorByHttpCode(c, httpCode, errCode, message)
 }

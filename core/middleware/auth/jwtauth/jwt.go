@@ -11,7 +11,6 @@ import (
 	"go-admin/core/utils/encrypt"
 	"go-admin/core/utils/idgen"
 	"go-admin/core/utils/log"
-	"go-admin/core/utils/strutils"
 	"net/http"
 	"os"
 	"strconv"
@@ -76,10 +75,10 @@ type GinJWTMiddleware struct {
 	// Note that the payload is not encrypted.
 	// The attributes mentioned on jwt.io can't be used as keys for the map.
 	// Optional, by default no additional data will be set.
-	PayloadFunc func(data interface{}) jwt.MapClaims
+	Payload func(data interface{}) jwt.MapClaims
 
 	// User can define own Unauthorized func.
-	Unauthorized func(*gin.Context, int, string)
+	Unauthorized func(*gin.Context, int, int, string)
 
 	// User can define own LoginResponse func.
 	LoginResponse func(*gin.Context, int, string, time.Time)
@@ -107,10 +106,6 @@ type GinJWTMiddleware struct {
 	// TimeFunc provides the current time. You can override it to use another time value. This is useful for testing or if your server uses a different time zone than your tokens.
 	TimeFunc func() time.Time
 
-	// HTTP Status messages for when something in the JWT middleware fails.
-	// Check error (e) to determine the appropriate error message.
-	HTTPStatusMessageFunc func(e error, c *gin.Context) string
-
 	// Private key file for asymmetric algorithms
 	PrivKeyFile string
 
@@ -133,8 +128,26 @@ var (
 	// ErrForbidden when HTTP status 403 is given
 	ErrForbidden = errors.New("you don't have permission to access this resource")
 
+	// ErrMissingAuthorizatorFunc indicates Authenticator is required
+	ErrMissingAuthorizatorFunc = errors.New("ginJWTMiddleware.Authorizator func is undefined")
+
 	// ErrMissingAuthenticatorFunc indicates Authenticator is required
 	ErrMissingAuthenticatorFunc = errors.New("ginJWTMiddleware.Authenticator func is undefined")
+
+	// ErrMissingUnauthorizedFunc indicates Unauthorized is required
+	ErrMissingUnauthorizedFunc = errors.New("ginJWTMiddleware.Unauthorized func is undefined")
+
+	// ErrMissingLoginResponseFunc indicates LoginResponse is required
+	ErrMissingLoginResponseFunc = errors.New("ginJWTMiddleware.LoginResponse func is undefined")
+
+	// ErrMissingPayloadFunc indicates Payload is required
+	ErrMissingPayloadFunc = errors.New("ginJWTMiddleware.Payload func is undefined")
+
+	// ErrMissingRefreshResponseFunc indicates RefreshResponse is required
+	ErrMissingRefreshResponseFunc = errors.New("ginJWTMiddleware.RefreshResponse func is undefined")
+
+	// ErrMissingIdentityHandlerFunc indicates IdentityHandler is required
+	ErrMissingIdentityHandlerFunc = errors.New("ginJWTMiddleware.IdentityHandler func is undefined")
 
 	// ErrMissingLoginValues indicates a user tried to authenticate without username or password
 	ErrMissingLoginValues = errors.New("missing Username or Password or Code")
@@ -222,66 +235,39 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 	}
 
 	if mw.Authorizator == nil {
-		mw.Authorizator = func(data interface{}, c *gin.Context) bool {
-			return true
-		}
+		return ErrMissingAuthorizatorFunc
+	}
+
+	if mw.Authenticator == nil {
+		return ErrMissingAuthenticatorFunc
 	}
 
 	if mw.Unauthorized == nil {
-		mw.Unauthorized = func(c *gin.Context, code int, message string) {
-			c.JSON(http.StatusOK, gin.H{
-				"code":    code,
-				"message": message,
-			})
-		}
+		return ErrMissingUnauthorizedFunc
 	}
 
 	if mw.LoginResponse == nil {
-		mw.LoginResponse = func(c *gin.Context, code int, token string, expire time.Time) {
-			userName, _ := c.Get(authdto.UserName)
-			c.JSON(http.StatusOK, gin.H{
-				"requestId": strutils.GenerateMsgIDFromContext(c),
-				"msg":       "",
-				"code":      http.StatusOK,
-				"data": gin.H{
-					"token":    token,
-					"username": userName.(string),
-					//"expire":   expire.Format(time.RFC3339),
-					//"userInfo": userInfo,
-				},
-			})
-		}
+		return ErrMissingLoginResponseFunc
 	}
 
 	if mw.RefreshResponse == nil {
-		mw.RefreshResponse = func(c *gin.Context, code int, token string, expire time.Time) {
-			c.JSON(http.StatusOK, gin.H{
-				"requestId": strutils.GenerateMsgIDFromContext(c),
-				"msg":       "",
-				"code":      http.StatusOK,
-				"data": gin.H{
-					"token": token,
-					//"expire": expire.Format(time.RFC3339),
-				},
-			})
-		}
+		return ErrMissingRefreshResponseFunc
+	}
+
+	if mw.IdentityHandler == nil {
+		return ErrMissingIdentityHandlerFunc
+	}
+
+	if mw.Payload == nil {
+		return ErrMissingPayloadFunc
+	}
+
+	if mw.Key == nil {
+		return ErrMissingSecretKey
 	}
 
 	if mw.IdentityKey == "" {
 		mw.IdentityKey = IdentityKey
-	}
-
-	if mw.IdentityHandler == nil {
-		mw.IdentityHandler = func(c *gin.Context) interface{} {
-			claims := ExtractClaims(c)
-			return claims
-		}
-	}
-
-	if mw.HTTPStatusMessageFunc == nil {
-		mw.HTTPStatusMessageFunc = func(e error, c *gin.Context) string {
-			return e.Error()
-		}
 	}
 
 	// 初始化安全配置，一个用户最多可登录设备数
@@ -291,10 +277,6 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 
 	if mw.usingPublicKeyAlgo() {
 		return mw.readKeys()
-	}
-
-	if mw.Key == nil {
-		return ErrMissingSecretKey
 	}
 
 	// 验证Timeout设置
@@ -412,20 +394,16 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, err
 // Payload needs to be json in the form of {"username": "USERNAME", "password": "PASSWORD"}.
 // Reply will be of the form {"token": "TOKEN"}.
 func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
-	if mw.Authenticator == nil {
-		mw.unauthorized(c, http.StatusInternalServerError, mw.HTTPStatusMessageFunc(ErrMissingAuthenticatorFunc, c))
-		return
-	}
-
+	lg := mw.getAcceptLanguage(c)
 	data, err := mw.Authenticator(c)
 	if err != nil {
-		mw.unauthorized(c, http.StatusBadRequest, mw.HTTPStatusMessageFunc(err, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
 	userID, ok := data.(map[string]interface{})[authdto.LoginUserId].(int64)
 	if !ok {
-		mw.unauthorized(c, http.StatusBadRequest, mw.HTTPStatusMessageFunc(err, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 	userIDStr := strconv.FormatInt(userID, 10)
@@ -438,8 +416,8 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 	token := jwt.New(jwt.GetSigningMethod(mw.SigningAlgorithm))
 	claims := token.Claims.(jwt.MapClaims)
 
-	if mw.PayloadFunc != nil {
-		for key, value := range mw.PayloadFunc(data) {
+	if mw.Payload != nil {
+		for key, value := range mw.Payload(data) {
 			claims[key] = value
 		}
 	}
@@ -463,7 +441,7 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 
 	tokenString, err := mw.signedString(token)
 	if err != nil {
-		mw.unauthorized(c, http.StatusInternalServerError, mw.HTTPStatusMessageFunc(ErrFailedTokenCreation, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
@@ -475,11 +453,15 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 		config.AuthConfig.Timeout,
 	)
 	if err != nil {
-		mw.unauthorized(c, http.StatusInternalServerError, mw.HTTPStatusMessageFunc(err, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
 	mw.LoginResponse(c, http.StatusOK, tokenString, expire)
+}
+
+func (mw *GinJWTMiddleware) LogoutHandler(c *gin.Context, httpCode, code int, message string) {
+	mw.Unauthorized(c, httpCode, code, message)
 }
 
 // RefreshHandler can be used to refresh a token. The token still needs to be valid on refresh.
@@ -488,7 +470,8 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 	tokenString, expire, err := mw.RefreshToken(c)
 	if err != nil {
-		mw.unauthorized(c, http.StatusUnauthorized, mw.HTTPStatusMessageFunc(err, c))
+		lg := mw.getAcceptLanguage(c)
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
@@ -600,8 +583,8 @@ func (mw *GinJWTMiddleware) TokenGenerator(data interface{}) (string, time.Time,
 	token := jwt.New(jwt.GetSigningMethod(mw.SigningAlgorithm))
 	claims := token.Claims.(jwt.MapClaims)
 
-	if mw.PayloadFunc != nil {
-		for key, value := range mw.PayloadFunc(data) {
+	if mw.Payload != nil {
+		for key, value := range mw.Payload(data) {
 			claims[key] = value
 		}
 	}
@@ -665,23 +648,25 @@ func (mw *GinJWTMiddleware) usingPublicKeyAlgo() bool {
 }
 
 func (mw *GinJWTMiddleware) middlewareImpl(c *gin.Context) {
+	lg := mw.getAcceptLanguage(c)
+
 	claims, err := mw.GetClaimsFromJWT(c)
 	if err != nil {
-		mw.unauthorized(c, http.StatusUnauthorized, mw.HTTPStatusMessageFunc(err, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
 	if claims["exp"] == nil {
-		mw.unauthorized(c, http.StatusBadRequest, mw.HTTPStatusMessageFunc(ErrMissingExpField, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
 	if _, ok := claims["exp"].(float64); !ok {
-		mw.unauthorized(c, http.StatusBadRequest, mw.HTTPStatusMessageFunc(ErrWrongFormatOfExp, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 	if int64(claims["exp"].(float64)) < mw.TimeFunc().Unix() {
-		mw.unauthorized(c, http.StatusUnauthorized, mw.HTTPStatusMessageFunc(ErrExpiredToken, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
@@ -693,7 +678,7 @@ func (mw *GinJWTMiddleware) middlewareImpl(c *gin.Context) {
 	}
 
 	if !mw.Authorizator(identity, c) {
-		mw.unauthorized(c, http.StatusForbidden, mw.HTTPStatusMessageFunc(ErrForbidden, c))
+		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
 
@@ -1032,14 +1017,9 @@ func (mw *GinJWTMiddleware) parseTokenString(token string) (*jwt.Token, error) {
 	})
 }
 
-func (mw *GinJWTMiddleware) unauthorized(c *gin.Context, code int, message string) {
+func (mw *GinJWTMiddleware) unauthorized(c *gin.Context, httpCode, code int, message string) {
 	c.Abort()
-	msg := lang.MsgByCode(code, mw.getAcceptLanguage(c))
-	if msg != "" {
-		message = msg
-	}
-
-	mw.Unauthorized(c, code, message)
+	mw.LogoutHandler(c, httpCode, code, message)
 }
 
 // getAcceptLanguage 获取当前语言

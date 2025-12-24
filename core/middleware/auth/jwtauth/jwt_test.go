@@ -45,7 +45,7 @@ func createTestMiddleware(t *testing.T) *GinJWTMiddleware {
 		Key:        []byte(testConfig.secret),
 		Timeout:    testConfig.timeout,
 		MaxRefresh: time.Hour,
-		PayloadFunc: func(data interface{}) MapClaims {
+		Payload: func(data interface{}) MapClaims {
 			if v, ok := data.(map[string]interface{}); ok {
 				return MapClaims{
 					authdto.LoginUserId: v[authdto.LoginUserId],
