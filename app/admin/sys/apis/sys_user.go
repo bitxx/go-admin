@@ -433,6 +433,7 @@ func (e SysUser) LogOut(c *gin.Context) {
 		e.Error(rCode, err.Error())
 		return
 	}
+	auth.Auth.Logout(c)
 	s.LoginLogToDB(c, constant.UserLogoutStatus, lang.MsgByCode(baseLang.SysUseLoginOpCode, e.Lang), uid)
 
 	e.OK(nil, lang.MsgByCode(baseLang.SysUseLogoutSuccessCode, e.Lang))
