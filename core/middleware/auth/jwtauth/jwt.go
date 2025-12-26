@@ -42,7 +42,6 @@ type SecurityConfig struct {
 // GinJWTMiddleware provides a Json-Web-Token authentication implementation. On failure, a 401 HTTP response
 // is returned. On success, the wrapped middleware is called, and the userID is made available as
 // c.GetArticle("userID").(string).
-// Users can get a token by posting a json request to LoginHandler. The token then needs to be passed in
 // the Authentication header. Example: Authorization XXX_TOKEN_XXX
 type GinJWTMiddleware struct {
 
@@ -301,6 +300,7 @@ func (mw *GinJWTMiddleware) MiddlewareFunc() gin.HandlerFunc {
 
 // GetClaimsFromJWT get claims from JWT token
 func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, error) {
+	lg := lang.GetAcceptLanguage(c)
 	token, tokenStr, err := mw.parseToken(c)
 	if err != nil {
 		return nil, err
@@ -310,7 +310,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, err
 	// get user id
 	userID, ok := claims[authdto.LoginUserId].(float64)
 	if !ok {
-		return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+		return nil, lang.MsgErr(baseLang.AuthErr, lg)
 	}
 	userIDStr := strconv.FormatInt(int64(userID), 10)
 
@@ -320,7 +320,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, err
 		if savedToken != tokenStr {
 			// 当前token不是最新的，说明用户在其他地方登录了
 			mw.logSecurityEvent(c, "single_login_violation", userID)
-			return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+			return nil, lang.MsgErr(baseLang.AuthErr, lg)
 		}
 	}
 
@@ -331,7 +331,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, err
 			isBlacklisted := mw.getCacheString(JWTBlacklistPrefix, tokenID)
 			if isBlacklisted != "" {
 				mw.logSecurityEvent(c, "blacklisted_token_used", userID)
-				return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+				return nil, lang.MsgErr(baseLang.AuthErr, lg)
 			}
 		}
 	}
@@ -342,7 +342,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, err
 		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
 		if currentDeviceFP == "" || savedDeviceFP == "" || !ok || currentDeviceFP != savedDeviceFP {
 			mw.logSecurityEvent(c, "device_fingerprint_err", userID)
-			return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+			return nil, lang.MsgErr(baseLang.AuthErr, lg)
 		}
 
 		// 获取设备列表
@@ -369,7 +369,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, err
 				if len(deviceList) >= mw.SecurityConfig.MaxDevicesPerUser {
 					// 设备数已达上限
 					mw.logSecurityEvent(c, "too_many_devices", userID)
-					return nil, lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+					return nil, lang.MsgErr(baseLang.AuthErr, lg)
 				}
 				// 添加新设备到列表
 				deviceList = append(deviceList, currentDeviceFP)
@@ -391,87 +391,13 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (jwt.MapClaims, err
 	return claims, nil
 }
 
-// LoginHandler can be used by clients to get a jwt token.
-// Payload needs to be json in the form of {"username": "USERNAME", "password": "PASSWORD"}.
-// Reply will be of the form {"token": "TOKEN"}.
-func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
-	lg := mw.getAcceptLanguage(c)
-	data, err := mw.Authenticator(c)
-	if err != nil {
-		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
-		return
-	}
-
-	userID, ok := data.(map[string]interface{})[authdto.LoginUserId].(int64)
-	if !ok {
-		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
-		return
-	}
-	userIDStr := strconv.FormatInt(userID, 10)
-
-	if config.ApplicationConfig.IsSingleLogin {
-		runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userIDStr)
-	}
-
-	// Create the token
-	token := jwt.New(jwt.GetSigningMethod(mw.SigningAlgorithm))
-	claims := token.Claims.(jwt.MapClaims)
-
-	if mw.Payload != nil {
-		for key, value := range mw.Payload(data) {
-			claims[key] = value
-		}
-	}
-
-	expire := mw.TimeFunc().Add(mw.Timeout)
-	claims["exp"] = expire.Unix()
-	claims["orig_iat"] = mw.TimeFunc().Unix()
-	// 生成Token唯一ID
-	claims[TokenID] = idgen.UUID()
-
-	// 添加设备信息
-	if mw.SecurityConfig.DeviceCheckEnabled {
-		deviceFP := mw.extractDeviceFingerprint(c)
-		claims[DeviceFingerprint] = deviceFP
-		claims[LoginIP] = c.ClientIP()
-		claims[ClientInfo] = c.Request.UserAgent()
-
-		// 记录设备
-		mw.recordDevice(userID, deviceFP)
-	}
-
-	tokenString, err := mw.signedString(token)
-	if err != nil {
-		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
-		return
-	}
-
-	// set
-	err = runtime.RuntimeConfig.GetCacheAdapter().Set(
-		JWTLoginPrefix,
-		userIDStr,
-		tokenString,
-		config.AuthConfig.Timeout,
-	)
-	if err != nil {
-		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
-		return
-	}
-
-	mw.LoginResponse(c, http.StatusOK, tokenString, expire)
-}
-
-func (mw *GinJWTMiddleware) LogoutHandler(c *gin.Context, httpCode, code int, message string) {
-	mw.Unauthorized(c, httpCode, code, message)
-}
-
 // RefreshHandler can be used to refresh a token. The token still needs to be valid on refresh.
 // Shall be put under an endpoint that is using the GinJWTMiddleware.
 // Reply will be of the form {"token": "TOKEN"}.
 func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 	tokenString, expire, err := mw.RefreshToken(c)
 	if err != nil {
-		lg := mw.getAcceptLanguage(c)
+		lg := lang.GetAcceptLanguage(c)
 		mw.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
 		return
 	}
@@ -481,6 +407,7 @@ func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 
 // RefreshToken refresh token and check if token is expired
 func (mw *GinJWTMiddleware) RefreshToken(c *gin.Context) (string, time.Time, error) {
+	lg := lang.GetAcceptLanguage(c)
 	// 获取当前请求的token字符串
 	_, tokenStr, parseErr := mw.parseToken(c)
 	if parseErr != nil {
@@ -499,7 +426,7 @@ func (mw *GinJWTMiddleware) RefreshToken(c *gin.Context) (string, time.Time, err
 			savedToken := mw.getCacheString(JWTLoginPrefix, userIDStr)
 			if savedToken != tokenStr {
 				// token已失效（被新登录踢掉）
-				return "", time.Now(), lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+				return "", time.Now(), lang.MsgErr(baseLang.AuthErr, lg)
 			}
 		}
 	}
@@ -510,7 +437,7 @@ func (mw *GinJWTMiddleware) RefreshToken(c *gin.Context) (string, time.Time, err
 		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
 		if currentDeviceFP == "" || savedDeviceFP == "" || !ok || currentDeviceFP != savedDeviceFP {
 			mw.logSecurityEvent(c, "device_fingerprint_err", "")
-			return "", time.Now(), lang.MsgErr(baseLang.AuthErr, mw.getAcceptLanguage(c))
+			return "", time.Now(), lang.MsgErr(baseLang.AuthErr, lg)
 		}
 	}
 
@@ -602,6 +529,93 @@ func (mw *GinJWTMiddleware) TokenGenerator(data interface{}) (string, time.Time,
 	return tokenString, expire, nil
 }
 
+// RevokeToken 撤销Token
+func (mw *GinJWTMiddleware) RevokeToken(c *gin.Context) error {
+	claims, err := mw.GetClaimsFromJWT(c)
+	if err != nil {
+		return err
+	}
+
+	// 获取用户ID
+	userID, ok := claims[authdto.LoginUserId].(float64)
+	if !ok {
+		return errors.New("invalid user id in token")
+	}
+	userIDStr := strconv.FormatInt(int64(userID), 10)
+
+	// 1. 清除单点登录缓存
+	runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userIDStr)
+
+	// 2. 将token加入黑名单
+	if mw.SecurityConfig.TokenBlacklist {
+		tokenID, ok := claims[TokenID].(string)
+		if ok && tokenID != "" {
+			// 黑名单有效期比token短
+			blacklistTTL := mw.Timeout
+			exp, ok := claims["exp"].(float64)
+			if ok {
+				expireTime := time.Unix(int64(exp), 0)
+				remaining := time.Until(expireTime)
+				if remaining > 0 {
+					// 使用剩余时间 + 缓冲（如5分钟）
+					blacklistTTL = remaining + time.Minute*5
+				}
+			}
+
+			runtime.RuntimeConfig.GetCacheAdapter().Set(
+				JWTBlacklistPrefix,
+				tokenID,
+				"1",
+				int(blacklistTTL.Seconds()),
+			)
+		}
+	}
+
+	// 3. 清除设备记录中的当前设备
+	if mw.SecurityConfig.DeviceCheckEnabled {
+		currentDeviceFP := mw.extractDeviceFingerprint(c)
+		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
+
+		if ok && currentDeviceFP != "" && savedDeviceFP != "" && currentDeviceFP == savedDeviceFP {
+			mw.removeDevice(userIDStr, currentDeviceFP)
+		}
+	}
+
+	return nil
+}
+
+// ExtractClaims help to extract the JWT claims
+func ExtractClaims(c *gin.Context) jwt.MapClaims {
+	claims, exists := c.Get(JwtPayloadKey)
+	if !exists {
+		return make(jwt.MapClaims)
+	}
+
+	return claims.(jwt.MapClaims)
+}
+
+// GetUserDevices 获取用户的所有设备
+func (mw *GinJWTMiddleware) GetUserDevices(userID string) []string {
+	devices := mw.getCacheString(JWTDevicesPrefix, userID)
+	if devices == "" {
+		return []string{}
+	}
+
+	return strings.Split(devices, ",")
+}
+
+// RevokeUserAllTokens 撤销用户的所有Token
+func (mw *GinJWTMiddleware) RevokeUserAllTokens(userID string) {
+	// 1. 清除单点登录缓存
+	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userID)
+
+	// 2. 清除设备记录
+	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTDevicesPrefix, userID)
+
+	// 3. 清除活动记录
+	_ = runtime.RuntimeConfig.GetCacheAdapter().Del("admin:jwt:activity", userID)
+}
+
 func (mw *GinJWTMiddleware) readKeys() error {
 	err := mw.privateKey()
 	if err != nil {
@@ -649,7 +663,7 @@ func (mw *GinJWTMiddleware) usingPublicKeyAlgo() bool {
 }
 
 func (mw *GinJWTMiddleware) middlewareImpl(c *gin.Context) {
-	lg := mw.getAcceptLanguage(c)
+	lg := lang.GetAcceptLanguage(c)
 
 	claims, err := mw.GetClaimsFromJWT(c)
 	if err != nil {
@@ -773,90 +787,6 @@ func (mw *GinJWTMiddleware) recordDevice(userID int64, deviceFP string) {
 	}
 }
 
-// RevokeToken 撤销Token
-func (mw *GinJWTMiddleware) RevokeToken(c *gin.Context) error {
-	claims, err := mw.GetClaimsFromJWT(c)
-	if err != nil {
-		return err
-	}
-
-	// 获取用户ID
-	userID, ok := claims[authdto.LoginUserId].(float64)
-	if !ok {
-		return errors.New("invalid user id in token")
-	}
-	userIDStr := strconv.FormatInt(int64(userID), 10)
-
-	// 1. 清除单点登录缓存
-	runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userIDStr)
-
-	// 2. 将token加入黑名单
-	if mw.SecurityConfig.TokenBlacklist {
-		tokenID, ok := claims[TokenID].(string)
-		if ok && tokenID != "" {
-			// 黑名单有效期比token短
-			blacklistTTL := mw.Timeout
-			exp, ok := claims["exp"].(float64)
-			if ok {
-				expireTime := time.Unix(int64(exp), 0)
-				remaining := time.Until(expireTime)
-				if remaining > 0 {
-					// 使用剩余时间 + 缓冲（如5分钟）
-					blacklistTTL = remaining + time.Minute*5
-				}
-			}
-
-			runtime.RuntimeConfig.GetCacheAdapter().Set(
-				JWTBlacklistPrefix,
-				tokenID,
-				"1",
-				int(blacklistTTL.Seconds()),
-			)
-		}
-	}
-
-	// 3. 清除设备记录中的当前设备
-	if mw.SecurityConfig.DeviceCheckEnabled {
-		currentDeviceFP := mw.extractDeviceFingerprint(c)
-		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
-
-		if ok && currentDeviceFP != "" && savedDeviceFP != "" && currentDeviceFP == savedDeviceFP {
-			mw.removeDevice(userIDStr, currentDeviceFP)
-		}
-	}
-
-	return nil
-}
-
-// ExtractClaims help to extract the JWT claims
-func ExtractClaims(c *gin.Context) jwt.MapClaims {
-	claims, exists := c.Get(JwtPayloadKey)
-	if !exists {
-		return make(jwt.MapClaims)
-	}
-
-	return claims.(jwt.MapClaims)
-}
-
-// ExtractClaimsFromToken help to extract the JWT claims from token
-func ExtractClaimsFromToken(token *jwt.Token) jwt.MapClaims {
-	if token == nil {
-		return make(jwt.MapClaims)
-	}
-
-	return token.Claims.(jwt.MapClaims)
-}
-
-// GetToken help to get the JWT token string
-func GetToken(c *gin.Context) string {
-	token, exists := c.Get("JWT_TOKEN")
-	if !exists {
-		return ""
-	}
-
-	return token.(string)
-}
-
 // updateLastActivity 更新最后活动时间
 func (mw *GinJWTMiddleware) updateLastActivity(userID string) {
 	// 可以记录用户最后活动时间，用于会话管理
@@ -894,30 +824,6 @@ func (mw *GinJWTMiddleware) removeDevice(userID string, deviceFP string) {
 	} else {
 		runtime.RuntimeConfig.GetCacheAdapter().Del(JWTDevicesPrefix, userID)
 	}
-}
-
-// GetUserDevices 获取用户的所有设备
-func (mw *GinJWTMiddleware) GetUserDevices(userID string) []string {
-	devices := mw.getCacheString(JWTDevicesPrefix, userID)
-	if devices == "" {
-		return []string{}
-	}
-
-	return strings.Split(devices, ",")
-}
-
-// RevokeUserAllTokens 撤销用户的所有Token
-func (mw *GinJWTMiddleware) RevokeUserAllTokens(userID string) error {
-	// 1. 清除单点登录缓存
-	runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userID)
-
-	// 2. 清除设备记录
-	runtime.RuntimeConfig.GetCacheAdapter().Del(JWTDevicesPrefix, userID)
-
-	// 3. 清除活动记录
-	runtime.RuntimeConfig.GetCacheAdapter().Del("admin:jwt:activity", userID)
-
-	return nil
 }
 
 func (mw *GinJWTMiddleware) jwtFromHeader(c *gin.Context, key string) (string, error) {
@@ -1002,32 +908,9 @@ func (mw *GinJWTMiddleware) parseToken(c *gin.Context) (*jwt.Token, string, erro
 	return tk, token, nil
 }
 
-// parseTokenString parse jwt token string
-func (mw *GinJWTMiddleware) parseTokenString(token string) (*jwt.Token, error) {
-	return jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
-		if jwt.GetSigningMethod(mw.SigningAlgorithm) != t.Method {
-			return nil, ErrInvalidSigningAlgorithm
-		}
-		if mw.usingPublicKeyAlgo() {
-			return mw.pubKey, nil
-		}
-
-		return mw.Key, nil
-	})
-}
-
 func (mw *GinJWTMiddleware) unauthorized(c *gin.Context, httpCode, code int, message string) {
 	c.Abort()
-	mw.LogoutHandler(c, httpCode, code, message)
-}
-
-// getAcceptLanguage 获取当前语言
-func (mw *GinJWTMiddleware) getAcceptLanguage(c *gin.Context) string {
-	languages := lang.ParseAcceptLanguage(c.GetHeader("Accept-Language"), nil)
-	if len(languages) == 0 {
-		return "zh-CN"
-	}
-	return languages[0]
+	mw.Unauthorized(c, httpCode, code, message)
 }
 
 func (mw *GinJWTMiddleware) getCacheString(prefix, key string) string {

@@ -13,9 +13,11 @@ import (
 	"go-admin/core/middleware/auth/authdto"
 	"go-admin/core/middleware/auth/casbin"
 	"go-admin/core/runtime"
+	"go-admin/core/utils/idgen"
 	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -55,11 +57,74 @@ func (j *JwtAuth) Init() {
 }
 
 func (j *JwtAuth) Login(c *gin.Context) {
-	jwtAuthMiddleware.LoginHandler(c)
+	lg := lang.GetAcceptLanguage(c)
+	data, err := jwtAuthMiddleware.Authenticator(c)
+	if err != nil {
+		jwtAuthMiddleware.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
+		return
+	}
+
+	userID, ok := data.(map[string]interface{})[authdto.LoginUserId].(int64)
+	if !ok {
+		jwtAuthMiddleware.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
+		return
+	}
+	userIDStr := strconv.FormatInt(userID, 10)
+
+	if config.ApplicationConfig.IsSingleLogin {
+		_ = jwtAuthMiddleware.RevokeToken(c)
+	}
+
+	// Create the token
+	token := jwt.New(jwt.GetSigningMethod(jwtAuthMiddleware.SigningAlgorithm))
+	claims := token.Claims.(jwt.MapClaims)
+
+	if jwtAuthMiddleware.Payload != nil {
+		for key, value := range jwtAuthMiddleware.Payload(data) {
+			claims[key] = value
+		}
+	}
+
+	expire := jwtAuthMiddleware.TimeFunc().Add(jwtAuthMiddleware.Timeout)
+	claims["exp"] = expire.Unix()
+	claims["orig_iat"] = jwtAuthMiddleware.TimeFunc().Unix()
+	// 生成Token唯一ID
+	claims[TokenID] = idgen.UUID()
+
+	// 添加设备信息
+	if jwtAuthMiddleware.SecurityConfig.DeviceCheckEnabled {
+		deviceFP := jwtAuthMiddleware.extractDeviceFingerprint(c)
+		claims[DeviceFingerprint] = deviceFP
+		claims[LoginIP] = c.ClientIP()
+		claims[ClientInfo] = c.Request.UserAgent()
+
+		// 记录设备
+		jwtAuthMiddleware.recordDevice(userID, deviceFP)
+	}
+
+	tokenString, err := jwtAuthMiddleware.signedString(token)
+	if err != nil {
+		jwtAuthMiddleware.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
+		return
+	}
+
+	// set
+	err = runtime.RuntimeConfig.GetCacheAdapter().Set(
+		JWTLoginPrefix,
+		userIDStr,
+		tokenString,
+		config.AuthConfig.Timeout,
+	)
+	if err != nil {
+		jwtAuthMiddleware.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
+		return
+	}
+
+	jwtAuthMiddleware.LoginResponse(c, http.StatusOK, tokenString, expire)
 }
 
 func (j *JwtAuth) Logout(c *gin.Context) {
-	jwtAuthMiddleware.LogoutHandler(c, http.StatusOK, baseLang.SuccessCode, lang.MsgByCode(baseLang.SuccessCode, lang.GetAcceptLanguage(c)))
+	jwtAuthMiddleware.Unauthorized(c, http.StatusOK, baseLang.SuccessCode, lang.MsgByCode(baseLang.SuccessCode, lang.GetAcceptLanguage(c)))
 }
 
 func (j *JwtAuth) Get(c *gin.Context, key string) (interface{}, int, error) {
