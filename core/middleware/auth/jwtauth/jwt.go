@@ -795,17 +795,15 @@ func (mw *GinJWTMiddleware) RevokeToken(c *gin.Context) error {
 		tokenID, ok := claims[TokenID].(string)
 		if ok && tokenID != "" {
 			// 黑名单有效期比token短
-			blacklistTTL := mw.Timeout / 2
+			blacklistTTL := mw.Timeout
 			exp, ok := claims["exp"].(float64)
 			if ok {
 				expireTime := time.Unix(int64(exp), 0)
 				remaining := time.Until(expireTime)
 				if remaining > 0 {
-					blacklistTTL = remaining / 2
+					// 使用剩余时间 + 缓冲（如5分钟）
+					blacklistTTL = remaining + time.Minute*5
 				}
-			}
-			if blacklistTTL < time.Minute*5 {
-				blacklistTTL = time.Minute * 5
 			}
 
 			runtime.RuntimeConfig.GetCacheAdapter().Set(
