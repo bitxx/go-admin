@@ -95,7 +95,6 @@ func (j *JwtAuth) Login(c *gin.Context) {
 
 func (j *JwtAuth) Logout(c *gin.Context) {
 	j.ginJwtMiddleware.LogoutHandler(c)
-	Unauthorized(c, http.StatusOK, strconv.Itoa(baseLang.SuccessCode)+"_"+lang.MsgByCode(baseLang.SuccessCode, lang.GetAcceptLanguage(c)))
 }
 
 // RevokeToken 撤销Token
@@ -645,7 +644,8 @@ func LoginResponse(c *gin.Context, token *core.Token) {
 }
 
 func LogoutResponse(c *gin.Context) {
-	c.JSON(http.StatusOK, nil)
+	_, _ = jwtAuth.RevokeToken(c)
+	response.OK(c, nil, baseLang.SysUseLogoutSuccessCode, lang.MsgByCode(baseLang.SysUseLogoutSuccessCode, lang.GetAcceptLanguage(c)))
 }
 
 func RefreshResponse(c *gin.Context, token *core.Token) {
@@ -670,7 +670,6 @@ func Unauthorized(c *gin.Context, httpCode int, message string) {
 			errCode = int(code)
 			message = temp[1]
 		}
-
 	}
 	response.ErrorByHttpCode(c, httpCode, errCode, message)
 }
