@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/core/middleware/auth/jwtauth"
+	"go-admin/core/middleware/auth/jwtauth/test"
 	"go-admin/core/runtime"
 )
 
@@ -27,7 +27,7 @@ func InitMiddleware(r *gin.Engine) {
 	r.Use(Secure)
 	// 链路追踪
 	r.Use(Trace())
-	runtime.RuntimeConfig.SetMiddleware(JwtTokenCheck, (*jwtauth.GinJWTMiddleware).MiddlewareFunc)
+	runtime.RuntimeConfig.SetMiddleware(JwtTokenCheck, (*test.GinJWTMiddleware).MiddlewareFunc)
 	runtime.RuntimeConfig.SetMiddleware(RoleCheck, AuthCheckRole())
 	runtime.RuntimeConfig.SetMiddleware(PermissionCheck, PermissionAction())
 }

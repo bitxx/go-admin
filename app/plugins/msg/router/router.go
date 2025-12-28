@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-admin/core/global"
 	"go-admin/core/runtime"
-	"go-admin/core/utils/log"
 )
 
 var (
@@ -17,13 +16,13 @@ func InitRouter() {
 	var r *gin.Engine
 	h := runtime.RuntimeConfig.GetEngine()
 	if h == nil {
-		log.Fatal("not found engine...")
+		panic("not found engine...")
 	}
 	switch h.(type) {
 	case *gin.Engine:
 		r = h.(*gin.Engine)
 	default:
-		log.Fatal("not support other engine")
+		panic("not support other engine")
 	}
 
 	// 无需认证的路由

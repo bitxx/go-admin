@@ -8,9 +8,9 @@
 package locker
 
 import (
+	"fmt"
 	"go-admin/core/config"
 	"go-admin/core/runtime"
-	"go-admin/core/utils/log"
 )
 
 // Setup 配置storage组件
@@ -19,7 +19,7 @@ func Setup() {
 	if !config.LockerConfig.Empty() {
 		lockerAdapter, err := config.LockerConfig.Setup()
 		if err != nil {
-			log.Fatalf("locker setup error, %s\n", err.Error())
+			panic(fmt.Sprintf("locker setup error, %s\n", err.Error()))
 		}
 		runtime.RuntimeConfig.SetLockerAdapter(lockerAdapter)
 	}

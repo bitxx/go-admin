@@ -8,9 +8,9 @@
 package queue
 
 import (
+	"fmt"
 	"go-admin/core/config"
 	"go-admin/core/runtime"
-	"go-admin/core/utils/log"
 )
 
 // Setup 配置队列组件
@@ -21,7 +21,7 @@ func Setup() {
 		}
 		queueAdapter, err := config.QueueConfig.Setup()
 		if err != nil {
-			log.Fatalf("queue setup error, %s\n", err.Error())
+			panic(fmt.Sprintf("queue setup error, %s\n", err.Error()))
 		}
 		runtime.RuntimeConfig.SetQueueAdapter(queueAdapter)
 		defer func() {

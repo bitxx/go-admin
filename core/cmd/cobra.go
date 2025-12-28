@@ -2,11 +2,9 @@ package cmd
 
 import (
 	"errors"
+	"github.com/spf13/cobra"
 	"go-admin/core/cmd/api"
 	"go-admin/core/utils/textutils"
-	"os"
-
-	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
@@ -29,6 +27,6 @@ func init() {
 // Execute : apply commands
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		os.Exit(-1)
+		panic(err)
 	}
 }

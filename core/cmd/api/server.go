@@ -159,7 +159,7 @@ func initRouter() {
 	}
 	r, ok := h.(*gin.Engine)
 	if !ok {
-		log.Fatal("not support other engine")
+		panic("not support other engine")
 	}
 	//r.Use(middleware.Metrics())
 	r.Use(middleware.RequestId()).Use(log.SetRequestLogger)

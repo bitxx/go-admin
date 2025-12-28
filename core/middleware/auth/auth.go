@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-admin/core/middleware/auth/jwtauth"
 )
@@ -8,7 +9,7 @@ import (
 var Auth AuthInter
 
 type AuthInter interface {
-	Init()
+	Init() error
 	Login(c *gin.Context)
 	Logout(c *gin.Context)
 	Get(c *gin.Context, key string) (interface{}, int, error)
@@ -25,5 +26,8 @@ type AuthInter interface {
 // @Description: 初始化
 func InitAuth() {
 	Auth = &jwtauth.JwtAuth{}
-	Auth.Init()
+	err := Auth.Init()
+	if err != nil {
+		panic(fmt.Sprintf("auth Init Error, %s", err.Error()))
+	}
 }
