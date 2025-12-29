@@ -9,7 +9,6 @@ import (
 var Auth AuthInter
 
 type AuthInter interface {
-	Init() error
 	Login(c *gin.Context)
 	Logout(c *gin.Context)
 	Get(c *gin.Context, key string) (interface{}, int, error)
@@ -25,9 +24,9 @@ type AuthInter interface {
 // InitAuth
 // @Description: 初始化
 func InitAuth() {
-	Auth = &jwtauth.JwtAuth{}
-	err := Auth.Init()
+	auth, err := jwtauth.NewJwtAuth()
 	if err != nil {
 		panic(fmt.Sprintf("auth Init Error, %s", err.Error()))
 	}
+	Auth = auth
 }

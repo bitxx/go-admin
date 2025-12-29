@@ -3,9 +3,9 @@ package config
 type Auth struct {
 	Timeout           int
 	Secret            string
-	DeviceCheck       bool
-	TokenBlacklist    bool
-	MaxDevicesPerUser int
+	EnableDeviceCheck bool
+	EnableBlacklist   bool
+	MaxDeviceCount    int
 }
 
 var AuthConfig = new(Auth)

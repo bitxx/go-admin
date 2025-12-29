@@ -17,7 +17,7 @@ settings:
     # file根目录地址，不能是static，不能以./或/开头，只可输入：英文和/
     fileRootPath: files/
     # 是否单点登录
-    isSingleLogin: true
+    isSingleLogin: false
     # 用于从restapi获取定位信息，方便定位每个登录用户的具体信息，若不配置，则相关信息返回空
     ampKey: ---
   logger:
@@ -39,11 +39,11 @@ settings:
     # token 密钥，包括aes密钥共用，生产环境需修改，为确保兼容，长度需要为16、24、32字节
     secret: admin-api-20231019-jason
     # 是否进行设备检查
-    deviceCheck: true
+    enableDeviceCheck: true
     # 是否开启黑名单
-    tokenBlacklist: true
-    # 最多允许几台设备登录，需deviceCheck开启
-    maxDevicesPerUser: 2
+    enableBlacklist: true
+    # 最多允许几台设备登录，需enableDeviceCheck开启
+    maxDeviceCount: 2
   database:
     # 目前支持：mysql postgres
     driver: mysql

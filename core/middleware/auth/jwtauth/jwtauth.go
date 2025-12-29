@@ -16,6 +16,7 @@ import (
 	"go-admin/core/middleware/auth/casbin"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/encrypt"
+	"go-admin/core/utils/idgen"
 	"go-admin/core/utils/log"
 	"go-admin/core/utils/strutils"
 	"net/http"
@@ -28,78 +29,126 @@ const JwtPayloadKey = "JWT_PAYLOAD"
 const JWTLoginPrefix = "admin:jwt"
 const JWTBlacklistPrefix = "admin:jwt:blacklist"
 const JWTDevicesPrefix = "admin:jwt:devices"
-const DeviceFingerprint = "dev_fp"
-const TokenID = "jti"
+const JWTActivityPrefix = "admin:jwt:activity"
+const JTI = "jti"
+const EXP = "exp"
 
-type SecurityConfig struct {
-	DeviceCheckEnabled bool // 设备检查
-	TokenBlacklist     bool // Token黑名单
-	MaxDevicesPerUser  int  // 每个用户最大设备数
-}
 type JwtAuth struct {
-	ginJwtMiddleware *jwt.GinJWTMiddleware
-	securityConfig   SecurityConfig
+	mw                *jwt.GinJWTMiddleware
+	enableDeviceCheck bool
+	enableBlacklist   bool
+	maxDevices        int
 }
 
-var jwtAuth JwtAuth
-
-func (j *JwtAuth) Init() error {
-	timeout := time.Hour
-	if config.AuthConfig.Timeout != 0 {
-		timeout = time.Duration(config.AuthConfig.Timeout) * time.Second
+func NewJwtAuth() (*JwtAuth, error) {
+	if config.AuthConfig.Secret == "" {
+		return nil, errors.New("jwt secret is required")
 	}
 
-	ginJwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
+	timeout := time.Duration(config.AuthConfig.Timeout) * time.Second
+	if timeout <= 0 {
+		timeout = time.Hour
+	}
+
+	jwtAuth := &JwtAuth{
+		enableDeviceCheck: config.AuthConfig.EnableDeviceCheck,
+		enableBlacklist:   config.AuthConfig.EnableBlacklist,
+		maxDevices:        max(1, config.AuthConfig.MaxDeviceCount),
+	}
+
+	mw, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:            config.ApplicationConfig.Name,
 		SigningAlgorithm: "HS256",
 		Key:              []byte(config.AuthConfig.Secret),
 		Timeout:          timeout,
-		MaxRefresh:       time.Hour,
-		Authenticator:    Authenticator,
-		Authorizer:       Authorizer,
-		Unauthorized:     Unauthorized,
-		LoginResponse:    LoginResponse,
-		LogoutResponse:   LogoutResponse,
-		RefreshResponse:  RefreshResponse,
-		PayloadFunc:      PayloadFunc,
-		IdentityHandler:  IdentityHandler,
-		IdentityKey:      authdto.LoginUserId,
-		TokenLookup:      "header: Authorization, query: token, cookie: jwt",
-		TokenHeadName:    "Bearer",
-		SendCookie:       true,
-		TimeFunc:         time.Now,
+		MaxRefresh:       timeout,
+
+		IdentityKey:     authdto.LoginUserId,
+		Authenticator:   jwtAuth.Authenticator,
+		Authorizer:      jwtAuth.Authorizer,
+		PayloadFunc:     jwtAuth.PayloadFunc,
+		IdentityHandler: jwtAuth.IdentityHandler,
+
+		LoginResponse:   jwtAuth.LoginResponse,
+		LogoutResponse:  jwtAuth.LogoutResponse,
+		RefreshResponse: jwtAuth.RefreshResponse,
+		Unauthorized:    jwtAuth.Unauthorized,
+
+		TokenLookup:   "header: Authorization, query: token, cookie: jwt",
+		TokenHeadName: "Bearer",
+		SendCookie:    false,
+		TimeFunc:      time.Now,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	securityConfig := SecurityConfig{
-		DeviceCheckEnabled: config.AuthConfig.DeviceCheck,
-		TokenBlacklist:     config.AuthConfig.TokenBlacklist,
-		MaxDevicesPerUser:  config.AuthConfig.MaxDevicesPerUser,
-	}
-
-	if securityConfig.MaxDevicesPerUser <= 0 {
-		securityConfig.MaxDevicesPerUser = 5
-	}
-	jwtAuth = JwtAuth{
-		ginJwtMiddleware: ginJwtMiddleware,
-		securityConfig:   securityConfig,
-	}
-	return err
+	jwtAuth.mw = mw
+	return jwtAuth, nil
 }
 
 func (j *JwtAuth) Login(c *gin.Context) {
-	j.ginJwtMiddleware.LoginHandler(c)
+	j.mw.LoginHandler(c)
 }
 
 func (j *JwtAuth) Logout(c *gin.Context) {
-	j.ginJwtMiddleware.LogoutHandler(c)
+	j.mw.LogoutHandler(c)
+}
+
+func (j *JwtAuth) LoginResponse(c *gin.Context, token *core.Token) {
+	lg := lang.GetAcceptLanguage(c)
+	userID := c.GetInt64(authdto.LoginUserId)
+	userIDStr := strconv.FormatInt(userID, 10)
+
+	if config.ApplicationConfig.IsSingleLogin {
+		j.RevokeAllTokens(userIDStr)
+	}
+
+	// 添加设备信息
+	if j.enableDeviceCheck {
+		deviceFP := j.extractDeviceFingerprint(c)
+		// 记录设备
+		if deviceFP == "" {
+			log.GetRequestLogger(c).Warn("device fingerprint empty")
+		} else {
+			j.recordDevice(userID, deviceFP)
+		}
+	}
+
+	// set 用于单点登录，更新登录信息
+	err := runtime.RuntimeConfig.GetCacheAdapter().Set(
+		JWTLoginPrefix,
+		userIDStr,
+		token.AccessToken,
+		config.AuthConfig.Timeout,
+	)
+	if err != nil {
+		j.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
+		return
+	}
+
+	// 缓存记录用户最新登录状态
+	j.updateLastActivity(userIDStr)
+
+	userName := c.GetString(authdto.UserName)
+	response.OK(c, gin.H{
+		"token":    token.AccessToken,
+		"username": userName,
+		"expire":   config.AuthConfig.Timeout,
+	}, http.StatusOK, lang.MsgByCode(baseLang.SuccessCode, lg))
+}
+
+func (j *JwtAuth) LogoutResponse(c *gin.Context) {
+	_, err := j.RevokeToken(c)
+	if err != nil {
+		log.GetRequestLogger(c).Warnf("Failed to revoke token during logout: %v", err)
+	}
+	response.OK(c, nil, baseLang.SysUseLogoutSuccessCode, lang.MsgByCode(baseLang.SysUseLogoutSuccessCode, lang.GetAcceptLanguage(c)))
 }
 
 // RevokeToken 撤销Token
 func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
-	claims, err := j.ginJwtMiddleware.GetClaimsFromJWT(c)
+	claims, err := j.mw.GetClaimsFromJWT(c)
 	if err != nil {
 		return baseLang.AuthErr, lang.MsgErr(baseLang.AuthErr, lang.GetAcceptLanguage(c))
 	}
@@ -109,15 +158,17 @@ func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
 	}
 
 	// 1. 清除单点登录缓存
-	runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userIDStr)
+	if config.ApplicationConfig.IsSingleLogin {
+		j.RevokeAllTokens(userIDStr)
+	}
 
 	// 2. 将token加入黑名单
-	if j.securityConfig.TokenBlacklist {
-		tokenID, ok := claims[TokenID].(string)
+	if j.enableBlacklist {
+		tokenID, ok := claims[JTI].(string)
 		if ok && tokenID != "" {
 			// 黑名单有效期比token短
-			blacklistTTL := j.ginJwtMiddleware.Timeout
-			exp, ok := claims["exp"].(float64)
+			blacklistTTL := j.mw.Timeout
+			exp, ok := claims[EXP].(float64)
 			if ok {
 				expireTime := time.Unix(int64(exp), 0)
 				remaining := time.Until(expireTime)
@@ -137,9 +188,9 @@ func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
 	}
 
 	// 3. 清除设备记录中的当前设备
-	if j.securityConfig.DeviceCheckEnabled {
+	if j.enableDeviceCheck {
 		currentDeviceFP := j.extractDeviceFingerprint(c)
-		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
+		savedDeviceFP, ok := claims[authdto.DeviceFingerprint].(string)
 
 		if ok && currentDeviceFP != "" && savedDeviceFP != "" && currentDeviceFP == savedDeviceFP {
 			j.removeDevice(userIDStr, currentDeviceFP)
@@ -178,7 +229,7 @@ func (j *JwtAuth) GetUserIdStr(c *gin.Context) (string, int, error) {
 	if err != nil {
 		return "", respCode, err
 	}
-	return strconv.Itoa(int(result.(float64))), baseLang.SuccessCode, lang.MsgErr(baseLang.SuccessCode, lang.GetAcceptLanguage(c))
+	return strconv.Itoa(int(result.(float64))), baseLang.SuccessCode, nil
 }
 
 func (j *JwtAuth) GetRoleId(c *gin.Context) (int64, int, error) {
@@ -214,62 +265,61 @@ func (j *JwtAuth) GetUserName(c *gin.Context) string {
 }
 
 func (j *JwtAuth) AuthMiddlewareFunc() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		err := j.authCheck(c)
-		if err != nil {
-			lg := lang.GetAcceptLanguage(c)
-			jwtAuth.unauthorized(c, http.StatusUnauthorized, http.StatusUnauthorized, lang.MsgErrf(http.StatusUnauthorized, lg, err).Error())
-			c.Abort()
-		}
-		j.ginJwtMiddleware.MiddlewareFunc()
-	}
+	return j.mw.MiddlewareFunc()
 }
 
 func (j *JwtAuth) RefreshHandler(c *gin.Context) {
-	j.ginJwtMiddleware.RefreshHandler(c)
+	j.mw.RefreshHandler(c)
 }
 
-func (j *JwtAuth) authCheck(c *gin.Context) error {
-	claims, err := jwtAuth.ginJwtMiddleware.CheckIfTokenExpire(c)
+func (j *JwtAuth) authCheck(c *gin.Context) bool {
+	rLog := log.GetRequestLogger(c)
+	claims, err := j.mw.CheckIfTokenExpire(c)
 	if err != nil {
-		return err
+		rLog.Error(err)
+		return false
 	}
 	userIDStr, _, err := j.GetUserIdStr(c)
 	if err != nil {
-		return err
+		rLog.Error(err)
+		return false
 	}
 
-	tokenOld, err := j.ginJwtMiddleware.ParseToken(c)
+	tokenOld, err := j.mw.ParseToken(c)
 	if err != nil {
-		return err
+		rLog.Error(err)
+		return false
 	}
 
 	if config.ApplicationConfig.IsSingleLogin {
 		// 从缓存获取该用户最新的token
-		savedToken := j.getCacheString(JWTLoginPrefix, userIDStr)
-
-		if savedToken != tokenOld.Raw {
-			return errors.New("only support single login")
+		cacheToken, _ := runtime.RuntimeConfig.GetCacheAdapter().Get(JWTLoginPrefix, userIDStr)
+		if cacheToken != tokenOld.Raw {
+			rLog.Error(errors.New("only support single login"))
+			j.RevokeAllTokens(userIDStr)
+			return false
 		}
 	}
 
 	// 3. check blocklist
-	if j.securityConfig.TokenBlacklist {
-		tokenID, ok := claims[TokenID].(string)
-		if ok && tokenID != "" {
-			isBlacklisted := j.getCacheString(JWTBlacklistPrefix, tokenID)
+	if j.enableBlacklist {
+		jti, ok := claims[JTI].(string)
+		if ok && jti != "" {
+			isBlacklisted := j.getCacheString(JWTBlacklistPrefix, jti)
 			if isBlacklisted != "" {
-				return errors.New("token is blacklisted")
+				rLog.Error(errors.New("token is blacklisted"))
+				return false
 			}
 		}
 	}
 
 	// 4. device check
-	if j.securityConfig.DeviceCheckEnabled {
+	if j.enableDeviceCheck {
 		currentDeviceFP := j.extractDeviceFingerprint(c)
-		savedDeviceFP, ok := claims[DeviceFingerprint].(string)
+		savedDeviceFP, ok := claims[authdto.DeviceFingerprint].(string)
 		if currentDeviceFP == "" || savedDeviceFP == "" || !ok || currentDeviceFP != savedDeviceFP {
-			return errors.New("device check error")
+			rLog.Error(errors.New("device check error"))
+			return false
 		}
 
 		// 获取设备列表
@@ -293,8 +343,9 @@ func (j *JwtAuth) authCheck(c *gin.Context) error {
 				deviceList = []string{currentDeviceFP}
 			} else {
 				// 有设备，则判断数量
-				if len(deviceList) >= j.securityConfig.MaxDevicesPerUser {
-					return errors.New("too many devices login")
+				if len(deviceList) >= j.maxDevices {
+					rLog.Error(errors.New("too many devices login"))
+					return false
 				}
 				// 添加新设备到列表
 				deviceList = append(deviceList, currentDeviceFP)
@@ -312,14 +363,14 @@ func (j *JwtAuth) authCheck(c *gin.Context) error {
 
 	// 4. 更新最后活动时间
 	j.updateLastActivity(userIDStr)
-	return nil
+	return true
 }
 
 // updateLastActivity 更新最后活动时间
 func (j *JwtAuth) updateLastActivity(userID string) {
 	// 可以记录用户最后活动时间，用于会话管理
 	runtime.RuntimeConfig.GetCacheAdapter().Set(
-		"admin:jwt:activity",
+		JWTActivityPrefix,
 		userID,
 		strconv.FormatInt(time.Now().Unix(), 10),
 		config.AuthConfig.Timeout,
@@ -383,8 +434,8 @@ func (j *JwtAuth) GetUserDevices(userID string) []string {
 	return strings.Split(devices, ",")
 }
 
-// RevokeUserAllTokens 撤销用户的所有Token
-func (j *JwtAuth) RevokeUserAllTokens(userID string) {
+// RevokeAllTokens 撤销用户的所有Token
+func (j *JwtAuth) RevokeAllTokens(userID string) {
 	// 1. 清除单点登录缓存
 	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userID)
 
@@ -392,21 +443,21 @@ func (j *JwtAuth) RevokeUserAllTokens(userID string) {
 	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTDevicesPrefix, userID)
 
 	// 3. 清除活动记录
-	_ = runtime.RuntimeConfig.GetCacheAdapter().Del("admin:jwt:activity", userID)
+	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTActivityPrefix, userID)
 }
 
 func (j *JwtAuth) unauthorized(c *gin.Context, httpCode, errCode int, message string) {
-	c.Header("WWW-Authenticate", "JWT realm=\""+j.ginJwtMiddleware.Realm+"\"")
-	if !j.ginJwtMiddleware.DisabledAbort {
+	c.Header("WWW-Authenticate", "JWT realm=\""+j.mw.Realm+"\"")
+	if !j.mw.DisabledAbort {
 		c.Abort()
 	}
 
-	j.ginJwtMiddleware.Unauthorized(c, httpCode, strconv.Itoa(errCode)+"_"+message)
+	j.mw.Unauthorized(c, httpCode, strconv.Itoa(errCode)+"_"+message)
 }
 
 // recordDevice 记录设备
 func (j *JwtAuth) recordDevice(userID int64, deviceFP string) {
-	if !j.securityConfig.DeviceCheckEnabled {
+	if !j.enableDeviceCheck {
 		return
 	}
 
@@ -433,8 +484,8 @@ func (j *JwtAuth) recordDevice(userID int64, deviceFP string) {
 		deviceList = append(deviceList, deviceFP)
 
 		// 限制设备数量
-		if len(deviceList) > j.securityConfig.MaxDevicesPerUser {
-			deviceList = deviceList[len(deviceList)-j.securityConfig.MaxDevicesPerUser:]
+		if len(deviceList) > j.maxDevices {
+			deviceList = deviceList[len(deviceList)-j.maxDevices:]
 		}
 
 		runtime.RuntimeConfig.GetCacheAdapter().Set(
@@ -511,28 +562,7 @@ func (j *JwtAuth) getCacheString(prefix, key string) string {
 	return val
 }
 
-func PayloadFunc(data interface{}) jwtIn.MapClaims {
-	if v, ok := data.(map[string]interface{}); ok {
-		userId, _ := v[authdto.LoginUserId]
-		roleKey, _ := v[authdto.RoleKey]
-		userName, _ := v[authdto.UserName]
-		dataScope, _ := v[authdto.DataScope]
-		roleId, _ := v[authdto.RoleId]
-		deptId, _ := v[authdto.DeptId]
-
-		return jwtIn.MapClaims{
-			authdto.LoginUserId: userId,
-			authdto.RoleKey:     roleKey,
-			authdto.UserName:    userName,
-			authdto.DataScope:   dataScope,
-			authdto.RoleId:      roleId,
-			authdto.DeptId:      deptId,
-		}
-	}
-	return jwtIn.MapClaims{}
-}
-
-func IdentityHandler(c *gin.Context) interface{} {
+func (j *JwtAuth) IdentityHandler(c *gin.Context) interface{} {
 	claims := jwt.ExtractClaims(c)
 	return map[string]interface{}{
 		authdto.LoginUserId: claims[authdto.LoginUserId],
@@ -544,7 +574,26 @@ func IdentityHandler(c *gin.Context) interface{} {
 	}
 }
 
-func Authenticator(c *gin.Context) (interface{}, error) {
+func (j *JwtAuth) PayloadFunc(data interface{}) jwtIn.MapClaims {
+	claims := jwtIn.MapClaims{}
+
+	if v, ok := data.(map[string]interface{}); ok {
+		claims[authdto.LoginUserId] = v[authdto.LoginUserId]
+		claims[authdto.RoleKey] = v[authdto.RoleKey]
+		claims[authdto.UserName] = v[authdto.UserName]
+		claims[authdto.DataScope] = v[authdto.DataScope]
+		claims[authdto.RoleId] = v[authdto.RoleId]
+		claims[authdto.DeptId] = v[authdto.DeptId]
+		claims[authdto.JTI] = v[authdto.JTI]
+		claims[authdto.DeviceFingerprint] = v[authdto.DeviceFingerprint]
+		claims[authdto.LoginIP] = v[authdto.LoginIP]
+		claims[authdto.UserAgent] = v[authdto.UserAgent]
+	}
+
+	return claims
+}
+
+func (j *JwtAuth) Authenticator(c *gin.Context) (interface{}, error) {
 	userId, b := c.Get(authdto.LoginUserId)
 	if !b || userId == nil {
 		return nil, errors.New("incorrect Username or Password")
@@ -557,17 +606,21 @@ func Authenticator(c *gin.Context) (interface{}, error) {
 	dataScope, _ := c.Get(authdto.DataScope)
 
 	resp := map[string]interface{}{
-		authdto.LoginUserId: userId,
-		authdto.RoleKey:     roleKey,
-		authdto.UserName:    userName,
-		authdto.DataScope:   dataScope,
-		authdto.RoleId:      roleId,
-		authdto.DeptId:      deptId,
+		authdto.LoginUserId:       userId,
+		authdto.RoleKey:           roleKey,
+		authdto.UserName:          userName,
+		authdto.DataScope:         dataScope,
+		authdto.RoleId:            roleId,
+		authdto.DeptId:            deptId,
+		authdto.JTI:               idgen.UUID(),
+		authdto.DeviceFingerprint: j.extractDeviceFingerprint(c),
+		authdto.LoginIP:           c.ClientIP(),
+		authdto.UserAgent:         c.Request.UserAgent(),
 	}
 	return resp, nil
 }
 
-func Authorizer(c *gin.Context, data interface{}) bool {
+func (j *JwtAuth) Authorizer(c *gin.Context, data interface{}) bool {
 	if v, ok := data.(map[string]interface{}); ok {
 		userId, _ := v[authdto.LoginUserId]
 		if userId != nil {
@@ -593,62 +646,12 @@ func Authorizer(c *gin.Context, data interface{}) bool {
 		if dataScope != nil {
 			c.Set(authdto.DataScope, dataScope)
 		}
-		return true
+		return j.authCheck(c)
 	}
 	return false
 }
 
-func LoginResponse(c *gin.Context, token *core.Token) {
-	lg := lang.GetAcceptLanguage(c)
-
-	userID, errCode, err := jwtAuth.GetUserId(c)
-	if err != nil {
-		jwtAuth.unauthorized(c, http.StatusUnauthorized, errCode, lang.MsgErrf(errCode, lg, err).Error())
-		return
-	}
-	userIDStr := strconv.FormatInt(userID, 10)
-
-	if config.ApplicationConfig.IsSingleLogin {
-		_, _ = jwtAuth.RevokeToken(c)
-	}
-
-	// 添加设备信息
-	if jwtAuth.securityConfig.DeviceCheckEnabled {
-		deviceFP := jwtAuth.extractDeviceFingerprint(c)
-
-		// 记录设备
-		jwtAuth.recordDevice(userID, deviceFP)
-	}
-
-	// set
-	err = runtime.RuntimeConfig.GetCacheAdapter().Set(
-		JWTLoginPrefix,
-		userIDStr,
-		token.AccessToken,
-		config.AuthConfig.Timeout,
-	)
-	if err != nil {
-		jwtAuth.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
-		return
-	}
-
-	userName := jwtAuth.GetUserName(c)
-	response.OK(c, gin.H{
-		"data": gin.H{
-			"token":    token.AccessToken,
-			"username": userName,
-			"expire":   token.ExpiresIn(),
-			//"userInfo": userInfo,
-		},
-	}, http.StatusOK, lang.MsgByCode(baseLang.SuccessCode, lg))
-}
-
-func LogoutResponse(c *gin.Context) {
-	_, _ = jwtAuth.RevokeToken(c)
-	response.OK(c, nil, baseLang.SysUseLogoutSuccessCode, lang.MsgByCode(baseLang.SysUseLogoutSuccessCode, lang.GetAcceptLanguage(c)))
-}
-
-func RefreshResponse(c *gin.Context, token *core.Token) {
+func (j *JwtAuth) RefreshResponse(c *gin.Context, token *core.Token) {
 	c.JSON(http.StatusOK, gin.H{
 		"requestId": strutils.GenerateMsgIDFromContext(c),
 		"msg":       "",
@@ -660,8 +663,8 @@ func RefreshResponse(c *gin.Context, token *core.Token) {
 	})
 }
 
-func Unauthorized(c *gin.Context, httpCode int, message string) {
-	_, _ = jwtAuth.RevokeToken(c)
+func (j *JwtAuth) Unauthorized(c *gin.Context, httpCode int, message string) {
+	_, _ = j.RevokeToken(c)
 	temp := strings.SplitN(message, "_", 1)
 	errCode := httpCode
 	if len(temp) == 2 {
@@ -671,5 +674,6 @@ func Unauthorized(c *gin.Context, httpCode int, message string) {
 			message = temp[1]
 		}
 	}
+	log.GetRequestLogger(c).Errorf("Cache set JWTLoginPrefix failed: %d-%s", errCode, message)
 	response.ErrorByHttpCode(c, httpCode, errCode, message)
 }
