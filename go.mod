@@ -4,14 +4,14 @@ go 1.25.4
 
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
-	github.com/appleboy/gin-jwt/v3 v3.3.0
+	github.com/appleboy/gin-jwt/v3 v3.4.0
 	github.com/bitxx/load-config v1.6.2
 	github.com/bitxx/logger v1.6.3
 	github.com/bsm/redislock v0.9.4
 	github.com/bytedance/go-tagexpr/v2 v2.9.11
 	github.com/casbin/casbin/v2 v2.135.0
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.11.0
+	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/microcosm-cc/bluemonday v1.0.27
@@ -58,7 +58,6 @@ require (
 	github.com/go-sql-driver/mysql v1.9.3 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/goccy/go-yaml v1.19.0 // indirect
-	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
