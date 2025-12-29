@@ -14,7 +14,7 @@ export const checkStatus = (status: number): void => {
 			message.error("登录失效！请您重新登录");
 			break;
 		case 403:
-			message.error("当前账号无权限访问！");
+			message.error("禁止访问，请重新登录！");
 			break;
 		case 404:
 			message.error("你所访问的资源不存在！");
