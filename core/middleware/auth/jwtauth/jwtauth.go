@@ -25,13 +25,15 @@ import (
 	"time"
 )
 
-const JwtPayloadKey = "JWT_PAYLOAD"
-const JWTLoginPrefix = "admin:jwt"
-const JWTBlacklistPrefix = "admin:jwt:blacklist"
-const JWTDevicesPrefix = "admin:jwt:devices"
-const JWTActivityPrefix = "admin:jwt:activity"
-const JTI = "jti"
-const EXP = "exp"
+const (
+	JwtJTI             = "jti"
+	JwtEXP             = "exp"
+	JwtPayloadKey      = "JWT_PAYLOAD"
+	JWTLoginPrefix     = "admin:jwt"
+	JWTBlacklistPrefix = "admin:jwt:blacklist"
+	JWTDevicesPrefix   = "admin:jwt:devices"
+	JWTActivityPrefix  = "admin:jwt:activity"
+)
 
 type JwtAuth struct {
 	mw                *jwt.GinJWTMiddleware
@@ -164,11 +166,11 @@ func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
 
 	// 2. 将token加入黑名单
 	if j.enableBlacklist {
-		tokenID, ok := claims[JTI].(string)
-		if ok && tokenID != "" {
+		jit, ok := claims[JwtJTI].(string)
+		if ok && jit != "" {
 			// 黑名单有效期比token短
 			blacklistTTL := j.mw.Timeout
-			exp, ok := claims[EXP].(float64)
+			exp, ok := claims[JwtEXP].(float64)
 			if ok {
 				expireTime := time.Unix(int64(exp), 0)
 				remaining := time.Until(expireTime)
@@ -180,7 +182,7 @@ func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
 
 			runtime.RuntimeConfig.GetCacheAdapter().Set(
 				JWTBlacklistPrefix,
-				tokenID,
+				jit,
 				"1",
 				int(blacklistTTL.Seconds()),
 			)
@@ -303,7 +305,7 @@ func (j *JwtAuth) authCheck(c *gin.Context) bool {
 
 	// 3. check blocklist
 	if j.enableBlacklist {
-		jti, ok := claims[JTI].(string)
+		jti, ok := claims[JwtJTI].(string)
 		if ok && jti != "" {
 			isBlacklisted := j.getCacheString(JWTBlacklistPrefix, jti)
 			if isBlacklisted != "" {
@@ -584,7 +586,7 @@ func (j *JwtAuth) PayloadFunc(data interface{}) jwtIn.MapClaims {
 		claims[authdto.DataScope] = v[authdto.DataScope]
 		claims[authdto.RoleId] = v[authdto.RoleId]
 		claims[authdto.DeptId] = v[authdto.DeptId]
-		claims[authdto.JTI] = v[authdto.JTI]
+		claims[JwtJTI] = v[JwtJTI]
 		claims[authdto.DeviceFingerprint] = v[authdto.DeviceFingerprint]
 		claims[authdto.LoginIP] = v[authdto.LoginIP]
 		claims[authdto.UserAgent] = v[authdto.UserAgent]
@@ -612,7 +614,7 @@ func (j *JwtAuth) Authenticator(c *gin.Context) (interface{}, error) {
 		authdto.DataScope:         dataScope,
 		authdto.RoleId:            roleId,
 		authdto.DeptId:            deptId,
-		authdto.JTI:               idgen.UUID(),
+		JwtJTI:                    idgen.UUID(),
 		authdto.DeviceFingerprint: j.extractDeviceFingerprint(c),
 		authdto.LoginIP:           c.ClientIP(),
 		authdto.UserAgent:         c.Request.UserAgent(),
