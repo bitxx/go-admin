@@ -21,6 +21,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -32,11 +33,37 @@ const (
 	JwtRolePrefix      = "admin:jwt:role"
 )
 
+// 设备锁管理器，防止竞态条件
+type deviceLockManager struct {
+	locks map[string]*sync.Mutex
+	mu    sync.RWMutex
+}
+
+func newDeviceLockManager() *deviceLockManager {
+	return &deviceLockManager{
+		locks: make(map[string]*sync.Mutex),
+	}
+}
+
+func (d *deviceLockManager) getLock(userID string) *sync.Mutex {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+
+	if lock, exists := d.locks[userID]; exists {
+		return lock
+	}
+
+	lock := &sync.Mutex{}
+	d.locks[userID] = lock
+	return lock
+}
+
 type JwtAuth struct {
 	mw                *jwt.GinJWTMiddleware
 	enableDeviceCheck bool
 	enableBlacklist   bool
 	maxDevices        int
+	deviceLocks       *deviceLockManager
 }
 
 func NewJwtAuth() (*JwtAuth, error) {
@@ -101,42 +128,43 @@ func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
 		roleKey := c.GetString(authdto.RoleKey)
 
 		rLog := log.GetRequestLogger(c)
-		var res, casbinExclude bool
 		var err error
-		//检查权限
+		// 管理员直接通过
 		if roleKey == constant.RoleKeyAdmin {
-			res = true
 			c.Next()
 			return
 		}
 		for _, i := range casbin.CasbinExclude {
 			if util.KeyMatch2(c.Request.URL.Path, i.Url) && c.Request.Method == i.Method {
-				casbinExclude = true
-				break
+				rLog.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
+				c.Next()
+				return
 			}
 		}
-		if casbinExclude {
-			rLog.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
-			c.Next()
+
+		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
+		if e == nil {
+			rLog.Error("Casbin instance not found")
+			response.Error(c, baseLang.ServerErr,
+				lang.MsgByCode(baseLang.ServerErr, lang.GetAcceptLanguage(c)))
 			return
 		}
-		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
-		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
+		res, err := e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
 		if err != nil {
 			rLog.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
 			response.Error(c, baseLang.ServerErr, lang.MsgByCode(baseLang.ServerErr, lang.GetAcceptLanguage(c)))
 			return
 		}
 
-		if res {
-			rLog.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
-			c.Next()
-		} else {
+		if !res {
 			rLog.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
 			response.Error(c, baseLang.ForbitErr, lang.MsgByCode(baseLang.ForbitErr, lang.GetAcceptLanguage(c)))
 			c.Abort()
 			return
 		}
+
+		rLog.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
+		c.Next()
 	}
 }
 
@@ -162,7 +190,7 @@ func (j *JwtAuth) LoginResponse(c *gin.Context, token *core.Token) {
 	}
 
 	if config.ApplicationConfig.IsSingleLogin {
-		j.RevokeAllTokens(userIDStr)
+		j.revokeAllTokens(userIDStr)
 
 		// set 用于单点登录，更新登录信息
 		err := runtime.RuntimeConfig.GetCacheAdapter().Set(
@@ -218,15 +246,15 @@ func (j *JwtAuth) RefreshResponse(c *gin.Context, token *core.Token) {
 }
 
 func (j *JwtAuth) LogoutResponse(c *gin.Context) {
-	_, err := j.RevokeToken(c)
+	_, err := j.revokeToken(c)
 	if err != nil {
 		log.GetRequestLogger(c).Warnf("Failed to revoke token during logout: %v", err)
 	}
 	response.OK(c, nil, baseLang.SysUseLogoutSuccessCode, lang.MsgByCode(baseLang.SysUseLogoutSuccessCode, lang.GetAcceptLanguage(c)))
 }
 
-// RevokeToken 撤销Token
-func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
+// revokeToken 撤销Token
+func (j *JwtAuth) revokeToken(c *gin.Context) (int, error) {
 	claims, err := j.mw.GetClaimsFromJWT(c)
 	if err != nil {
 		return baseLang.AuthErr, lang.MsgErr(baseLang.AuthErr, lang.GetAcceptLanguage(c))
@@ -238,7 +266,7 @@ func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
 
 	// 1. 清除单点登录缓存
 	if config.ApplicationConfig.IsSingleLogin {
-		j.RevokeAllTokens(userIDStr)
+		j.revokeAllTokens(userIDStr)
 	}
 
 	// 2. 将token加入黑名单
@@ -289,24 +317,12 @@ func (j *JwtAuth) GetRoleKey(c *gin.Context) string {
 
 // GetUserDevices 获取用户的所有设备
 func (j *JwtAuth) GetUserDevices(userID string) []string {
-	devices, _ := runtime.RuntimeConfig.GetCacheAdapter().Get(JWTDevicesPrefix, userID)
-	if devices == "" {
+	devices, err := runtime.RuntimeConfig.GetCacheAdapter().Get(JWTDevicesPrefix, userID)
+	if err != nil || devices == "" {
 		return []string{}
 	}
 
 	return strings.Split(devices, ",")
-}
-
-// RevokeAllTokens 撤销用户的所有Token
-func (j *JwtAuth) RevokeAllTokens(userID string) {
-	// 1. 清除单点登录缓存
-	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTLoginPrefix, userID)
-
-	// 2. 清除设备记录
-	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTDevicesPrefix, userID)
-
-	// 3. 清除活动记录
-	_ = runtime.RuntimeConfig.GetCacheAdapter().Del(JWTActivityPrefix, userID)
 }
 
 func (j *JwtAuth) IdentityHandler(c *gin.Context) interface{} {
@@ -361,7 +377,7 @@ func (j *JwtAuth) Authorizer(c *gin.Context, data interface{}) bool {
 }
 
 func (j *JwtAuth) Unauthorized(c *gin.Context, httpCode int, message string) {
-	_, _ = j.RevokeToken(c)
+	_, _ = j.revokeToken(c)
 	temp := strings.SplitN(message, "_", 1)
 	errCode := httpCode
 	if len(temp) == 2 {
@@ -377,6 +393,10 @@ func (j *JwtAuth) Unauthorized(c *gin.Context, httpCode int, message string) {
 
 // removeDevice 移除设备
 func (j *JwtAuth) removeDevice(userID string, deviceFP string) {
+	lock := j.deviceLocks.getLock(userID)
+	lock.Lock()
+	defer lock.Unlock()
+
 	deviceList := j.GetUserDevices(userID)
 	var newList []string
 
@@ -409,37 +429,33 @@ func (j *JwtAuth) unauthorized(c *gin.Context, httpCode, errCode int, message st
 
 // recordDevice 记录设备
 func (j *JwtAuth) recordDevice(userIDStr string, deviceFP string) {
-	if !j.enableDeviceCheck {
-		return
-	}
+	lock := j.deviceLocks.getLock(userIDStr)
+	lock.Lock()
+	defer lock.Unlock()
 
 	// 获取现有设备列表
 	deviceList := j.GetUserDevices(userIDStr)
 
 	// 添加新设备
-	found := false
 	for _, d := range deviceList {
 		if d == deviceFP {
-			found = true
-			break
+			return
 		}
 	}
 
-	if !found {
-		deviceList = append(deviceList, deviceFP)
+	deviceList = append(deviceList, deviceFP)
 
-		// 限制设备数量
-		if len(deviceList) > j.maxDevices {
-			deviceList = deviceList[len(deviceList)-j.maxDevices:]
-		}
-
-		runtime.RuntimeConfig.GetCacheAdapter().Set(
-			JWTDevicesPrefix,
-			userIDStr,
-			strings.Join(deviceList, ","),
-			config.AuthConfig.MaxRefresh,
-		)
+	// 限制设备数量
+	if len(deviceList) > j.maxDevices {
+		deviceList = deviceList[len(deviceList)-j.maxDevices:]
 	}
+
+	runtime.RuntimeConfig.GetCacheAdapter().Set(
+		JWTDevicesPrefix,
+		userIDStr,
+		strings.Join(deviceList, ","),
+		config.AuthConfig.MaxRefresh,
+	)
 }
 
 // extractDeviceFingerprint 提取设备指纹
@@ -469,6 +485,19 @@ func (j *JwtAuth) extractDeviceFingerprint(c *gin.Context) string {
 	}
 
 	return encrypt.SHA256VString(data)
+}
+
+// revokeAllTokens 撤销用户的所有Token
+func (j *JwtAuth) revokeAllTokens(userID string) {
+	// 使用锁确保原子性
+	lock := j.deviceLocks.getLock(userID)
+	lock.Lock()
+	defer lock.Unlock()
+
+	keys := []string{JWTLoginPrefix, JWTDevicesPrefix, JWTActivityPrefix}
+	for _, prefix := range keys {
+		runtime.RuntimeConfig.GetCacheAdapter().Del(prefix, userID)
+	}
 }
 
 func (j *JwtAuth) authCheck(c *gin.Context) bool {
@@ -506,7 +535,7 @@ func (j *JwtAuth) authCheck(c *gin.Context) bool {
 		cacheToken, _ := runtime.RuntimeConfig.GetCacheAdapter().Get(JWTLoginPrefix, userIDStr)
 		if cacheToken != token.Raw {
 			rLog.Error(errors.New("only support single login"))
-			j.RevokeAllTokens(userIDStr)
+			j.revokeAllTokens(userIDStr)
 			return false
 		}
 	}
