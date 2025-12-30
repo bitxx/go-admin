@@ -433,6 +433,11 @@ func (e SysUser) LogOut(c *gin.Context) {
 	auth.Auth.Logout(c)
 }
 
+// RefreshToken admin-刷新token
+func (e SysUser) RefreshToken(c *gin.Context) {
+	auth.Auth.RefreshToken(c)
+}
+
 // GenCaptcha admin-获取图形验证码
 func (e SysUser) GenCaptcha(c *gin.Context) {
 	err := e.MakeContext(c).Errors
