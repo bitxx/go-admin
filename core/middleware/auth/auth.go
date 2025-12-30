@@ -12,10 +12,7 @@ type AuthInter interface {
 	Login(c *gin.Context)
 	Logout(c *gin.Context)
 	GetUserId(c *gin.Context) (int64, int, error)
-	GetUserName(c *gin.Context) string
-	GetRoleId(c *gin.Context) (int64, int, error)
 	GetRoleKey(c *gin.Context) string
-	GetDeptId(c *gin.Context) (int64, int, error)
 	AuthMiddlewareFunc() gin.HandlerFunc
 	AuthCheckRoleMiddlewareFunc() gin.HandlerFunc
 }

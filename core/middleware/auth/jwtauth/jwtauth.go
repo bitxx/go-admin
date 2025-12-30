@@ -27,7 +27,6 @@ import (
 const (
 	JwtJTI             = "jti"
 	JwtEXP             = "exp"
-	JwtPayloadKey      = "JWT_PAYLOAD"
 	JWTLoginPrefix     = "admin:jwt"
 	JWTBlacklistPrefix = "admin:jwt:blacklist"
 	JWTDevicesPrefix   = "admin:jwt:devices"
@@ -193,10 +192,9 @@ func (j *JwtAuth) LoginResponse(c *gin.Context, token *core.Token) {
 	// 缓存记录用户最新登录状态
 	j.updateLastActivity(userIDStr)
 
-	userName := c.GetString(authdto.UserName)
 	response.OK(c, gin.H{
 		"token":    token.AccessToken,
-		"username": userName,
+		"username": c.GetString(authdto.UserName),
 		"expire":   token.ExpiresAt,
 	}, http.StatusOK, lang.MsgByCode(baseLang.SuccessCode, lg))
 }
@@ -298,28 +296,8 @@ func (j *JwtAuth) GetUserId(c *gin.Context) (int64, int, error) {
 	return userID, baseLang.SuccessCode, nil
 }
 
-func (j *JwtAuth) GetRoleId(c *gin.Context) (int64, int, error) {
-	roleID := c.GetInt64(authdto.RoleId)
-	if roleID <= 0 {
-		return 0, baseLang.AuthErr, lang.MsgErrf(baseLang.AuthErr, lang.GetAcceptLanguage(c))
-	}
-	return roleID, baseLang.SuccessCode, nil
-}
-
-func (j *JwtAuth) GetDeptId(c *gin.Context) (int64, int, error) {
-	roleID := c.GetInt64(authdto.DeptId)
-	if roleID <= 0 {
-		return 0, baseLang.AuthErr, lang.MsgErrf(baseLang.AuthErr, lang.GetAcceptLanguage(c))
-	}
-	return roleID, baseLang.SuccessCode, nil
-}
-
 func (j *JwtAuth) GetRoleKey(c *gin.Context) string {
 	return c.GetString(authdto.RoleKey)
-}
-
-func (j *JwtAuth) GetUserName(c *gin.Context) string {
-	return c.GetString(authdto.UserName)
 }
 
 func (j *JwtAuth) authCheck(c *gin.Context) bool {
@@ -566,12 +544,12 @@ func (j *JwtAuth) getCacheString(prefix, key string) string {
 func (j *JwtAuth) IdentityHandler(c *gin.Context) interface{} {
 	claims := jwt.ExtractClaims(c)
 	return map[string]interface{}{
-		authdto.LoginUserId: claims[authdto.LoginUserId],
-		authdto.RoleKey:     claims[authdto.RoleKey],
-		authdto.UserName:    claims[authdto.UserName],
-		authdto.DataScope:   claims[authdto.DataScope],
-		authdto.RoleId:      claims[authdto.RoleId],
-		authdto.DeptId:      claims[authdto.DeptId],
+		authdto.LoginUserId:       claims[authdto.LoginUserId],
+		authdto.RoleKey:           claims[authdto.RoleKey],
+		JwtJTI:                    claims[JwtJTI],
+		authdto.DeviceFingerprint: claims[authdto.DeviceFingerprint],
+		authdto.LoginIP:           claims[authdto.UserAgent],
+		authdto.UserAgent:         claims[authdto.UserAgent],
 	}
 }
 
@@ -581,10 +559,6 @@ func (j *JwtAuth) PayloadFunc(data interface{}) jwtIn.MapClaims {
 	if v, ok := data.(map[string]interface{}); ok {
 		claims[authdto.LoginUserId] = v[authdto.LoginUserId]
 		claims[authdto.RoleKey] = v[authdto.RoleKey]
-		claims[authdto.UserName] = v[authdto.UserName]
-		claims[authdto.DataScope] = v[authdto.DataScope]
-		claims[authdto.RoleId] = v[authdto.RoleId]
-		claims[authdto.DeptId] = v[authdto.DeptId]
 		claims[JwtJTI] = v[JwtJTI]
 		claims[authdto.DeviceFingerprint] = v[authdto.DeviceFingerprint]
 		claims[authdto.LoginIP] = v[authdto.LoginIP]
@@ -599,20 +573,10 @@ func (j *JwtAuth) Authenticator(c *gin.Context) (interface{}, error) {
 	if !b || userId == nil {
 		return nil, errors.New("incorrect Username or Password")
 	}
-
-	roleId, _ := c.Get(authdto.RoleId)
 	roleKey, _ := c.Get(authdto.RoleKey)
-	deptId, _ := c.Get(authdto.DeptId)
-	userName, _ := c.Get(authdto.UserName)
-	dataScope, _ := c.Get(authdto.DataScope)
-
 	resp := map[string]interface{}{
 		authdto.LoginUserId:       userId,
 		authdto.RoleKey:           roleKey,
-		authdto.UserName:          userName,
-		authdto.DataScope:         dataScope,
-		authdto.RoleId:            roleId,
-		authdto.DeptId:            deptId,
 		JwtJTI:                    idgen.UUID(),
 		authdto.DeviceFingerprint: j.extractDeviceFingerprint(c),
 		authdto.LoginIP:           c.ClientIP(),
@@ -630,22 +594,6 @@ func (j *JwtAuth) Authorizer(c *gin.Context, data interface{}) bool {
 		roleKey, _ := v[authdto.RoleKey]
 		if roleKey != nil {
 			c.Set(authdto.RoleKey, roleKey)
-		}
-		roleId, _ := v[authdto.RoleId]
-		if roleId != nil {
-			c.Set(authdto.RoleId, int64(roleId.(float64))) //这里一定要用string保存userId，以防取出Interface转换复杂
-		}
-		deptId, _ := v[authdto.DeptId]
-		if deptId != nil {
-			c.Set(authdto.DeptId, int64(deptId.(float64))) //这里一定要用string保存userId，以防取出Interface转换复杂
-		}
-		userName, _ := v[authdto.UserName]
-		if userName != nil {
-			c.Set(authdto.UserName, userName)
-		}
-		dataScope, _ := v[authdto.DataScope]
-		if dataScope != nil {
-			c.Set(authdto.DataScope, dataScope)
 		}
 		return j.authCheck(c)
 	}
