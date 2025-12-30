@@ -177,7 +177,7 @@ func (j *JwtAuth) Logout(c *gin.Context) {
 	j.mw.LogoutHandler(c)
 }
 
-func (j *JwtAuth) Refresh(c *gin.Context) {
+func (j *JwtAuth) RefreshToken(c *gin.Context) {
 	j.mw.RefreshHandler(c)
 }
 
