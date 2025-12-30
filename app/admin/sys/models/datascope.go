@@ -4,9 +4,9 @@ import (
 	"errors"
 	"go-admin/core/config"
 	"go-admin/core/utils/log"
-	"go-admin/core/utils/strutils"
 	"go-admin/core/utils/textutils"
 	"gorm.io/gorm"
+	"strconv"
 )
 
 type DataPermission struct {
@@ -40,7 +40,7 @@ func (e *DataPermission) GetDataScope(tableName string, db *gorm.DB) (*gorm.DB, 
 		db = db.Where(tableName+".create_by in (SELECT id from admin_sys_user where dept_id = ? )", user.DeptId)
 	}
 	if role.DataScope == "4" {
-		db = db.Where(tableName+".create_by in (SELECT id from admin_sys_user where admin_sys_user.dept_id in(select dept_id from admin_sys_dept where dept_path like ? ))", "%"+strutils.IntToString(user.DeptId)+"%")
+		db = db.Where(tableName+".create_by in (SELECT id from admin_sys_user where admin_sys_user.dept_id in(select dept_id from admin_sys_dept where dept_path like ? ))", "%"+strconv.FormatInt(user.DeptId, 10)+"%")
 	}
 	if role.DataScope == "5" || role.DataScope == "" {
 		db = db.Where(tableName+".create_by = ?", e.UserId)

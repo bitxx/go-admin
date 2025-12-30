@@ -408,11 +408,7 @@ func (e SysUser) Login(c *gin.Context) {
 
 	c.Set(authdto.LoginUserId, userResp.Id)
 	c.Set(authdto.UserName, userResp.Username)
-	c.Set(authdto.RoleId, userResp.Role.Id)
 	c.Set(authdto.RoleKey, userResp.Role.RoleKey)
-	c.Set(authdto.DeptId, userResp.Dept.Id)
-	c.Set(authdto.DataScope, userResp.Role.DataScope)
-	c.Set(authdto.UserInfo, userResp)
 	s.LoginLogToDB(c, constant.UserLoginStatus, lang.MsgByCode(baseLang.SysUseLoginOpCode, e.Lang), userResp.Id)
 	auth.Auth.Login(c)
 }
