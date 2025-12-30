@@ -34,8 +34,10 @@ settings:
     # 单文件条数
     cap: 100
   auth:
-    # token 过期时间 单位：秒，默认一周
-    timeout: 604800
+    # token 过期时间 单位：秒，默认2小时
+    timeout: 7200
+    # token最大过期时间，单位：秒，在此期间刷新token。默认7天
+    maxRefresh: 604800
     # token 密钥，包括aes密钥共用，生产环境需修改，为确保兼容，长度需要为16、24、32字节
     secret: admin-api-20231019-jason
     # 是否进行设备检查

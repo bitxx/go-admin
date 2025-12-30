@@ -11,7 +11,6 @@ var Auth AuthInter
 type AuthInter interface {
 	Login(c *gin.Context)
 	Logout(c *gin.Context)
-	Get(c *gin.Context, key string) (interface{}, int, error)
 	GetUserId(c *gin.Context) (int64, int, error)
 	GetUserName(c *gin.Context) string
 	GetRoleId(c *gin.Context) (int64, int, error)

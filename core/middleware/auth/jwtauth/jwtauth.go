@@ -18,7 +18,6 @@ import (
 	"go-admin/core/utils/encrypt"
 	"go-admin/core/utils/idgen"
 	"go-admin/core/utils/log"
-	"go-admin/core/utils/strutils"
 	"net/http"
 	"strconv"
 	"strings"
@@ -49,7 +48,12 @@ func NewJwtAuth() (*JwtAuth, error) {
 
 	timeout := time.Duration(config.AuthConfig.Timeout) * time.Second
 	if timeout <= 0 {
-		timeout = time.Hour
+		timeout = 7200 * time.Second
+	}
+
+	maxRefresh := time.Duration(config.AuthConfig.MaxRefresh) * time.Second
+	if maxRefresh <= 0 {
+		maxRefresh = 604800 * time.Second
 	}
 
 	jwtAuth := &JwtAuth{
@@ -63,7 +67,7 @@ func NewJwtAuth() (*JwtAuth, error) {
 		SigningAlgorithm: "HS256",
 		Key:              []byte(config.AuthConfig.Secret),
 		Timeout:          timeout,
-		MaxRefresh:       timeout,
+		MaxRefresh:       maxRefresh,
 
 		IdentityKey:     authdto.LoginUserId,
 		Authenticator:   jwtAuth.Authenticator,
@@ -89,6 +93,55 @@ func NewJwtAuth() (*JwtAuth, error) {
 	return jwtAuth, nil
 }
 
+func (j *JwtAuth) AuthMiddlewareFunc() gin.HandlerFunc {
+	return j.mw.MiddlewareFunc()
+}
+
+// AuthCheckRoleMiddlewareFunc 权限检查中间件
+func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		roleKey := c.GetString(authdto.RoleKey)
+
+		rLog := log.GetRequestLogger(c)
+		var res, casbinExclude bool
+		var err error
+		//检查权限
+		if roleKey == constant.RoleKeyAdmin {
+			res = true
+			c.Next()
+			return
+		}
+		for _, i := range casbin.CasbinExclude {
+			if util.KeyMatch2(c.Request.URL.Path, i.Url) && c.Request.Method == i.Method {
+				casbinExclude = true
+				break
+			}
+		}
+		if casbinExclude {
+			rLog.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
+			c.Next()
+			return
+		}
+		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
+		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
+		if err != nil {
+			rLog.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
+			response.Error(c, baseLang.ServerErr, lang.MsgByCode(baseLang.ServerErr, lang.GetAcceptLanguage(c)))
+			return
+		}
+
+		if res {
+			rLog.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
+			c.Next()
+		} else {
+			rLog.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
+			response.Error(c, baseLang.ForbitErr, lang.MsgByCode(baseLang.ForbitErr, lang.GetAcceptLanguage(c)))
+			c.Abort()
+			return
+		}
+	}
+}
+
 func (j *JwtAuth) Login(c *gin.Context) {
 	j.mw.LoginHandler(c)
 }
@@ -97,13 +150,33 @@ func (j *JwtAuth) Logout(c *gin.Context) {
 	j.mw.LogoutHandler(c)
 }
 
+func (j *JwtAuth) Refresh(c *gin.Context) {
+	j.mw.RefreshHandler(c)
+}
+
 func (j *JwtAuth) LoginResponse(c *gin.Context, token *core.Token) {
 	lg := lang.GetAcceptLanguage(c)
-	userID := c.GetInt64(authdto.LoginUserId)
-	userIDStr := strconv.FormatInt(userID, 10)
+
+	userIDStr, errCode, err := j.GetUserIdStr(c)
+	if err != nil {
+		j.unauthorized(c, http.StatusUnauthorized, errCode, err.Error())
+		return
+	}
 
 	if config.ApplicationConfig.IsSingleLogin {
 		j.RevokeAllTokens(userIDStr)
+
+		// set 用于单点登录，更新登录信息
+		err := runtime.RuntimeConfig.GetCacheAdapter().Set(
+			JWTLoginPrefix,
+			userIDStr,
+			token.AccessToken,
+			config.AuthConfig.Timeout,
+		)
+		if err != nil {
+			j.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
+			return
+		}
 	}
 
 	// 添加设备信息
@@ -113,20 +186,8 @@ func (j *JwtAuth) LoginResponse(c *gin.Context, token *core.Token) {
 		if deviceFP == "" {
 			log.GetRequestLogger(c).Warn("device fingerprint empty")
 		} else {
-			j.recordDevice(userID, deviceFP)
+			j.recordDevice(userIDStr, deviceFP)
 		}
-	}
-
-	// set 用于单点登录，更新登录信息
-	err := runtime.RuntimeConfig.GetCacheAdapter().Set(
-		JWTLoginPrefix,
-		userIDStr,
-		token.AccessToken,
-		config.AuthConfig.Timeout,
-	)
-	if err != nil {
-		j.unauthorized(c, http.StatusUnauthorized, baseLang.AuthErrLogCode, lang.MsgErrf(baseLang.AuthErrLogCode, lg, err).Error())
-		return
 	}
 
 	// 缓存记录用户最新登录状态
@@ -136,8 +197,27 @@ func (j *JwtAuth) LoginResponse(c *gin.Context, token *core.Token) {
 	response.OK(c, gin.H{
 		"token":    token.AccessToken,
 		"username": userName,
-		"expire":   config.AuthConfig.Timeout,
+		"expire":   token.ExpiresAt,
 	}, http.StatusOK, lang.MsgByCode(baseLang.SuccessCode, lg))
+}
+
+func (j *JwtAuth) RefreshResponse(c *gin.Context, token *core.Token) {
+	if config.ApplicationConfig.IsSingleLogin {
+		userIDStr, _, _ := j.GetUserIdStr(c)
+		if userIDStr != "" {
+			_ = runtime.RuntimeConfig.GetCacheAdapter().Set(
+				JWTLoginPrefix,
+				userIDStr,
+				token.AccessToken,
+				config.AuthConfig.Timeout,
+			)
+			j.updateLastActivity(userIDStr)
+		}
+	}
+	response.OK(c, gin.H{
+		"token":  token.AccessToken,
+		"expire": token.ExpiresAt,
+	}, http.StatusOK, lang.MsgByCode(baseLang.SuccessCode, lang.GetAcceptLanguage(c)))
 }
 
 func (j *JwtAuth) LogoutResponse(c *gin.Context) {
@@ -202,76 +282,44 @@ func (j *JwtAuth) RevokeToken(c *gin.Context) (int, error) {
 	return http.StatusOK, nil
 }
 
-func (j *JwtAuth) Get(c *gin.Context, key string) (interface{}, int, error) {
-	var err error
-	defer func() {
-		if err != nil {
-			rLog := log.GetRequestLogger(c)
-			rLog.Error(strutils.GetCurrentTimeStr() + " [ERROR] " + c.Request.Method + " " + c.Request.URL.Path + " Get no " + key)
-		}
-	}()
-	data := jwt.ExtractClaims(c)
-	if data[key] != nil {
-		return data[key], baseLang.SuccessCode, nil
+func (j *JwtAuth) GetUserIdStr(c *gin.Context) (string, int, error) {
+	userID := c.GetInt64(authdto.LoginUserId)
+	if userID <= 0 {
+		return "", baseLang.AuthErr, lang.MsgErrf(baseLang.AuthErr, lang.GetAcceptLanguage(c))
 	}
-	err = lang.MsgErr(baseLang.AuthErr, lang.GetAcceptLanguage(c))
-	return nil, baseLang.AuthErr, err
+	return strconv.FormatInt(userID, 10), baseLang.SuccessCode, nil
 }
 
 func (j *JwtAuth) GetUserId(c *gin.Context) (int64, int, error) {
-	result, respCode, err := j.Get(c, authdto.LoginUserId)
-	if err != nil {
-		return 0, respCode, err
+	userID := c.GetInt64(authdto.LoginUserId)
+	if userID <= 0 {
+		return 0, baseLang.AuthErr, lang.MsgErrf(baseLang.AuthErr, lang.GetAcceptLanguage(c))
 	}
-	return int64(result.(float64)), baseLang.SuccessCode, nil
-}
-
-func (j *JwtAuth) GetUserIdStr(c *gin.Context) (string, int, error) {
-	result, respCode, err := j.Get(c, authdto.LoginUserId)
-	if err != nil {
-		return "", respCode, err
-	}
-	return strconv.Itoa(int(result.(float64))), baseLang.SuccessCode, nil
+	return userID, baseLang.SuccessCode, nil
 }
 
 func (j *JwtAuth) GetRoleId(c *gin.Context) (int64, int, error) {
-	result, respCode, err := j.Get(c, authdto.RoleId)
-	if err != nil {
-		return 0, respCode, err
+	roleID := c.GetInt64(authdto.RoleId)
+	if roleID <= 0 {
+		return 0, baseLang.AuthErr, lang.MsgErrf(baseLang.AuthErr, lang.GetAcceptLanguage(c))
 	}
-	return int64(result.(float64)), baseLang.SuccessCode, nil
-}
-
-func (j *JwtAuth) GetRoleKey(c *gin.Context) string {
-	result, _, _ := j.Get(c, authdto.RoleKey)
-	if result == nil {
-		return ""
-	}
-	return result.(string)
+	return roleID, baseLang.SuccessCode, nil
 }
 
 func (j *JwtAuth) GetDeptId(c *gin.Context) (int64, int, error) {
-	result, respCode, err := j.Get(c, authdto.DeptId)
-	if err != nil {
-		return 0, respCode, err
+	roleID := c.GetInt64(authdto.DeptId)
+	if roleID <= 0 {
+		return 0, baseLang.AuthErr, lang.MsgErrf(baseLang.AuthErr, lang.GetAcceptLanguage(c))
 	}
-	return int64(result.(float64)), baseLang.SuccessCode, nil
+	return roleID, baseLang.SuccessCode, nil
+}
+
+func (j *JwtAuth) GetRoleKey(c *gin.Context) string {
+	return c.GetString(authdto.RoleKey)
 }
 
 func (j *JwtAuth) GetUserName(c *gin.Context) string {
-	result, _, _ := j.Get(c, authdto.UserName)
-	if result == nil {
-		return ""
-	}
-	return result.(string)
-}
-
-func (j *JwtAuth) AuthMiddlewareFunc() gin.HandlerFunc {
-	return j.mw.MiddlewareFunc()
-}
-
-func (j *JwtAuth) RefreshHandler(c *gin.Context) {
-	j.mw.RefreshHandler(c)
+	return c.GetString(authdto.UserName)
 }
 
 func (j *JwtAuth) authCheck(c *gin.Context) bool {
@@ -283,7 +331,7 @@ func (j *JwtAuth) authCheck(c *gin.Context) bool {
 	}
 	userIDStr, _, err := j.GetUserIdStr(c)
 	if err != nil {
-		rLog.Error(err)
+		rLog.Error(err.Error())
 		return false
 	}
 
@@ -356,7 +404,7 @@ func (j *JwtAuth) authCheck(c *gin.Context) bool {
 				JWTDevicesPrefix,
 				userIDStr,
 				strings.Join(deviceList, ","),
-				config.AuthConfig.Timeout,
+				config.AuthConfig.MaxRefresh,
 			)
 
 		}
@@ -375,55 +423,8 @@ func (j *JwtAuth) updateLastActivity(userID string) {
 		JWTActivityPrefix,
 		userID,
 		strconv.FormatInt(time.Now().Unix(), 10),
-		config.AuthConfig.Timeout,
+		config.AuthConfig.MaxRefresh,
 	)
-}
-
-// AuthCheckRoleMiddlewareFunc 权限检查中间件
-func (j *JwtAuth) AuthCheckRoleMiddlewareFunc() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		data, _ := c.Get(JwtPayloadKey)
-		v := data.(jwtIn.MapClaims)
-		roleKey := v[authdto.RoleKey]
-
-		rLog := log.GetRequestLogger(c)
-		var res, casbinExclude bool
-		var err error
-		//检查权限
-		if roleKey == constant.RoleKeyAdmin {
-			res = true
-			c.Next()
-			return
-		}
-		for _, i := range casbin.CasbinExclude {
-			if util.KeyMatch2(c.Request.URL.Path, i.Url) && c.Request.Method == i.Method {
-				casbinExclude = true
-				break
-			}
-		}
-		if casbinExclude {
-			rLog.Infof("Casbin exclusion, no validation method:%s path:%s", c.Request.Method, c.Request.URL.Path)
-			c.Next()
-			return
-		}
-		e := runtime.RuntimeConfig.GetCasbinKey(c.Request.Host)
-		res, err = e.Enforce(roleKey, c.Request.URL.Path, c.Request.Method)
-		if err != nil {
-			rLog.Errorf("AuthCheckRole error:%s method:%s path:%s", err, c.Request.Method, c.Request.URL.Path)
-			response.Error(c, baseLang.ServerErr, lang.MsgByCode(baseLang.ServerErr, lang.GetAcceptLanguage(c)))
-			return
-		}
-
-		if res {
-			rLog.Infof("isTrue: %v role: %s method: %s path: %s", res, roleKey, c.Request.Method, c.Request.URL.Path)
-			c.Next()
-		} else {
-			rLog.Warnf("isTrue: %v role: %s method: %s path: %s message: %s", res, roleKey, c.Request.Method, c.Request.URL.Path, "The current request has no permission. Please confirm it!")
-			response.Error(c, baseLang.ForbitErr, lang.MsgByCode(baseLang.ForbitErr, lang.GetAcceptLanguage(c)))
-			c.Abort()
-			return
-		}
-	}
 }
 
 // GetUserDevices 获取用户的所有设备
@@ -458,12 +459,10 @@ func (j *JwtAuth) unauthorized(c *gin.Context, httpCode, errCode int, message st
 }
 
 // recordDevice 记录设备
-func (j *JwtAuth) recordDevice(userID int64, deviceFP string) {
+func (j *JwtAuth) recordDevice(userIDStr string, deviceFP string) {
 	if !j.enableDeviceCheck {
 		return
 	}
-
-	userIDStr := strconv.FormatInt(userID, 10)
 
 	// 获取现有设备列表
 	devices := j.getCacheString(JWTDevicesPrefix, userIDStr)
@@ -494,7 +493,7 @@ func (j *JwtAuth) recordDevice(userID int64, deviceFP string) {
 			JWTDevicesPrefix,
 			userIDStr,
 			strings.Join(deviceList, ","),
-			config.AuthConfig.Timeout,
+			config.AuthConfig.MaxRefresh,
 		)
 	}
 }
@@ -549,7 +548,7 @@ func (j *JwtAuth) removeDevice(userID string, deviceFP string) {
 			JWTDevicesPrefix,
 			userID,
 			strings.Join(newList, ","),
-			config.AuthConfig.Timeout,
+			config.AuthConfig.MaxRefresh,
 		)
 	} else {
 		runtime.RuntimeConfig.GetCacheAdapter().Del(JWTDevicesPrefix, userID)
@@ -653,18 +652,6 @@ func (j *JwtAuth) Authorizer(c *gin.Context, data interface{}) bool {
 	return false
 }
 
-func (j *JwtAuth) RefreshResponse(c *gin.Context, token *core.Token) {
-	c.JSON(http.StatusOK, gin.H{
-		"requestId": strutils.GenerateMsgIDFromContext(c),
-		"msg":       "",
-		"code":      http.StatusOK,
-		"data": gin.H{
-			"token":  token,
-			"expire": token.ExpiresAt,
-		},
-	})
-}
-
 func (j *JwtAuth) Unauthorized(c *gin.Context, httpCode int, message string) {
 	_, _ = j.RevokeToken(c)
 	temp := strings.SplitN(message, "_", 1)
@@ -676,6 +663,6 @@ func (j *JwtAuth) Unauthorized(c *gin.Context, httpCode int, message string) {
 			message = temp[1]
 		}
 	}
-	log.GetRequestLogger(c).Errorf("Cache set JWTLoginPrefix failed: %d-%s", errCode, message)
+	log.GetRequestLogger(c).Errorf("Unauthorized failed: %d-%s", errCode, message)
 	response.ErrorByHttpCode(c, httpCode, errCode, message)
 }
