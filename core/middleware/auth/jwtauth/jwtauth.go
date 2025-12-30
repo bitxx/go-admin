@@ -85,6 +85,7 @@ func NewJwtAuth() (*JwtAuth, error) {
 		enableDeviceCheck: config.AuthConfig.EnableDeviceCheck,
 		enableBlacklist:   config.AuthConfig.EnableBlacklist,
 		maxDevices:        max(1, config.AuthConfig.MaxDeviceCount),
+		deviceLocks:       newDeviceLockManager(),
 	}
 
 	mw, err := jwt.New(&jwt.GinJWTMiddleware{

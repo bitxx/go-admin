@@ -329,7 +329,7 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 				//设置变更的角色到内存，后续该用户操作时，会强制该用户退出
 				runtime.RuntimeConfig.GetCacheAdapter().Set(
 					jwtauth.JwtRolePrefix,
-					strconv.FormatInt(c.CurrUserId, 10),
+					strconv.FormatInt(c.Id, 10),
 					role.RoleKey,
 					config.AuthConfig.MaxRefresh,
 				)
