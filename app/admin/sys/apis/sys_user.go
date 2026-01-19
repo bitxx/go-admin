@@ -408,13 +408,9 @@ func (e SysUser) Login(c *gin.Context) {
 
 	c.Set(authdto.LoginUserId, userResp.Id)
 	c.Set(authdto.UserName, userResp.Username)
-	c.Set(authdto.RoleId, userResp.Role.Id)
 	c.Set(authdto.RoleKey, userResp.Role.RoleKey)
-	c.Set(authdto.DeptId, userResp.Dept.Id)
-	c.Set(authdto.DataScope, userResp.Role.DataScope)
-	c.Set(authdto.UserInfo, userResp)
-	auth.Auth.Login(c)
 	s.LoginLogToDB(c, constant.UserLoginStatus, lang.MsgByCode(baseLang.SysUseLoginOpCode, e.Lang), userResp.Id)
+	auth.Auth.Login(c)
 }
 
 // LogOut admin-退出系统
@@ -434,8 +430,12 @@ func (e SysUser) LogOut(c *gin.Context) {
 		return
 	}
 	s.LoginLogToDB(c, constant.UserLogoutStatus, lang.MsgByCode(baseLang.SysUseLoginOpCode, e.Lang), uid)
+	auth.Auth.Logout(c)
+}
 
-	e.OK(nil, lang.MsgByCode(baseLang.SysUseLogoutSuccessCode, e.Lang))
+// RefreshToken admin-刷新token
+func (e SysUser) RefreshToken(c *gin.Context) {
+	auth.Auth.RefreshToken(c)
 }
 
 // GenCaptcha admin-获取图形验证码

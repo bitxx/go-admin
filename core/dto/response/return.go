@@ -11,44 +11,39 @@ var Default = &response{}
 
 // Error 失败数据处理
 func Error(c *gin.Context, code int, msg string) {
-	res := Default.Clone()
-	if msg != "" {
-		res.SetMsg(msg)
+	httpCode := http.StatusBadRequest
+	if code <= 600 {
+		httpCode = code
 	}
-	res.SetTraceID(strutils.GenerateMsgIDFromContext(c))
-	res.SetCode(int32(code))
-	c.Set("result", res)
-	c.Set("status", code)
-	//status := code
-	c.AbortWithStatusJSON(http.StatusOK, res)
+	ErrorByHttpCode(c, httpCode, code, msg)
+
 }
 
-func OKByCode(c *gin.Context, data interface{}, code int, msg string) {
+// ErrorByHttpCode 自定义httpCode
+func ErrorByHttpCode(c *gin.Context, httpCode, code int, msg string) {
 	res := Default.Clone()
 	if msg != "" {
 		res.SetMsg(msg)
 	}
 	res.SetTraceID(strutils.GenerateMsgIDFromContext(c))
-	res.SetData(data)
-	res.SetCode(int32(code))
-	//res.SetSuccess(false) //多余，暂不使用
-	c.Set("result", res)
-	c.Set("status", code)
-	c.AbortWithStatusJSON(http.StatusOK, res)
+	res.SetCode(code)
+	res.SetSuccess(false)
+	if httpCode > 600 {
+		httpCode = http.StatusBadRequest
+	}
+	c.AbortWithStatusJSON(httpCode, res)
 }
 
 // OK 通常成功数据处理
-func OK(c *gin.Context, data interface{}, msg string) {
+func OK(c *gin.Context, data interface{}, code int, msg string) {
 	res := Default.Clone()
 	res.SetData(data)
-	//res.SetSuccess(true)
 	if msg != "" {
 		res.SetMsg(msg)
 	}
+	res.SetSuccess(true)
 	res.SetTraceID(strutils.GenerateMsgIDFromContext(c))
-	res.SetCode(http.StatusOK)
-	c.Set("result", res)
-	c.Set("status", http.StatusOK)
+	res.SetCode(code)
 	c.AbortWithStatusJSON(http.StatusOK, res)
 }
 
@@ -61,19 +56,12 @@ func Download(c *gin.Context, data []byte, filename, contentType string) {
 }
 
 // PageOK 分页数据处理
-func PageOK(c *gin.Context, result, extend interface{}, count int64, pageIndex int, pageSize int, msg string) {
+func PageOK(c *gin.Context, result, extend interface{}, count int64, pageIndex, pageSize, code int, msg string) {
 	var res page
 	res.List = result
 	res.Extend = extend
 	res.Count = count
 	res.PageIndex = pageIndex
 	res.PageSize = pageSize
-	OK(c, res, msg)
-}
-
-// Custum 兼容函数
-func Custum(c *gin.Context, data gin.H) {
-	data["requestId"] = strutils.GenerateMsgIDFromContext(c)
-	c.Set("result", data)
-	c.AbortWithStatusJSON(http.StatusOK, data)
+	OK(c, res, code, msg)
 }

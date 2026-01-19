@@ -3,35 +3,39 @@ package lang
 import "go-admin/core/lang"
 
 const (
-	//600（包含600）以下必须符合http规则，否则接口会异常
-	SuccessCode       = 200
-	RequestErr        = 400
-	AuthErr           = 401
-	ForbitErr         = 403
-	ServerErr         = 500
-	ParamErrCode      = 1001
-	OpErrCode         = 1002
-	DataDecodeCode    = 1013
-	DataDecodeLogCode = 1012
-	DataQueryCode     = 1003
-	DataQueryLogCode  = 1004
-	DataInsertLogCode = 1005
-	DataInsertCode    = 1006
-	DataNotUpdateCode = 1014
-	DataUpdateCode    = 1007
-	DataUpdateLogCode = 1008
-	DataDeleteCode    = 1009
-	DataDeleteLogCode = 1010
-	DataNotFoundCode  = 1011
-	ServerErrLogCode  = 1012
+	SuccessCode   = 200
+	BadRequestErr = 400
+	AuthErr       = 401
+	ForbitErr     = 403
+	NotFoundErr   = 404
+	ServerErr     = 500
+
+	ParamErrCode         = 1001
+	OpErrCode            = 1002
+	DataDecodeCode       = 1013
+	DataDecodeLogCode    = 1012
+	DataQueryCode        = 1003
+	DataQueryLogCode     = 1004
+	DataInsertLogCode    = 1005
+	DataInsertCode       = 1006
+	DataNotUpdateCode    = 1014
+	DataUpdateCode       = 1007
+	DataUpdateLogCode    = 1008
+	DataDeleteCode       = 1009
+	DataDeleteLogCode    = 1010
+	DataNotFoundCode     = 1011
+	ServerErrLogCode     = 1012
+	BadRequestErrLogCode = 1013
+	AuthErrLogCode       = 1014
 )
 
 func init() {
 	//1-基础通用
 	lang.MsgInfo[SuccessCode] = "操作成功"
-	lang.MsgInfo[RequestErr] = "请求失败"
+	lang.MsgInfo[BadRequestErr] = "错误请求"
 	lang.MsgInfo[AuthErr] = "状态失效，请重新登录"
 	lang.MsgInfo[ForbitErr] = "对不起，您权限不足，操作异常，请联系管理员"
+	lang.MsgInfo[NotFoundErr] = "对不起，资源未找到"
 	lang.MsgInfo[ServerErr] = "内部错误"
 	lang.MsgInfo[ParamErrCode] = "参数错误"
 	lang.MsgInfo[OpErrCode] = "操作异常，请检查"
@@ -48,4 +52,6 @@ func init() {
 	lang.MsgInfo[DataDeleteLogCode] = "数据删除失败：%s"
 	lang.MsgInfo[DataNotFoundCode] = "数据不存在"
 	lang.MsgInfo[ServerErrLogCode] = "内部错误：%s"
+	lang.MsgInfo[BadRequestErrLogCode] = "错误请求：%s"
+	lang.MsgInfo[AuthErrLogCode] = "认证失败：%s"
 }

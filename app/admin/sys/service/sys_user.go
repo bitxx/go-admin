@@ -4,21 +4,22 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/mssola/user_agent"
-	"go-admin/config/base/constant"
-
 	"go-admin/app/admin/sys/models"
 	"go-admin/app/admin/sys/service/dto"
+	"go-admin/config/base/constant"
 	baseLang "go-admin/config/base/lang"
 	"go-admin/core/config"
 	"go-admin/core/dto/service"
 	"go-admin/core/global"
 	"go-admin/core/lang"
 	"go-admin/core/middleware"
+	"go-admin/core/middleware/auth/jwtauth"
 	"go-admin/core/runtime"
 	"go-admin/core/utils/dateutils"
 	"go-admin/core/utils/iputils"
 	"go-admin/core/utils/strutils"
 	"gorm.io/gorm"
+	"strconv"
 	"time"
 
 	cDto "go-admin/core/dto"
@@ -232,6 +233,8 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 		return false, baseLang.SysUserDeptEmptyCode, lang.MsgErr(baseLang.SysUserDeptEmptyCode, e.Lang)
 	}*/
 
+	authChange := false //检查影响用户登录认证的字段是否发生变化，若发生变化，则需要强制该用户退出登录
+
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
 		return false, respCode, err
@@ -276,6 +279,7 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 	}
 	if c.RoleId > 0 && data.RoleId != c.RoleId {
 		updates["role_id"] = c.RoleId
+		authChange = true //角色切换，需要重新登录
 	}
 	if c.Avatar != "" && data.Avatar != c.Avatar {
 		updates["avatar"] = c.Avatar
@@ -316,6 +320,21 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *middleware.DataPermission) 
 		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
 		if err != nil {
 			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+		}
+
+		if authChange {
+			sysRoleService := NewSysRoleService(&e.Service)
+			role, _, _ := sysRoleService.Get(c.RoleId, nil)
+			if role != nil {
+				//设置变更的角色到内存，后续该用户操作时，会强制该用户退出
+				runtime.RuntimeConfig.GetCacheAdapter().Set(
+					jwtauth.JwtRolePrefix,
+					strconv.FormatInt(c.Id, 10),
+					role.RoleKey,
+					config.AuthConfig.MaxRefresh,
+				)
+			}
+
 		}
 		return true, baseLang.SuccessCode, nil
 	}

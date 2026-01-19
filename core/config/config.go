@@ -85,7 +85,7 @@ func Setup(s source.Source,
 		loadconfig.WithEntity(_cfg),
 	)
 	if err != nil {
-		log.Fatalf(fmt.Sprintf("New config object fail: %s", err.Error()))
+		panic(fmt.Sprintf("New config object fail: %s", err.Error()))
 	}
 	_cfg.Init()
 }

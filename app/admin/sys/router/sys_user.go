@@ -24,6 +24,7 @@ func registerSysUserRouter(v1 *gin.RouterGroup) {
 		r.PUT("/pwd-reset", api.ResetPwd)
 		r.PUT("/update-status", api.UpdateStatus)
 		r.GET("/logout", api.LogOut)
+		r.GET("/refresh-token", api.RefreshToken)
 		r.GET("/profile", api.GetProfile)
 		r.PUT("/profile", api.UpdateProfile)
 		r.POST("/profile/avatar", api.UpdateProfileAvatar)

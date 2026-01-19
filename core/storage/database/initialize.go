@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"go-admin/core/config"
 	"go-admin/core/config/database"
 	"go-admin/core/runtime"
@@ -46,10 +47,9 @@ func setupSimpleDatabase(host string, c *config.Database) {
 	}, opens[c.Driver])
 
 	if err != nil {
-		log.Fatal(textutils.Red(c.Driver+" connect error :"), err)
-	} else {
-		log.Info(textutils.Green(c.Driver + " connect success !"))
+		panic(fmt.Sprintf(c.Driver+" connect error :", err))
 	}
+	log.Info(textutils.Green(c.Driver + " connect success !"))
 
 	runtime.RuntimeConfig.SetDb(host, db)
 }

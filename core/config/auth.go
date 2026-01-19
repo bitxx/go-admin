@@ -1,9 +1,12 @@
 package config
 
 type Auth struct {
-	Use     string
-	Timeout int
-	Secret  string
+	Timeout           int
+	MaxRefresh        int
+	Secret            string
+	EnableDeviceCheck bool
+	EnableBlacklist   bool
+	MaxDeviceCount    int
 }
 
 var AuthConfig = new(Auth)

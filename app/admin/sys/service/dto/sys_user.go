@@ -59,12 +59,12 @@ type SysUserInsertReq struct {
 	Password   string `json:"password" comment:"密码"`
 	NickName   string `json:"nickName" comment:"昵称"`
 	Phone      string `json:"phone" comment:"手机号"`
-	RoleId     int    `json:"roleId" comment:"角色ID"`
+	RoleId     int64  `json:"roleId" comment:"角色ID"`
 	Avatar     string `json:"avatar" comment:"头像"`
 	Sex        string `json:"sex" comment:"性别"`
 	Email      string `json:"email" comment:"邮箱"`
-	DeptId     int    `json:"deptId" comment:"部门"`
-	PostId     int    `json:"postId" comment:"岗位"`
+	DeptId     int64  `json:"deptId" comment:"部门"`
+	PostId     int64  `json:"postId" comment:"岗位"`
 	Remark     string `json:"remark" comment:"备注"`
 	Status     string `json:"status" comment:"状态"`
 	CurrUserId int64  `json:"-" comment:""`
@@ -75,12 +75,12 @@ type SysUserUpdateReq struct {
 	Username   string `json:"username" comment:"用户名"`
 	NickName   string `json:"nickName" comment:"昵称"`
 	Phone      string `json:"phone" comment:"手机号"`
-	RoleId     int    `json:"roleId" comment:"角色ID"`
+	RoleId     int64  `json:"roleId" comment:"角色ID"`
 	Avatar     string `json:"avatar" comment:"头像"`
 	Sex        string `json:"sex" comment:"性别"`
 	Email      string `json:"email" comment:"邮箱"`
-	DeptId     int    `json:"deptId" comment:"部门"`
-	PostId     int    `json:"postId" comment:"岗位"`
+	DeptId     int64  `json:"deptId" comment:"部门"`
+	PostId     int64  `json:"postId" comment:"岗位"`
 	Remark     string `json:"remark" comment:"备注"`
 	Status     string `json:"status" comment:"状态"sss`
 	CurrUserId int64  `json:"-" comment:""`
