@@ -5,7 +5,7 @@ go 1.26.1
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
 	github.com/appleboy/gin-jwt/v3 v3.4.1
-	github.com/bitxx/load-config v1.6.2
+	github.com/bitxx/load-config v1.6.4
 	github.com/bitxx/logger v1.6.4
 	github.com/bsm/redislock v0.9.4
 	github.com/bytedance/go-tagexpr/v2 v2.9.11
@@ -33,12 +33,10 @@ require (
 )
 
 require (
-	dario.cat/mergo v1.0.2 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/andeya/ameda v1.5.3 // indirect
 	github.com/andeya/goutil v1.1.2 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/bitly/go-simplejson v0.5.1 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.9.1 // indirect
 	github.com/bytedance/gopkg v0.1.3 // indirect
 	github.com/bytedance/sonic v1.15.0 // indirect
