@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bitxx/logger/logbase"
-	vd "github.com/bytedance/go-tagexpr/v2/validator"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"go-admin/core/dto/response"
@@ -63,12 +62,6 @@ func (e *Api) Bind(d interface{}, bindings ...binding.Binding) *Api {
 			e.AddError(err)
 			break
 		}
-	}
-	//vd.SetErrorFactory(func(failPath, msg string) error {
-	//	return fmt.Errorf(`"validation failed: %s %s"`, failPath, msg)
-	//})
-	if err1 := vd.Validate(d); err1 != nil {
-		e.AddError(err1)
 	}
 	return e
 }

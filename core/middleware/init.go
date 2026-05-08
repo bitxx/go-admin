@@ -25,8 +25,6 @@ func InitMiddleware(r *gin.Engine) {
 	r.Use(Options)
 	// Secure is a middleware function that appends security
 	r.Use(Secure)
-	// 链路追踪
-	r.Use(Trace())
 	runtime.RuntimeConfig.SetMiddleware(JwtTokenCheck, (*jwt.GinJWTMiddleware).MiddlewareFunc)
 	runtime.RuntimeConfig.SetMiddleware(RoleCheck, AuthCheckRole())
 	runtime.RuntimeConfig.SetMiddleware(PermissionCheck, PermissionAction())
