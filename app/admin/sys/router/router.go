@@ -5,7 +5,6 @@ import (
 	"go-admin/core/config"
 	"go-admin/core/global"
 	"go-admin/core/runtime"
-	"go-admin/core/ws"
 	"mime"
 )
 
@@ -58,17 +57,9 @@ func checkRoleRouter(r *gin.Engine) {
 
 func InitSysRouter(r *gin.Engine) *gin.RouterGroup {
 	g := r.Group("")
-	sysBaseRouter(g)
 	// 静态文件
 	sysStaticFileRouter(g)
 	return g
-}
-
-func sysBaseRouter(r *gin.RouterGroup) {
-
-	go ws.WebsocketManager.Start()
-	go ws.WebsocketManager.SendService()
-	go ws.WebsocketManager.SendAllService()
 }
 
 func sysStaticFileRouter(r *gin.RouterGroup) {
