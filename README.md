@@ -102,10 +102,10 @@
 go mod tidy
 
 # 直接编译
-go generate && go build -a -o go-admin-api main.go
+go generate && go build -ldflags="-s -w" -trimpath -a -o go-admin-api main.go
 
 # 交叉编译为linux amd64：
-go generate && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o go-admin-api main.go
+go generate && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -a -o go-admin-api main.go
 ```
 `注`⚠️：`go generate`命令一定要执行（无论打包前还是本地运行），它可以扫描保存你新增的路由，用于后续接口同步
 3. 项目根目录，找到`conf/`，可以直接再`settings.yml`中配置数据库，或者可以拷贝一份，重新命名，比如：`settings.dev.yml`，具体的配置信息，请自行去文件中参考，里面写的很详细，我这里就不再解释了
