@@ -94,7 +94,7 @@
 3. 建好数据库后，直接把我根目录的sql脚本 mysql=>`app_mysql.sql`(由Navicat Lite导出) 或者 postgresql=>`app_pgsql.sql`(自行整理)导入即可
 
 ### 4.2 后台接口部署与启动
-1. 环境：golang版本-1.25.4
+1. 环境：golang版本-1.26.1
 2. 编译项目，项目根目录执行如下：
 ```shell
 go mod tidy
