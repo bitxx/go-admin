@@ -26,7 +26,7 @@ type UserOperLog struct {
 	service.Service
 }
 
-// NewUserOperLogService app-实例化用户操作日志
+// NewUserOperLogService biz-实例化用户操作日志
 func NewUserOperLogService(s *service.Service) *UserOperLog {
 	var srv = new(UserOperLog)
 	srv.Orm = s.Orm
@@ -34,7 +34,7 @@ func NewUserOperLogService(s *service.Service) *UserOperLog {
 	return srv
 }
 
-// GetPage app-获取用户操作日志分页列表
+// GetPage biz-获取用户操作日志分页列表
 func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPermission) ([]models.UserOperLog, int64, int, error) {
 	var err error
 	if c.Mobile != "" {
@@ -103,7 +103,7 @@ func (e *UserOperLog) GetPage(c *dto.UserOperLogQueryReq, p *middleware.DataPerm
 	return list, count, clang.SuccessCode, nil
 }
 
-// Get app-获取用户操作日志详情
+// Get biz-获取用户操作日志详情
 func (e *UserOperLog) Get(id int64, p *middleware.DataPermission) (*models.UserOperLog, int, error) {
 	if id <= 0 {
 		return nil, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -121,7 +121,7 @@ func (e *UserOperLog) Get(id int64, p *middleware.DataPermission) (*models.UserO
 	return data, clang.SuccessCode, nil
 }
 
-// QueryOne app-获取用户操作记录一条记录
+// QueryOne biz-获取用户操作记录一条记录
 func (e *UserOperLog) QueryOne(queryCondition *dto.UserOperLogQueryReq, p *middleware.DataPermission) (*models.UserOperLog, int, error) {
 	data := &models.UserOperLog{}
 	err := e.Orm.Scopes(
@@ -182,7 +182,7 @@ func (e *UserOperLog) Insert(c *dto.UserOperLogInsertReq) (int64, int, error) {
 	return data.Id, clang.SuccessCode, nil
 }
 
-// Export app-导出用户操作日志
+// Export biz-导出用户操作日志
 func (e *UserOperLog) Export(list []models.UserOperLog) ([]byte, error) {
 	sheetName := "UserOperLog"
 	xlsx := excelize.NewFile()

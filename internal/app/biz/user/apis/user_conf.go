@@ -16,7 +16,7 @@ type UserConf struct {
 	api.Api
 }
 
-// GetPage app-获取用户配置管理分页列表
+// GetPage biz-获取用户配置管理分页列表
 func (e UserConf) GetPage(c *gin.Context) {
 	req := dto.UserConfQueryReq{}
 	s := service.UserConf{}
@@ -39,7 +39,7 @@ func (e UserConf) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Get app-获取用户配置管理详情
+// Get biz-获取用户配置管理详情
 func (e UserConf) Get(c *gin.Context) {
 	req := dto.UserConfGetReq{}
 	s := service.UserConf{}
@@ -61,7 +61,7 @@ func (e UserConf) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Update app-更新用户配置管理
+// Update biz-更新用户配置管理
 func (e UserConf) Update(c *gin.Context) {
 	req := dto.UserConfUpdateReq{}
 	s := service.UserConf{}

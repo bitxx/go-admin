@@ -22,7 +22,7 @@ type UserAccountLog struct {
 	service.Service
 }
 
-// NewUserAccountLogService app-实例化账变记录
+// NewUserAccountLogService biz-实例化账变记录
 func NewUserAccountLogService(s *service.Service) *UserAccountLog {
 	var srv = new(UserAccountLog)
 	srv.Orm = s.Orm
@@ -30,7 +30,7 @@ func NewUserAccountLogService(s *service.Service) *UserAccountLog {
 	return srv
 }
 
-// GetPage app-获取账变记录分页列表
+// GetPage biz-获取账变记录分页列表
 func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.DataPermission) ([]models.UserAccountLog, int64, int, error) {
 	var data models.UserAccountLog
 	var list []models.UserAccountLog
@@ -98,7 +98,7 @@ func (e *UserAccountLog) GetPage(c *dto.UserAccountLogQueryReq, p *middleware.Da
 	return list, count, cLang.SuccessCode, nil
 }
 
-// Get app-获取账变记录详情
+// Get biz-获取账变记录详情
 func (e *UserAccountLog) Get(id int64, p *middleware.DataPermission) (*models.UserAccountLog, int, error) {
 	if id <= 0 {
 		return nil, cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)
@@ -116,7 +116,7 @@ func (e *UserAccountLog) Get(id int64, p *middleware.DataPermission) (*models.Us
 	return data, cLang.SuccessCode, nil
 }
 
-// QueryOne app-获取账变记录一条记录
+// QueryOne biz-获取账变记录一条记录
 func (e *UserAccountLog) QueryOne(queryCondition *dto.UserAccountLogQueryReq, p *middleware.DataPermission) (*models.UserAccountLog, int, error) {
 	data := &models.UserAccountLog{}
 	err := e.Orm.Scopes(
@@ -149,7 +149,7 @@ func (e *UserAccountLog) Count(queryCondition *dto.UserAccountLogQueryReq) (int6
 	return count, cLang.SuccessCode, nil
 }
 
-// Export app-导出账变记录
+// Export biz-导出账变记录
 func (e *UserAccountLog) Export(list []models.UserAccountLog) ([]byte, error) {
 	sheetName := "UserAccountLog"
 	xlsx := excelize.NewFile()

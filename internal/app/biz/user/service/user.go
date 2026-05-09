@@ -29,7 +29,7 @@ type User struct {
 	service.Service
 }
 
-// NewUserService app-实例化用户管理
+// NewUserService biz-实例化用户管理
 func NewUserService(s *service.Service) *User {
 	var srv = new(User)
 	srv.Orm = s.Orm
@@ -37,7 +37,7 @@ func NewUserService(s *service.Service) *User {
 	return srv
 }
 
-// GetPage app-获取用户管理分页列表
+// GetPage biz-获取用户管理分页列表
 func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]models.User, int64, int, error) {
 	var data models.User
 	var list []models.User
@@ -107,7 +107,7 @@ func (e *User) GetPage(c *dto.UserQueryReq, p *middleware.DataPermission) ([]mod
 	return list, count, clang.SuccessCode, nil
 }
 
-// Get app-获取用户管理详情
+// Get biz-获取用户管理详情
 func (e *User) Get(id int64, p *middleware.DataPermission) (*models.User, int, error) {
 	if id <= 0 {
 		return nil, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -131,7 +131,7 @@ func (e *User) Get(id int64, p *middleware.DataPermission) (*models.User, int, e
 	return data, clang.SuccessCode, nil
 }
 
-// QueryOne app-获取用户管理一条记录
+// QueryOne biz-获取用户管理一条记录
 func (e *User) QueryOne(queryCondition *dto.UserQueryReq, p *middleware.DataPermission) (*models.User, int, error) {
 	data := &models.User{}
 	err := e.Orm.Scopes(
@@ -147,7 +147,7 @@ func (e *User) QueryOne(queryCondition *dto.UserQueryReq, p *middleware.DataPerm
 	return data, clang.SuccessCode, nil
 }
 
-// QueryOne app-获取用户在树同一个层最大排序号
+// QueryOne biz-获取用户在树同一个层最大排序号
 func (e *User) queryMaxTreeSort(queryCondition *dto.UserQueryReq) (int64, int, error) {
 	maxSort := int64(0)
 	err := e.Orm.Scopes(
@@ -176,7 +176,7 @@ func (e *User) Count(queryCondition *dto.UserQueryReq) (int64, int, error) {
 	return count, clang.SuccessCode, nil
 }
 
-// Insert app-新增用户管理
+// Insert biz-新增用户管理
 func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	if c.CurrUserId <= 0 {
 		return clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -256,7 +256,7 @@ func (e *User) Insert(c *dto.UserInsertReq) (int, error) {
 	return clang.SuccessCode, nil
 }
 
-// register app-内部方法，注册用户管理
+// register biz-内部方法，注册用户管理
 func (e *User) register(registerType, email, mobile, mobileTitle string, refUser *models.User) (int, error) {
 
 	//验证手机号和邮箱是否重复
@@ -289,7 +289,7 @@ func (e *User) register(registerType, email, mobile, mobileTitle string, refUser
 	return e.insertRegisterInfo(registerType, email, mobile, mobileTitle, refUser)
 }
 
-// insertRegisterInfo app-内部方法，注册用户管理
+// insertRegisterInfo biz-内部方法，注册用户管理
 func (e *User) insertRegisterInfo(registerType, emial, mobile, mobileTitle string, refCode *models.User) (int, error) {
 
 	//插入用户数据
@@ -315,7 +315,7 @@ func (e *User) insertRegisterInfo(registerType, emial, mobile, mobileTitle strin
 	return clang.SuccessCode, nil
 }
 
-// insertMemUser app-内部方法，注册用户管理
+// insertMemUser biz-内部方法，注册用户管理
 func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, refUser *models.User) (int64, int, error) {
 	user := models.User{}
 	if registerType == constant.AccountMobileType {
@@ -399,7 +399,7 @@ func (e *User) insertMemUser(registerType, email, mobile, mobileTitle string, re
 	return user.Id, clang.SuccessCode, nil
 }
 
-// Update app-更新用户管理
+// Update biz-更新用户管理
 func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -487,7 +487,7 @@ func (e *User) Update(c *dto.UserUpdateReq, p *middleware.DataPermission) (bool,
 	return false, clang.SuccessCode, nil
 }
 
-// UpdateStatus app-更新用户管理状态
+// UpdateStatus biz-更新用户管理状态
 func (e *User) UpdateStatus(c *dto.UserStatusUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.CurrUserId <= 0 || c.Id <= 0 {
 		return false, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -518,7 +518,7 @@ func (e *User) UpdateStatus(c *dto.UserStatusUpdateReq, p *middleware.DataPermis
 	return false, clang.SuccessCode, nil
 }
 
-// Export app-导出用户管理
+// Export biz-导出用户管理
 func (e *User) Export(list []models.User) ([]byte, error) {
 	sheetName := "User"
 	xlsx := excelize.NewFile()
@@ -542,7 +542,7 @@ func (e *User) Export(list []models.User) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-// GetSummaries app-统计用户管理数据
+// GetSummaries biz-统计用户管理数据
 func (e *User) GetSummaries(c *dto.UserQueryReq, p *middleware.DataPermission) (*models.User, int, error) {
 	var err error
 	var data models.User

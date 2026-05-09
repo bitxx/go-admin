@@ -18,7 +18,7 @@ type UserAccountLog struct {
 	api.Api
 }
 
-// GetPage app-获取账变记录分页列表
+// GetPage biz-获取账变记录分页列表
 func (e UserAccountLog) GetPage(c *gin.Context) {
 	req := dto.UserAccountLogQueryReq{}
 	s := service.UserAccountLog{}
@@ -41,7 +41,7 @@ func (e UserAccountLog) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Get app-获取账变记录详情
+// Get biz-获取账变记录详情
 func (e UserAccountLog) Get(c *gin.Context) {
 	req := dto.UserAccountLogGetReq{}
 	s := service.UserAccountLog{}
@@ -63,7 +63,7 @@ func (e UserAccountLog) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Export app-导出账变记录
+// Export biz-导出账变记录
 func (e UserAccountLog) Export(c *gin.Context) {
 	req := dto.UserAccountLogQueryReq{}
 	s := service.UserAccountLog{}

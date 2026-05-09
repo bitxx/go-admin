@@ -19,7 +19,7 @@ type UserLevel struct {
 	api.Api
 }
 
-// GetPage app-获取用户等级管理分页列表
+// GetPage biz-获取用户等级管理分页列表
 func (e UserLevel) GetPage(c *gin.Context) {
 	req := dto.UserLevelQueryReq{}
 	s := service.UserLevel{}
@@ -41,7 +41,7 @@ func (e UserLevel) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Get app-获取用户等级管理详情
+// Get biz-获取用户等级管理详情
 func (e UserLevel) Get(c *gin.Context) {
 	req := dto.UserLevelGetReq{}
 	s := service.UserLevel{}
@@ -63,7 +63,7 @@ func (e UserLevel) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Insert app-新增用户等级管理
+// Insert biz-新增用户等级管理
 func (e UserLevel) Insert(c *gin.Context) {
 	req := dto.UserLevelInsertReq{}
 	s := service.UserLevel{}
@@ -90,7 +90,7 @@ func (e UserLevel) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Update app-更新用户等级管理
+// Update biz-更新用户等级管理
 func (e UserLevel) Update(c *gin.Context) {
 	req := dto.UserLevelUpdateReq{}
 	s := service.UserLevel{}
@@ -122,7 +122,7 @@ func (e UserLevel) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Delete app-删除用户等级管理
+// Delete biz-删除用户等级管理
 func (e UserLevel) Delete(c *gin.Context) {
 	s := service.UserLevel{}
 	req := dto.UserLevelDeleteReq{}
@@ -145,7 +145,7 @@ func (e UserLevel) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Export app-导出用户等级管理
+// Export biz-导出用户等级管理
 func (e UserLevel) Export(c *gin.Context) {
 	req := dto.UserLevelQueryReq{}
 	s := service.UserLevel{}

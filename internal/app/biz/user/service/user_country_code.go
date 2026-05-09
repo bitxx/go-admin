@@ -20,7 +20,7 @@ type UserCountryCode struct {
 	service.Service
 }
 
-// NewUserCountryCodeService app-实例化国家区号管理
+// NewUserCountryCodeService biz-实例化国家区号管理
 func NewUserCountryCodeService(s *service.Service) *UserCountryCode {
 	var srv = new(UserCountryCode)
 	srv.Orm = s.Orm
@@ -28,7 +28,7 @@ func NewUserCountryCodeService(s *service.Service) *UserCountryCode {
 	return srv
 }
 
-// GetPage app-获取国家区号管理分页列表
+// GetPage biz-获取国家区号管理分页列表
 func (e *UserCountryCode) GetPage(c *dto.UserCountryCodeQueryReq, p *middleware.DataPermission) ([]models.UserCountryCode, int64, int, error) {
 	var data models.UserCountryCode
 	var list []models.UserCountryCode
@@ -46,7 +46,7 @@ func (e *UserCountryCode) GetPage(c *dto.UserCountryCodeQueryReq, p *middleware.
 	return list, count, clang.SuccessCode, nil
 }
 
-// Get app-获取国家区号管理详情
+// Get biz-获取国家区号管理详情
 func (e *UserCountryCode) Get(id int64, p *middleware.DataPermission) (*models.UserCountryCode, int, error) {
 	if id <= 0 {
 		return nil, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -64,7 +64,7 @@ func (e *UserCountryCode) Get(id int64, p *middleware.DataPermission) (*models.U
 	return data, clang.SuccessCode, nil
 }
 
-// QueryOne app-获取国家区号管理一条记录
+// QueryOne biz-获取国家区号管理一条记录
 func (e *UserCountryCode) QueryOne(queryCondition *dto.UserCountryCodeQueryReq, p *middleware.DataPermission) (*models.UserCountryCode, int, error) {
 	data := &models.UserCountryCode{}
 	err := e.Orm.Scopes(
@@ -97,7 +97,7 @@ func (e *UserCountryCode) Count(queryCondition *dto.UserCountryCodeQueryReq) (in
 	return count, clang.SuccessCode, nil
 }
 
-// Insert app-新增国家区号管理
+// Insert biz-新增国家区号管理
 func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -150,7 +150,7 @@ func (e *UserCountryCode) Insert(c *dto.UserCountryCodeInsertReq) (int64, int, e
 	return data.Id, clang.SuccessCode, nil
 }
 
-// Update app-更新国家区号管理
+// Update biz-更新国家区号管理
 func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -209,7 +209,7 @@ func (e *UserCountryCode) Update(c *dto.UserCountryCodeUpdateReq, p *middleware.
 	return false, clang.SuccessCode, nil
 }
 
-// Delete app-删除国家区号管理
+// Delete biz-删除国家区号管理
 func (e *UserCountryCode) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -224,7 +224,7 @@ func (e *UserCountryCode) Delete(ids []int64, p *middleware.DataPermission) (int
 	return clang.SuccessCode, nil
 }
 
-// Export app-导出国家区号管理
+// Export biz-导出国家区号管理
 func (e *UserCountryCode) Export(list []models.UserCountryCode) ([]byte, error) {
 	sheetName := "UserCountryCode"
 	xlsx := excelize.NewFile()

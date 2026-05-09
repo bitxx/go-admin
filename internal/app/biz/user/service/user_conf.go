@@ -22,7 +22,7 @@ type UserConf struct {
 	service.Service
 }
 
-// NewUserConfService app-实例用户配置管理记录
+// NewUserConfService biz-实例用户配置管理记录
 func NewUserConfService(s *service.Service) *UserConf {
 	var srv = new(UserConf)
 	srv.Orm = s.Orm
@@ -30,7 +30,7 @@ func NewUserConfService(s *service.Service) *UserConf {
 	return srv
 }
 
-// GetPage app-获取用户配置管理分页列表
+// GetPage biz-获取用户配置管理分页列表
 func (e *UserConf) GetPage(c *dto.UserConfQueryReq, p *middleware.DataPermission) ([]models.UserConf, int64, int, error) {
 	var data models.UserConf
 	var list []models.UserConf
@@ -98,7 +98,7 @@ func (e *UserConf) GetPage(c *dto.UserConfQueryReq, p *middleware.DataPermission
 	return list, count, cLang.SuccessCode, nil
 }
 
-// Get app-获取用户配置管理详情
+// Get biz-获取用户配置管理详情
 func (e *UserConf) Get(id int64, p *middleware.DataPermission) (*models.UserConf, int, error) {
 	if id <= 0 {
 		return nil, cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)
@@ -116,7 +116,7 @@ func (e *UserConf) Get(id int64, p *middleware.DataPermission) (*models.UserConf
 	return data, cLang.SuccessCode, nil
 }
 
-// QueryOne app-获取用户配置管理一条记录
+// QueryOne biz-获取用户配置管理一条记录
 func (e *UserConf) QueryOne(queryCondition *dto.UserConfQueryReq, p *middleware.DataPermission) (*models.UserConf, int, error) {
 	data := &models.UserConf{}
 	err := e.Orm.Scopes(
@@ -149,7 +149,7 @@ func (e *UserConf) Count(queryCondition *dto.UserConfQueryReq) (int64, int, erro
 	return count, cLang.SuccessCode, nil
 }
 
-// Insert app-新增用户配置管理
+// Insert biz-新增用户配置管理
 func (e *UserConf) Insert(c *dto.UserConfInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)
@@ -170,7 +170,7 @@ func (e *UserConf) Insert(c *dto.UserConfInsertReq) (int64, int, error) {
 	return data.Id, cLang.SuccessCode, nil
 }
 
-// Update app-更新用户配置管理
+// Update biz-更新用户配置管理
 func (e *UserConf) Update(c *dto.UserConfUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)

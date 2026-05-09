@@ -18,7 +18,7 @@ type UserOperLog struct {
 	api.Api
 }
 
-// GetPage app-获取用户操作日志分页列表
+// GetPage biz-获取用户操作日志分页列表
 func (e UserOperLog) GetPage(c *gin.Context) {
 	req := dto.UserOperLogQueryReq{}
 	s := service.UserOperLog{}
@@ -41,7 +41,7 @@ func (e UserOperLog) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Get app-获取用户操作日志详情
+// Get biz-获取用户操作日志详情
 func (e UserOperLog) Get(c *gin.Context) {
 	req := dto.UserOperLogGetReq{}
 	s := service.UserOperLog{}
@@ -63,7 +63,7 @@ func (e UserOperLog) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Export app-导出用户操作日志
+// Export biz-导出用户操作日志
 func (e UserOperLog) Export(c *gin.Context) {
 	req := dto.UserOperLogQueryReq{}
 	s := service.UserOperLog{}

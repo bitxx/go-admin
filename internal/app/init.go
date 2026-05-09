@@ -15,7 +15,7 @@ func AllRouter() []func() {
 	//初始化路由
 	var routers []func()
 
-	//app-应用
+	//biz-应用
 	routers = append(routers, appRouter.AllRouter()...)
 
 	//admin-基础服务

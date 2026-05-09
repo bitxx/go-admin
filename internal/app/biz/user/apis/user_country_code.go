@@ -19,7 +19,7 @@ type UserCountryCode struct {
 	api.Api
 }
 
-// GetPage app-获取国家区号管理分页列表
+// GetPage biz-获取国家区号管理分页列表
 func (e UserCountryCode) GetPage(c *gin.Context) {
 	req := dto.UserCountryCodeQueryReq{}
 	s := service.UserCountryCode{}
@@ -41,7 +41,7 @@ func (e UserCountryCode) GetPage(c *gin.Context) {
 	e.PageOK(list, nil, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Get app-获取国家区号管理详情
+// Get biz-获取国家区号管理详情
 func (e UserCountryCode) Get(c *gin.Context) {
 	req := dto.UserCountryCodeGetReq{}
 	s := service.UserCountryCode{}
@@ -63,7 +63,7 @@ func (e UserCountryCode) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Insert app-新增国家区号管理
+// Insert biz-新增国家区号管理
 func (e UserCountryCode) Insert(c *gin.Context) {
 	req := dto.UserCountryCodeInsertReq{}
 	s := service.UserCountryCode{}
@@ -90,7 +90,7 @@ func (e UserCountryCode) Insert(c *gin.Context) {
 	e.OK(id, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Update app-更新国家区号管理
+// Update biz-更新国家区号管理
 func (e UserCountryCode) Update(c *gin.Context) {
 	req := dto.UserCountryCodeUpdateReq{}
 	s := service.UserCountryCode{}
@@ -122,7 +122,7 @@ func (e UserCountryCode) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Delete app-删除国家区号管理
+// Delete biz-删除国家区号管理
 func (e UserCountryCode) Delete(c *gin.Context) {
 	s := service.UserCountryCode{}
 	req := dto.UserCountryCodeDeleteReq{}
@@ -145,7 +145,7 @@ func (e UserCountryCode) Delete(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Export app-导出国家区号管理
+// Export biz-导出国家区号管理
 func (e UserCountryCode) Export(c *gin.Context) {
 	req := dto.UserCountryCodeQueryReq{}
 	s := service.UserCountryCode{}

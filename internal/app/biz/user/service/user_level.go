@@ -21,7 +21,7 @@ type UserLevel struct {
 	service.Service
 }
 
-// NewUserLevelService app-实例化用户等级管理
+// NewUserLevelService biz-实例化用户等级管理
 func NewUserLevelService(s *service.Service) *UserLevel {
 	var srv = new(UserLevel)
 	srv.Orm = s.Orm
@@ -29,7 +29,7 @@ func NewUserLevelService(s *service.Service) *UserLevel {
 	return srv
 }
 
-// GetPage app-获取用户等级管理分页列表
+// GetPage biz-获取用户等级管理分页列表
 func (e *UserLevel) GetPage(c *dto.UserLevelQueryReq, p *middleware.DataPermission) ([]models.UserLevel, int64, int, error) {
 	var data models.UserLevel
 	var list []models.UserLevel
@@ -47,7 +47,7 @@ func (e *UserLevel) GetPage(c *dto.UserLevelQueryReq, p *middleware.DataPermissi
 	return list, count, clang.SuccessCode, nil
 }
 
-// Get app-获取用户等级管理详情
+// Get biz-获取用户等级管理详情
 func (e *UserLevel) Get(id int64, p *middleware.DataPermission) (*models.UserLevel, int, error) {
 	if id <= 0 {
 		return nil, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -65,7 +65,7 @@ func (e *UserLevel) Get(id int64, p *middleware.DataPermission) (*models.UserLev
 	return data, clang.SuccessCode, nil
 }
 
-// QueryOne app-获取用户等级管理一条记录
+// QueryOne biz-获取用户等级管理一条记录
 func (e *UserLevel) QueryOne(queryCondition *dto.UserLevelQueryReq, p *middleware.DataPermission) (*models.UserLevel, int, error) {
 	data := &models.UserLevel{}
 	err := e.Orm.Scopes(
@@ -98,7 +98,7 @@ func (e *UserLevel) Count(queryCondition *dto.UserLevelQueryReq) (int64, int, er
 	return count, clang.SuccessCode, nil
 }
 
-// Insert app-新增用户等级管理详情
+// Insert biz-新增用户等级管理详情
 func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
 		return 0, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -142,7 +142,7 @@ func (e *UserLevel) Insert(c *dto.UserLevelInsertReq) (int64, int, error) {
 	return data.Id, clang.SuccessCode, nil
 }
 
-// Update app-更新用户等级管理详情
+// Update biz-更新用户等级管理详情
 func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
 		return false, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -185,7 +185,7 @@ func (e *UserLevel) Update(c *dto.UserLevelUpdateReq, p *middleware.DataPermissi
 	return false, clang.SuccessCode, nil
 }
 
-// Delete app-删除用户等级管理详情
+// Delete biz-删除用户等级管理详情
 func (e *UserLevel) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
 		return clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
@@ -214,7 +214,7 @@ func (e *UserLevel) Delete(ids []int64, p *middleware.DataPermission) (int, erro
 	return clang.SuccessCode, nil
 }
 
-// Export app-导出用户等级管理详情
+// Export biz-导出用户等级管理详情
 func (e *UserLevel) Export(list []models.UserLevel) ([]byte, error) {
 	sheetName := "UserLevel"
 	xlsx := excelize.NewFile()

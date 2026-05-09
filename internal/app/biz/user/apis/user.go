@@ -19,7 +19,7 @@ type User struct {
 	api.Api
 }
 
-// GetPage app-获取用户管理分页列表
+// GetPage biz-获取用户管理分页列表
 func (e User) GetPage(c *gin.Context) {
 	req := dto.UserQueryReq{}
 	s := service.User{}
@@ -43,7 +43,7 @@ func (e User) GetPage(c *gin.Context) {
 	e.PageOK(list, result, count, req.GetPageIndex(), req.GetPageSize(), lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Get app-获取用户管理详情
+// Get biz-获取用户管理详情
 func (e User) Get(c *gin.Context) {
 	req := dto.UserGetReq{}
 	s := service.User{}
@@ -65,7 +65,7 @@ func (e User) Get(c *gin.Context) {
 	e.OK(result, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Insert app-新增用户管理
+// Insert biz-新增用户管理
 func (e User) Insert(c *gin.Context) {
 	req := dto.UserInsertReq{}
 	s := service.User{}
@@ -92,7 +92,7 @@ func (e User) Insert(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Update app-更新用户管理
+// Update biz-更新用户管理
 func (e User) Update(c *gin.Context) {
 	req := dto.UserUpdateReq{}
 	s := service.User{}
@@ -124,7 +124,7 @@ func (e User) Update(c *gin.Context) {
 	e.OK(nil, lang.MsgByCode(cLang.SuccessCode, e.Lang))
 }
 
-// Export app-导出用户管理
+// Export biz-导出用户管理
 func (e User) Export(c *gin.Context) {
 	req := dto.UserQueryReq{}
 	s := service.User{}
