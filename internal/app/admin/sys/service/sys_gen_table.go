@@ -1,0 +1,706 @@
+package service
+
+import (
+	"archive/zip"
+	"bytes"
+	"errors"
+	"go-admin/internal/app/admin/sys/models"
+	"go-admin/internal/app/admin/sys/service/dto"
+	"go-admin/internal/common/constant"
+	clang "go-admin/internal/common/lang"
+	"go-admin/pkg/config"
+
+	cDto "go-admin/pkg/dto"
+	"go-admin/pkg/dto/service"
+	"go-admin/pkg/global"
+	"go-admin/pkg/lang"
+	"go-admin/pkg/middleware"
+	"go-admin/pkg/utils/dateutils"
+	"go-admin/pkg/utils/fileutils"
+	"gorm.io/gorm"
+	"path/filepath"
+	"strings"
+	"text/template"
+	"time"
+)
+
+type SysGenTable struct {
+	service.Service
+}
+
+// NewSysGenTableService admin-实例化表管理
+func NewSysGenTableService(s *service.Service) *SysGenTable {
+	var srv = new(SysGenTable)
+	srv.Orm = s.Orm
+	srv.Log = s.Log
+	return srv
+}
+
+// GetPage admin-获取表管理分页列表
+func (e *SysGenTable) GetPage(c *dto.SysGenTableQueryReq, p *middleware.DataPermission) ([]models.SysGenTable, int64, int, error) {
+	var list []models.SysGenTable
+	var data models.SysGenTable
+	var count int64
+
+	err := e.Orm.Order("created_at desc").Model(&data).
+		Scopes(
+			cDto.MakeCondition(c.GetNeedSearch()),
+			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			middleware.Permission(data.TableName(), p),
+		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+	if err != nil {
+		return nil, 0, clang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataQueryCode, clang.DataQueryLogCode, err)
+	}
+	return list, count, clang.SuccessCode, nil
+}
+
+// Get admin-获取表管理详情
+func (e *SysGenTable) Get(id int64, p *middleware.DataPermission) (*models.SysGenTable, int, error) {
+	if id <= 0 {
+		return nil, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
+	}
+	data := &models.SysGenTable{}
+	err := e.Orm.Preload("SysGenColumns").Scopes(
+		middleware.Permission(data.TableName(), p),
+	).First(data, id).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, clang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataQueryCode, clang.DataQueryLogCode, err)
+	}
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, clang.DataNotFoundCode, lang.MsgErr(clang.DataNotFoundCode, e.Lang)
+	}
+	return data, clang.SuccessCode, nil
+}
+
+// QueryOne admin-获取表管理一条记录
+func (e *SysGenTable) QueryOne(queryCondition *dto.SysGenTableQueryReq, p *middleware.DataPermission) (*models.SysGenTable, int, error) {
+	data := &models.SysGenTable{}
+	err := e.Orm.Model(&models.SysGenTable{}).
+		Scopes(
+			cDto.MakeCondition(queryCondition.GetNeedSearch()),
+			middleware.Permission(data.TableName(), p),
+		).First(data).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, clang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataQueryCode, clang.DataQueryLogCode, err)
+	}
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, clang.DataNotFoundCode, lang.MsgErr(clang.DataNotFoundCode, e.Lang)
+	}
+	return data, clang.SuccessCode, nil
+}
+
+// Count admin-获取表管理数据总数
+func (e *SysGenTable) Count(c *dto.SysGenTableQueryReq) (int64, int, error) {
+	var err error
+	var count int64
+	err = e.Orm.Model(&models.SysGenTable{}).
+		Scopes(
+			cDto.MakeCondition(c.GetNeedSearch()),
+		).Limit(-1).Offset(-1).
+		Count(&count).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return 0, clang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataQueryCode, clang.DataQueryLogCode, err)
+	}
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return 0, clang.DataNotFoundCode, lang.MsgErr(clang.DataNotFoundCode, e.Lang)
+	}
+	return count, clang.SuccessCode, nil
+}
+
+// Insert admin-新增表管理
+func (e *SysGenTable) Insert(c *dto.SysGenTableInsertReq) (int, error) {
+	if len(c.DbTableNames) <= 0 {
+		return clang.SysGenTableSelectCode, lang.MsgErr(clang.SysGenTableSelectCode, e.Lang)
+	}
+	req := dto.SysGenTableQueryReq{}
+	req.TableNames = c.DbTableNames
+	count, respCode, err := e.Count(&req)
+	if count > 0 {
+		return clang.SysGenTableInsertExistCode, lang.MsgErr(clang.SysGenTableInsertExistCode, e.Lang)
+	}
+	sysTables, respCode, err := e.genTables(c.DbTableNames)
+	if err != nil {
+		return respCode, err
+	}
+
+	err = e.Orm.Transaction(func(tx *gorm.DB) error {
+		if err = e.Orm.Create(&sysTables).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		return clang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataInsertCode, clang.DataInsertLogCode, err)
+	}
+	return clang.SuccessCode, nil
+}
+
+// Update admin-更新表管理
+func (e *SysGenTable) Update(c *dto.SysGenTableUpdateReq, p *middleware.DataPermission) (bool, int, error) {
+	data, respCode, err := e.Get(c.Id, p)
+	if err != nil {
+		return false, respCode, err
+	}
+
+	e.Orm = e.Orm.Begin()
+	defer func() {
+		if err != nil {
+			e.Orm.Rollback()
+		} else {
+			e.Orm.Commit()
+		}
+	}()
+
+	//最小化变更改动过的数据
+	updates := map[string]interface{}{}
+	if c.FunctionAuthor != "" && data.FunctionAuthor != c.FunctionAuthor {
+		updates["function_author"] = c.FunctionAuthor
+	}
+	if c.TableComment != "" && data.TableComment != c.TableComment {
+		updates["table_comment"] = c.TableComment
+	}
+	if c.ClassName != "" && data.ClassName != c.ClassName {
+		updates["class_name"] = c.ClassName
+	}
+	if c.BusinessName != "" && data.BusinessName != c.BusinessName {
+		updates["business_name"] = c.BusinessName
+	}
+	if c.PackageName != "" && data.PackageName != c.PackageName {
+		updates["package_name"] = c.PackageName
+	}
+	if c.ModuleName != "" && data.ModuleName != c.ModuleName {
+		updates["module_name"] = c.ModuleName
+	}
+	if c.FunctionName != "" && data.FunctionName != c.FunctionName {
+		updates["function_name"] = c.FunctionName
+	}
+	if c.Remark != "" && data.Remark != c.Remark {
+		updates["remark"] = c.Remark
+	}
+
+	isUpdate := false
+	if len(updates) > 0 {
+		updates["updated_at"] = time.Now()
+		updates["update_by"] = c.CurrUserId
+		err = e.Orm.Model(&data).Where("id=?", data.Id).Updates(&updates).Error
+		if err != nil {
+			return false, clang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataUpdateCode, clang.DataUpdateLogCode, err)
+		}
+		isUpdate = true
+	}
+	columnsService := NewSysColumnsService(&e.Service)
+	for _, column := range c.Columns {
+		column.CurrUserId = c.CurrUserId
+		var b bool
+		b, respCode, err = columnsService.Update(&column, p)
+		if err != nil {
+			return false, respCode, err
+		}
+		if b {
+			isUpdate = true
+		}
+	}
+
+	return isUpdate, clang.SuccessCode, nil
+}
+
+// Delete admin-删除表管理
+func (e *SysGenTable) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
+	if len(ids) <= 0 {
+		return clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
+	}
+	var err error
+	e.Orm = e.Orm.Begin()
+	defer func() {
+		if err != nil {
+			e.Orm.Rollback()
+		} else {
+			e.Orm.Commit()
+		}
+	}()
+	var data models.SysGenTable
+	err = e.Orm.Scopes(
+		middleware.Permission(data.TableName(), p),
+	).Delete(&data, ids).Error
+	if err != nil {
+		return clang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataDeleteCode, clang.DataDeleteLogCode, err)
+	}
+	columnsService := NewSysColumnsService(&e.Service)
+	columnReq := dto.SysGenColumnDeleteReq{}
+	columnReq.TableIds = ids
+	respCode, err := columnsService.Delete(columnReq, p)
+	if err != nil {
+		return respCode, err
+	}
+	return clang.SuccessCode, nil
+}
+
+// GetDBTablePage admin-获取表管理的DB表分页列表
+func (e *SysGenTable) GetDBTablePage(c dto.DBTableQueryReq) ([]dto.DBTableResp, int64, int, error) {
+	var list []models.DBTable
+	var count int64
+	var err error
+	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+		subQuery := e.Orm.Model(&models.DBTable{}).
+			Select(`tablename AS table_name,
+            obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS table_comment,
+            NULL::text AS create_time`).
+			Where("schemaname = 'public'")
+
+		err = e.Orm.Table("(?) as tables", subQuery).
+			Scopes(
+				cDto.MakeCondition(c.GetNeedSearch()),
+				cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			).
+			Where("tables.table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
+			Where("tables.table_name not in (select table_name from admin_sys_gen_table)").
+			Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+	} else if config.DatabaseConfig.Driver == global.DBDriverMysql {
+		subQuery := e.Orm.Model(&models.DBTable{}).
+			Select("TABLE_NAME as table_name,"+
+				"ENGINE as engine,TABLE_ROWS as table_rows,"+
+				"TABLE_COLLATION as table_collation,"+
+				"CREATE_TIME as create_time,"+
+				"UPDATE_TIME as update_time,"+
+				"TABLE_COMMENT as table_comment").
+			Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase())
+
+		err = e.Orm.Table("(?) as tables", subQuery).
+			Scopes(
+				cDto.MakeCondition(c.GetNeedSearch()),
+				cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			).
+			//Where("table_name not like 'admin_sys_%'").
+			Where("tables.table_name not in ('admin_sys_role_menu','admin_sys_role_dept','admin_sys_menu_api_rule','admin_sys_gen_column','admin_sys_casbin_rule')").
+			Where("tables.table_name not in (select table_name from admin_sys_gen_table)").
+			Find(&list).Limit(-1).Offset(-1).Count(&count).Error
+	}
+	if err != nil {
+		return nil, 0, clang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataQueryCode, clang.DataQueryLogCode, err)
+	}
+
+	// 构造响应
+	respList := make([]dto.DBTableResp, 0, len(list))
+	for _, item := range list {
+		respList = append(respList, dto.DBTableResp{
+			TableName:    item.TBName,
+			TableComment: item.TableComment,
+			CreatedAt:    dateutils.ConvertToStrByPrt(item.CreateTime, -1),
+		})
+	}
+
+	return respList, count, clang.SuccessCode, nil
+}
+
+// genTables admin-根据表名称生成表结构集合
+func (e *SysGenTable) genTables(dbTableNames []string) ([]models.SysGenTable, int, error) {
+	if len(dbTableNames) <= 0 {
+		return nil, clang.SysGenTableSelectCode, lang.MsgErr(clang.SysGenTableSelectCode, e.Lang)
+	}
+	dbTables, resp, err := e.getDBTableList(dbTableNames)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	var sysTables []models.SysGenTable
+	now := time.Now()
+	for _, table := range dbTables {
+		sysTable := models.SysGenTable{}
+
+		// 默认去除表前缀后再去初始化modelName、packageName、businessName
+		tableNoPrefix := table.TBName
+		packageName := ""
+		businessName := ""
+		tempBusinessName := "" //备选packageName
+		splits := strings.Split(table.TBName, "_")
+		if len(splits) > 0 {
+			tableNoPrefix = strings.Replace(table.TBName, splits[0]+"_", "", 1)
+			packageName = splits[0]
+			if len(splits) > 2 {
+				businessName = splits[1]
+			}
+		}
+
+		tbNameSplits := strings.Split(tableNoPrefix, "_")
+		for index, _ := range tbNameSplits {
+			strStart := string([]byte(tbNameSplits[index])[:1])
+			strend := string([]byte(tbNameSplits[index])[1:])
+			// 大驼峰表名 结构体使用
+			sysTable.ClassName += strings.ToUpper(strStart) + strend
+			// 小驼峰表名 js函数名和权限标识使用
+			if index == 0 {
+				tempBusinessName += strings.ToLower(strStart) + strend
+			} else {
+				tempBusinessName += strings.ToUpper(strStart) + strend
+			}
+		}
+		if businessName == "" {
+			businessName = tempBusinessName
+		}
+		if packageName == "" {
+			packageName = tempBusinessName
+		}
+		sysTable.PackageName = packageName
+		sysTable.BusinessName = businessName
+		sysTable.ModuleName = strings.Replace(tableNoPrefix, "_", "-", -1)
+
+		sysTable.TBName = table.TBName
+		sysTable.TableComment = table.TableComment
+		if sysTable.TableComment == "" {
+			sysTable.TableComment = sysTable.ClassName
+		}
+		sysTable.FunctionName = sysTable.TableComment
+		sysTable.FunctionAuthor = config.ApplicationConfig.Author
+
+		columnsService := NewSysColumnsService(&e.Service)
+		columns, respCode, err := columnsService.GetDBColumnList(table.TBName)
+		if err != nil {
+			return nil, respCode, err
+		}
+		for index, column := range columns {
+			sysColumn := models.SysGenColumn{}
+			sysColumn.ColumnComment = column.ColumnComment
+			sysColumn.ColumnName = column.ColumnName
+			sysColumn.ColumnType = column.ColumnType
+			sysColumn.Sort = index + 1
+			sysColumn.QueryType = "EQ"
+			sysColumn.IsPk = global.SysStatusNotOk
+			sysColumn.IsQuery = global.SysStatusNotOk
+			sysColumn.IsList = global.SysStatusNotOk
+
+			namelist := strings.Split(sysColumn.ColumnName, "_")
+			for i := 0; i < len(namelist); i++ {
+				strStart := string([]byte(namelist[i])[:1])
+				strend := string([]byte(namelist[i])[1:])
+				sysColumn.GoField += strings.ToUpper(strStart) + strend
+				if i == 0 {
+					sysColumn.JsonField = strings.ToLower(strStart) + strend
+				} else {
+					sysColumn.JsonField += strings.ToUpper(strStart) + strend
+				}
+			}
+			//must cmp pk at first
+			if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+				var isPK bool
+				sql := `
+						SELECT EXISTS (
+							SELECT 1
+							FROM pg_index i
+							JOIN pg_attribute a ON a.attrelid = i.indrelid AND a.attnum = ANY(i.indkey)
+							WHERE i.indrelid = ?::regclass
+							  AND i.indisprimary
+							  AND a.attname = ?
+						) AS is_primary_key;
+    					`
+				_ = e.Orm.Raw(sql, table.TBName, column.ColumnName).Scan(&isPK).Error
+				if isPK {
+					sysColumn.IsPk = global.SysStatusOk
+				}
+			} else if strings.Contains(column.ColumnKey, "PR") {
+				sysColumn.IsPk = global.SysStatusOk
+			}
+			sysColumn.IsRequired = global.SysStatusNotOk
+			if strings.Contains(column.IsNullable, "NO") {
+				sysColumn.IsRequired = global.SysStatusOk
+			}
+			if strings.Contains(column.ColumnType, "int") || strings.Contains(column.ColumnType, "BIGINT") {
+				sysColumn.GoType = "int64"
+				sysColumn.HtmlType = "numInput"
+			} else if strings.Contains(column.ColumnType, "decimal") {
+				sysColumn.GoType = "decimal.Decimal"
+				sysColumn.HtmlType = "input"
+			} else if strings.Contains(column.ColumnType, "timestamp") || strings.Contains(column.ColumnType, "datetime") {
+				sysColumn.GoType = "*time.Time"
+				sysColumn.HtmlType = "datetime"
+			} else {
+				sysColumn.GoType = "string"
+				sysColumn.HtmlType = "input"
+			}
+			sysColumn.CreatedAt = &now
+			sysColumn.UpdatedAt = &now
+			sysTable.SysGenColumns = append(sysTable.SysGenColumns, sysColumn)
+		}
+
+		sysTable.CreatedAt = &now
+		sysTable.UpdatedAt = &now
+		sysTables = append(sysTables, sysTable)
+	}
+	return sysTables, clang.SuccessCode, nil
+}
+
+// getDBTableList admin-从数据库中获取表指定表的完整结构
+func (e *SysGenTable) getDBTableList(tableNames []string) ([]models.DBTable, int, error) {
+	if len(tableNames) == 0 {
+		return nil, clang.SysGenTableSelectCode, lang.MsgErr(clang.SysGenTableSelectCode, e.Lang)
+	}
+
+	var list []models.DBTable
+	var err error
+
+	if config.DatabaseConfig.Driver == global.DBDriverPostgres {
+		err = e.Orm.Select(`tablename AS table_name,
+            obj_description(('"' || tablename || '"')::regclass, 'pg_class') AS table_comment,
+            NULL::text AS create_time`).
+			Where("schemaname = 'public'").
+			Where("tablename IN (?)", tableNames).
+			Find(&list).Error
+	} else if config.DatabaseConfig.Driver == global.DBDriverMysql {
+		err = e.Orm.Select("TABLE_NAME as table_name,"+
+			"ENGINE as engine,TABLE_ROWS as table_rows,"+
+			"TABLE_COLLATION as table_collation,"+
+			"CREATE_TIME as create_time,"+
+			"UPDATE_TIME as update_time,"+
+			"TABLE_COMMENT as table_comment").
+			Where("table_schema= ? ", e.Orm.Migrator().CurrentDatabase()).
+			Where("TABLE_NAME in (?)", tableNames).Find(&list).Error
+	}
+
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, clang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, clang.DataQueryCode, clang.DataQueryLogCode, err)
+	}
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, clang.DataNotFoundCode, lang.MsgErr(clang.DataNotFoundCode, e.Lang)
+	}
+
+	return list, clang.SuccessCode, nil
+}
+
+// Preview admin-预览表管理的代码页面
+func (e *SysGenTable) Preview(c dto.SysGenTableGenCodeReq, p *middleware.DataPermission) ([]dto.TemplateResp, int, error) {
+	if c.Id <= 0 {
+		return nil, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
+	}
+	table, respCode, err := e.Get(c.Id, p)
+	if err != nil {
+		return nil, respCode, err
+	}
+	var resp []dto.TemplateResp
+	for k, v := range constant.TemplatInfo {
+		tpl, err := template.New(filepath.Base(v)).Funcs(template.FuncMap{
+			"contains": strings.Contains,
+		}).ParseFiles(v)
+		if err != nil {
+			return nil, clang.SysGenTemplateModelReadLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, clang.SysGenTemplateModelReadErrCode, clang.SysGenTemplateModelReadLogErrCode, err)
+		}
+
+		var content bytes.Buffer
+		err = tpl.Execute(&content, table)
+		if err != nil {
+			return nil, clang.SysGenTemplateModelDecodeLogErrCode, lang.MsgLogErrf(e.Log, e.Lang, clang.SysGenTemplateModelDecodeErrCode, clang.SysGenTemplateModelDecodeLogErrCode, err)
+		}
+
+		//生成文件的路径
+		defaultPath := "./internal/app/"
+		path := defaultPath
+		tableName := strings.Replace(table.ModuleName, "-", "_", -1) //golang 文件名使用下划线
+		if k == constant.ModelName {
+			path = path + table.PackageName + "/" + table.BusinessName + "/models/" + tableName + ".go"
+		}
+		if k == constant.ApiName {
+			path = path + table.PackageName + "/" + table.BusinessName + "/apis/" + tableName + ".go"
+		}
+		if k == constant.BusinessRouterName {
+			path = path + table.PackageName + "/" + table.BusinessName + "/router/" + tableName + ".go"
+		}
+		if k == constant.DtoName {
+			path = path + table.PackageName + "/" + table.BusinessName + "/service/dto/" + tableName + ".go"
+		}
+		if k == constant.ServiceName {
+			path = path + table.PackageName + "/" + table.BusinessName + "/service/" + tableName + ".go"
+		}
+		if k == constant.RouterName {
+			path = path + table.PackageName + "/" + table.BusinessName + "/router/router.go.bk"
+		}
+
+		if k == constant.ReactApiName {
+			path = config.GenConfig.FrontPath + "/api/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.ts"
+		}
+		if k == constant.ReactFormModalName {
+			path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/components/FormModal.tsx"
+		}
+		if k == constant.ReactViewName {
+			path = config.GenConfig.FrontPath + "/views/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName + "/index.tsx"
+		}
+
+		if path != defaultPath {
+			tplResp := dto.TemplateResp{
+				Name:    k,
+				Path:    path,
+				Content: content.String(),
+			}
+			resp = append(resp, tplResp)
+		}
+
+	}
+	return resp, clang.SuccessCode, nil
+}
+
+// GenCode admin-生成表管理的代码
+func (e *SysGenTable) GenCode(c dto.SysGenTableGenCodeReq, p *middleware.DataPermission) (*bytes.Buffer, int, error) {
+	if c.Id <= 0 {
+		return nil, clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
+	}
+
+	templateResp, respCode, err := e.Preview(c, p)
+	if err != nil {
+		return nil, respCode, err
+	}
+
+	//如果是下载zpi压缩包代码
+	if c.IsDownload == global.SysStatusOk {
+		buf := new(bytes.Buffer)
+		writer := zip.NewWriter(buf)
+		defer writer.Close()
+		for _, tpl := range templateResp {
+			err = fileutils.ZipFilCreate(writer, *bytes.NewBufferString(tpl.Content), tpl.Path)
+		}
+		return buf, clang.SuccessCode, nil
+	}
+	//如果是直接生成代码
+	for _, tpl := range templateResp {
+		err = fileutils.CreateDirFromFilePath(tpl.Path)
+		if err != nil {
+			e.Log.Warn(err)
+		}
+		err = fileutils.FileCreate(*bytes.NewBufferString(tpl.Content), tpl.Path)
+		if err != nil {
+			e.Log.Warn(err)
+		}
+	}
+	return nil, clang.SuccessCode, nil
+}
+
+// GenDB admin-表管理中生成菜单数据
+func (e *SysGenTable) GenDB(c dto.SysGenTableGetReq, p *middleware.DataPermission) (int, error) {
+	if c.Id <= 0 {
+		return clang.ParamErrCode, lang.MsgErr(clang.ParamErrCode, e.Lang)
+	}
+
+	var err error
+	e.Orm = e.Orm.Begin()
+	defer func() {
+		if err != nil {
+			e.Orm.Rollback()
+		} else {
+			e.Orm.Commit()
+		}
+	}()
+	table, respCode, err := e.Get(c.Id, p)
+	if err != nil {
+		return respCode, err
+	}
+	basePremission := table.PackageName + ":" + table.ModuleName
+	basePath := "/" + table.PackageName + "/" + table.BusinessName + "/" + table.ModuleName
+
+	menuService := NewSysMenuService(&e.Service)
+
+	//插入主菜单
+	cMenuInsertReq := dto.SysMenuInsertReq{
+		CurrUserId:  c.CurrUserId,
+		Title:       table.TableComment,
+		Icon:        "LayoutFilled",
+		Path:        basePath,
+		Element:     basePath + "/index",
+		MenuType:    constant.MenuC,
+		ParentId:    0,
+		IsKeepAlive: global.SysStatusOk,
+		IsFrame:     global.SysStatusOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsAffix:     global.SysStatusNotOk,
+	}
+	cMenuId, respCode, err := menuService.Insert(&cMenuInsertReq)
+	if err != nil {
+		return respCode, err
+	}
+
+	//查询按钮
+	mMenuQueryInsertReq := dto.SysMenuInsertReq{
+		CurrUserId:  c.CurrUserId,
+		Title:       "获取" + table.TableComment + "分页列表",
+		Icon:        "AppstoreOutlined",
+		MenuType:    constant.MenuF,
+		Permission:  basePremission + ":query",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+	}
+	_, respCode, err = menuService.Insert(&mMenuQueryInsertReq)
+	if err != nil {
+		return respCode, err
+	}
+
+	//新增按钮
+	mMenuAddInsertReq := dto.SysMenuInsertReq{
+		CurrUserId:  c.CurrUserId,
+		Title:       "新增" + table.TableComment,
+		Icon:        "AppstoreOutlined",
+		MenuType:    constant.MenuF,
+		Permission:  basePremission + ":add",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+	}
+	_, respCode, err = menuService.Insert(&mMenuAddInsertReq)
+	if err != nil {
+		return respCode, err
+	}
+
+	//更新按钮
+	mMenuUpdateInsertReq := dto.SysMenuInsertReq{
+		CurrUserId:  c.CurrUserId,
+		Title:       "更新" + table.TableComment,
+		Icon:        "AppstoreOutlined",
+		MenuType:    constant.MenuF,
+		Permission:  basePremission + ":edit",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+	}
+	_, respCode, err = menuService.Insert(&mMenuUpdateInsertReq)
+	if err != nil {
+		return respCode, err
+	}
+
+	//删除按钮
+	mMenuDelInsertReq := dto.SysMenuInsertReq{
+		CurrUserId:  c.CurrUserId,
+		Title:       "删除" + table.TableComment,
+		Icon:        "AppstoreOutlined",
+		MenuType:    constant.MenuF,
+		Permission:  basePremission + ":del",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+	}
+	_, respCode, err = menuService.Insert(&mMenuDelInsertReq)
+	if err != nil {
+		return respCode, err
+	}
+
+	//导出按钮
+	mMenuExportInsertReq := dto.SysMenuInsertReq{
+		CurrUserId:  c.CurrUserId,
+		Title:       "导出" + table.TableComment,
+		Icon:        "AppstoreOutlined",
+		MenuType:    constant.MenuF,
+		Permission:  basePremission + ":export",
+		ParentId:    cMenuId,
+		IsKeepAlive: global.SysStatusNotOk,
+		IsHidden:    global.SysStatusNotOk,
+		IsAffix:     global.SysStatusNotOk,
+		IsFrame:     global.SysStatusOk,
+	}
+	_, respCode, err = menuService.Insert(&mMenuExportInsertReq)
+	if err != nil {
+		return respCode, err
+	}
+	return clang.SuccessCode, nil
+}

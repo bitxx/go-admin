@@ -4,14 +4,14 @@ import (
 	"errors"
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	baseLang "go-admin/config/base/lang"
-	adminService "go-admin/app/admin/sys/service"
-	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/models"
-	"go-admin/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
-	"go-admin/core/middleware"
-	"go-admin/core/dto/service"
-	cDto "go-admin/core/dto"
-	"go-admin/core/global"
+	cLang "go-admin/internal/common/lang"
+	adminService "go-admin/internal/app/admin/sys/service"
+	"go-admin/internal/app/{{.PackageName}}/{{.BusinessName}}/models"
+	"go-admin/internal/app/{{.PackageName}}/{{.BusinessName}}/service/dto"
+	"go-admin/pkg/middleware"
+	"go-admin/pkg/dto/service"
+	cDto "go-admin/pkg/dto"
+	"go-admin/pkg/global"
 	{{- $hasDecimal := false }}
 	{{- range .SysGenColumns }}
     {{- if eq .GoType "decimal.Decimal"}}{{- $hasDecimal = true }}{{- end }}
@@ -19,7 +19,7 @@ import (
 	{{- if eq $hasDecimal true }}
     "github.com/shopspring/decimal"
 	{{- end }}
-	"go-admin/core/lang"
+	"go-admin/pkg/lang"
 	"gorm.io/gorm"
 	"time"
 )
@@ -49,27 +49,27 @@ func (e *{{.ClassName}}) GetPage(c *dto.{{.ClassName}}QueryReq, p *middleware.Da
 			middleware.Permission(data.TableName(), p),
 		).Find(&list).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil {
-		return nil, 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+		return nil, 0, cLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, cLang.DataQueryCode, cLang.DataQueryLogCode, err)
 	}
-	return list, count, baseLang.SuccessCode, nil
+	return list, count, cLang.SuccessCode, nil
 }
 
 // Get {{.PackageName}}-获取{{.TableComment}}详情
 func (e *{{.ClassName}}) Get(id int64, p *middleware.DataPermission) (*models.{{.ClassName}}, int, error) {
 	if id <= 0 {
-		return nil, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
+		return nil, cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)
 	}
 	data := &models.{{.ClassName}}{}
     err := e.Orm.Scopes(
         middleware.Permission(data.TableName(), p),
     ).First(data, id).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+		return nil, cLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, cLang.DataQueryCode, cLang.DataQueryLogCode, err)
 	}
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
+		return nil, cLang.DataNotFoundCode, lang.MsgErr(cLang.DataNotFoundCode, e.Lang)
 	}
-	return data, baseLang.SuccessCode, nil
+	return data, cLang.SuccessCode, nil
 }
 
 // QueryOne {{.PackageName}}-获取{{.TableComment}}一条记录
@@ -80,12 +80,12 @@ func (e *{{.ClassName}}) QueryOne(queryCondition *dto.{{.ClassName}}QueryReq, p 
 		middleware.Permission(data.TableName(), p),
 	).First(data).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+		return nil, cLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, cLang.DataQueryCode, cLang.DataQueryLogCode, err)
 	}
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
+		return nil, cLang.DataNotFoundCode, lang.MsgErr(cLang.DataNotFoundCode, e.Lang)
 	}
-	return data, baseLang.SuccessCode, nil
+	return data, cLang.SuccessCode, nil
 }
 
 // Count {{.PackageName}}-获取{{.TableComment}}数据总数
@@ -97,18 +97,18 @@ func (e *{{.ClassName}}) Count(queryCondition *dto.{{.ClassName}}QueryReq) (int6
 			cDto.MakeCondition(queryCondition.GetNeedSearch()),
 		).Limit(-1).Offset(-1).Count(&count).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return 0, baseLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataQueryCode, baseLang.DataQueryLogCode, err)
+		return 0, cLang.DataQueryLogCode, lang.MsgLogErrf(e.Log, e.Lang, cLang.DataQueryCode, cLang.DataQueryLogCode, err)
 	}
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return 0, baseLang.DataNotFoundCode, lang.MsgErr(baseLang.DataNotFoundCode, e.Lang)
+		return 0, cLang.DataNotFoundCode, lang.MsgErr(cLang.DataNotFoundCode, e.Lang)
 	}
-	return count, baseLang.SuccessCode, nil
+	return count, cLang.SuccessCode, nil
 }
 
 // Insert {{.PackageName}}-新增{{.TableComment}}
 func (e *{{.ClassName}}) Insert(c *dto.{{.ClassName}}InsertReq) (int64, int, error) {
 	if c.CurrUserId <= 0 {
-		return 0, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
+		return 0, cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)
 	}
 	now := time.Now()
 	var data models.{{.ClassName}}
@@ -131,15 +131,15 @@ func (e *{{.ClassName}}) Insert(c *dto.{{.ClassName}}InsertReq) (int64, int, err
     {{- end }}
 	err := e.Orm.Create(&data).Error
 	if err != nil {
-		return 0, baseLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataInsertCode, baseLang.DataInsertLogCode, err)
+		return 0, cLang.DataInsertLogCode, lang.MsgLogErrf(e.Log, e.Lang, cLang.DataInsertCode, cLang.DataInsertLogCode, err)
 	}
-	return data.Id, baseLang.SuccessCode, nil
+	return data.Id, cLang.SuccessCode, nil
 }
 
 // Update {{.PackageName}}-更新{{.TableComment}}
 func (e *{{.ClassName}}) Update(c *dto.{{.ClassName}}UpdateReq, p *middleware.DataPermission) (bool, int, error) {
 	if c.Id <= 0 || c.CurrUserId <= 0 {
-		return false, baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
+		return false, cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)
 	}
 	data, respCode, err := e.Get(c.Id, p)
 	if err != nil {
@@ -172,26 +172,26 @@ func (e *{{.ClassName}}) Update(c *dto.{{.ClassName}}UpdateReq, p *middleware.Da
         updates["update_by"] = c.CurrUserId
         err = e.Orm.Model(&data).Where("id=?",data.Id).Updates(&updates).Error
 		if err != nil {
-			return false, baseLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataUpdateCode, baseLang.DataUpdateLogCode, err)
+			return false, cLang.DataUpdateLogCode, lang.MsgLogErrf(e.Log, e.Lang, cLang.DataUpdateCode, cLang.DataUpdateLogCode, err)
 		}
-		return true, baseLang.SuccessCode, nil
+		return true, cLang.SuccessCode, nil
 	}
-	return false, baseLang.SuccessCode, nil
+	return false, cLang.SuccessCode, nil
 }
 
 // Delete {{.PackageName}}-删除{{.TableComment}}
 func (e *{{.ClassName}}) Delete(ids []int64, p *middleware.DataPermission) (int, error) {
 	if len(ids) <= 0 {
-		return baseLang.ParamErrCode, lang.MsgErr(baseLang.ParamErrCode, e.Lang)
+		return cLang.ParamErrCode, lang.MsgErr(cLang.ParamErrCode, e.Lang)
 	}
 	var data models.{{.ClassName}}
 	err := e.Orm.Scopes(
 		middleware.Permission(data.TableName(), p),
 	).Delete(&data, ids).Error
 	if err != nil {
-		return baseLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, baseLang.DataDeleteCode, baseLang.DataDeleteLogCode, err)
+		return cLang.DataDeleteLogCode, lang.MsgLogErrf(e.Log, e.Lang, cLang.DataDeleteCode, cLang.DataDeleteLogCode, err)
 	}
-	return baseLang.SuccessCode, nil
+	return cLang.SuccessCode, nil
 }
 
 // Export {{.PackageName}}-导出{{.TableComment}} excel数据
