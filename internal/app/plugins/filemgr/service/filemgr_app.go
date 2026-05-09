@@ -15,6 +15,7 @@ import (
 	"go-admin/pkg/lang"
 	"go-admin/pkg/middleware"
 	"go-admin/pkg/utils/dateutils"
+	"go-admin/pkg/utils/fileutils"
 	"go-admin/pkg/utils/idgen"
 	"go-admin/pkg/utils/ossutils"
 	"mime/multipart"
@@ -267,7 +268,9 @@ func (e *FilemgrApp) GetSingleUploadFileInfo(form *multipart.Form, file *multipa
 			return clang.AppSelectOneFileUploadCode, lang.MsgErr(clang.AppSelectOneFileUploadCode, e.Lang)
 		}
 		for _, item := range files {
-			*dst = config.ApplicationConfig.FileRootPath + "app/" + idgen.UUID() + path.Ext(item.Filename)
+			basePath := config.ApplicationConfig.FileRootPath + "app/"
+			*dst = basePath + idgen.UUID() + path.Ext(item.Filename)
+			_ = fileutils.IsNotExistMkDir(basePath)
 			*file = *item
 			return clang.SuccessCode, nil
 		}
