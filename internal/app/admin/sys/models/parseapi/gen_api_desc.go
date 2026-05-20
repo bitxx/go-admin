@@ -19,7 +19,7 @@ func main() {
 		panic(err)
 	}
 	// 将 handlers 写入到 handlers_gen.go 文件中
-	err = writeToFile("app/admin/sys/models/sys_api_gen_desc.go", handlers)
+	err = writeToFile("internal/app/admin/sys/models/sys_api_gen_desc.go", handlers)
 	if err != nil {
 		panic(err)
 	}

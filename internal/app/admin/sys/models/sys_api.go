@@ -75,7 +75,7 @@ func SaveSysApi(db *gorm.DB, routers []runtime.Router) (err error) {
 				apiType = constant.ApiTypeSys
 			} else if strings.HasPrefix(paths[3], "plugins") {
 				apiType = constant.ApiTypePlugin
-			} else if strings.HasPrefix(paths[3], "app") {
+			} else if strings.HasPrefix(paths[3], "biz") {
 				apiType = constant.ApiTypeApp
 			}
 		}

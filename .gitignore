@@ -4,12 +4,8 @@
 temp
 *.exe
 go-admin
-tmp/
-tmp/app
-!tmp
 #vendor
 config/settings.dev.yml
-common/middleware/demo.go
 config/settings.dev.*.yml
 config/settings.dev.*.yml.log
 tmp/logs
