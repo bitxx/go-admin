@@ -4,7 +4,7 @@ package app
 
 import (
 	adminRouter "go-admin/internal/app/admin"
-	appRouter "go-admin/internal/app/biz"
+	bizRouter "go-admin/internal/app/biz"
 	pluginsRouter "go-admin/internal/app/plugins"
 )
 
@@ -16,7 +16,7 @@ func AllRouter() []func() {
 	var routers []func()
 
 	//biz-应用
-	routers = append(routers, appRouter.AllRouter()...)
+	routers = append(routers, bizRouter.AllRouter()...)
 
 	//admin-基础服务
 	routers = append(routers, adminRouter.AllRouter()...)
